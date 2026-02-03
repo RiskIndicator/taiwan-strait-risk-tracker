@@ -1,0 +1,5 @@
+yfinance
+textblob
+feedparser
+jinja2
+requests
