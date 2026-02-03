@@ -4,187 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taiwan Strait Risk Tracker | Live Intelligence</title>
-    <meta name="google-site-verification" content="Ibu9GkaHJvFEobyVjX4GUeM6G42prykigkZhGJqjUCk" />
     <meta name="description" content="Real-time geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, market signals, and rhetoric.">
     
     <meta property="og:type" content="website">
     <meta property="og:title" content="Taiwan Strait Risk Tracker">
     <meta property="og:description" content="Current Status: {{ status_text }}. Daily automated analysis.">
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Taiwan_Strait_Location_Map.svg/1200px-Taiwan_Strait_Location_Map.svg.png">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --primary: #2563eb;       /* Royal Blue */
-            --bg: #f8fafc;            /* Slate-50 */
+            --bg: #f3f4f6;
             --card: #ffffff;
-            --text-main: #0f172a;     /* Slate-900 */
-            --text-sub: #64748b;      /* Slate-500 */
-            --border: #e2e8f0;        /* Slate-200 */
-            --dynamic: {{ color_code }};
+            --text-main: #111827;
+            --text-sub: #6b7280;
+            --border: #e5e7eb;
+            --accent: {{ color_code }}; /* Python injects this */
         }
 
         body {
             background-color: var(--bg);
-            /* Trendy Dot Pattern Background */
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
+            /* Subtle grid pattern */
+            background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+            background-size: 40px 40px;
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding-bottom: 60px;
-            -webkit-font-smoothing: antialiased;
         }
 
         /* Navbar */
         .navbar {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
+            background: var(--card);
             border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 15px 0;
+            margin-bottom: 40px;
         }
-        .nav-content {
-            max-width: 1000px;
+        .nav-inner {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 16px 24px;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: -0.5px;
-        }
-        /* New Logo: Blue Radar Pulse (Not Japan Flag) */
-        .brand-icon {
-            width: 10px; height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px #dbeafe;
-        }
-        .nav-links a {
-            color: var(--text-sub);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-left: 32px;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--primary); }
+        .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .dot { width: 10px; height: 10px; background: #2563eb; border-radius: 50%; }
+        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
+        .nav-links a:hover { color: var(--text-main); }
 
-        /* Main Grid */
+        /* Layout */
         .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr 1fr; /* 2 Column Grid */
             gap: 24px;
         }
 
-        /* Card Styles (Bento Box) */
         .card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s;
         }
-        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
-        
+
         .span-2 { grid-column: span 2; }
-        .span-3 { grid-column: span 3; }
 
-        /* Hero Section */
-        .hero-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+        /* THE FEAR & GREED GAUGE SECTION */
+        .hero-card {
+            text-align: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
         }
-        .status-pill {
-            background: #f1f5f9;
-            color: var(--dynamic);
-            padding: 6px 12px;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; line-height: 1.2; }
-        .summary-text { color: var(--text-sub); margin-top: 12px; line-height: 1.6; font-size: 1rem; }
-
-        .big-score {
-            text-align: right;
+        .gauge-container {
+            width: 300px;
+            height: 150px; /* Half circle height */
+            margin: 0 auto;
             position: relative;
+            overflow: hidden;
         }
-        .score-val {
-            font-size: 4.5rem;
-            font-weight: 800;
+        .score-display {
+            margin-top: -40px; /* Pull text up into the arch */
+        }
+        .big-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 700;
             line-height: 1;
             color: var(--text-main);
-            letter-spacing: -2px;
         }
-        .score-max { font-size: 1.5rem; color: #cbd5e1; font-weight: 400; }
+        .status-badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: #f3f4f6;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        /* Metric Cards */
-        .metric-head {
+        /* METRIC BOXES */
+        .metric-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .metric-label {
             font-size: 0.85rem;
             font-weight: 600;
-            text-transform: uppercase;
             color: var(--text-sub);
-            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
         }
-        .metric-val { font-size: 2rem; font-weight: 700; letter-spacing: -1px; }
-        .metric-sub { font-size: 0.85rem; color: var(--text-sub); margin-top: 8px; }
-
-        /* Trend Chart */
-        .chart-wrapper { position: relative; height: 240px; width: 100%; }
-
-        /* Ad Banner */
-        .ad-banner {
-            background: linear-gradient(45deg, #f8fafc, #f1f5f9);
-            border: 1px dashed var(--border);
-            height: 120px;
-            display: flex; align-items: center; justify-content: center;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            border-radius: 12px;
+        .metric-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .metric-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-top: 5px;
         }
 
-        /* Mobile */
-        @media (max-width: 768px) {
+        /* CHART */
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .chart-title { font-weight: 600; font-size: 1rem; }
+        .chart-box { height: 250px; width: 100%; }
+
+        /* AD BOX */
+        .ad-box {
+            background: #f9fafb;
+            border: 1px dashed var(--border);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
             .container { grid-template-columns: 1fr; }
-            .span-2, .span-3 { grid-column: span 1; }
-            .hero-header { flex-direction: column-reverse; gap: 20px; }
-            .big-score { text-align: left; }
+            .span-2 { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="nav-content">
-            <div class="brand">
-                <div class="brand-icon"></div>
-                StraitTracker
-            </div>
+        <div class="nav-inner">
+            <div class="brand"><div class="dot"></div> StraitTracker</div>
             <div class="nav-links">
                 <a href="about.html">Methodology</a>
                 <a href="contact.html">Contact</a>
@@ -193,77 +182,109 @@
     </nav>
 
     <div class="container">
-        
-        <div class="card span-2">
-            <div class="status-pill" style="color: {{ color_code }}">Status: {{ status_text }}</div>
-            <div class="hero-header">
-                <div>
-                    <h1>Taiwan Strait Risk Index</h1>
-                    <p class="summary-text">{{ daily_summary }}</p>
-                </div>
-                <div class="big-score">
-                    <div class="score-val">{{ risk_score }}<span class="score-max">/100</span></div>
-                </div>
+
+        <div class="card span-2 hero-card">
+            <div class="gauge-container">
+                <canvas id="mainGauge"></canvas>
             </div>
-            <div style="height: 60px; width: 100%; margin-top: 20px;">
-                <canvas id="gaugeChart"></canvas>
+            
+            <div class="score-display">
+                <div class="big-number">{{ risk_score }}</div>
+                <div class="status-badge" style="color: {{ color_code }}">{{ status_text }}</div>
             </div>
+            
+            <p style="max-width: 500px; margin: 20px auto 0 auto; color: #6b7280; line-height: 1.5;">
+                {{ daily_summary }}
+            </p>
         </div>
 
-        <div class="card">
-            <div class="metric-head">
-                <span>Conflict Noise</span>
-                <span style="background: #fee2e2; color: #ef4444; padding: 2px 6px; borderRadius: 4px; font-size: 0.7rem;">LIVE</span>
+        <div class="card metric-card">
+            <div class="metric-label">
+                Conflict Noise
+                <span style="color: #ef4444;">●</span>
             </div>
             <div class="metric-val">{{ conflict_score }}</div>
-            <div class="metric-sub">ADIZ Incursions & Global Rhetoric</div>
+            <div class="metric-desc">ADIZ Incursions & Warning Keywords</div>
         </div>
 
-        <div class="card span-3">
-            <div class="metric-head">30-Day Risk Trend</div>
-            <div class="chart-wrapper">
+        <div class="card metric-card">
+            <div class="metric-label">
+                Market Anxiety
+                <span style="color: #3b82f6;">●</span>
+            </div>
+            <div class="metric-val">{{ market_score }}</div>
+            <div class="metric-desc">TSMC vs S&P 500 Divergence</div>
+        </div>
+
+        <div class="card span-2">
+            <div class="chart-header">
+                <div class="chart-title">30-Day Risk Trend</div>
+                <div style="font-size: 0.8rem; color: #6b7280;">Last Updated: {{ last_updated }}</div>
+            </div>
+            <div class="chart-box">
                 <canvas id="historyChart"></canvas>
             </div>
         </div>
 
-        <div class="card">
-            <div class="metric-head">
-                <span>Market Anxiety</span>
-            </div>
-            <div class="metric-val">{{ market_score }}</div>
-            <div class="metric-sub">TSMC Volatility Divergence</div>
-        </div>
-
-        <div class="card span-2 ad-banner">
-            [ SPONSOR / ADVERTISEMENT AREA ]
+        <div class="card span-2 ad-box">
+            [ SPONSOR AREA ]
         </div>
 
     </div>
 
     <script>
+        const score = {{ risk_score }};
         const color = "{{ color_code }}";
         const historyData = {{ history_json }};
 
-        // 1. History Line Chart (Filled Gradient Area)
+        // --- GAUGE CHART ---
+        const ctxGauge = document.getElementById('mainGauge').getContext('2d');
+        new Chart(ctxGauge, {
+            type: 'doughnut',
+            data: {
+                labels: ['Risk', 'Remaining'],
+                datasets: [{
+                    data: [score, 100 - score],
+                    backgroundColor: [
+                        color,      // The active score color
+                        '#e5e7eb'   // The grey background track
+                    ],
+                    borderWidth: 0,
+                    circumference: 180, // Half circle
+                    rotation: -90,      // Start from left
+                    cutout: '85%'       // Thin line like Fear & Greed
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { tooltip: { enabled: false }, legend: { display: false } },
+                animation: { animateScale: true, animateRotate: true }
+            }
+        });
+
+        // --- HISTORY CHART ---
         const ctxHist = document.getElementById('historyChart').getContext('2d');
+        
+        // Gradient Fill
         const gradient = ctxHist.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)'); // Blue tint
+        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.1)'); 
         gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
 
         new Chart(ctxHist, {
             type: 'line',
             data: {
-                labels: historyData.map(d => d.date.slice(5)), 
+                labels: historyData.map(d => d.date.slice(5)), // MM-DD
                 datasets: [{
                     label: 'Risk Score',
                     data: historyData.map(d => d.score),
-                    borderColor: '#2563eb', // Royal Blue
+                    borderColor: '#2563eb',
                     backgroundColor: gradient,
                     borderWidth: 2,
-                    pointRadius: 0,
+                    pointRadius: 3,
                     pointHoverRadius: 6,
                     fill: true,
-                    tension: 0.4 // Smooth curves
+                    tension: 0.4
                 }]
             },
             options: {
@@ -271,40 +292,13 @@
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#9ca3af' } },
                     y: { 
                         beginAtZero: true, 
                         max: 100, 
-                        grid: { color: '#f1f5f9' },
-                        ticks: { color: '#94a3b8' }
+                        grid: { color: '#f3f4f6' },
+                        ticks: { color: '#9ca3af' }
                     }
-                },
-                interaction: { intersect: false, mode: 'index' }
-            }
-        });
-
-        // 2. Horizontal Gauge Bar
-        const ctxGauge = document.getElementById('gaugeChart').getContext('2d');
-        new Chart(ctxGauge, {
-            type: 'bar',
-            data: {
-                labels: ['Risk'],
-                datasets: [{
-                    label: 'Current Risk',
-                    data: [{{ risk_score }}],
-                    backgroundColor: color,
-                    borderRadius: 20,
-                    barThickness: 20
-                }]
-            },
-            options: {
-                indexAxis: 'y', // Horizontal
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                scales: {
-                    x: { min: 0, max: 100, grid: { display: false }, display: false },
-                    y: { display: false, grid: { display: false } }
                 }
             }
         });
