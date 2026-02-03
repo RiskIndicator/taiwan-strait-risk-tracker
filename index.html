@@ -3,254 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taiwan Strait Risk Tracker | Live Dashboard</title>
+    <title>Taiwan Strait Risk Tracker | Daily Intelligence</title>
     <meta name="google-site-verification" content="Ibu9GkaHJvFEobyVjX4GUeM6G42prykigkZhGJqjUCk" />
-    <meta name="description" content="Live geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, TSMC market volatility, and diplomatic rhetoric.">
+    <meta name="description" content="Daily geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, TSMC market volatility, and diplomatic rhetoric.">
     
     <meta property="og:type" content="website">
     <meta property="og:title" content="Taiwan Strait Risk Tracker">
     <meta property="og:description" content="Current Status: Low Tension. Daily automated analysis of cross-strait tension.">
     <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Taiwan_Strait_Location_Map.svg/1200px-Taiwan_Strait_Location_Map.svg.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            /* Command Center Palette */
-            --bg-color: #0f172a;       /* Deep Navy */
-            --card-bg: #1e293b;        /* Lighter Navy */
-            --text-main: #f1f5f9;      /* White-ish */
-            --text-muted: #94a3b8;     /* Grey */
-            --accent-green: #22c55e;
-            --accent-amber: #f59e0b;
-            --accent-red: #ef4444;
-            --dynamic-color: #28a745; /* Python injects this! */
+            --bg: #f8f9fa;           /* Off-white paper */
+            --paper: #ffffff;        /* Pure white */
+            --ink: #1a1a1a;          /* Almost black text */
+            --ink-light: #555555;    /* Grey text */
+            --border: #e5e7eb;
+            --accent: #b91c1c;       /* Authoritative Red */
+            --dynamic-color: #28a745;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Merriweather', serif; /* The "Newspaper" feel */
             margin: 0;
-            padding: 20px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Layout Grid */
-        .dashboard-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 2/3 Map/Gauge, 1/3 Data */
-            gap: 24px;
-        }
-
-        /* Navigation */
+        /* 1. The Masthead (Newspaper Header) */
         nav {
-            max-width: 1100px;
-            margin: 0 auto 30px auto;
+            background: var(--paper);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 20px;
         }
-        .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
-        .brand span { color: var(--dynamic-color); }
-        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--text-main); }
+        .brand {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand-icon {
+            width: 12px; height: 12px; 
+            background: var(--accent); 
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-left: 25px;
+            font-weight: 600;
+        }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid #334155;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        /* 2. Main Layout */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Content vs Sidebar */
+            gap: 40px;
         }
 
-        /* The "Hero" Section (Gauge + Map) */
+        /* 3. The "Lead Story" (Risk Score) */
         .hero-section {
             grid-column: span 2;
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 8px; /* Subtle rounding */
+            padding: 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
         }
         
-        /* Background Map Texture */
-        .map-bg {
-            position: absolute;
-            right: -50px;
-            top: -50px;
-            opacity: 0.1;
-            width: 600px;
-            pointer-events: none;
-            filter: grayscale(100%);
+        /* Editorial Typography */
+        .headline {
+            max-width: 500px;
+            z-index: 2;
+        }
+        .status-kicker {
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            color: var(--dynamic-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 15px 0;
+            color: var(--ink);
+            line-height: 1.2;
+        }
+        .lead-text {
+            color: var(--ink-light);
+            font-size: 1.1rem;
+            font-family: 'Merriweather', serif;
         }
 
-        /* The Big Gauge Typography */
-        .gauge-wrapper { text-align: left; z-index: 2; }
-        .status-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--dynamic-color);
-            color: var(--dynamic-color);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+        /* The Big Number (Styled like a financial ticker) */
+        .score-display {
+            text-align: right;
+            z-index: 2;
+        }
+        .big-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1;
+        }
+        .big-number span {
+            font-size: 1.5rem;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        /* 4. The Data Columns */
+        .data-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chart-box {
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+        }
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 15px;
+            color: #9ca3af;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: block;
         }
-        .big-score {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 5rem;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--text-main);
+
+        /* Metric Rows (Clean lists instead of cards) */
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f3f4f6;
         }
-        .score-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 20px; }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-name { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--ink); }
+        .metric-val { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--ink); }
 
-        /* Metric Cards */
-        .metric-card { display: flex; align-items: center; gap: 15px; }
-        .icon-box {
-            width: 50px; height: 50px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-        }
-        .metric-info h3 { margin: 0; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .metric-info p { margin: 5px 0 0 0; font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono'; }
-
-        /* History Chart */
-        .chart-container { grid-column: span 2; height: 300px; }
-
-        /* Ad Space */
-        .ad-container {
-            grid-column: span 2;
-            background: #111;
-            border: 1px dashed #444;
-            height: 100px;
-            display: flex; align-items: center; justify-content: center;
-            color: #444;
-            margin-top: 20px;
+        /* Ad Area */
+        .ad-slot {
+            background: #f3f4f6;
+            border: 1px solid var(--border);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin: 30px 0;
         }
 
         /* Footer */
         footer {
-            max-width: 1100px;
-            margin: 50px auto;
+            margin-top: 60px;
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
             text-align: center;
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            color: #64748b;
-            border-top: 1px solid #334155;
-            padding-top: 30px;
+            color: var(--ink-light);
+            padding-bottom: 40px;
         }
-        footer a { color: #94a3b8; text-decoration: none; }
+        footer a { color: var(--ink); text-decoration: none; }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
+            .container { grid-template-columns: 1fr; }
             .hero-section { flex-direction: column; text-align: center; }
-            .gauge-wrapper { text-align: center; }
-            .nav-links { display: none; } /* Hide menu on small mobile for simplicity */
+            .score-display { margin-top: 20px; text-align: center; }
+            h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="brand">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-            STRT <span>//</span> TRACKER
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Dashboard</a>
-            <a href="about.html">Methodology</a>
-            <a href="contact.html">Contact</a>
+        <div class="nav-container">
+            <div class="brand">
+                <span class="brand-icon"></span>
+                Taiwan Strait Risk Tracker
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Intelligence</a>
+                <a href="about.html">Methodology</a>
+                <a href="contact.html">Contact</a>
+            </div>
         </div>
     </nav>
 
-    <div class="dashboard-grid">
+    <div class="container">
         
-        <div class="card hero-section">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Taiwan_Strait_Location_Map.svg" class="map-bg" alt="Map Context">
-            
-            <div class="gauge-wrapper">
-                <div class="status-badge">Current Status: Low Tension</div>
-                <div class="big-score">28<span style="font-size: 2rem; color: #64748b;">/100</span></div>
-                <div class="score-sub">Daily Risk Index</div>
-                <p style="max-width: 450px; color: #cbd5e1; line-height: 1.6;">
-                    Markets are stable and rhetorical noise is low.
+        <div class="hero-section">
+            <div class="headline">
+                <span class="status-kicker">Current Status: Low Tension</span>
+                <h1>Daily Risk Assessment</h1>
+                <p class="lead-text">
+                    Markets are stable and rhetorical noise is low. 
+                    Monitoring indicates <strong>Low Tension</strong> levels of cross-strait tension based on 2026-02-03 21:13 data.
                 </p>
             </div>
-
-            <div style="width: 250px; height: 250px; position: relative;">
-                <canvas id="riskGauge"></canvas>
+            <div class="score-display">
+                <div class="big-number">28<span>/100</span></div>
+                <div style="height: 60px; width: 120px; margin: 10px 0 0 auto;">
+                    <canvas id="miniGauge"></canvas>
+                </div>
             </div>
         </div>
 
-        <div class="card metric-card">
-            <div class="icon-box" style="color: #ef4444;">✈️</div>
-            <div class="metric-info">
-                <h3>Conflict Noise</h3>
-                <p>36/100</p>
-                <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Based on ADIZ & News</div>
+        <div class="data-column">
+            
+            <div class="chart-box">
+                <span class="section-title">30-Day Trend Analysis</span>
+                <canvas id="historyChart" height="200"></canvas>
             </div>
-        </div>
 
-        <div class="card metric-card">
-            <div class="icon-box" style="color: #3b82f6;">📉</div>
-            <div class="metric-info">
-                <h3>Market Anxiety</h3>
-                <p>20/100</p>
-                <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">TSMC vs S&P 500</div>
+            <div style="font-family: 'Merriweather', serif; color: var(--ink-light);">
+                <p><strong>Analyst Note:</strong> The index aggregates real-time data from ADIZ incursions, semiconductor market volatility (TSMC vs SPY), and rhetorical sentiment analysis from global news feeds.</p>
             </div>
+
         </div>
 
-        <div class="card chart-container">
-            <h3 style="margin-top: 0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">30-Day Trend Analysis</h3>
-            <canvas id="historyChart"></canvas>
-        </div>
+        <div class="data-column">
+            
+            <div class="chart-box">
+                <span class="section-title">Key Indicators</span>
+                
+                <div class="metric-row">
+                    <span class="metric-name">Conflict Noise</span>
+                    <span class="metric-val" style="color: #28a745">36 / 100</span>
+                </div>
+                <div style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">
+                    ADIZ activity & warning keywords.
+                </div>
 
-        <div class="ad-container">
-            <span style="font-family: 'JetBrains Mono'; font-size: 0.8rem;">[ SPONSOR AREA ]</span>
-        </div>
+                <div class="metric-row">
+                    <span class="metric-name">Market Anxiety</span>
+                    <span class="metric-val" style="color: #28a745">20 / 100</span>
+                </div>
+                <div style="font-size: 0.8rem; color: #666;">
+                    TSMC divergence from S&P 500.
+                </div>
+            </div>
 
+            <div class="ad-slot">
+                [ ADVERTISEMENT ]
+            </div>
+
+        </div>
     </div>
 
     <footer>
-        <p>Last Updated: 2026-02-03 21:08 (AEST) • Automated OSINT Analysis</p>
+        <p>&copy; 2026 Taiwan Strait Risk Tracker. Open Source Intelligence (OSINT).</p>
         <p>
-            <a href="privacy.html">Privacy</a> &nbsp;|&nbsp; 
-            <a href="about.html">About</a> &nbsp;|&nbsp; 
-            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacy Policy</a> &nbsp;•&nbsp; 
+            <a href="about.html">About the Index</a> &nbsp;•&nbsp; 
+            <a href="contact.html">Contact Analysts</a>
         </p>
     </footer>
 
     <script>
-        // Data passed from Python
         const score = 28;
         const color = "#28a745";
         const historyData = [{"date": "2026-02-03", "score": 28}];
 
-        // 1. GAUGE CHART (Doughnut)
-        const ctxGauge = document.getElementById('riskGauge').getContext('2d');
+        // 1. MINI GAUGE
+        const ctxGauge = document.getElementById('miniGauge').getContext('2d');
         new Chart(ctxGauge, {
             type: 'doughnut',
             data: {
                 labels: ['Risk', 'Safe'],
                 datasets: [{
                     data: [score, 100 - score],
-                    backgroundColor: [color, 'rgba(255,255,255,0.05)'],
+                    backgroundColor: [color, '#f3f4f6'],
                     borderWidth: 0,
-                    cutout: '85%', // Makes it thin
-                    circumference: 240, // Semi-circle + bit more
-                    rotation: -120
+                    cutout: '80%',
+                    circumference: 180,
+                    rotation: -90
                 }]
             },
             options: {
@@ -260,36 +333,33 @@
             }
         });
 
-        // 2. HISTORY CHART (Line)
+        // 2. TREND CHART
         const ctxHistory = document.getElementById('historyChart').getContext('2d');
-        const gradient = ctxHistory.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, color); // Fade from color
-        gradient.addColorStop(1, 'rgba(0,0,0,0)'); // To transparent
-
         new Chart(ctxHistory, {
             type: 'line',
             data: {
-                labels: historyData.map(d => d.date.slice(5)), // MM-DD
+                labels: historyData.map(d => d.date.slice(5)), 
                 datasets: [{
                     label: 'Risk Score',
                     data: historyData.map(d => d.score),
-                    borderColor: color,
-                    backgroundColor: gradient,
+                    borderColor: '#1a1a1a', // Black line for "Newspaper" look
                     borderWidth: 2,
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 3,
-                    pointBackgroundColor: '#0f172a'
+                    pointRadius: 0, // Clean line, no dots
+                    tension: 0.1,
+                    fill: false
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: { grid: { color: '#334155', tickColor: '#334155' }, ticks: { color: '#94a3b8' } },
-                    y: { beginAtZero: true, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                },
-                plugins: { legend: { display: false } }
+                    x: { grid: { display: false } },
+                    y: { 
+                        beginAtZero: true, 
+                        max: 100,
+                        grid: { color: '#f3f4f6' } 
+                    }
+                }
             }
         });
     </script>
