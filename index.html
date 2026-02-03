@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taiwan Strait Risk Tracker - Daily Update</title>
+    <meta name="google-site-verification" content="Ibu9GkaHJvFEobyVjX4GUeM6G42prykigkZhGJqjUCk" />
     <meta name="description" content="Daily tracked risk index for the Taiwan Strait. Monitoring military incursions, market volatility, and political rhetoric.">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -43,13 +44,13 @@
 <div class="container">
     <header>
         <h1>Taiwan Strait Risk Tracker</h1>
-        <div class="timestamp">Last Updated: 2026-02-03 17:46 (AEST)</div>
+        <div class="timestamp">Last Updated: 2026-02-03 18:47 (AEST)</div>
     </header>
 
     <div class="dashboard">
         <div class="card gauge-container">
             <div class="risk-label">Low Tension</div>
-            <div class="risk-value">29/100</div>
+            <div class="risk-value">28/100</div>
             <p style="max-width: 400px; margin-top: 15px; color: #666;">
                 Markets are stable and rhetorical noise is low.
             </p>
@@ -66,7 +67,7 @@
         <div class="card">
             <div class="metric-box" style="border: none;">
                 <div class="metric-title">Conflict Noise</div>
-                <div class="metric-value">39/100</div>
+                <div class="metric-value">36/100</div>
                 <div class="metric-desc">News Sentiment & Incursion Keywords</div>
             </div>
         </div>
@@ -86,19 +87,19 @@
         <p><strong>How is this score calculated?</strong><br>
         We use an automated algorithm that weighs TSMC stock volatility (Economic Fear), frequency of "Air Defence Zone" incursions in global news (Military Activity), and sentiment analysis of geopolitical headlines (Rhetoric).</p>
         <p><strong>Is Taiwan safe right now?</strong><br>
-        Currently, the risk index is at <strong>29</strong>, which indicates Low Tension levels of tension. This tool is for informational purposes only.</p>
+        Currently, the risk index is at <strong>28</strong>, which indicates Low Tension levels of tension. This tool is for informational purposes only.</p>
     </div>
 
     <div class="footer">
         &copy; 2026 Taiwan Strait Risk Tracker. Automated by GitHub Actions.<br>
-        <a href="#">Privacy Policy</a> | <a href="#">About</a>
+        <a href="privacy.html">Privacy Policy</a> | <a href="about.html">About</a>
     </div>
 </div>
 
 <script>
     // Render the History Chart
     const ctx = document.getElementById('historyChart').getContext('2d');
-    const historyData = [{"date": "2026-02-03", "score": 29}]; // Injected by Python
+    const historyData = [{"date": "2026-02-03", "score": 28}]; // Injected by Python
     
     // Extract labels (dates) and data (scores)
     const labels = historyData.map(item => item.date);
