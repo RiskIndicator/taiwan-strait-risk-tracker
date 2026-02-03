@@ -2,10 +2,11 @@ import yfinance as yf
 import feedparser
 from textblob import TextBlob
 from jinja2 import Template
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 import json
 import os
+import random
 
 # --- 1. SET UP ---
 # Define weights for the algorithm
@@ -118,11 +119,8 @@ except (FileNotFoundError, json.JSONDecodeError):
     history = []
 
 # --- FORCE BACKFILL IF DATA IS TOO SHORT ---
-# The bug was checking "if not history". 
-# We change it to: if less than 5 entries, generate fake history.
+# Checks if history has fewer than 5 entries to generate fake history.
 if len(history) < 5:
-    import random
-    from datetime import timedelta
     print("History too short. Generating 30-day backfill...")
     
     # Clear existing to prevent weird overlaps
@@ -150,7 +148,7 @@ history = history[-30:]
 with open('history.json', 'w') as f:
     json.dump(history, f)
 
-# --- 4. BUILD HTML ---
+# --- 4. BUILD HTML (HOME PAGE) ---
 with open('template.html', 'r') as f:
     template_str = f.read()
 
@@ -163,10 +161,42 @@ output_html = template.render(
     color_code=color,
     daily_summary=summary,
     last_updated=update_time,
+    last_updated_date=today_str, # Passed for the archive link
     history_json=json.dumps(history) # Pass raw JSON for JS Chart
 )
 
 with open('index.html', 'w') as f:
     f.write(output_html)
+
+# --- 5. GENERATE DAILY ARCHIVE REPORT ---
+report_filename = f"reports/{today_str}-risk-analysis.html"
+
+try:
+    # Read the article template
+    with open('report_template.html', 'r') as f:
+        report_template_str = f.read()
+    
+    # Fill it with today's data
+    report_template = Template(report_template_str)
+    report_html = report_template.render(
+        date_str=today_str,
+        risk_score=final_score,
+        status_text=status,
+        conflict_score=conflict_score,
+        market_score=market_score,
+        color_code=color,
+        daily_summary=summary,
+        archive_filename=report_filename
+    )
+    
+    # Save it into the 'reports' folder
+    os.makedirs('reports', exist_ok=True)
+    with open(report_filename, 'w') as f:
+        f.write(report_html)
+        
+    print(f"SUCCESS: Generated archive report: {report_filename}")
+
+except Exception as e:
+    print(f"Archive Error: {e}")
 
 print(f"SUCCESS: Built site. Score: {final_score}")
