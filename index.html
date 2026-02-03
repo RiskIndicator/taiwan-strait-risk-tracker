@@ -56,13 +56,13 @@
 <div class="container">
     <header>
         <h1>Taiwan Strait Risk Tracker</h1>
-        <div class="timestamp">Last Updated: 2026-02-03 18:53 (AEST)</div>
+        <div class="timestamp">Last Updated: 2026-02-03 18:58 (AEST)</div>
     </header>
 
     <div class="dashboard">
         <div class="card gauge-container">
             <div class="risk-label">Low Tension</div>
-            <div class="risk-value">28/100</div>
+            <div class="risk-value">29/100</div>
             <p style="max-width: 400px; margin-top: 15px; color: #666;">
                 Markets are stable and rhetorical noise is low.
             </p>
@@ -79,7 +79,7 @@
         <div class="card">
             <div class="metric-box" style="border: none;">
                 <div class="metric-title">Conflict Noise</div>
-                <div class="metric-value">37/100</div>
+                <div class="metric-value">38/100</div>
                 <div class="metric-desc">News Sentiment & Incursion Keywords</div>
             </div>
         </div>
@@ -99,7 +99,7 @@
         <p><strong>How is this score calculated?</strong><br>
         We use an automated algorithm that weighs TSMC stock volatility (Economic Fear), frequency of "Air Defence Zone" incursions in global news (Military Activity), and sentiment analysis of geopolitical headlines (Rhetoric).</p>
         <p><strong>Is Taiwan safe right now?</strong><br>
-        Currently, the risk index is at <strong>28</strong>, which indicates Low Tension levels of tension. This tool is for informational purposes only.</p>
+        Currently, the risk index is at <strong>29</strong>, which indicates Low Tension levels of tension. This tool is for informational purposes only.</p>
     </div>
 
     <div class="footer">
@@ -111,7 +111,7 @@
 <script>
     // Render the History Chart
     const ctx = document.getElementById('historyChart').getContext('2d');
-    const historyData = [{"date": "2026-02-03", "score": 28}]; // Injected by Python
+    const historyData = [{"date": "2026-02-03", "score": 29}]; // Injected by Python
     
     // Extract labels (dates) and data (scores)
     const labels = historyData.map(item => item.date);
