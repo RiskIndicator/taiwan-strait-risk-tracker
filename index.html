@@ -3,148 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taiwan Strait Risk Tracker - Daily Update</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://.github.io/taiwan-strait-risk-tracker/">
-    <meta property="og:title" content="Taiwan Strait Risk Tracker">
-    <meta property="og:description" content="Daily geopolitical risk index (0-100) monitoring military incursions, market volatility, and rhetoric.">
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1200px-Flag_of_the_People%27s_Republic_of_China.svg.png">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://.github.io/taiwan-strait-risk-tracker/">
-    <meta property="twitter:title" content="Taiwan Strait Risk Tracker">
-    <meta property="twitter:description" content="Daily geopolitical risk index (0-100) monitoring military incursions, market volatility, and rhetoric.">
-    <meta property="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1200px-Flag_of_the_People%27s_Republic_of_China.svg.png">
+    <title>Taiwan Strait Risk Tracker | Live Dashboard</title>
     <meta name="google-site-verification" content="Ibu9GkaHJvFEobyVjX4GUeM6G42prykigkZhGJqjUCk" />
-    <meta name="description" content="Daily tracked risk index for the Taiwan Strait. Monitoring military incursions, market volatility, and political rhetoric.">
+    <meta name="description" content="Live geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, TSMC market volatility, and diplomatic rhetoric.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Taiwan Strait Risk Tracker">
+    <meta property="og:description" content="Current Status: Low Tension. Daily automated analysis of cross-strait tension.">
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Taiwan_Strait_Location_Map.svg/1200px-Taiwan_Strait_Location_Map.svg.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-        :root { --bg: #f8f9fa; --card: #ffffff; --text: #212529; --accent: #0d6efd; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
+        :root {
+            /* Command Center Palette */
+            --bg-color: #0f172a;       /* Deep Navy */
+            --card-bg: #1e293b;        /* Lighter Navy */
+            --text-main: #f1f5f9;      /* White-ish */
+            --text-muted: #94a3b8;     /* Grey */
+            --accent-green: #22c55e;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --dynamic-color: #28a745; /* Python injects this! */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Layout Grid */
+        .dashboard-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* 2/3 Map/Gauge, 1/3 Data */
+            gap: 24px;
+        }
+
+        /* Navigation */
+        nav {
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+        }
+        .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .brand span { color: var(--dynamic-color); }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text-main); }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* The "Hero" Section (Gauge + Map) */
+        .hero-section {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
         
-        /* Header */
-        header { text-align: center; margin-bottom: 40px; }
-        h1 { margin-bottom: 5px; letter-spacing: -1px; }
-        .timestamp { color: #6c757d; font-size: 0.9em; }
+        /* Background Map Texture */
+        .map-bg {
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            opacity: 0.1;
+            width: 600px;
+            pointer-events: none;
+            filter: grayscale(100%);
+        }
 
-        /* The Dashboard Cards */
-        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-        .card { background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; }
-        
-        /* The Big Gauge */
-        .gauge-container { grid-column: span 2; position: relative; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .risk-value { font-size: 64px; font-weight: 800; color: #28a745; line-height: 1; }
-        .risk-label { font-size: 24px; font-weight: 600; text-transform: uppercase; color: #28a745; margin-bottom: 10px; }
+        /* The Big Gauge Typography */
+        .gauge-wrapper { text-align: left; z-index: 2; }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--dynamic-color);
+            color: var(--dynamic-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .big-score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--text-main);
+        }
+        .score-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 20px; }
 
-        /* Metrics */
-        .metric-box { text-align: left; padding: 15px; border-bottom: 1px solid #eee; }
-        .metric-title { font-size: 0.85em; text-transform: uppercase; color: #6c757d; font-weight: 700; letter-spacing: 1px; }
-        .metric-value { font-size: 1.5em; font-weight: 600; }
-        .metric-desc { font-size: 0.9em; color: #6c757d; margin-top: 5px; }
+        /* Metric Cards */
+        .metric-card { display: flex; align-items: center; gap: 15px; }
+        .icon-box {
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        .metric-info h3 { margin: 0; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-info p { margin: 5px 0 0 0; font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono'; }
 
-        /* Ads & Footer */
-        .ad-banner { background: #e9ecef; border-radius: 8px; padding: 20px; text-align: center; margin: 30px 0; border: 1px dashed #adb5bd; min-height: 100px; display: flex; align-items: center; justify-content: center; }
-        .footer { text-align: center; font-size: 0.8em; color: #adb5bd; margin-top: 50px; }
+        /* History Chart */
+        .chart-container { grid-column: span 2; height: 300px; }
 
-        @media (max-width: 600px) { .dashboard { grid-template-columns: 1fr; } .gauge-container { grid-column: span 1; } }
+        /* Ad Space */
+        .ad-container {
+            grid-column: span 2;
+            background: #111;
+            border: 1px dashed #444;
+            height: 100px;
+            display: flex; align-items: center; justify-content: center;
+            color: #444;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1100px;
+            margin: 50px auto;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            border-top: 1px solid #334155;
+            padding-top: 30px;
+        }
+        footer a { color: #94a3b8; text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .hero-section { flex-direction: column; text-align: center; }
+            .gauge-wrapper { text-align: center; }
+            .nav-links { display: none; } /* Hide menu on small mobile for simplicity */
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <nav style="margin-bottom: 20px; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px;">
-            <a href="index.html" style="color: #333; text-decoration: none; font-weight: 800; margin-right: 15px;">Tracker</a>
-            <a href="about.html" style="color: #666; text-decoration: none; margin-right: 15px;">About</a>
-            <a href="contact.html" style="color: #666; text-decoration: none;">Contact</a>
-        </nav>
-        <h1>Taiwan Strait Risk Tracker</h1>
-        <div class="timestamp">Last Updated: 2026-02-03 20:58 (AEST)</div>
-    </header>
-
-    <div class="dashboard">
-        <div class="card gauge-container">
-            <div class="risk-label">Low Tension</div>
-            <div class="risk-value">27/100</div>
-            <p style="max-width: 400px; margin-top: 15px; color: #666;">
-                Markets are stable and rhetorical noise is low.
-            </p>
+    <nav>
+        <div class="brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            STRT <span>//</span> TRACKER
         </div>
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="about.html">Methodology</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
 
-        <div class="card">
-            <div class="metric-box" style="border: none;">
-                <div class="metric-title">Economic Anxiety</div>
-                <div class="metric-value">20/100</div>
-                <div class="metric-desc">TSMC vs S&P 500 Volatility</div>
+    <div class="dashboard-grid">
+        
+        <div class="card hero-section">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Taiwan_Strait_Location_Map.svg" class="map-bg" alt="Map Context">
+            
+            <div class="gauge-wrapper">
+                <div class="status-badge">Current Status: Low Tension</div>
+                <div class="big-score">28<span style="font-size: 2rem; color: #64748b;">/100</span></div>
+                <div class="score-sub">Daily Risk Index</div>
+                <p style="max-width: 450px; color: #cbd5e1; line-height: 1.6;">
+                    Markets are stable and rhetorical noise is low.
+                </p>
+            </div>
+
+            <div style="width: 250px; height: 250px; position: relative;">
+                <canvas id="riskGauge"></canvas>
             </div>
         </div>
 
-        <div class="card">
-            <div class="metric-box" style="border: none;">
-                <div class="metric-title">Conflict Noise</div>
-                <div class="metric-value">34/100</div>
-                <div class="metric-desc">News Sentiment & Incursion Keywords</div>
+        <div class="card metric-card">
+            <div class="icon-box" style="color: #ef4444;">✈️</div>
+            <div class="metric-info">
+                <h3>Conflict Noise</h3>
+                <p>36/100</p>
+                <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Based on ADIZ & News</div>
             </div>
         </div>
+
+        <div class="card metric-card">
+            <div class="icon-box" style="color: #3b82f6;">📉</div>
+            <div class="metric-info">
+                <h3>Market Anxiety</h3>
+                <p>20/100</p>
+                <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">TSMC vs S&P 500</div>
+            </div>
+        </div>
+
+        <div class="card chart-container">
+            <h3 style="margin-top: 0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">30-Day Trend Analysis</h3>
+            <canvas id="historyChart"></canvas>
+        </div>
+
+        <div class="ad-container">
+            <span style="font-family: 'JetBrains Mono'; font-size: 0.8rem;">[ SPONSOR AREA ]</span>
+        </div>
+
     </div>
 
-    <div class="ad-banner">
-        <span style="color: #999;">Advertiser Space</span>
-    </div>
+    <footer>
+        <p>Last Updated: 2026-02-03 21:08 (AEST) • Automated OSINT Analysis</p>
+        <p>
+            <a href="privacy.html">Privacy</a> &nbsp;|&nbsp; 
+            <a href="about.html">About</a> &nbsp;|&nbsp; 
+            <a href="contact.html">Contact</a>
+        </p>
+    </footer>
 
-    <div class="card">
-        <h3>30-Day Risk Trend</h3>
-        <canvas id="historyChart"></canvas>
-    </div>
+    <script>
+        // Data passed from Python
+        const score = 28;
+        const color = "#28a745";
+        const historyData = [{"date": "2026-02-03", "score": 28}];
 
-    <div style="margin-top: 40px; color: #444;">
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>How is this score calculated?</strong><br>
-        We use an automated algorithm that weighs TSMC stock volatility (Economic Fear), frequency of "Air Defence Zone" incursions in global news (Military Activity), and sentiment analysis of geopolitical headlines (Rhetoric).</p>
-        <p><strong>Is Taiwan safe right now?</strong><br>
-        Currently, the risk index is at <strong>27</strong>, which indicates Low Tension levels of tension. This tool is for informational purposes only.</p>
-    </div>
-
-    <div class="footer">
-        &copy; 2026 Taiwan Strait Risk Tracker. Automated by GitHub Actions.<br>
-        <a href="privacy.html">Privacy Policy</a> | <a href="about.html">About</a> | <a href="contact.html">Contact</a>
-    </div>
-</div>
-
-<script>
-    // Render the History Chart
-    const ctx = document.getElementById('historyChart').getContext('2d');
-    const historyData = [{"date": "2026-02-03", "score": 27}]; // Injected by Python
-    
-    // Extract labels (dates) and data (scores)
-    const labels = historyData.map(item => item.date);
-    const dataPoints = historyData.map(item => item.score);
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Risk Score',
-                data: dataPoints,
-                borderColor: '#28a745',
-                backgroundColor: 'rgba(0,0,0,0.05)',
-                borderWidth: 2,
-                tension: 0.4,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true, max: 100 }
+        // 1. GAUGE CHART (Doughnut)
+        const ctxGauge = document.getElementById('riskGauge').getContext('2d');
+        new Chart(ctxGauge, {
+            type: 'doughnut',
+            data: {
+                labels: ['Risk', 'Safe'],
+                datasets: [{
+                    data: [score, 100 - score],
+                    backgroundColor: [color, 'rgba(255,255,255,0.05)'],
+                    borderWidth: 0,
+                    cutout: '85%', // Makes it thin
+                    circumference: 240, // Semi-circle + bit more
+                    rotation: -120
+                }]
             },
-            plugins: { legend: { display: false } }
-        }
-    });
-</script>
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { enabled: false } }
+            }
+        });
 
+        // 2. HISTORY CHART (Line)
+        const ctxHistory = document.getElementById('historyChart').getContext('2d');
+        const gradient = ctxHistory.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, color); // Fade from color
+        gradient.addColorStop(1, 'rgba(0,0,0,0)'); // To transparent
+
+        new Chart(ctxHistory, {
+            type: 'line',
+            data: {
+                labels: historyData.map(d => d.date.slice(5)), // MM-DD
+                datasets: [{
+                    label: 'Risk Score',
+                    data: historyData.map(d => d.score),
+                    borderColor: color,
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#0f172a'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { color: '#334155', tickColor: '#334155' }, ticks: { color: '#94a3b8' } },
+                    y: { beginAtZero: true, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
 </body>
 </html>
