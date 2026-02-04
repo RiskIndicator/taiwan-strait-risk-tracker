@@ -30,7 +30,6 @@
 
         body {
             background-color: var(--bg);
-            /* Subtle grid pattern */
             background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
             background-size: 40px 40px;
             color: var(--text-main);
@@ -65,7 +64,7 @@
             margin: 0 auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 Column Grid */
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
         }
 
@@ -79,91 +78,34 @@
 
         .span-2 { grid-column: span 2; }
 
-        /* THE FEAR & GREED GAUGE SECTION */
-        .hero-card {
-            text-align: center;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-        .gauge-container {
-            width: 300px;
-            height: 150px; /* Half circle height */
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        .score-display {
-            margin-top: -40px; /* Pull text up into the arch */
-        }
-        .big-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--text-main);
-        }
-        .status-badge {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 6px 16px;
-            border-radius: 100px;
-            background: #f3f4f6;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        /* HERO GAUGE */
+        .hero-card { text-align: center; padding-top: 40px; padding-bottom: 40px; }
+        .gauge-container { width: 300px; height: 150px; margin: 0 auto; position: relative; overflow: hidden; }
+        .score-display { margin-top: -40px; }
+        .big-number { font-family: 'JetBrains Mono', monospace; font-size: 4rem; font-weight: 700; line-height: 1; color: var(--text-main); }
+        .status-badge { display: inline-block; margin-top: 10px; padding: 6px 16px; border-radius: 100px; background: #f3f4f6; color: var(--text-main); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* METRIC BOXES */
-        .metric-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .metric-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .metric-val {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-        .metric-desc {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            margin-top: 5px;
-        }
+        /* METRIC CARDS */
+        .metric-card { display: flex; flex-direction: column; justify-content: center; }
+        .metric-label { font-size: 0.85rem; font-weight: 600; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .metric-val { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 700; color: var(--text-main); }
+        .metric-desc { font-size: 0.85rem; color: var(--text-sub); margin-top: 5px; }
 
         /* CHART */
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .chart-title { font-weight: 600; font-size: 1rem; }
         .chart-box { height: 250px; width: 100%; }
 
+        /* ARCHIVE LIST (New Section) */
+        .archive-list { list-style: none; padding: 0; margin: 0; }
+        .archive-list li { border-bottom: 1px solid #f3f4f6; }
+        .archive-list li:last-child { border-bottom: none; }
+        .archive-list a { display: block; padding: 12px 0; color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+        .archive-list a:hover { color: #1e40af; text-decoration: underline; }
+        .empty-msg { color: #9ca3af; font-size: 0.9rem; font-style: italic; }
+
         /* AD BOX */
-        .ad-box {
-            background: #f9fafb;
-            border: 1px dashed var(--border);
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            font-size: 0.8rem;
-        }
+        .ad-box { background: #f9fafb; border: 1px dashed var(--border); height: 100px; display: flex; align-items: center; justify-content: center; color: var(--text-sub); font-size: 0.8rem; }
 
         @media (max-width: 600px) {
             .container { grid-template-columns: 1fr; }
@@ -175,7 +117,7 @@
 
     <nav class="navbar">
         <div class="nav-inner">
-            <div class="brand"><div class="dot"></div> StraitTracker</div>
+            <div class="brand"><div class="dot"></div> Taiwan Strait Tracker</div>
             <div class="nav-links">
                 <a href="about.html">Methodology</a>
                 <a href="contact.html">Contact</a>
@@ -190,31 +132,23 @@
             <div class="gauge-container">
                 <canvas id="mainGauge"></canvas>
             </div>
-            
             <div class="score-display">
                 <div class="big-number">38</div>
                 <div class="status-badge" style="color: #ffc107">Elevated</div>
             </div>
-            
             <p style="max-width: 500px; margin: 20px auto 0 auto; color: #6b7280; line-height: 1.5;">
                 Increased diplomatic friction or minor market divergence detected.
             </p>
         </div>
 
         <div class="card metric-card">
-            <div class="metric-label">
-                Conflict Noise
-                <span style="color: #ef4444;">●</span>
-            </div>
+            <div class="metric-label">Conflict Noise <span style="color: #ef4444;">●</span></div>
             <div class="metric-val">41</div>
             <div class="metric-desc">ADIZ Incursions & Warning Keywords</div>
         </div>
 
         <div class="card metric-card">
-            <div class="metric-label">
-                Market Anxiety
-                <span style="color: #3b82f6;">●</span>
-            </div>
+            <div class="metric-label">Market Anxiety <span style="color: #3b82f6;">●</span></div>
             <div class="metric-val">36</div>
             <div class="metric-desc">TSMC vs S&P 500 Divergence</div>
         </div>
@@ -222,15 +156,33 @@
         <div class="card span-2">
             <div class="chart-header">
                 <div class="chart-title">30-Day Risk Trend</div>
-                <div style="font-size: 0.8rem; color: #6b7280;">Last Updated: 2026-02-04 16:10</div>
+                <div style="font-size: 0.8rem; color: #6b7280;">Last Updated: 2026-02-04 16:19</div>
             </div>
             <div class="chart-box">
                 <canvas id="historyChart"></canvas>
             </div>
         </div>
 
+        <div class="card span-2">
+            <div class="chart-header">
+                <div class="chart-title">🗄️ Intelligence Archive</div>
+            </div>
+            
+            
+                <ul class="archive-list">
+                     <li>
+                        <a href="reports/2026-02-04-risk-analysis.html">Risk Analysis: 2026-02-04 &rarr;</a>
+                    </li>
+                    
+                </ul>
+                <div style="margin-top: 15px; text-align: center;">
+                    <a href="#" style="font-size: 0.85rem; color: #6b7280;">View Full Archive</a>
+                </div>
+            
+        </div>
+
         <div class="card span-2 ad-box">
-            <ins class="adsbygoogle"
+             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-2906019839191718"
                  data-ad-slot="YOUR_AD_SLOT_ID_HERE"
@@ -246,7 +198,7 @@
         const color = "#ffc107";
         const historyData = [{"date": "2026-01-06", "score": 25}, {"date": "2026-01-07", "score": 39}, {"date": "2026-01-08", "score": 33}, {"date": "2026-01-09", "score": 28}, {"date": "2026-01-10", "score": 44}, {"date": "2026-01-11", "score": 37}, {"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 38}];
 
-        // --- GAUGE CHART ---
+        // GAUGE CHART
         const ctxGauge = document.getElementById('mainGauge').getContext('2d');
         new Chart(ctxGauge, {
             type: 'doughnut',
@@ -254,14 +206,11 @@
                 labels: ['Risk', 'Remaining'],
                 datasets: [{
                     data: [score, 100 - score],
-                    backgroundColor: [
-                        color,      // The active score color
-                        '#e5e7eb'   // The grey background track
-                    ],
+                    backgroundColor: [color, '#e5e7eb'],
                     borderWidth: 0,
-                    circumference: 180, // Half circle
-                    rotation: -90,      // Start from left
-                    cutout: '85%'       // Thin line like Fear & Greed
+                    circumference: 180,
+                    rotation: -90,
+                    cutout: '85%'
                 }]
             },
             options: {
@@ -272,10 +221,8 @@
             }
         });
 
-        // --- HISTORY CHART ---
+        // HISTORY CHART
         const ctxHist = document.getElementById('historyChart').getContext('2d');
-        
-        // Gradient Fill
         const gradient = ctxHist.createLinearGradient(0, 0, 0, 300);
         gradient.addColorStop(0, 'rgba(37, 99, 235, 0.1)'); 
         gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
@@ -283,7 +230,7 @@
         new Chart(ctxHist, {
             type: 'line',
             data: {
-                labels: historyData.map(d => d.date.slice(5)), // MM-DD
+                labels: historyData.map(d => d.date.slice(5)), 
                 datasets: [{
                     label: 'Risk Score',
                     data: historyData.map(d => d.score),
@@ -291,7 +238,6 @@
                     backgroundColor: gradient,
                     borderWidth: 2,
                     pointRadius: 3,
-                    pointHoverRadius: 6,
                     fill: true,
                     tension: 0.4
                 }]
@@ -302,12 +248,7 @@
                 plugins: { legend: { display: false } },
                 scales: {
                     x: { grid: { display: false }, ticks: { color: '#9ca3af' } },
-                    y: { 
-                        beginAtZero: true, 
-                        max: 100, 
-                        grid: { color: '#f3f4f6' },
-                        ticks: { color: '#9ca3af' }
-                    }
+                    y: { beginAtZero: true, max: 100, grid: { color: '#f3f4f6' }, ticks: { color: '#9ca3af' } }
                 }
             }
         });
