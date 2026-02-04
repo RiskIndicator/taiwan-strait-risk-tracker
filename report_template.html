@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risk Analysis: {{ date_str }} | StraitTracker</title>
+    
+    <title>Taiwan Strait Risk Report: {{ date_str }} | Status: {{ status_text }}</title>
+    
+    <meta name="description" content="Daily geopolitical analysis for {{ date_str }}. Conflict signal is {{ conflict_score }}/100. Primary driver: {{ headline_list[0] if headline_list else 'No major incidents' }}.">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Taiwan Strait Risk Analysis: {{ date_str }}",
+      "datePublished": "{{ date_str }}",
+      "dateline": "Taipei/Brisbane",
+      "articleBody": "Daily risk assessment for the Taiwan Strait. Market anxiety signal is {{ market_score }}. Conflict noise signal is {{ conflict_score }}. {{ daily_summary }}",
+      "author": {
+        "@type": "Organization",
+        "name": "Taiwan Strait Tracker"
+      }
+    }
+    </script>
+
     <style>
         body { font-family: 'Merriweather', serif; line-height: 1.8; color: #1f2937; max-width: 800px; margin: 0 auto; padding: 40px 20px; }
         h1 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 2.2rem; margin-bottom: 10px; }
@@ -14,6 +34,9 @@
         .source-list li { margin-bottom: 8px; }
         .back-link { font-family: 'Inter', sans-serif; text-decoration: none; color: #2563eb; font-weight: 600; }
         .ad-placeholder { background: #f3f4f6; height: 150px; display: flex; align-items: center; justify-content: center; margin: 30px 0; color: #999; font-family: sans-serif; font-size: 0.8rem; }
+        
+        /* New Footer Style */
+        .footer-nav { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-family: 'Inter', sans-serif; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -46,6 +69,11 @@
     </ul>
 
     <div class="ad-placeholder">[ SPONSOR ]</div>
+    
+    <div class="footer-nav">
+        <strong>Navigation:</strong><br>
+        <a href="/">Return to Live Dashboard</a>
+    </div>
 
 </body>
 </html>
