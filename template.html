@@ -5,254 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taiwan Strait Risk Tracker | Live Intelligence</title>
     <meta name="description" content="Real-time geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, market signals, and rhetoric.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Taiwan Strait Risk Tracker">
-    <meta property="og:description" content="Current Status: {{ status_text }}. Daily automated analysis.">
-    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718" crossorigin="anonymous"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        :root {
-            --bg: #f3f4f6;
-            --card: #ffffff;
-            --text-main: #111827;
-            --text-sub: #6b7280;
-            --border: #e5e7eb;
-            --accent: {{ color_code }}; /* Python injects this */
-        }
-
-        body {
-            background-color: var(--bg);
-            background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
-            background-size: 40px 40px;
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding-bottom: 60px;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: var(--card);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 0;
-            margin-bottom: 40px;
-        }
-        .nav-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --border: #e5e7eb; }
+        body { background-color: var(--bg); background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 60px; }
+        .navbar { background: var(--card); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 40px; }
+        .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
         .dot { width: 10px; height: 10px; background: #2563eb; border-radius: 50%; }
         .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
-        .nav-links a:hover { color: var(--text-main); }
-
-        /* Layout */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .span-2 { grid-column: span 2; }
+        
+        /* SCORE SECTION */
+        .hero-card { display: flex; align-items: center; justify-content: space-between; padding: 40px; }
+        .score-left { flex: 1; }
+        .score-right { width: 180px; position: relative; }
+        .big-number { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 700; color: var(--text-main); line-height: 1; }
+        .trend-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: #f3f4f6; margin-top: 10px; }
+        
+        /* METRICS */
+        .metric-card { display: flex; flex-direction: column; justify-content: flex-start; }
+        .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .metric-title { font-size: 0.85rem; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-score { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; }
+        .evidence-box { background: #f9fafb; border-left: 3px solid #e5e7eb; padding: 10px 15px; font-size: 0.85rem; color: #4b5563; margin-top: 15px; border-radius: 0 4px 4px 0; }
+        .evidence-label { font-size: 0.75rem; font-weight: 700; color: #9ca3af; margin-bottom: 4px; display: block; }
 
-        /* HERO GAUGE */
-        .hero-card { text-align: center; padding-top: 40px; padding-bottom: 40px; }
-        .gauge-container { width: 300px; height: 150px; margin: 0 auto; position: relative; overflow: hidden; }
-        .score-display { margin-top: -40px; }
-        .big-number { font-family: 'JetBrains Mono', monospace; font-size: 4rem; font-weight: 700; line-height: 1; color: var(--text-main); }
-        .status-badge { display: inline-block; margin-top: 10px; padding: 6px 16px; border-radius: 100px; background: #f3f4f6; color: var(--text-main); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* METRIC CARDS */
-        .metric-card { display: flex; flex-direction: column; justify-content: center; }
-        .metric-label { font-size: 0.85rem; font-weight: 600; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; display: flex; justify-content: space-between; }
-        .metric-val { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: 700; color: var(--text-main); }
-        .metric-desc { font-size: 0.85rem; color: var(--text-sub); margin-top: 5px; }
-
-        /* CHART */
-        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .chart-title { font-weight: 600; font-size: 1rem; }
+        /* AD & CHART */
         .chart-box { height: 250px; width: 100%; }
-
-        /* ARCHIVE LIST (New Section) */
+        .ad-box { background: #f9fafb; border: 1px dashed var(--border); height: 100px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #9ca3af; }
         .archive-list { list-style: none; padding: 0; margin: 0; }
-        .archive-list li { border-bottom: 1px solid #f3f4f6; }
-        .archive-list li:last-child { border-bottom: none; }
-        .archive-list a { display: block; padding: 12px 0; color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.95rem; }
-        .archive-list a:hover { color: #1e40af; text-decoration: underline; }
-        .empty-msg { color: #9ca3af; font-size: 0.9rem; font-style: italic; }
+        .archive-list li { border-bottom: 1px solid #f3f4f6; padding: 10px 0; }
+        .archive-list a { color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
 
-        /* AD BOX */
-        .ad-box { background: #f9fafb; border: 1px dashed var(--border); height: 100px; display: flex; align-items: center; justify-content: center; color: var(--text-sub); font-size: 0.8rem; }
-
-        @media (max-width: 600px) {
-            .container { grid-template-columns: 1fr; }
-            .span-2 { grid-column: span 1; }
-        }
+        @media (max-width: 600px) { .container { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } .hero-card { flex-direction: column-reverse; text-align: center; gap: 20px; } }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="nav-inner">
-            <div class="brand"><div class="dot"></div> Taiwan Strait Tracker</div>
-            <div class="nav-links">
-                <a href="about.html">Methodology</a>
-                <a href="contact.html">Contact</a>
-                <a href="privacy.html">Privacy</a>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar"><div class="nav-inner"><div class="brand"><div class="dot"></div> Taiwan Strait Tracker</div><div class="nav-links"><a href="about.html">Methodology</a><a href="privacy.html">Privacy</a></div></div></nav>
 
     <div class="container">
-
         <div class="card span-2 hero-card">
-            <div class="gauge-container">
-                <canvas id="mainGauge"></canvas>
-            </div>
-            <div class="score-display">
+            <div class="score-left">
+                <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
                 <div class="big-number">{{ risk_score }}</div>
-                <div class="status-badge" style="color: {{ color_code }}">{{ status_text }}</div>
+                
+                <div class="trend-badge" style="color: {{ trend_color }};">
+                    {{ trend_arrow }} {{ trend_desc }} since yesterday
+                </div>
+                
+                <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
+                    <strong style="color: {{ color_code }}">{{ status_text }}:</strong> {{ daily_summary }}
+                </p>
             </div>
-            <p style="max-width: 500px; margin: 20px auto 0 auto; color: #6b7280; line-height: 1.5;">
-                {{ daily_summary }}
-            </p>
+            <div class="score-right">
+                <canvas id="gaugeChart"></canvas>
+            </div>
         </div>
 
         <div class="card metric-card">
-            <div class="metric-label">Conflict Noise <span style="color: #ef4444;">●</span></div>
-            <div class="metric-val">{{ conflict_score }}</div>
-            <div class="metric-desc">ADIZ Incursions & Warning Keywords</div>
+            <div class="metric-header">
+                <span class="metric-title">Conflict Noise</span>
+                <span class="metric-score" style="color: #ef4444;">{{ conflict_score }}</span>
+            </div>
+            <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
+                <div style="height: 100%; width: {{ conflict_score }}%; background: #ef4444;"></div>
+            </div>
+            <div class="evidence-box">
+                <span class="evidence-label">PRIMARY DRIVER</span>
+                "{{ top_headline }}"
+            </div>
         </div>
 
         <div class="card metric-card">
-            <div class="metric-label">Market Anxiety <span style="color: #3b82f6;">●</span></div>
-            <div class="metric-val">{{ market_score }}</div>
-            <div class="metric-desc">TSMC vs S&P 500 Divergence</div>
-        </div>
-
-        <div class="card span-2">
-            <div class="chart-header">
-                <div class="chart-title">30-Day Risk Trend</div>
-                <div style="font-size: 0.8rem; color: #6b7280;">Last Updated: {{ last_updated }}</div>
+            <div class="metric-header">
+                <span class="metric-title">Market Anxiety</span>
+                <span class="metric-score" style="color: #3b82f6;">{{ market_score }}</span>
             </div>
-            <div class="chart-box">
-                <canvas id="historyChart"></canvas>
+            <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
+                <div style="height: 100%; width: {{ market_score }}%; background: #3b82f6;"></div>
+            </div>
+            <div class="evidence-box">
+                <span class="evidence-label">TSMC vs S&P 500</span>
+                {{ market_evidence }}
             </div>
         </div>
 
         <div class="card span-2">
-            <div class="chart-header">
-                <div class="chart-title">🗄️ Intelligence Archive</div>
-            </div>
-            
+            <h3 style="margin-top: 0; font-size: 1rem;">30-Day Trend</h3>
+            <div class="chart-box"><canvas id="historyChart"></canvas></div>
+        </div>
+
+        <div class="card span-2">
+            <h3 style="margin-top: 0; font-size: 1rem;">Daily Intelligence Briefings</h3>
             {% if report_list %}
                 <ul class="archive-list">
-                    {% for report in report_list[:5] %} <li>
-                        <a href="{{ report.url }}">Risk Analysis: {{ report.date }} &rarr;</a>
-                    </li>
+                    {% for report in report_list[:5] %}
+                    <li><a href="{{ report.url }}">{{ report.date }} Risk Analysis &rarr;</a></li>
                     {% endfor %}
                 </ul>
-                <div style="margin-top: 15px; text-align: center;">
-                    <a href="#" style="font-size: 0.85rem; color: #6b7280;">View Full Archive</a>
-                </div>
             {% else %}
-                <p class="empty-msg">Daily reports will appear here after the next update cycle.</p>
+                <p style="color: #999; font-style: italic;">Briefings will appear here starting tomorrow.</p>
             {% endif %}
         </div>
 
         <div class="card span-2 ad-box">
-             <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-2906019839191718"
-                 data-ad-slot="YOUR_AD_SLOT_ID_HERE"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2906019839191718" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-
     </div>
 
     <script>
+        // DATA INJECTION
         const score = {{ risk_score }};
         const color = "{{ color_code }}";
         const historyData = {{ history_json }};
 
-        // GAUGE CHART
-        const ctxGauge = document.getElementById('mainGauge').getContext('2d');
-        new Chart(ctxGauge, {
+        // GAUGE
+        new Chart(document.getElementById('gaugeChart'), {
             type: 'doughnut',
             data: {
-                labels: ['Risk', 'Remaining'],
-                datasets: [{
-                    data: [score, 100 - score],
-                    backgroundColor: [color, '#e5e7eb'],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: -90,
-                    cutout: '85%'
-                }]
+                labels: ['Risk', 'Safe'],
+                datasets: [{ data: [score, 100-score], backgroundColor: [color, '#eee'], borderWidth: 0, cutout: '85%' }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { tooltip: { enabled: false }, legend: { display: false } },
-                animation: { animateScale: true, animateRotate: true }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: false, tooltip: false } }
         });
 
-        // HISTORY CHART
-        const ctxHist = document.getElementById('historyChart').getContext('2d');
-        const gradient = ctxHist.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.1)'); 
-        gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
-
-        new Chart(ctxHist, {
+        // TREND LINE
+        const ctx = document.getElementById('historyChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.1)'); gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
+        
+        new Chart(ctx, {
             type: 'line',
             data: {
-                labels: historyData.map(d => d.date.slice(5)), 
+                labels: historyData.map(d => d.date.slice(5)),
                 datasets: [{
-                    label: 'Risk Score',
                     data: historyData.map(d => d.score),
-                    borderColor: '#2563eb',
-                    backgroundColor: gradient,
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    fill: true,
-                    tension: 0.4
+                    borderColor: '#2563eb', backgroundColor: gradient, borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false }, ticks: { color: '#9ca3af' } },
-                    y: { beginAtZero: true, max: 100, grid: { color: '#f3f4f6' }, ticks: { color: '#9ca3af' } }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: false }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 100 } } }
         });
     </script>
 </body>
