@@ -44,6 +44,15 @@
 
         @media (max-width: 600px) { .container { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } .hero-card { flex-direction: column-reverse; text-align: center; gap: 20px; } }
     </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MLNGHZLK8D');
+</script>
 </head>
 <body>
     <nav class="navbar"><div class="nav-inner"><div class="brand"><div class="dot"></div> Taiwan Strait Tracker</div><div class="nav-links"><a href="articles.html">Analysis</a> <a href="about.html">Methodology</a><a href="privacy.html">Privacy</a></div></div></nav>
@@ -52,10 +61,10 @@
         <div class="card span-2 hero-card">
             <div class="score-left">
                 <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
-                <div class="big-number">39</div>
+                <div class="big-number">41</div>
                 
-                <div class="trend-badge" style="color: #28a745;">
-                    ↓ -1 pts since yesterday
+                <div class="trend-badge" style="color: #ef4444;">
+                    ↑ +2 pts since yesterday
                 </div>
                 
                 <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
@@ -70,10 +79,10 @@
         <div class="card metric-card">
             <div class="metric-header">
                 <span class="metric-title">Conflict Noise</span>
-                <span class="metric-score" style="color: #ef4444;">43</span>
+                <span class="metric-score" style="color: #ef4444;">46</span>
             </div>
             <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
-                <div style="height: 100%; width: 43%; background: #ef4444;"></div>
+                <div style="height: 100%; width: 46%; background: #ef4444;"></div>
             </div>
             <div class="evidence-box">
                 <span class="evidence-label">PRIMARY DRIVER</span>
@@ -119,9 +128,9 @@
 
     <script>
         // DATA INJECTION
-        const score = 39;
+        const score = 41;
         const color = "#f59e0b";
-        const historyData = [{"date": "2026-01-06", "score": 25}, {"date": "2026-01-07", "score": 39}, {"date": "2026-01-08", "score": 33}, {"date": "2026-01-09", "score": 28}, {"date": "2026-01-10", "score": 44}, {"date": "2026-01-11", "score": 37}, {"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 39}];
+        const historyData = [{"date": "2026-01-06", "score": 25}, {"date": "2026-01-07", "score": 39}, {"date": "2026-01-08", "score": 33}, {"date": "2026-01-09", "score": 28}, {"date": "2026-01-10", "score": 44}, {"date": "2026-01-11", "score": 37}, {"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}];
 
         // GAUGE
         new Chart(document.getElementById('gaugeChart'), {
