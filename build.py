@@ -211,7 +211,7 @@ def main():
             os.rename(old_path, new_path)
             
             # This is the CLEAN URL (No ?v= parameter needed!)
-            final_image_url = "https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png"
+            final_image_url = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
             print(f"Twitter Card Renamed to: {new_filename}")
         else:
             print("Error: twitter_card.png was not generated.")
