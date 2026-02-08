@@ -11,6 +11,7 @@ jobs:
   update-data:
     runs-on: ubuntu-latest
     outputs:
+      # This captures the output from the "build" step below
       tweet_output: ${{ steps.build.outputs.tweet }}
     steps:
       - uses: actions/checkout@v3
@@ -21,12 +22,10 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install html2image yfinance feedparser textblob jinja2 pytz
+        run: pip install -r requirements.txt
 
       - name: Run Build Script
-        id: build # <--- IMPORTANT: This ID allows us to read the output later
+        id: build # <--- IMPORTANT: Matches outputs above
         run: python build.py
 
       - name: Commit and Push
@@ -34,10 +33,9 @@ jobs:
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add .
-          # Only commit if changes exist
           git diff --quiet && git diff --staged --quiet || (git commit -m "Daily Update" && git push)
 
-  post-to-twitter:  # <--- FIXED: Indented by 2 spaces to match 'update-data'
+  post-to-twitter:
     needs: update-data
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
@@ -49,15 +47,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Tweepy
-        run: pip install tweepy
+      - name: Install Requests
+        run: pip install requests
 
-      - name: Send Tweet via Python
+      - name: Trigger IFTTT Webhook
         env:
-          TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
-          TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-          # This grabs the text passed from the first job
+          IFTTT_KEY: ${{ secrets.IFTTT_KEY }}
+          # This grabs the text passed from the update-data job
           TWEET_TEXT: ${{ needs.update-data.outputs.tweet_output }}
-        run: python tweet_v2.py
+        run: python send_webhook.py
