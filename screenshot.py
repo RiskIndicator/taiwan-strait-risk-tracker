@@ -2,9 +2,13 @@ from html2image import Html2Image
 import os
 
 def generate_card():
-    # 1. Initialize
-    # We set a specific size to match Twitter's "Large Card" format
-    hti = Html2Image(output_path='public', size=(1200, 628))
+    # 1. Initialize with "CI-Safe" flags
+    # --no-sandbox is REQUIRED for GitHub Actions (Ubuntu)
+    hti = Html2Image(
+        output_path='public', 
+        size=(1200, 628),
+        custom_flags=['--no-sandbox', '--disable-gpu', '--hide-scrollbars']
+    )
 
     # Ensure public directory exists
     os.makedirs('public', exist_ok=True)
@@ -13,7 +17,7 @@ def generate_card():
     html_str = """
     <div class="card">
         <div class="header">TAIWAN STRAIT RISK INDEX</div>
-        <div class="score">30</div>
+        <div class="score">32</div>
         <div class="status">STATUS: STABLE</div>
         <div class="footer">taiwanstraittracker.com</div>
     </div>
