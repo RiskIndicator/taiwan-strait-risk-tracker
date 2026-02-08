@@ -38,7 +38,7 @@ jobs:
   post-to-twitter:
     needs: update-data
     # This ensures it ONLY tweets on the schedule, not when you click "Run" manually.
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Wait for Deploy
