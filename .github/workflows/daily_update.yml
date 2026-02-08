@@ -1,0 +1,53 @@
+name: Daily Risk Tracker
+on:
+  schedule:
+    - cron: '0 22 * * *' # Runs at 8:00 AM Brisbane Time (22:00 UTC)
+  workflow_dispatch: # Allows you to click "Run Now" manually
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          # Manually install html2image if missing from requirements
+          pip install html2image yfinance feedparser textblob jinja2 pytz
+
+      - name: Run Build Script
+        run: python build.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add index.html public/twitter_card.png history.json reports/ sitemap.xml
+          # Only commit if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Daily Update: $(date +'%Y-%m-%d')" && git push)
+
+  post-to-twitter:
+    needs: update-data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Deploy (Safety Buffer)
+        run: sleep 60 # Gives GitHub Pages time to update the live image
+
+      - name: Post to X (Twitter)
+        uses: ethomson/send-tweet-action@v1
+        with:
+          status: "Daily Taiwan Strait Risk Update. Current Status: STABLE. Full report: https://taiwanstraittracker.com #Taiwan #OSINT"
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
