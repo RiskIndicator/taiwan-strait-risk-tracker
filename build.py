@@ -211,7 +211,7 @@ def main():
             os.rename(old_path, new_path)
             
             # This is the CLEAN URL (No ?v= parameter needed!)
-            final_image_url = f"https://taiwanstraittracker.com/public/{new_filename}"
+            final_image_url = f"https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/{new_filename}"
             print(f"Twitter Card Renamed to: {new_filename}")
         else:
             print("Error: twitter_card.png was not generated.")
