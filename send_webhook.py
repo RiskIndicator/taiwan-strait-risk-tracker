@@ -3,62 +3,30 @@ import os
 import sys
 import time
 
-def run_diagnostics(url):
-    print("\n--- 🔍 DIAGNOSTICS START ---")
-    print(f"Testing URL: {url}")
-    
-    # TEST 1: The "IFTTT Simulation" (No Headers)
-    # This mimics exactly what IFTTT sees.
-    print("\n1. Simulation: IFTTT (No Headers)")
-    try:
-        r = requests.get(url, timeout=5)
-        print(f"   Status: {r.status_code}")
-        print(f"   Headers: {r.headers}")
-        content_type = r.headers.get('Content-Type', 'None')
-        print(f"   👉 Content-Type: {content_type}")
-        
-        if 'image' not in content_type:
-            print("   ❌ CRITICAL FAIL: Server is NOT returning an image to bots.")
-            print("      (This explains why IFTTT fails while Python succeeds)")
-    except Exception as e:
-        print(f"   ❌ Connection Failed: {e}")
-
-    # TEST 2: The "Browser Simulation" (With Headers)
-    # This confirms if the file exists for humans.
-    print("\n2. Simulation: Real Browser (Chrome)")
-    try:
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
-        r = requests.get(url, headers=headers, timeout=5)
-        print(f"   Status: {r.status_code}")
-        content_type = r.headers.get('Content-Type', 'None')
-        print(f"   👉 Content-Type: {content_type}")
-    except Exception as e:
-        print(f"   ❌ Connection Failed: {e}")
-        
-    print("--- 🔍 DIAGNOSTICS END ---\n")
-
 def check_image_availability(url, timeout=300):
+    """
+    Polls the image URL to see if it is live.
+    Uses Browser Headers to avoid false negatives.
+    """
     print(f"Waiting for image to go live: {url}")
     start_time = time.time()
     
-    # We use the browser header here to ensure WE can see it, 
-    # even if IFTTT might struggle.
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
     
     while time.time() - start_time < timeout:
         try:
+            # Use stream=True to check headers quickly
             response = requests.get(url, headers=headers, stream=True, timeout=10)
             content_type = response.headers.get("Content-Type", "")
             
+            # Success Condition: 200 OK AND it's an image
             if response.status_code == 200 and content_type.startswith("image/"):
                 print(f"✅ Image is live! (Type: {content_type})")
                 return True
             else:
-                print(f"⏳ Waiting... (Status: {response.status_code}, Type: {content_type})")
+                print(f"⏳ Waiting... (Status: {response.status_code})")
 
         except Exception as e:
             print(f"⚠️ Network check failed: {e}")
@@ -77,15 +45,12 @@ def send_to_ifttt():
         print("Error: Missing environment variables.")
         sys.exit(1)
 
-    # 1. RUN DIAGNOSTICS FIRST
-    run_diagnostics(image_url)
-
-    # 2. WAIT FOR AVAILABILITY
+    # 1. WAIT FOR AVAILABILITY
     if not check_image_availability(image_url):
-        print("Aborting tweet.")
+        print("Aborting tweet because image check failed.")
         sys.exit(1)
 
-    # 3. SEND TO IFTTT
+    # 2. SEND TO IFTTT
     url = f"https://maker.ifttt.com/trigger/post_tweet/with/key/{key}"
     payload = {
         "value1": tweet_text,
