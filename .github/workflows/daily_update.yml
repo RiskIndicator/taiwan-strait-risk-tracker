@@ -11,8 +11,8 @@ jobs:
   update-data:
     runs-on: ubuntu-latest
     outputs:
-      # This captures the output from the "build" step below
       tweet_output: ${{ steps.build.outputs.tweet }}
+      image_output: ${{ steps.build.outputs.image_url }} # <--- NEW OUTPUT
     steps:
       - uses: actions/checkout@v3
       
@@ -25,7 +25,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Build Script
-        id: build # <--- IMPORTANT: Matches outputs above
+        id: build
         run: python build.py
 
       - name: Commit and Push
@@ -50,13 +50,13 @@ jobs:
       - name: Install Requests
         run: pip install requests
 
-      # --- NEW STEP HERE ---
+      # Keep the sleep! The image needs to be live on the site before IFTTT grabs it.
       - name: Wait for Website Deployment
-        run: sleep 240  # Waits 4 minutes (240 seconds)
-      # ---------------------
+        run: sleep 240
 
       - name: Trigger IFTTT Webhook
         env:
           IFTTT_KEY: ${{ secrets.IFTTT_KEY }}
           TWEET_TEXT: ${{ needs.update-data.outputs.tweet_output }}
+          IMAGE_URL: ${{ needs.update-data.outputs.image_output }} # <--- NEW INPUT
         run: python send_webhook.py
