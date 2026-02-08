@@ -144,7 +144,7 @@ def main():
     update_time = brisbane_time.strftime('%Y-%m-%d %H:%M')
 
     try:
-        with open('history.json', 'r') as f:
+        with open('history.json', 'r', encoding='utf-8') as f:
             history = json.load(f)
     except:
         history = []
@@ -209,7 +209,7 @@ def main():
         )
         
         os.makedirs('reports', exist_ok=True)
-        with open(report_filename, 'w') as f:
+        with open(report_filename, 'w', encoding='utf-8') as f:
             f.write(report_html)
             
         update_sitemap(report_filename)
@@ -228,7 +228,7 @@ def main():
         print(f"Screenshot Error: {e}")
 
     # 5. GENERATE FINAL DASHBOARD (INDEX.HTML)
-    with open('template.html', 'r') as f:
+    with open('template.html', 'r', encoding='utf-8') as f:
         template_str = f.read()
 
     template = Template(template_str)
@@ -253,13 +253,13 @@ def main():
 
     # Second: Inject the Twitter Meta Tag
     version = int(time.time())
-    new_meta_tag = f'<meta name="twitter:image" content="https://taiwanstraittracker.com/twitter_card.png?v={version}">'
+    new_meta_tag = f'<meta name="twitter:image" content="https://taiwanstraittracker.com/public/twitter_card.png?v={version}">'
     
     # Replaces the comment placeholder with the actual tag
     final_html_with_meta = rendered_html.replace('', new_meta_tag)
 
     # Third: Write to File ONCE
-    with open('index.html', 'w') as f:
+    with open('index.html', 'w', encoding='utf-8') as f:
         f.write(final_html_with_meta)
         
     print(f"Build Complete. Index updated with Risk Score: {final_score}")
