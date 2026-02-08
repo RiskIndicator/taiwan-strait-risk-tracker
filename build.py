@@ -16,12 +16,9 @@ MARKET_WEIGHT = 0.5
 CONFLICT_WEIGHT = 0.5
 
 # --- FUNCTIONS ---
-
 def update_sitemap(new_report_filename):
-    """Adds the new report URL to sitemap.xml for Google Indexing."""
     sitemap_path = 'sitemap.xml'
     base_url = "https://taiwanstraittracker.com/"
-    
     new_entry = f"""
     <url>
         <loc>{base_url}{new_report_filename}</loc>
@@ -29,44 +26,32 @@ def update_sitemap(new_report_filename):
         <changefreq>never</changefreq>
     </url>
     """
-    
     if not os.path.exists(sitemap_path):
         with open(sitemap_path, 'w', encoding='utf-8') as f:
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n</urlset>')
-
     with open(sitemap_path, 'r', encoding='utf-8') as f:
         content = f.read()
-    
     if new_report_filename in content:
         return
-
     content = content.replace('</urlset>', new_entry + '</urlset>')
-    
     with open(sitemap_path, 'w', encoding='utf-8') as f:
         f.write(content)
-    print(f"SEO: Added {new_report_filename} to sitemap.")
 
 def get_market_risk():
     try:
         tsm = yf.Ticker("TSM").history(period="5d")
         spy = yf.Ticker("SPY").history(period="5d")
-        
         if len(tsm) < 2 or len(spy) < 2: 
             return {"score": 30, "desc": "Market Closed / No Data"}
-            
         tsm_change = (tsm['Close'].iloc[-1] - tsm['Open'].iloc[-1]) / tsm['Open'].iloc[-1]
         spy_change = (spy['Close'].iloc[-1] - spy['Open'].iloc[-1]) / spy['Open'].iloc[-1]
-        
         divergence = spy_change - tsm_change
         score = 30 + (divergence * 400)
         final_score = int(max(0, min(100, score)))
-
         tsm_pct = f"{tsm_change*100:+.2f}%"
         spy_pct = f"{spy_change*100:+.2f}%"
         evidence = f"TSMC ({tsm_pct}) vs SP500 ({spy_pct})"
-        
         return {"score": final_score, "desc": evidence}
-
     except Exception as e:
         print(f"Market Error: {e}")
         return {"score": 30, "desc": "Data unavailable"}
@@ -76,15 +61,12 @@ def get_conflict_risk():
         rss_url = "https://news.google.com/rss/search?q=Taiwan+China+conflict+when:1d&hl=en-US&gl=US&ceid=US:en"
         feed = feedparser.parse(rss_url)
         entries = feed.entries[:20]
-        
         if not entries: 
             return {"score": 30, "headlines": []}
-        
         sentiment_score = 0
         keyword_hits = 0
         warning_words = ["invasion", "jets", "incursion", "adiz", "war", "missile", "blockade", "drill", "exercise"]
         triggered_headlines = []
-        
         for entry in entries:
             title = entry.title
             title_lower = title.lower()
@@ -93,53 +75,37 @@ def get_conflict_risk():
                 if word in title_lower:
                     keyword_hits += 1
                     hit = True
-            
             blob = TextBlob(entry.title)
             sentiment_score += blob.sentiment.polarity
-            
             if hit and len(triggered_headlines) < 3:
                 triggered_headlines.append(title)
-            
         avg_sentiment = sentiment_score / len(entries)
         sentiment_risk = 50 - (avg_sentiment * 50) 
         keyword_risk = keyword_hits * 5
         total = (sentiment_risk * 0.6) + (keyword_risk * 0.4)
-        
-        return {
-            "score": int(max(0, min(100, total))),
-            "headlines": triggered_headlines
-        }
-        
+        return {"score": int(max(0, min(100, total))), "headlines": triggered_headlines}
     except Exception as e:
         print(f"News Error: {e}")
         return {"score": 30, "headlines": []}
 
 def prepare_tweet_text(status, score, summary):
-    """Generates a tweet that is guaranteed to be under the 280 char limit."""
     base_url = "https://taiwanstraittracker.com"
     hashtags = "#Taiwan #OSINT"
     prefix = f"Daily Risk Update: {status} (Score: {score})."
-    
-    # Calculate safe space: 280 - 23 (URL) - 15 (Tags) - Prefix - 5 (Buffer)
     safe_limit = 280 - 23 - len(hashtags) - len(prefix) - 5
-    
     if len(summary) > safe_limit:
         safe_summary = summary[:safe_limit] + "..."
     else:
         safe_summary = summary
-
     final_tweet = f"{prefix} {safe_summary}\n\n{base_url} {hashtags}"
     return final_tweet
 
 def main():
     print("Starting Build Process...")
-
-    # 1. GET DATA
     market_data = get_market_risk()
     conflict_data = get_conflict_risk()
     market_score = market_data['score']
     conflict_score = conflict_data['score']
-
     final_score = int((market_score * MARKET_WEIGHT) + (conflict_score * CONFLICT_WEIGHT))
 
     if final_score < 30:
@@ -155,7 +121,6 @@ def main():
         color = "#dc3545"
         summary = "Significant anomaly detected in multiple risk vectors."
 
-    # 2. UPDATE HISTORY
     brisbane_time = datetime.now(pytz.timezone('Australia/Brisbane'))
     today_str = brisbane_time.strftime('%Y-%m-%d')
     update_time = brisbane_time.strftime('%Y-%m-%d %H:%M')
@@ -173,7 +138,6 @@ def main():
             history.append({"date": current_date.strftime('%Y-%m-%d'), "score": random.randint(25, 45)})
             current_date += timedelta(days=1)
 
-    # Calculate Trend
     last_score = history[-1]['score'] if history else final_score
     score_change = final_score - last_score
     if score_change > 0:
@@ -196,7 +160,6 @@ def main():
     with open('history.json', 'w', encoding='utf-8') as f:
         json.dump(history, f)
 
-    # 3. GENERATE REPORTS
     report_links = []
     if os.path.exists('reports'):
         files = sorted(glob.glob('reports/*.html'), reverse=True)
@@ -208,7 +171,6 @@ def main():
     try:
         with open('report_template.html', 'r', encoding='utf-8') as f:
             report_template_str = f.read()
-        
         report_template = Template(report_template_str)
         report_html = report_template.render(
             date_str=today_str,
@@ -222,7 +184,6 @@ def main():
             headline_list=conflict_data['headlines'],
             archive_filename=report_filename
         )
-        
         os.makedirs('reports', exist_ok=True)
         with open(report_filename, 'w', encoding='utf-8') as f:
             f.write(report_html)
@@ -230,10 +191,31 @@ def main():
     except Exception as e:
         print(f"Archive Error: {e}")
 
-    # 4. GENERATE CARD
+    # --- 4. GENERATE CARD (NEW LOGIC) ---
+    final_image_url = ""
     try:
-        generate_card() 
-        print("Twitter Card Generated.")
+        generate_card() # Generates 'public/twitter_card.png'
+        
+        # RENAME FILE TO INCLUDE DATE
+        # This solves the IFTTT caching issue AND the query string issue
+        old_path = "public/twitter_card.png"
+        new_filename = f"card_{today_str}.png"
+        new_path = f"public/{new_filename}"
+        
+        # Safety check: ensure public folder exists
+        os.makedirs("public", exist_ok=True)
+        
+        if os.path.exists(old_path):
+            if os.path.exists(new_path):
+                os.remove(new_path)
+            os.rename(old_path, new_path)
+            
+            # This is the CLEAN URL (No ?v= parameter needed!)
+            final_image_url = f"https://taiwanstraittracker.com/public/{new_filename}"
+            print(f"Twitter Card Renamed to: {new_filename}")
+        else:
+            print("Error: twitter_card.png was not generated.")
+            
     except Exception as e:
         print(f"Screenshot Error: {e}")
 
@@ -259,33 +241,31 @@ def main():
         top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No major conflict keywords detected."
     )
 
-    version = int(time.time())
-    new_meta_tag = f'<meta name="twitter:image" content="https://taiwanstraittracker.com/public/twitter_card.png?v={version}">'
-    
-    # --- UPDATED LOGIC HERE ---
+    # Use the clean, dated URL for the meta tag too
+    new_meta_tag = f'<meta name="twitter:image" content="{final_image_url}">'
     if "</head>" not in rendered_html:
         raise ValueError("No </head> tag found in HTML")
-
     final_html_with_meta = rendered_html.replace("</head>", f"{new_meta_tag}\n</head>")
-    # --------------------------
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(final_html_with_meta)
         
-    print(f"Build Complete. Index updated with Risk Score: {final_score}")
+    print(f"Build Complete. Index updated.")
 
-    # 6. OUTPUT TWEET TEXT FOR GITHUB ACTIONS
-    # Uses proper multiline delimiter "EOF" to prevent "Invalid format" errors
+    # 6. OUTPUT FOR GITHUB ACTIONS
     tweet_content = prepare_tweet_text(status, final_score, summary)
     
-    # If running on GitHub, save to output. If local, just print it.
     if os.getenv('GITHUB_OUTPUT'):
         with open(os.getenv('GITHUB_OUTPUT'), 'a') as fh:
+            # 1. Output the Tweet Text
             print("tweet<<EOF", file=fh)
             print(tweet_content, file=fh)
             print("EOF", file=fh)
+            # 2. Output the specific Image URL for this run
+            print(f"image_url={final_image_url}", file=fh)
     else:
-        print(f"\n[LOCAL TEST] Generated Tweet:\n{tweet_content}")
+        print(f"\n[LOCAL TEST] Tweet: {tweet_content}")
+        print(f"[LOCAL TEST] Image: {final_image_url}")
 
 if __name__ == "__main__":
     main()
