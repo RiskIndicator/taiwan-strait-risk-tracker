@@ -37,7 +37,7 @@ jobs:
           # Only commit if changes exist
           git diff --quiet && git diff --staged --quiet || (git commit -m "Daily Update" && git push)
 
-post-to-twitter:
+  post-to-twitter:  # <--- FIXED: Indented by 2 spaces to match 'update-data'
     needs: update-data
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
