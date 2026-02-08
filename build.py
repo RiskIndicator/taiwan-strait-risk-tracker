@@ -31,10 +31,10 @@ def update_sitemap(new_report_filename):
     """
     
     if not os.path.exists(sitemap_path):
-        with open(sitemap_path, 'w') as f:
+        with open(sitemap_path, 'w', encoding='utf-8') as f:
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n</urlset>')
 
-    with open(sitemap_path, 'r') as f:
+    with open(sitemap_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
     if new_report_filename in content:
@@ -42,7 +42,7 @@ def update_sitemap(new_report_filename):
 
     content = content.replace('</urlset>', new_entry + '</urlset>')
     
-    with open(sitemap_path, 'w') as f:
+    with open(sitemap_path, 'w', encoding='utf-8') as f:
         f.write(content)
     print(f"SEO: Added {new_report_filename} to sitemap.")
 
@@ -114,6 +114,28 @@ def get_conflict_risk():
         print(f"News Error: {e}")
         return {"score": 30, "headlines": []}
 
+def prepare_tweet_text(status, score, summary):
+    """
+    Generates a tweet that is guaranteed to be under the 280 char limit.
+    """
+    base_url = "https://taiwanstraittracker.com"
+    hashtags = "#Taiwan #OSINT"
+    
+    # The crucial info
+    prefix = f"Daily Risk Update: {status} (Score: {score})."
+    
+    # Calculate safe space for summary
+    # 280 (Max) - 23 (URL) - 15 (Tags) - Length of Prefix - 5 (Buffer)
+    safe_limit = 280 - 23 - len(hashtags) - len(prefix) - 5
+    
+    if len(summary) > safe_limit:
+        safe_summary = summary[:safe_limit] + "..."
+    else:
+        safe_summary = summary
+
+    final_tweet = f"{prefix} {safe_summary}\n\n{base_url} {hashtags}"
+    return final_tweet
+
 def main():
     print("Starting Build Process...")
 
@@ -178,7 +200,7 @@ def main():
     history.append({"date": today_str, "score": final_score})
     history = history[-30:]
 
-    with open('history.json', 'w') as f:
+    with open('history.json', 'w', encoding='utf-8') as f:
         json.dump(history, f)
 
     # 3. GENERATE DAILY REPORT (ARCHIVE)
@@ -191,7 +213,7 @@ def main():
 
     report_filename = f"reports/{today_str}-risk-analysis.html"
     try:
-        with open('report_template.html', 'r') as f:
+        with open('report_template.html', 'r', encoding='utf-8') as f:
             report_template_str = f.read()
         
         report_template = Template(report_template_str)
@@ -218,9 +240,6 @@ def main():
         print(f"Archive Error: {e}")
 
     # 4. GENERATE TWITTER IMAGE
-    # We do this BEFORE final HTML so the image exists
-    # Note: Ensure your screenshot.py can handle this call. 
-    # If screenshot.py generates its own HTML internally, this is fine.
     try:
         generate_card() 
         print("Twitter Card Generated.")
@@ -233,7 +252,6 @@ def main():
 
     template = Template(template_str)
     
-    # First: Render the Data
     rendered_html = template.render(
         risk_score=final_score,
         status_text=status,
@@ -251,18 +269,25 @@ def main():
         top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No major conflict keywords detected."
     )
 
-    # Second: Inject the Twitter Meta Tag
     version = int(time.time())
     new_meta_tag = f'<meta name="twitter:image" content="https://taiwanstraittracker.com/public/twitter_card.png?v={version}">'
-    
-    # Replaces the comment placeholder with the actual tag
     final_html_with_meta = rendered_html.replace('', new_meta_tag)
 
-    # Third: Write to File ONCE
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(final_html_with_meta)
         
     print(f"Build Complete. Index updated with Risk Score: {final_score}")
+
+    # 6. OUTPUT TWEET TEXT FOR GITHUB ACTIONS
+    # This prepares the tweet and saves it so the YAML file can read it.
+    tweet_content = prepare_tweet_text(status, final_score, summary)
+    
+    # If running on GitHub, save to output. If local, just print it.
+    if os.getenv('GITHUB_OUTPUT'):
+        with open(os.getenv('GITHUB_OUTPUT'), 'a') as fh:
+            print(f"tweet={tweet_content}", file=fh)
+    else:
+        print(f"\n[LOCAL TEST] Generated Tweet:\n{tweet_content}")
 
 if __name__ == "__main__":
     main()
