@@ -50,9 +50,13 @@ jobs:
       - name: Install Requests
         run: pip install requests
 
+      # --- NEW STEP HERE ---
+      - name: Wait for Website Deployment
+        run: sleep 240  # Waits 4 minutes (240 seconds)
+      # ---------------------
+
       - name: Trigger IFTTT Webhook
         env:
           IFTTT_KEY: ${{ secrets.IFTTT_KEY }}
-          # This grabs the text passed from the update-data job
           TWEET_TEXT: ${{ needs.update-data.outputs.tweet_output }}
         run: python send_webhook.py
