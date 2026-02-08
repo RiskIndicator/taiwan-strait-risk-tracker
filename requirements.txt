@@ -4,4 +4,3 @@ feedparser
 jinja2
 requests
 html2image
-tweepy
