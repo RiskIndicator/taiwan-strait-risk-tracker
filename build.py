@@ -220,11 +220,16 @@ def main():
         print(f"Screenshot Error: {e}")
 
     # 5. GENERATE INDEX.HTML
+    nuclear_image_url = f"https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/{new_filename}"
+    
+    # 2. Update the HTML Template with this specific URL
+    # We force the 'twitter:image' tag to use the nuclear link.
     with open('template.html', 'r', encoding='utf-8') as f:
         template_str = f.read()
 
     template = Template(template_str)
     rendered_html = template.render(
+        # ... your existing variables ...
         risk_score=final_score,
         status_text=status,
         market_score=market_score,
@@ -241,11 +246,15 @@ def main():
         top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No major conflict keywords detected."
     )
 
-    # Use the clean, dated URL for the meta tag too
-    new_meta_tag = f'<meta name="twitter:image" content="{final_image_url}">'
+    # 3. FORCE THE META TAG
+    # We manually inject the twitter:image tag with the nuclear URL.
+    # This ensures the "Big Card" works every time.
+    meta_tag = f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{nuclear_image_url}">'
+    
     if "</head>" not in rendered_html:
         raise ValueError("No </head> tag found in HTML")
-    final_html_with_meta = rendered_html.replace("</head>", f"{new_meta_tag}\n</head>")
+        
+    final_html_with_meta = rendered_html.replace("</head>", f"{meta_tag}\n</head>")
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(final_html_with_meta)
