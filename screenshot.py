@@ -10,7 +10,6 @@ def generate_card():
     os.makedirs('public', exist_ok=True)
 
     # 2. Define the CSS/HTML for the card
-    # (This reconstructs the visual card for the screenshot)
     html_str = """
     <div class="card">
         <div class="header">TAIWAN STRAIT RISK INDEX</div>
