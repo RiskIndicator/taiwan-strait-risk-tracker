@@ -38,6 +38,7 @@ jobs:
 
   post-to-twitter:
     needs: update-data
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     steps:
       - name: Wait for Deploy (Safety Buffer)
