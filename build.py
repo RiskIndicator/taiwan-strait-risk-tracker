@@ -115,11 +115,17 @@ def get_conflict_risk():
         return {"score": 30, "headlines": []}
 
 def prepare_tweet_text(status, score, summary):
+    """
+    Generates a tweet that is guaranteed to be under the 280 char limit.
+    """
     base_url = "https://taiwanstraittracker.com"
     hashtags = "#Taiwan #OSINT"
+    
+    # The crucial info
     prefix = f"Daily Risk Update: {status} (Score: {score})."
     
-    # Calculate safe space: 280 - 23 (URL) - 15 (Tags) - Prefix - 5 (Buffer)
+    # Calculate safe space for summary
+    # 280 (Max) - 23 (URL) - 15 (Tags) - Length of Prefix - 5 (Buffer)
     safe_limit = 280 - 23 - len(hashtags) - len(prefix) - 5
     
     if len(summary) > safe_limit:
@@ -154,7 +160,7 @@ def main():
         color = "#dc3545"
         summary = "Significant anomaly detected in multiple risk vectors."
 
-    # 2. UPDATE HISTORY
+    # 2. UPDATE HISTORY DATABASE
     brisbane_time = datetime.now(pytz.timezone('Australia/Brisbane'))
     today_str = brisbane_time.strftime('%Y-%m-%d')
     update_time = brisbane_time.strftime('%Y-%m-%d %H:%M')
@@ -165,6 +171,7 @@ def main():
     except:
         history = []
 
+    # Init history if empty
     if len(history) < 5:
         current_date = brisbane_time - timedelta(days=30)
         history = []
@@ -188,6 +195,7 @@ def main():
         trend_desc = "No Change"
         trend_color = "#6b7280"
 
+    # Save History
     history = [entry for entry in history if entry['date'] != today_str]
     history.append({"date": today_str, "score": final_score})
     history = history[-30:]
@@ -195,7 +203,7 @@ def main():
     with open('history.json', 'w', encoding='utf-8') as f:
         json.dump(history, f)
 
-    # 3. GENERATE REPORTS
+    # 3. GENERATE DAILY REPORT (ARCHIVE)
     report_links = []
     if os.path.exists('reports'):
         files = sorted(glob.glob('reports/*.html'), reverse=True)
@@ -225,22 +233,25 @@ def main():
         os.makedirs('reports', exist_ok=True)
         with open(report_filename, 'w', encoding='utf-8') as f:
             f.write(report_html)
+            
         update_sitemap(report_filename)
+
     except Exception as e:
         print(f"Archive Error: {e}")
 
-    # 4. GENERATE CARD
+    # 4. GENERATE TWITTER IMAGE
     try:
         generate_card() 
         print("Twitter Card Generated.")
     except Exception as e:
         print(f"Screenshot Error: {e}")
 
-    # 5. GENERATE INDEX.HTML
+    # 5. GENERATE FINAL DASHBOARD (INDEX.HTML)
     with open('template.html', 'r', encoding='utf-8') as f:
         template_str = f.read()
 
     template = Template(template_str)
+    
     rendered_html = template.render(
         risk_score=final_score,
         status_text=status,
@@ -261,17 +272,23 @@ def main():
     version = int(time.time())
     new_meta_tag = f'<meta name="twitter:image" content="https://taiwanstraittracker.com/public/twitter_card.png?v={version}">'
     
-    # FIXED LINE IS HERE:
-    final_html_with_meta = rendered_html.replace('', new_meta_tag)
+    # --- UPDATED LOGIC HERE ---
+    if "</head>" not in rendered_html:
+        raise ValueError("No </head> tag found in HTML")
+
+    final_html_with_meta = rendered_html.replace("</head>", f"{new_meta_tag}\n</head>")
+    # --------------------------
 
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(final_html_with_meta)
         
     print(f"Build Complete. Index updated with Risk Score: {final_score}")
 
-    # 6. OUTPUT TWEET FOR GITHUB
+    # 6. OUTPUT TWEET TEXT FOR GITHUB ACTIONS
+    # Uses proper multiline delimiter to prevent "Invalid format" errors
     tweet_content = prepare_tweet_text(status, final_score, summary)
     
+    # If running on GitHub, save to output. If local, just print it.
     if os.getenv('GITHUB_OUTPUT'):
         with open(os.getenv('GITHUB_OUTPUT'), 'a') as fh:
             print("tweet<<EOF", file=fh)
