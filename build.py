@@ -279,13 +279,14 @@ def main():
     print(f"Build Complete. Index updated with Risk Score: {final_score}")
 
     # 6. OUTPUT TWEET TEXT FOR GITHUB ACTIONS
-    # This prepares the tweet and saves it so the YAML file can read it.
+    # Uses proper multiline delimiter to prevent "Invalid format" errors
     tweet_content = prepare_tweet_text(status, final_score, summary)
     
-    # If running on GitHub, save to output. If local, just print it.
     if os.getenv('GITHUB_OUTPUT'):
         with open(os.getenv('GITHUB_OUTPUT'), 'a') as fh:
-            print(f"tweet={tweet_content}", file=fh)
+            print("tweet<<EOF", file=fh)
+            print(tweet_content, file=fh)
+            print("EOF", file=fh)
     else:
         print(f"\n[LOCAL TEST] Generated Tweet:\n{tweet_content}")
 
