@@ -36,6 +36,34 @@
         
         /* Disclaimer Box */
         .disclaimer-box { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 15px; margin-bottom: 40px; font-size: 0.9rem; border-radius: 4px; }
+
+        
+        /* MOBILE NAVBAR FIX */
+        @media (max-width: 600px) {
+            .nav-inner {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align to the left */
+                padding-bottom: 10px;
+            }
+            
+            .brand {
+                margin-bottom: 15px; /* Space between logo and links */
+                width: 100%;
+            }
+        
+            .nav-links {
+                width: 100%;
+                display: flex;
+                justify-content: space-between; /* Spread links across width */
+                gap: 10px;
+            }
+        
+            .nav-links a {
+                margin-left: 0; /* Remove desktop spacing */
+                font-size: 0.85rem; /* Slightly smaller text */
+            }
+        }
+        
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
 <script>
