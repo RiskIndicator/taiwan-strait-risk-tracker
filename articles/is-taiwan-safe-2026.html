@@ -21,8 +21,6 @@
         "name": "Taiwan Strait Tracker"
       }
     }
-    </script>
-
     <style>
         :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --accent: #2563eb; }
         body { background-color: var(--bg); color: var(--text-main); font-family: 'Merriweather', serif; line-height: 1.8; margin: 0; padding-bottom: 80px; }
@@ -32,7 +30,7 @@
         .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--text-main); }
         .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
-
+    
         /* Content Layout */
         .container { max-width: 740px; margin: 0 auto; padding: 0 20px; background: #fff; padding: 50px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
         
@@ -53,36 +51,36 @@
         .cta-title { font-weight: 700; color: #1e40af; margin-bottom: 10px; display: block; }
         a { color: #2563eb; text-decoration: underline; }
         a:hover { color: #1e3a8a; }
-
-        /* Responsive */
+    
+        /* Responsive General */
         @media (max-width: 600px) { .container { padding: 25px; } h1 { font-size: 1.8rem; } }
-
-        /* MOBILE NAVBAR FIX */
-        @media (max-width: 600px) {
+    
+        /* MOBILE NAVBAR FIX (Triggering at 768px to catch all phones) */
+        @media (max-width: 768px) {
             .nav-inner {
-                flex-direction: column; /* Stack items vertically */
-                align-items: flex-start; /* Align to the left */
+                flex-direction: column !important;
+                align-items: flex-start !important;
                 padding-bottom: 10px;
             }
             
             .brand {
-                margin-bottom: 15px; /* Space between logo and links */
+                margin-bottom: 15px;
                 width: 100%;
+                display: block;
             }
-        
+    
             .nav-links {
                 width: 100%;
                 display: flex;
-                justify-content: space-between; /* Spread links across width */
+                justify-content: space-between;
                 gap: 10px;
             }
-        
+    
             .nav-links a {
-                margin-left: 0; /* Remove desktop spacing */
-                font-size: 0.85rem; /* Slightly smaller text */
+                margin-left: 0;
+                font-size: 0.85rem;
             }
         }
-        
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
