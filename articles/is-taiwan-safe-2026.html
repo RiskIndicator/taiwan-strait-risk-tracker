@@ -56,6 +56,33 @@
 
         /* Responsive */
         @media (max-width: 600px) { .container { padding: 25px; } h1 { font-size: 1.8rem; } }
+
+        /* MOBILE NAVBAR FIX */
+        @media (max-width: 600px) {
+            .nav-inner {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start; /* Align to the left */
+                padding-bottom: 10px;
+            }
+            
+            .brand {
+                margin-bottom: 15px; /* Space between logo and links */
+                width: 100%;
+            }
+        
+            .nav-links {
+                width: 100%;
+                display: flex;
+                justify-content: space-between; /* Spread links across width */
+                gap: 10px;
+            }
+        
+            .nav-links a {
+                margin-left: 0; /* Remove desktop spacing */
+                font-size: 0.85rem; /* Slightly smaller text */
+            }
+        }
+        
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
