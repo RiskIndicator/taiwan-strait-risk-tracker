@@ -34,17 +34,20 @@
         /* SCORE SECTION */
         .hero-card { display: flex; align-items: center; justify-content: space-between; padding: 40px; }
         .score-left { flex: 1; }
-        .score-right { width: 180px; position: relative; }
+        .score-right { width: 220px; height: 160px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
         .big-number { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 700; color: var(--text-main); line-height: 1; }
         .trend-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: #f3f4f6; margin-top: 10px; }
         
-        /* ALERT BAR (NEW) */
+        /* GAUGE LABELS */
+        .gauge-label { font-size: 0.75rem; color: #999; font-weight: 700; text-transform: uppercase; position: absolute; bottom: -25px; width: 100%; text-align: center; }
+        
+        /* ALERT BAR */
         .alert-bar { background: #1e293b; color: white; padding: 15px 25px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
         .alert-text { font-weight: 600; font-size: 0.95rem; }
         .alert-btn { background: #3b82f6; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s; }
         .alert-btn:hover { background: #2563eb; }
 
-        /* FEATURED ARTICLE (NEW) */
+        /* FEATURED ARTICLE */
         .featured-article { display: flex; gap: 20px; text-decoration: none; color: inherit; align-items: center; }
         .featured-thumb { width: 120px; height: 80px; background: #eee; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
         .featured-content h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #111; }
@@ -59,15 +62,19 @@
         .evidence-box { background: #f9fafb; border-left: 3px solid #e5e7eb; padding: 10px 15px; font-size: 0.85rem; color: #4b5563; margin-top: 15px; border-radius: 0 4px 4px 0; }
         .evidence-label { font-size: 0.75rem; font-weight: 700; color: #9ca3af; margin-bottom: 4px; display: block; }
 
-        /* CHART & ADS */
+        /* CHART, ADS, ARCHIVE */
         .chart-box { height: 250px; width: 100%; }
         .ad-box { background: #f9fafb; border: 1px dashed var(--border); height: 100px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #9ca3af; }
+        .archive-list { list-style: none; padding: 0; margin: 0; }
+        .archive-list li { border-bottom: 1px solid #f3f4f6; padding: 10px 0; }
+        .archive-list a { color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
         
         /* MOBILE FIXES */
         @media (max-width: 768px) {
             .container { grid-template-columns: 1fr; }
             .span-2 { grid-column: span 1; }
             .hero-card { flex-direction: column-reverse; text-align: center; gap: 20px; }
+            .score-right { width: 100%; height: 180px; }
             .alert-bar { flex-direction: column; text-align: center; gap: 15px; }
             
             /* Navbar Mobile */
@@ -117,6 +124,7 @@
             </div>
             <div class="score-right">
                 <canvas id="gaugeChart"></canvas>
+                <div class="gauge-label">Fear & Greed</div>
             </div>
         </div>
 
@@ -174,6 +182,15 @@
             <div class="chart-box"><canvas id="historyChart"></canvas></div>
         </div>
 
+        <div class="card span-2">
+            <h3 style="margin-top: 0; font-size: 1rem;">Daily Intelligence Briefings</h3>
+            <ul class="archive-list">
+                {% for report in report_list %}
+                <li><a href="{{ report.url }}">{{ report.date }} Risk Analysis &rarr;</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
         <div class="card span-2 ad-box">
              <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2906019839191718" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -181,36 +198,112 @@
     </div>
 
     <script>
-        // DATA INJECTION
         const score = {{ risk_score }};
-        const color = "{{ color_code }}";
         const historyData = {{ history_json }};
 
-        // GAUGE
+        // --- 1. FEAR & GREED GAUGE ---
+        // This plugin draws the "Needle"
+        const gaugeNeedle = {
+            id: 'gaugeNeedle',
+            afterDatasetDraw(chart, args, options) {
+                const { ctx, config, data, chartArea: { top, bottom, left, right, width, height } } = chart;
+                ctx.save();
+                const needleValue = data.datasets[0].needleValue;
+                const dataTotal = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                const angle = Math.PI + (1 / dataTotal * needleValue * Math.PI);
+                const cx = width / 2;
+                const cy = chart._metasets[0].data[0].y;
+                
+                // Draw Needle
+                ctx.translate(cx, cy);
+                ctx.rotate(angle);
+                ctx.beginPath();
+                ctx.moveTo(0, -2);
+                ctx.lineTo(height - (ctx.canvas.height * 0.25), 0); // Needle Length
+                ctx.lineTo(0, 2);
+                ctx.fillStyle = '#444';
+                ctx.fill();
+                
+                // Draw Pivot Circle
+                ctx.rotate(-angle);
+                ctx.beginPath();
+                ctx.arc(0, 0, 5, 0, 10);
+                ctx.fillStyle = '#444';
+                ctx.fill();
+                ctx.restore();
+            }
+        };
+
         new Chart(document.getElementById('gaugeChart'), {
             type: 'doughnut',
             data: {
-                labels: ['Risk', 'Safe'],
-                datasets: [{ data: [score, 100-score], backgroundColor: [color, '#eee'], borderWidth: 0, cutout: '85%' }]
+                labels: ['Safe', 'Caution', 'Danger'],
+                datasets: [{
+                    data: [33, 33, 34], // Equal thirds
+                    backgroundColor: ['#10b981', '#f59e0b', '#ef4444'], // Green, Orange, Red
+                    borderWidth: 0,
+                    needleValue: score, // The actual score
+                    cutout: '70%',
+                    circumference: 180,
+                    rotation: 270,
+                }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: false, tooltip: false } }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: false, tooltip: false }
+            },
+            plugins: [gaugeNeedle]
         });
 
-        // TREND LINE
+
+        // --- 2. MULTI-COLOR TREND CHART ---
         const ctx = document.getElementById('historyChart').getContext('2d');
-        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, 'rgba(37, 99, 235, 0.1)'); gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
         
+        // Helper: Create Gradient based on value
+        function getGradient(ctx, chartArea) {
+            const chartWidth = chartArea.right - chartArea.left;
+            const chartHeight = chartArea.bottom - chartArea.top;
+            if (!chartWidth || !chartHeight) return null;
+            
+            // This gradient is vertical (Risk High = Red, Risk Low = Green)
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, '#10b981'); // Low Risk (Green)
+            gradient.addColorStop(0.5, '#f59e0b'); // Mid Risk (Orange)
+            gradient.addColorStop(1, '#ef4444'); // High Risk (Red)
+            return gradient;
+        }
+
         new Chart(ctx, {
             type: 'line',
             data: {
                 labels: historyData.map(d => d.date.slice(5)),
                 datasets: [{
                     data: historyData.map(d => d.score),
-                    borderColor: '#2563eb', backgroundColor: gradient, borderWidth: 2, pointRadius: 3, fill: true, tension: 0.3
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#666',
+                    // The magic line color function
+                    borderColor: function(context) {
+                        const chart = context.chart;
+                        const {ctx, chartArea} = chart;
+                        if (!chartArea) return null;
+                        return getGradient(ctx, chartArea);
+                    },
+                    tension: 0.4, // Smooth curve
+                    fill: false 
                 }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: false }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 100 } } }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: false },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
         });
     </script>
 </body>
