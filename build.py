@@ -84,7 +84,7 @@ def get_conflict_risk():
         
         if triggered_headlines:
             # If the score is LOW (Safe), treat "Invasion/War" words as just "Rhetoric"
-            if final_score < 50:
+            if final_score < 60:
                  top_phrase = "Signal: NEWS FLOW"
             
             # If the score is HIGH (Danger), show the specific trigger
