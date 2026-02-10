@@ -54,7 +54,8 @@ def get_conflict_risk():
         
         sentiment_score = 0
         keyword_hits = 0
-        warning_words = ["invasion", "jets", "incursion", "adiz", "war", "missile", "blockade", "drill", "exercise", "live-fire"]
+        # Ordered from "Scary" to "Standard"
+        warning_words = ["missile", "blockade", "live-fire", "invasion", "jets", "incursion", "drill", "exercise"]
         triggered_headlines = []
         
         for entry in entries:
@@ -76,22 +77,33 @@ def get_conflict_risk():
         sentiment_risk = 50 - (avg_sentiment * 50) 
         keyword_risk = keyword_hits * 5
         total = (sentiment_risk * 0.6) + (keyword_risk * 0.4)
+        final_score = int(max(0, min(100, total)))
         
+        # --- THE FIX: SMART SIGNAL LABELING ---
         top_phrase = "Sector Calm"
-        for word in warning_words:
-            if any(word in h.lower() for h in triggered_headlines):
-                top_phrase = f"Signal: {word.upper()}"
-                break
+        
+        if triggered_headlines:
+            # If the score is LOW (Safe), treat "Invasion/War" words as just "Rhetoric"
+            if final_score < 50:
+                 top_phrase = "Signal: NEWS FLOW"
+            
+            # If the score is HIGH (Danger), show the specific trigger
+            else:
+                for word in warning_words:
+                    if any(word in h.lower() for h in triggered_headlines):
+                        top_phrase = f"Signal: {word.upper()}"
+                        break
+        # --------------------------------------
 
         return {
-            "score": int(max(0, min(100, total))),
+            "score": final_score,
             "headlines": triggered_headlines,
             "top_phrase": top_phrase
         }
         
     except Exception as e:
         print(f"News Error: {e}")
-        return {"score": 30, "headlines": [], "top_phrase": "No Data"}
+        return {"score": 30, "headlines": [], "top_phrase": "Data Error"}
 
 # --- 2. VISUALS GENERATION ---
 
