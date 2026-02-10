@@ -38,9 +38,6 @@
         .big-number { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 700; color: var(--text-main); line-height: 1; }
         .trend-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: #f3f4f6; margin-top: 10px; }
         
-        /* GAUGE LABELS */
-        .gauge-label { font-size: 0.75rem; color: #999; font-weight: 700; text-transform: uppercase; position: absolute; bottom: -25px; width: 100%; text-align: center; }
-        
         /* ALERT BAR */
         .alert-bar { background: #1e293b; color: white; padding: 15px 25px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
         .alert-text { font-weight: 600; font-size: 0.95rem; }
@@ -93,7 +90,7 @@
   gtag('config', 'G-MLNGHZLK8D');
 </script>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-10_s27.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-10_s29.png">
 </head>
 <body>
     <nav class="navbar">
@@ -114,10 +111,10 @@
         <div class="card span-2 hero-card">
             <div class="score-left">
                 <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
-                <div class="big-number">27</div>
+                <div class="big-number">29</div>
                 
-                <div class="trend-badge" style="color: #10b981;">
-                    ▼ -2 pts since yesterday
+                <div class="trend-badge" style="color: #ef4444;">
+                    ▲ +2 pts since yesterday
                 </div>
                 
                 <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
@@ -126,7 +123,6 @@
             </div>
             <div class="score-right">
                 <canvas id="gaugeChart"></canvas>
-                <div class="gauge-label">Fear & Greed</div>
             </div>
         </div>
 
@@ -141,10 +137,10 @@
         <div class="card metric-card">
             <div class="metric-header">
                 <span class="metric-title">Conflict Noise</span>
-                <span class="metric-score" style="color: #ef4444;">30</span>
+                <span class="metric-score" style="color: #ef4444;">34</span>
             </div>
             <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
-                <div style="height: 100%; width: 30%; background: #ef4444;"></div>
+                <div style="height: 100%; width: 34%; background: #ef4444;"></div>
             </div>
             <div class="evidence-box">
                 <span class="evidence-label">PRIMARY DRIVER</span>
@@ -198,11 +194,10 @@
     </div>
 
     <script>
-        const score = 27;
-        const historyData = [{"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 27}];
+        const score = 29;
+        const historyData = [{"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}];
 
-        // --- 1. FEAR & GREED GAUGE ---
-        // This plugin draws the "Needle"
+        // --- 1. GAUGE NEEDLE PLUGIN ---
         const gaugeNeedle = {
             id: 'gaugeNeedle',
             afterDatasetDraw(chart, args, options) {
@@ -219,12 +214,12 @@
                 ctx.rotate(angle);
                 ctx.beginPath();
                 ctx.moveTo(0, -2);
-                ctx.lineTo(height - (ctx.canvas.height * 0.25), 0); // Needle Length
+                ctx.lineTo(height - (ctx.canvas.height * 0.25), 0);
                 ctx.lineTo(0, 2);
                 ctx.fillStyle = '#444';
                 ctx.fill();
                 
-                // Draw Pivot Circle
+                // Draw Pivot
                 ctx.rotate(-angle);
                 ctx.beginPath();
                 ctx.arc(0, 0, 5, 0, 10);
@@ -239,10 +234,10 @@
             data: {
                 labels: ['Safe', 'Caution', 'Danger'],
                 datasets: [{
-                    data: [33, 33, 34], // Equal thirds
-                    backgroundColor: ['#10b981', '#f59e0b', '#ef4444'], // Green, Orange, Red
+                    data: [33, 33, 34],
+                    backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
                     borderWidth: 0,
-                    needleValue: score, // The actual score
+                    needleValue: score,
                     cutout: '70%',
                     circumference: 180,
                     rotation: 270,
@@ -256,21 +251,18 @@
             plugins: [gaugeNeedle]
         });
 
-
-        // --- 2. MULTI-COLOR TREND CHART ---
+        // --- 2. MULTI-COLOR GRADIENT TREND CHART ---
         const ctx = document.getElementById('historyChart').getContext('2d');
         
-        // Helper: Create Gradient based on value
         function getGradient(ctx, chartArea) {
             const chartWidth = chartArea.right - chartArea.left;
             const chartHeight = chartArea.bottom - chartArea.top;
             if (!chartWidth || !chartHeight) return null;
             
-            // This gradient is vertical (Risk High = Red, Risk Low = Green)
             const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-            gradient.addColorStop(0, '#10b981'); // Low Risk (Green)
-            gradient.addColorStop(0.5, '#f59e0b'); // Mid Risk (Orange)
-            gradient.addColorStop(1, '#ef4444'); // High Risk (Red)
+            gradient.addColorStop(0, '#10b981'); // Green
+            gradient.addColorStop(0.5, '#f59e0b'); // Orange
+            gradient.addColorStop(1, '#ef4444'); // Red
             return gradient;
         }
 
@@ -284,14 +276,13 @@
                     pointRadius: 4,
                     pointBackgroundColor: '#fff',
                     pointBorderColor: '#666',
-                    // The magic line color function
                     borderColor: function(context) {
                         const chart = context.chart;
                         const {ctx, chartArea} = chart;
                         if (!chartArea) return null;
                         return getGradient(ctx, chartArea);
                     },
-                    tension: 0.4, // Smooth curve
+                    tension: 0.4,
                     fill: false 
                 }]
             },
