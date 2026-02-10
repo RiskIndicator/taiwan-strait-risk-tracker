@@ -8,7 +8,7 @@
     
     
     
-    <meta name="twitter:site" content="@YourActualHandle">
+    <link rel="canonical" href="https://taiwanstraittracker.com/" />
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -16,11 +16,17 @@
     <style>
         :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --border: #e5e7eb; }
         body { background-color: var(--bg); background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 60px; }
-        .navbar { background: var(--card); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 40px; }
+        
+        /* Navbar */
+        .navbar { background: var(--card); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 30px; }
         .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; color: #111; text-decoration: none; }
         .dot { width: 10px; height: 10px; background: #2563eb; border-radius: 50%; }
-        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .twitter-btn { background: #000; color: #fff !important; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem !important; display: flex; align-items: center; gap: 6px; }
+
+        /* Layout */
         .container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .span-2 { grid-column: span 2; }
@@ -32,6 +38,19 @@
         .big-number { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 700; color: var(--text-main); line-height: 1; }
         .trend-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.9rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: #f3f4f6; margin-top: 10px; }
         
+        /* ALERT BAR (NEW) */
+        .alert-bar { background: #1e293b; color: white; padding: 15px 25px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
+        .alert-text { font-weight: 600; font-size: 0.95rem; }
+        .alert-btn { background: #3b82f6; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s; }
+        .alert-btn:hover { background: #2563eb; }
+
+        /* FEATURED ARTICLE (NEW) */
+        .featured-article { display: flex; gap: 20px; text-decoration: none; color: inherit; align-items: center; }
+        .featured-thumb { width: 120px; height: 80px; background: #eee; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+        .featured-content h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #111; }
+        .featured-content p { margin: 0; font-size: 0.9rem; color: #666; line-height: 1.4; }
+        .featured-tag { font-size: 0.75rem; color: #2563eb; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: block; }
+
         /* METRICS */
         .metric-card { display: flex; flex-direction: column; justify-content: flex-start; }
         .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -40,43 +59,24 @@
         .evidence-box { background: #f9fafb; border-left: 3px solid #e5e7eb; padding: 10px 15px; font-size: 0.85rem; color: #4b5563; margin-top: 15px; border-radius: 0 4px 4px 0; }
         .evidence-label { font-size: 0.75rem; font-weight: 700; color: #9ca3af; margin-bottom: 4px; display: block; }
 
-        /* AD & CHART */
+        /* CHART & ADS */
         .chart-box { height: 250px; width: 100%; }
         .ad-box { background: #f9fafb; border: 1px dashed var(--border); height: 100px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #9ca3af; }
-        .archive-list { list-style: none; padding: 0; margin: 0; }
-        .archive-list li { border-bottom: 1px solid #f3f4f6; padding: 10px 0; }
-        .archive-list a { color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-
-        @media (max-width: 600px) { .container { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } .hero-card { flex-direction: column-reverse; text-align: center; gap: 20px; } }
         
-        /* MOBILE NAVBAR FIX */
-        @media (max-width: 600px) {
-            .nav-inner {
-                flex-direction: column; /* Stack items vertically */
-                align-items: flex-start; /* Align to the left */
-                padding-bottom: 10px;
-            }
+        /* MOBILE FIXES */
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .span-2 { grid-column: span 1; }
+            .hero-card { flex-direction: column-reverse; text-align: center; gap: 20px; }
+            .alert-bar { flex-direction: column; text-align: center; gap: 15px; }
             
-            .brand {
-                margin-bottom: 15px; /* Space between logo and links */
-                width: 100%;
-            }
-        
-            .nav-links {
-                width: 100%;
-                display: flex;
-                justify-content: space-between; /* Spread links across width */
-                gap: 10px;
-            }
-        
-            .nav-links a {
-                margin-left: 0; /* Remove desktop spacing */
-                font-size: 0.85rem; /* Slightly smaller text */
-            }
+            /* Navbar Mobile */
+            .nav-inner { flex-direction: column !important; align-items: flex-start !important; padding-bottom: 10px; }
+            .brand { margin-bottom: 15px !important; width: 100% !important; display: block !important; }
+            .nav-links { width: 100% !important; display: flex !important; justify-content: space-between !important; gap: 10px !important; }
+            .nav-links a { margin-left: 0 !important; font-size: 0.85rem !important; }
         }
-       
     </style>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -86,23 +86,35 @@
   gtag('config', 'G-MLNGHZLK8D');
 </script>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-10_s32.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-10_s29.png">
 </head>
 <body>
-    <nav class="navbar"><div class="nav-inner"><div class="brand"><div class="dot"></div> Taiwan Strait Tracker</div><div class="nav-links"><a href="articles.html">Analysis</a> <a href="about.html">Methodology</a><a href="privacy.html">Privacy</a></div></div></nav>
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="brand"><div class="dot"></div> Taiwan Strait Tracker</a>
+            <div class="nav-links">
+                <a href="articles.html">Analysis</a>
+                <a href="about.html">Methodology</a>
+                <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    @StraitTracker
+                </a>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="card span-2 hero-card">
             <div class="score-left">
                 <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
-                <div class="big-number">32</div>
+                <div class="big-number">29</div>
                 
-                <div class="trend-badge" style="color: ;">
-                    ▼ -1 since yesterday
+                <div class="trend-badge" style="color: #10b981;">
+                    ▼ -3 pts since yesterday
                 </div>
                 
                 <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
-                    <strong style="color: #f59e0b">ELEVATED:</strong> Heightened rhetorical noise detected.
+                    <strong style="color: #10b981">NOMINAL:</strong> Standard variance. No indicators.
                 </p>
             </div>
             <div class="score-right">
@@ -110,17 +122,25 @@
             </div>
         </div>
 
+        <div class="span-2 alert-bar">
+            <div class="alert-text">
+                <span style="font-size:1.2rem; margin-right: 5px;">🔔</span> 
+                Get notified instantly when Risk Index spikes > 50.
+            </div>
+            <a href="https://twitter.com/StraitTracker" target="_blank" class="alert-btn">Follow for Alerts</a>
+        </div>
+
         <div class="card metric-card">
             <div class="metric-header">
                 <span class="metric-title">Conflict Noise</span>
-                <span class="metric-score" style="color: #ef4444;">39</span>
+                <span class="metric-score" style="color: #ef4444;">34</span>
             </div>
             <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
-                <div style="height: 100%; width: 39%; background: #ef4444;"></div>
+                <div style="height: 100%; width: 34%; background: #ef4444;"></div>
             </div>
             <div class="evidence-box">
                 <span class="evidence-label">PRIMARY DRIVER</span>
-                "Taiwan: Why an invasion could trigger a multi-front war - Table.Briefings"
+                "71% of experts say Russia would give limited military aid to China for Taiwan invasion - Taiwan News"
             </div>
         </div>
 
@@ -139,15 +159,21 @@
         </div>
 
         <div class="card span-2">
-            <h3 style="margin-top: 0; font-size: 1rem;">30-Day Trend</h3>
-            <div class="chart-box"><canvas id="historyChart"></canvas></div>
+            <h3 style="margin-top: 0; font-size: 0.9rem; color:#999; text-transform:uppercase; margin-bottom:15px;">Featured Intelligence</h3>
+            
+            <a href="articles/silicon-shield.html" class="featured-article">
+                <img src="public/silicon-shield-thumb.png" class="featured-thumb">
+                <div class="featured-content">
+                    <span class="featured-tag">Market Impact</span>
+                    <h3>The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</h3>
+                    <p>Does a 1% dip in TSMC really predict conflict? We analyzed 5 years of data.</p>
+                </div>
+            </a>
         </div>
 
         <div class="card span-2">
-            <h3 style="margin-top: 0; font-size: 1rem;">Daily Intelligence Briefings</h3>
-            
-                <p style="color: #999; font-style: italic;">Briefings will appear here starting tomorrow.</p>
-            
+            <h3 style="margin-top: 0; font-size: 1rem;">30-Day Trend</h3>
+            <div class="chart-box"><canvas id="historyChart"></canvas></div>
         </div>
 
         <div class="card span-2 ad-box">
@@ -158,9 +184,9 @@
 
     <script>
         // DATA INJECTION
-        const score = 32;
-        const color = "#f59e0b";
-        const historyData = [{"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 32}];
+        const score = 29;
+        const color = "#10b981";
+        const historyData = [{"date": "2026-01-12", "score": 31}, {"date": "2026-01-13", "score": 45}, {"date": "2026-01-14", "score": 33}, {"date": "2026-01-15", "score": 44}, {"date": "2026-01-16", "score": 43}, {"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}];
 
         // GAUGE
         new Chart(document.getElementById('gaugeChart'), {
