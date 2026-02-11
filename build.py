@@ -189,7 +189,7 @@ def main():
     conflict_score = conflict_data['score']
     final_score = int((market_score * MARKET_WEIGHT) + (conflict_score * CONFLICT_WEIGHT))
 
-    if final_score < 30:
+    if final_score < 40:
         status = "NOMINAL"; color = "#10b981"; summary = "Standard variance. No indicators."
     elif final_score < 60:
         status = "ELEVATED"; color = "#f59e0b"; summary = "Heightened rhetorical noise detected."
