@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Taiwan Strait Risk Tracker</title>
+    <title>Methodology - Taiwan Strait Risk Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #f4f4f9; --card: #ffffff; --text: #333; --accent: #2c3e50; }
@@ -17,7 +16,7 @@
             line-height: 1.6;
         }
         .container { 
-            max-width: 700px; 
+            max-width: 800px; 
             margin: 0 auto; 
             background: var(--card); 
             padding: 40px; 
@@ -30,33 +29,51 @@
             color: var(--accent); 
             margin-top: 0;
         }
+        h2 { color: var(--accent); margin-top: 40px; font-size: 1.4rem; }
         h3 { color: var(--accent); margin-top: 30px; }
         a { color: #007bff; text-decoration: none; }
         a:hover { text-decoration: underline; }
-        .footer-link { 
-            display: inline-block; 
-            margin-top: 30px; 
-            font-weight: 600; 
-            color: #666; 
-        }
+        .disclaimer-box { background: #f8fafc; border-left: 4px solid #64748b; padding: 20px; margin-top: 40px; font-size: 0.9rem; }
     </style>
 </head>
-</head>
 <body>
-    <h1>About the Index</h1>
-    <p>The <strong>Taiwan Strait Risk Tracker</strong> is an automated open-source intelligence (OSINT) project designed to quantify geopolitical tension in the Indo-Pacific region.</p>
-    
-    <h3>Methodology</h3>
-    <p>Our algorithm aggregates data from three primary vectors to calculate a daily "Risk Score" (0-100):</p>
-    <ul>
-        <li><strong>Economic Anxiety:</strong> Real-time volatility comparison between the Taiwan Stock Exchange (specifically semiconductor assets) and the US S&P 500.</li>
-        <li><strong>Military Signaling:</strong> Keyword frequency analysis of global reporting on ADIZ (Air Defence Identification Zone) incursions.</li>
-        <li><strong>Rhetorical Sentiment:</strong> Natural Language Processing (NLP) analysis of headlines involving cross-strait relations.</li>
-    </ul>
+    <div class="container">
+        <h1>Methodology & Data Architecture</h1>
+        <p class="lead">The <strong>Taiwan Strait Risk Tracker</strong> is an automated Open Source Intelligence (OSINT) tool designed to quantify geopolitical tension and separate actionable market signals from rhetorical noise.</p>
+        
+        <h2>1. The Core Philosophy: Signal vs. Noise</h2>
+        <p>Geopolitical news is inherently biased towards alarmism. A single military exercise can generate thousands of headlines, creating a false perception of imminent conflict. Our platform exists to provide a cold, mathematical assessment of risk by anchoring sentiment analysis to real-world capital flows.</p>
 
-    <h3>Disclaimer</h3>
-    <p>This tool is for informational purposes only. It is not financial advice, nor is it a military predictive system. The score is a reflection of current data availability.</p>
-    
-    <p><a href="index.html">&larr; Back to Tracker</a></p>
+        <h2>2. Data Ingestion & Weighting</h2>
+        <p>The Risk Index (scored from 0 to 100) is calculated daily using a proprietary Python-based algorithm. It relies on two primary data pillars, each weighted at 50% of the final score.</p>
+
+        <h3>Pillar A: Market Sentiment (The "Silicon Shield")</h3>
+        <p>Capital markets are historically the most accurate leading indicators of geopolitical kinetic action. We track the divergence between the S&P 500 (SPY) and Taiwan Semiconductor Manufacturing Company (TSM).</p>
+        <ul>
+            <li><strong>Rationale:</strong> If insiders or institutional algorithms detect genuine, imminent risk to Taiwan, the "Silicon Shield" (TSM) will experience aggressive sell-offs while the broader US market remains relatively stable.</li>
+            <li><strong>Calculation:</strong> We measure the 5-day rolling delta between TSM and SPY openings and closings. Minor volatility is ignored. High divergence triggers escalating risk multipliers.</li>
+        </ul>
+
+        <h3>Pillar B: Conflict Signal Tracking</h3>
+        <p>We monitor real-time global news flow related to the Taiwan Strait to gauge the temperature of diplomatic and military rhetoric.</p>
+        <ul>
+            <li><strong>Sentiment Analysis:</strong> We utilise Natural Language Processing (NLP) to evaluate the polarity of the top 20 daily news developments.</li>
+            <li><strong>Keyword Triggers:</strong> The algorithm scans for escalation terminology (e.g., "blockade", "live-fire", "incursion"). The presence of these terms acts as an immediate risk amplifier, shifting the platform's status from "Nominal" to "Elevated" or "High Risk".</li>
+        </ul>
+
+        <h2>3. The Risk Matrix</h2>
+        <p>The final combined score determines the daily status:</p>
+        <ul>
+            <li><strong>0 to 39 (NOMINAL):</strong> Standard geopolitical posturing. Market divergence is minimal.</li>
+            <li><strong>40 to 59 (ELEVATED):</strong> Heightened rhetoric or notable market anxiety. Close monitoring advised.</li>
+            <li><strong>60 to 100 (HIGH RISK):</strong> Severe market divergence coupled with kinetic military signals.</li>
+        </ul>
+
+        <div class="disclaimer-box">
+            <strong>Disclaimer:</strong> This tool is for educational and informational purposes only. It is not financial advice, investment advice, or a definitive military forecast. Geopolitics is inherently unpredictable.
+        </div>
+        
+        <p style="margin-top: 30px;"><a href="index.html">&larr; Back to Tracker</a></p>
+    </div>
 </body>
 </html>
