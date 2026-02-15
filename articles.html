@@ -25,6 +25,9 @@
         /* Layout */
         .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
         
+        /* Category Headers */
+        .category-header { font-family: 'Inter', sans-serif; font-size: 1.4rem; color: var(--accent); margin: 50px 0 20px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
+        
         /* Article Card Style */
         .article-card { background: var(--card); border: 1px solid #e5e7eb; border-radius: 12px; padding: 30px; margin-bottom: 30px; transition: transform 0.2s; }
         .article-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
@@ -37,33 +40,28 @@
         /* Disclaimer Box */
         .disclaimer-box { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 15px; margin-bottom: 40px; font-size: 0.9rem; border-radius: 4px; }
 
-        
         /* MOBILE NAVBAR FIX */
         @media (max-width: 600px) {
             .nav-inner {
-                flex-direction: column; /* Stack items vertically */
-                align-items: flex-start; /* Align to the left */
+                flex-direction: column; 
+                align-items: flex-start; 
                 padding-bottom: 10px;
             }
-            
             .brand {
-                margin-bottom: 15px; /* Space between logo and links */
+                margin-bottom: 15px; 
                 width: 100%;
             }
-        
             .nav-links {
                 width: 100%;
                 display: flex;
-                justify-content: space-between; /* Spread links across width */
+                justify-content: space-between; 
                 gap: 10px;
             }
-        
             .nav-links a {
-                margin-left: 0; /* Remove desktop spacing */
-                font-size: 0.85rem; /* Slightly smaller text */
+                margin-left: 0; 
+                font-size: 0.85rem; 
             }
         }
-        
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
 <script>
@@ -94,22 +92,120 @@
             <strong>⚠️ Editor's Note on Currency:</strong> Our analysis articles are static snapshots based on data available at the time of writing. Geopolitical situations can change rapidly. Always cross-reference our <a href="/" style="color:inherit; text-decoration:underline;">Live Dashboard</a> for real-time risk scores before making decisions.
         </div>
 
+        <h2 class="category-header">Market Intelligence</h2>
+
         <div class="article-card">
-            <div class="article-meta">Travel Safety • Feb 2026</div>
-            <h2 class="article-title"><a href="articles/is-taiwan-safe-2026.html">Is Taiwan Safe to Visit in 2026? A Data-Driven Guide</a></h2>
+            <div class="article-meta">Market Impact • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/silicon-shield.html">The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</a></h3>
             <p class="article-excerpt">
-                Despite the headlines, every major government currently rates Taiwan as "Level 1" safe. We break down the real risks (scooters, not missiles) and show you how to use our tracker to travel with confidence.
+                Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data to find the truth about the "Geopolitical Discount."
             </p>
-            <a href="articles/is-taiwan-safe-2026.html" class="read-more">Read Full Analysis &rarr;</a>
+            <a href="articles/silicon-shield.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">Supply Chain • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/beyond-tsmc-blockade.html">Beyond TSMC: How a Taiwan Blockade Would Disrupt Apple and Nvidia</a></h3>
+            <p class="article-excerpt">
+                A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's AI hardware shipments within 48 hours.
+            </p>
+            <a href="articles/beyond-tsmc-blockade.html" class="read-more">Read Full Analysis &rarr;</a>
         </div>
 
         <div class="article-card">
             <div class="article-meta">Market Impact • Feb 2026</div>
-            <h2 class="article-title"><a href="articles/silicon-shield.html">The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</a></h2>
+            <h3 class="article-title"><a href="articles/war-games-and-wall-street.html">War Games and Wall Street: Why the S&P 500 Usually Ignores ADIZ Incursions</a></h3>
             <p class="article-excerpt">
-                Does a 1% dip in TSMC really predict conflict? We analyzed 5 years of S&P 500 correlation data to find the truth about the "Geopolitical Discount."
+                Retail investors panic during military drills, but institutional capital usually shrugs. Here is why the S&P 500 ignores routine aviation manoeuvres.
             </p>
-            <a href="articles/silicon-shield.html" class="read-more">Read Full Analysis &rarr;</a>
+            <a href="articles/war-games-and-wall-street.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">Supply Chain • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/semiconductor-supply-chain.html">The Semiconductor Supply Chain: What Happens if Taiwan's Ports Close for 48 Hours?</a></h3>
+            <p class="article-excerpt">
+                We model a 48 hour commercial quarantine of Taiwan's ports. The resulting bullwhip effect would trigger a global manufacturing recession.
+            </p>
+            <a href="articles/semiconductor-supply-chain.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <h2 class="category-header">Geopolitical Briefings</h2>
+
+        <div class="article-card">
+            <div class="article-meta">Context • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/median-line-explained.html">The Median Line Explained: The Invisible Border Keeping the Peace</a></h3>
+            <p class="article-excerpt">
+                For 70 years, a theoretical line kept the superpowers apart. Since 2022, the PLA has systematically erased this vital buffer zone.
+            </p>
+            <a href="articles/median-line-explained.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">Context • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/what-is-an-adiz.html">What is an ADIZ? (And Why Flying Into It Is Not an Invasion)</a></h3>
+            <p class="article-excerpt">
+                Media outlets constantly conflate Air Defence Identification Zones with sovereign airspace. Understand the legal difference to filter out fearmongering.
+            </p>
+            <a href="articles/what-is-an-adiz.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">Frontline • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/kinmen-frontline-explained.html">The Kinmen Islands: The Frontline of Cross-Strait Tensions Explained</a></h3>
+            <p class="article-excerpt">
+                Sitting just two kilometres from China, these heavily fortified islands are the ultimate frontline for Beijing's aggressive maritime grey zone tactics.
+            </p>
+            <a href="articles/kinmen-frontline-explained.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">Strategy • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/grey-zone-tactics.html">Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot</a></h3>
+            <p class="article-excerpt">
+                Sand dredgers, agricultural bans, and cyber warfare. How China tests Taiwan's resilience daily without ever firing a single kinetic shot.
+            </p>
+            <a href="articles/grey-zone-tactics.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <h2 class="category-header">OSINT & Methodology</h2>
+
+        <div class="article-card">
+            <div class="article-meta">OSINT • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/tracking-military-flights.html">How to Track Chinese Military Flights: A Beginner's Guide</a></h3>
+            <p class="article-excerpt">
+                You do not need a security clearance to monitor the PLA. A beginner's guide to using ADS-B Exchange and official OSINT to track military flights.
+            </p>
+            <a href="articles/tracking-military-flights.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">Methodology • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/signal-vs-noise.html">Signal vs Noise: Why We Ignore 90% of Taiwan Strait News Headlines</a></h3>
+            <p class="article-excerpt">
+                Our NLP algorithm strips away emotional journalism to find the real threat. Why we classify 90% of geopolitical headlines as background radiation.
+            </p>
+            <a href="articles/signal-vs-noise.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <div class="article-card">
+            <div class="article-meta">OSINT • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/decoding-diplomatic-speak.html">Decoding Diplomatic Speak: What a "Red Line" Actually Means</a></h3>
+            <p class="article-excerpt">
+                When Beijing mentions a "red line," it is a highly calibrated trigger. How we track the escalation ladder of US-China diplomatic rhetoric.
+            </p>
+            <a href="articles/decoding-diplomatic-speak.html" class="read-more">Read Full Analysis &rarr;</a>
+        </div>
+
+        <h2 class="category-header">Regional Practicalities</h2>
+
+        <div class="article-card">
+            <div class="article-meta">Travel Safety • Feb 2026</div>
+            <h3 class="article-title"><a href="articles/is-taiwan-safe-2026.html">Is Taiwan Safe to Visit in 2026? A Data-Driven Guide</a></h3>
+            <p class="article-excerpt">
+                Despite the headlines, every major government currently rates Taiwan as "Level 1" safe. We break down the real risks (scooters, not missiles) and show you how to travel with confidence.
+            </p>
+            <a href="articles/is-taiwan-safe-2026.html" class="read-more">Read Full Analysis &rarr;</a>
         </div>
 
     </div>
