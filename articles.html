@@ -6,61 +6,65 @@
     <title>Analysis & Insights | Taiwan Strait Tracker</title>
     <meta name="description" content="Deep dive analysis on Taiwan Strait geopolitics, travel safety, and market impacts.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718" crossorigin="anonymous"></script>
 
     <style>
-        :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --accent: #2563eb; }
-        body { background-color: var(--bg); color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 60px; line-height: 1.6; }
+        :root { --bg: #f8fafc; --card: #ffffff; --text-main: #0f172a; --text-sub: #64748b; --accent: #2563eb; --border: #e2e8f0; }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 80px; line-height: 1.6; }
         
         /* Navbar */
-        .navbar { background: var(--card); border-bottom: 1px solid #e5e7eb; padding: 15px 0; margin-bottom: 40px; }
-        .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .navbar { background: var(--card); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 40px; }
+        .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--text-main); display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
         .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
-        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; transition: color 0.2s; }
+        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text-main); }
 
         /* Layout */
-        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         
-        /* Category Headers */
-        .category-header { font-family: 'Inter', sans-serif; font-size: 1.4rem; color: var(--accent); margin: 50px 0 20px 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
-        
-        /* Article Card Style */
-        .article-card { background: var(--card); border: 1px solid #e5e7eb; border-radius: 12px; padding: 30px; margin-bottom: 30px; transition: transform 0.2s; }
-        .article-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-        .article-meta { color: var(--text-sub); font-size: 0.85rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-        .article-title { font-family: 'Merriweather', serif; font-size: 1.8rem; font-weight: 700; margin: 10px 0; color: #111; }
-        .article-title a { text-decoration: none; color: inherit; }
-        .article-excerpt { color: #4b5563; margin-bottom: 20px; font-size: 1.05rem; }
-        .read-more { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
-        
-        /* Disclaimer Box */
-        .disclaimer-box { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 15px; margin-bottom: 40px; font-size: 0.9rem; border-radius: 4px; }
+        /* Header Section */
+        .page-header { margin-bottom: 50px; text-align: center; }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -1px; }
+        .page-header p { color: var(--text-sub); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-        /* MOBILE NAVBAR FIX */
-        @media (max-width: 600px) {
-            .nav-inner {
-                flex-direction: column; 
-                align-items: flex-start; 
-                padding-bottom: 10px;
-            }
-            .brand {
-                margin-bottom: 15px; 
-                width: 100%;
-            }
-            .nav-links {
-                width: 100%;
-                display: flex;
-                justify-content: space-between; 
-                gap: 10px;
-            }
-            .nav-links a {
-                margin-left: 0; 
-                font-size: 0.85rem; 
-            }
+        /* Disclaimer Box */
+        .disclaimer-box { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 15px 20px; margin-bottom: 50px; font-size: 0.9rem; border-radius: 4px; text-align: center; }
+
+        /* Category Headers */
+        .category-header { font-family: 'Inter', sans-serif; font-size: 1.5rem; color: #1e293b; margin: 60px 0 20px 0; border-bottom: 2px solid var(--border); padding-bottom: 10px; font-weight: 800; letter-spacing: -0.5px; }
+        
+        /* CSS Grid for Articles */
+        .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        
+        /* Article Card (Premium Styling) */
+        .article-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .article-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.15); border-color: #cbd5e1; }
+        
+        /* Card Image Wrapper */
+        .card-img-wrapper { height: 180px; background-color: #e2e8f0; width: 100%; overflow: hidden; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .article-card:hover .card-img { transform: scale(1.05); }
+        
+        /* Card Content */
+        .card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .article-meta { color: var(--accent); font-size: 0.75rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        .article-title { font-family: 'Merriweather', serif; font-size: 1.3rem; font-weight: 700; margin: 0 0 12px 0; line-height: 1.4; color: #0f172a; }
+        .article-title a { text-decoration: none; color: inherit; }
+        .article-excerpt { color: var(--text-sub); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.5; flex-grow: 1; }
+        .read-more { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: border-color 0.2s; align-self: flex-start; }
+        .article-card:hover .read-more { border-color: var(--accent); color: var(--accent); }
+
+        /* MOBILE FIXES */
+        @media (max-width: 768px) {
+            .nav-inner { flex-direction: column; align-items: flex-start; padding-bottom: 10px; }
+            .brand { margin-bottom: 15px; width: 100%; }
+            .nav-links { width: 100%; display: flex; justify-content: space-between; gap: 10px; }
+            .nav-links a { margin-left: 0; }
+            .articles-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2rem; }
         }
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
@@ -68,7 +72,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-MLNGHZLK8D');
 </script>
 </head>
@@ -85,127 +88,171 @@
     </nav>
 
     <div class="container">
-        <h1>Analysis & Insights</h1>
-        <p style="color: #666; margin-bottom: 30px;">Data-driven reports on safety, markets, and geopolitics.</p>
+        
+        <div class="page-header">
+            <h1>Intelligence Library</h1>
+            <p>Data-driven briefings on Indo Pacific geopolitics, market impacts, and supply chain vulnerabilities.</p>
+        </div>
 
         <div class="disclaimer-box">
-            <strong>⚠️ Editor's Note on Currency:</strong> Our analysis articles are static snapshots based on data available at the time of writing. Geopolitical situations can change rapidly. Always cross-reference our <a href="/" style="color:inherit; text-decoration:underline;">Live Dashboard</a> for real-time risk scores before making decisions.
+            <strong>⚠️ Editor's Note:</strong> Our analysis articles are static snapshots. Geopolitical situations can change rapidly. Always cross-reference our <a href="/" style="color:inherit; text-decoration:underline;">Live Dashboard</a> for real-time risk scores.
         </div>
 
-        <h2 class="category-header">Market Intelligence</h2>
+        <h2 class="category-header">Market & Supply Chain</h2>
+        <div class="articles-grid">
+            
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="public/silicon-shield-thumb.png" alt="TSMC Market Chart" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Market Impact</div>
+                    <h3 class="article-title"><a href="articles/silicon-shield.html">The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</a></h3>
+                    <p class="article-excerpt">Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data to find the truth about the "Geopolitical Discount."</p>
+                    <a href="articles/silicon-shield.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
 
-        <div class="article-card">
-            <div class="article-meta">Market Impact • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/silicon-shield.html">The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</a></h3>
-            <p class="article-excerpt">
-                Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data to find the truth about the "Geopolitical Discount."
-            </p>
-            <a href="articles/silicon-shield.html" class="read-more">Read Full Analysis &rarr;</a>
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Supply Chain" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Vulnerability</div>
+                    <h3 class="article-title"><a href="articles/beyond-tsmc-blockade.html">Beyond TSMC: How a Taiwan Blockade Would Disrupt Apple and Nvidia</a></h3>
+                    <p class="article-excerpt">A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's AI hardware shipments within 48 hours.</p>
+                    <a href="articles/beyond-tsmc-blockade.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Wall Street" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Financial Markets</div>
+                    <h3 class="article-title"><a href="articles/war-games-and-wall-street.html">War Games and Wall Street: Why the S&P 500 Ignores ADIZ Incursions</a></h3>
+                    <p class="article-excerpt">Retail investors panic during military drills, but institutional capital usually shrugs. Here is why the S&P 500 ignores routine aviation manoeuvres.</p>
+                    <a href="articles/war-games-and-wall-street.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Logistics" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Logistics</div>
+                    <h3 class="article-title"><a href="articles/semiconductor-supply-chain.html">The Semiconductor Supply Chain: What Happens if Ports Close for 48 Hours?</a></h3>
+                    <p class="article-excerpt">We model a 48 hour commercial quarantine of Taiwan's ports. The resulting bullwhip effect would trigger a global manufacturing recession.</p>
+                    <a href="articles/semiconductor-supply-chain.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
         </div>
 
-        <div class="article-card">
-            <div class="article-meta">Supply Chain • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/beyond-tsmc-blockade.html">Beyond TSMC: How a Taiwan Blockade Would Disrupt Apple and Nvidia</a></h3>
-            <p class="article-excerpt">
-                A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's AI hardware shipments within 48 hours.
-            </p>
-            <a href="articles/beyond-tsmc-blockade.html" class="read-more">Read Full Analysis &rarr;</a>
+        <h2 class="category-header">Geopolitical Context</h2>
+        <div class="articles-grid">
+
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Median Line Map" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Territory</div>
+                    <h3 class="article-title"><a href="articles/median-line-explained.html">The Median Line Explained: The Invisible Border Keeping the Peace</a></h3>
+                    <p class="article-excerpt">For 70 years, a theoretical line kept the superpowers apart. Since 2022, the PLA has systematically erased this vital buffer zone.</p>
+                    <a href="articles/median-line-explained.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="ADIZ Explainer" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Airspace</div>
+                    <h3 class="article-title"><a href="articles/what-is-an-adiz.html">What is an ADIZ? (And Why Flying Into It Is Not an Invasion)</a></h3>
+                    <p class="article-excerpt">Media outlets constantly conflate Air Defence Identification Zones with sovereign airspace. Understand the legal difference to filter out fearmongering.</p>
+                    <a href="articles/what-is-an-adiz.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Kinmen Islands" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Flashpoint</div>
+                    <h3 class="article-title"><a href="articles/kinmen-frontline-explained.html">The Kinmen Islands: The Frontline of Cross-Strait Tensions Explained</a></h3>
+                    <p class="article-excerpt">Sitting just two kilometres from China, these heavily fortified islands are the ultimate frontline for Beijing's aggressive maritime grey zone tactics.</p>
+                    <a href="articles/kinmen-frontline-explained.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
+
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Grey Zone Tactics" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Strategy</div>
+                    <h3 class="article-title"><a href="articles/grey-zone-tactics.html">Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot</a></h3>
+                    <p class="article-excerpt">Sand dredgers, agricultural bans, and cyber warfare. How China tests Taiwan's resilience daily without ever firing a single kinetic shot.</p>
+                    <a href="articles/grey-zone-tactics.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
         </div>
 
-        <div class="article-card">
-            <div class="article-meta">Market Impact • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/war-games-and-wall-street.html">War Games and Wall Street: Why the S&P 500 Usually Ignores ADIZ Incursions</a></h3>
-            <p class="article-excerpt">
-                Retail investors panic during military drills, but institutional capital usually shrugs. Here is why the S&P 500 ignores routine aviation manoeuvres.
-            </p>
-            <a href="articles/war-games-and-wall-street.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
+        <h2 class="category-header">OSINT & Tracking Methodology</h2>
+        <div class="articles-grid">
 
-        <div class="article-card">
-            <div class="article-meta">Supply Chain • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/semiconductor-supply-chain.html">The Semiconductor Supply Chain: What Happens if Taiwan's Ports Close for 48 Hours?</a></h3>
-            <p class="article-excerpt">
-                We model a 48 hour commercial quarantine of Taiwan's ports. The resulting bullwhip effect would trigger a global manufacturing recession.
-            </p>
-            <a href="articles/semiconductor-supply-chain.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Flight Tracking" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Data Gathering</div>
+                    <h3 class="article-title"><a href="articles/tracking-military-flights.html">How to Track Chinese Military Flights: A Beginner's Guide</a></h3>
+                    <p class="article-excerpt">You do not need a security clearance to monitor the PLA. A beginner's guide to using ADS-B Exchange and official OSINT to track military flights.</p>
+                    <a href="articles/tracking-military-flights.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
 
-        <h2 class="category-header">Geopolitical Briefings</h2>
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Data Analytics" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Sentiment Analysis</div>
+                    <h3 class="article-title"><a href="articles/signal-vs-noise.html">Signal vs Noise: Why We Ignore 90% of Taiwan Strait News Headlines</a></h3>
+                    <p class="article-excerpt">Our NLP algorithm strips away emotional journalism to find the real threat. Why we classify 90% of geopolitical headlines as background radiation.</p>
+                    <a href="articles/signal-vs-noise.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
 
-        <div class="article-card">
-            <div class="article-meta">Context • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/median-line-explained.html">The Median Line Explained: The Invisible Border Keeping the Peace</a></h3>
-            <p class="article-excerpt">
-                For 70 years, a theoretical line kept the superpowers apart. Since 2022, the PLA has systematically erased this vital buffer zone.
-            </p>
-            <a href="articles/median-line-explained.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Diplomacy" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">NLP Tracking</div>
+                    <h3 class="article-title"><a href="articles/decoding-diplomatic-speak.html">Decoding Diplomatic Speak: What a "Red Line" Actually Means</a></h3>
+                    <p class="article-excerpt">When Beijing mentions a "red line," it is a highly calibrated trigger. How we track the escalation ladder of US-China diplomatic rhetoric.</p>
+                    <a href="articles/decoding-diplomatic-speak.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
 
-        <div class="article-card">
-            <div class="article-meta">Context • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/what-is-an-adiz.html">What is an ADIZ? (And Why Flying Into It Is Not an Invasion)</a></h3>
-            <p class="article-excerpt">
-                Media outlets constantly conflate Air Defence Identification Zones with sovereign airspace. Understand the legal difference to filter out fearmongering.
-            </p>
-            <a href="articles/what-is-an-adiz.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
+            <div class="article-card">
+                <div class="card-img-wrapper">
+                    <img src="placeholder.jpg" alt="Travel Guide" class="card-img" onerror="this.src='https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Image+Pending'">
+                </div>
+                <div class="card-content">
+                    <div class="article-meta">Travel Security</div>
+                    <h3 class="article-title"><a href="articles/is-taiwan-safe-2026.html">Is Taiwan Safe to Visit in 2026? A Data-Driven Guide</a></h3>
+                    <p class="article-excerpt">Every major government currently rates Taiwan as "Level 1" safe. We break down the real risks and show you how to travel with confidence.</p>
+                    <a href="articles/is-taiwan-safe-2026.html" class="read-more">Read Briefing &rarr;</a>
+                </div>
+            </div>
 
-        <div class="article-card">
-            <div class="article-meta">Frontline • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/kinmen-frontline-explained.html">The Kinmen Islands: The Frontline of Cross-Strait Tensions Explained</a></h3>
-            <p class="article-excerpt">
-                Sitting just two kilometres from China, these heavily fortified islands are the ultimate frontline for Beijing's aggressive maritime grey zone tactics.
-            </p>
-            <a href="articles/kinmen-frontline-explained.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
-
-        <div class="article-card">
-            <div class="article-meta">Strategy • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/grey-zone-tactics.html">Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot</a></h3>
-            <p class="article-excerpt">
-                Sand dredgers, agricultural bans, and cyber warfare. How China tests Taiwan's resilience daily without ever firing a single kinetic shot.
-            </p>
-            <a href="articles/grey-zone-tactics.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
-
-        <h2 class="category-header">OSINT & Methodology</h2>
-
-        <div class="article-card">
-            <div class="article-meta">OSINT • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/tracking-military-flights.html">How to Track Chinese Military Flights: A Beginner's Guide</a></h3>
-            <p class="article-excerpt">
-                You do not need a security clearance to monitor the PLA. A beginner's guide to using ADS-B Exchange and official OSINT to track military flights.
-            </p>
-            <a href="articles/tracking-military-flights.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
-
-        <div class="article-card">
-            <div class="article-meta">Methodology • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/signal-vs-noise.html">Signal vs Noise: Why We Ignore 90% of Taiwan Strait News Headlines</a></h3>
-            <p class="article-excerpt">
-                Our NLP algorithm strips away emotional journalism to find the real threat. Why we classify 90% of geopolitical headlines as background radiation.
-            </p>
-            <a href="articles/signal-vs-noise.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
-
-        <div class="article-card">
-            <div class="article-meta">OSINT • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/decoding-diplomatic-speak.html">Decoding Diplomatic Speak: What a "Red Line" Actually Means</a></h3>
-            <p class="article-excerpt">
-                When Beijing mentions a "red line," it is a highly calibrated trigger. How we track the escalation ladder of US-China diplomatic rhetoric.
-            </p>
-            <a href="articles/decoding-diplomatic-speak.html" class="read-more">Read Full Analysis &rarr;</a>
-        </div>
-
-        <h2 class="category-header">Regional Practicalities</h2>
-
-        <div class="article-card">
-            <div class="article-meta">Travel Safety • Feb 2026</div>
-            <h3 class="article-title"><a href="articles/is-taiwan-safe-2026.html">Is Taiwan Safe to Visit in 2026? A Data-Driven Guide</a></h3>
-            <p class="article-excerpt">
-                Despite the headlines, every major government currently rates Taiwan as "Level 1" safe. We break down the real risks (scooters, not missiles) and show you how to travel with confidence.
-            </p>
-            <a href="articles/is-taiwan-safe-2026.html" class="read-more">Read Full Analysis &rarr;</a>
         </div>
 
     </div>
