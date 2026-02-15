@@ -1,41 +1,123 @@
-<div class="container">
-    <h1>War Games and Wall Street: Why the S&P 500 Usually Ignores ADIZ Incursions</h1>
-    <p style="color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">By Taiwan Strait Tracker Intelligence Team | February 2026</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond TSMC: How a Taiwan Blockade Would Disrupt Apple and Nvidia | StraitTracker</title>
+    <meta name="description" content="A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's AI hardware shipments within 48 hours.">
     
-    <p class="lead">Turn on any major news network during a Chinese military exercise, and the headlines suggest World War III is imminent. Look at the S&P 500 on those same days, and you will see a completely different story.</p>
+    <meta name="twitter:card" content="summary_large_image">
 
-    <p>There is a massive disconnect between geopolitical media reporting and institutional capital allocation. Retail investors often panic when they read about People's Liberation Army (PLA) fighter jets crossing the Taiwan Strait. Hedge funds and algorithmic trading models do not. Our data tracks this exact divergence to separate fear mongering from genuine kinetic risk.</p>
-
-    <h2>The Posturing Premium</h2>
-    <p>To understand Wall Street's apathy, we have to look at the numbers. In 2023, Taiwan reported over 1,700 PLA aircraft entering its Air Defence Identification Zone (ADIZ). Throughout 2024 and 2025, those numbers remained historically high, with frequent multi-vessel naval patrols joining the sorties.</p>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <p>During that exact same window, the S&P 500 (SPY) consistently rallied. The market has completely priced in military posturing as a baseline condition of the Indo-Pacific region.</p>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718" crossorigin="anonymous"></script>
 
-    <blockquote style="border-left: 4px solid #2563eb; padding-left: 15px; margin: 30px 0; font-style: italic; color: #4b5563;">
-        "Institutional capital treats an ADIZ incursion as background noise. It is a diplomatic broadcast, not a tactical pre-invasion manoeuvre."
-    </blockquote>
+    <style>
+        :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --accent: #2563eb; }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Merriweather', serif; line-height: 1.8; margin: 0; padding-bottom: 80px; }
+        
+        /* Navbar */
+        .navbar { background: var(--card); border-bottom: 1px solid #e5e7eb; padding: 15px 0; margin-bottom: 40px; font-family: 'Inter', sans-serif; }
+        .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--text-main); }
+        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
 
-    <h2>ADIZ vs. Territorial Airspace</h2>
-    <p>The media frequently conflates an ADIZ with sovereign airspace. They are not the same thing.</p>
-    <ul>
-        <li><strong>Sovereign Airspace:</strong> Extends 12 nautical miles from the coast. A military flight here is a direct act of war.</li>
-        <li><strong>ADIZ:</strong> A self-declared buffer zone that stretches hundreds of miles, even overlapping with mainland China.</li>
-    </ul>
-    <p>When headlines scream that 30 jets "entered Taiwan's airspace", they almost always mean the ADIZ. Trading algorithms are programmed to recognise this distinction. Until a jet breaches that 12-mile territorial limit, the market registers the event as political theatre.</p>
+        /* Content Layout */
+        .container { max-width: 740px; margin: 0 auto; padding: 0 20px; background: #fff; padding: 50px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        
+        /* Typography */
+        h1 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 2.2rem; margin-bottom: 10px; line-height: 1.3; color: #111; }
+        h2 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.5rem; margin-top: 40px; margin-bottom: 20px; color: #1f2937; }
+        p { margin-bottom: 20px; font-size: 1.05rem; color: #374151; }
+        li { margin-bottom: 10px; color: #374151; }
+        .lead { font-size: 1.2rem; font-weight: 600; color: #111827; margin-bottom: 30px; }
+        
+        /* Disclaimer Box */
+        .disclaimer-box { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 20px; margin: 30px 0; font-size: 0.9rem; font-family: 'Inter', sans-serif; border-radius: 4px; }
+        
+        /* Ad Box */
+        .ad-box { background: #f9fafb; border: 1px dashed #e5e7eb; height: 120px; display: flex; align-items: center; justify-content: center; margin: 40px 0; font-family: sans-serif; color: #9ca3af; font-size: 0.8rem; }
+        
+        /* Buttons/Links */
+        .cta-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 25px; border-radius: 8px; margin: 30px 0; font-family: 'Inter', sans-serif; }
+        .cta-title { font-weight: 700; color: #1e40af; margin-bottom: 10px; display: block; }
+        a { color: #2563eb; text-decoration: underline; }
+        a:hover { color: #1e3a8a; }
 
-    <h2>The Desensitisation Effect</h2>
-    <p>Markets hate uncertainty. However, routine military exercises are highly predictable. Beijing uses them to signal displeasure over specific events, such as a US delegation visiting Taipei or a new arms sale announcement. Because these exercises follow a predictable stimulus response pattern, they carry zero element of surprise.</p>
+        /* Image Styling */
+        .article-img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 30px; display: block; }
+        
+        /* Blockquote */
+        blockquote { border-left: 4px solid #2563eb; padding-left: 15px; margin: 30px 0; font-style: italic; color: #4b5563; }
+
+        /* Responsive */
+        @media (max-width: 600px) { .container { padding: 25px; } h1 { font-size: 1.8rem; } }
+
+        /* MOBILE NAVBAR FIX */
+        @media (max-width: 600px) {
+            .nav-inner { flex-direction: column; align-items: flex-start; padding-bottom: 10px; }
+            .brand { margin-bottom: 15px; width: 100%; }
+            .nav-links { width: 100%; display: flex; justify-content: space-between; gap: 10px; }
+            .nav-links a { margin-left: 0; font-size: 0.85rem; }
+        }
+    </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MLNGHZLK8D');
+</script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="../index.html" class="brand">Taiwan Strait Tracker</a>
+            <div class="nav-links">
+                <a href="../index.html">Dashboard</a>
+                <a href="../articles.html">All Analysis</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>War Games and Wall Street: Why the S&P 500 Usually Ignores ADIZ Incursions</h1>
+        <p style="color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">By Taiwan Strait Tracker Intelligence Team | February 2026</p>
+        
+        <p class="lead">Turn on any major news network during a Chinese military exercise, and the headlines suggest World War III is imminent. Look at the S&P 500 on those same days, and you will see a completely different story.</p>
     
-    <p>We categorise these events as "Conflict Noise". They spike our rhetorical trackers, but they fail to move the needle on our market anxiety metrics.</p>
-
-    <h2>What Actually Triggers a Sell-Off?</h2>
-    <p>If ADIZ flights do not matter, what does? Capital flight.</p>
+        <p>There is a massive disconnect between geopolitical media reporting and institutional capital allocation. Retail investors often panic when they read about People's Liberation Army (PLA) fighter jets crossing the Taiwan Strait. Hedge funds and algorithmic trading models do not. Our data tracks this exact divergence to separate fear mongering from genuine kinetic risk.</p>
     
-    <p>We built the Risk Index to ignore the jets and watch the money. If the US market is stable but the Taiwan Semiconductor Manufacturing Company (TSMC) experiences a sudden, unexplainable 4% drop, that is a red flag. It indicates that regional insiders are moving capital out of the blast radius.</p>
-
-    <div class="disclaimer-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 20px; margin-top: 40px; font-size: 0.9rem;">
-        <strong>Track the Data:</strong> Review our <a href="../about.html">Methodology</a> to see exactly how we weigh ADIZ noise against hard market data.
+        <h2>The Posturing Premium</h2>
+        <p>To understand Wall Street's apathy, we have to look at the numbers. In 2023, Taiwan reported over 1,700 PLA aircraft entering its Air Defence Identification Zone (ADIZ). Throughout 2024 and 2025, those numbers remained historically high, with frequent multi-vessel naval patrols joining the sorties.</p>
+        
+        <p>During that exact same window, the S&P 500 (SPY) consistently rallied. The market has completely priced in military posturing as a baseline condition of the Indo-Pacific region.</p>
+    
+        <blockquote style="border-left: 4px solid #2563eb; padding-left: 15px; margin: 30px 0; font-style: italic; color: #4b5563;">
+            "Institutional capital treats an ADIZ incursion as background noise. It is a diplomatic broadcast, not a tactical pre-invasion manoeuvre."
+        </blockquote>
+    
+        <h2>ADIZ vs. Territorial Airspace</h2>
+        <p>The media frequently conflates an ADIZ with sovereign airspace. They are not the same thing.</p>
+        <ul>
+            <li><strong>Sovereign Airspace:</strong> Extends 12 nautical miles from the coast. A military flight here is a direct act of war.</li>
+            <li><strong>ADIZ:</strong> A self-declared buffer zone that stretches hundreds of miles, even overlapping with mainland China.</li>
+        </ul>
+        <p>When headlines scream that 30 jets "entered Taiwan's airspace", they almost always mean the ADIZ. Trading algorithms are programmed to recognise this distinction. Until a jet breaches that 12-mile territorial limit, the market registers the event as political theatre.</p>
+    
+        <h2>The Desensitisation Effect</h2>
+        <p>Markets hate uncertainty. However, routine military exercises are highly predictable. Beijing uses them to signal displeasure over specific events, such as a US delegation visiting Taipei or a new arms sale announcement. Because these exercises follow a predictable stimulus response pattern, they carry zero element of surprise.</p>
+        
+        <p>We categorise these events as "Conflict Noise". They spike our rhetorical trackers, but they fail to move the needle on our market anxiety metrics.</p>
+    
+        <h2>What Actually Triggers a Sell-Off?</h2>
+        <p>If ADIZ flights do not matter, what does? Capital flight.</p>
+        
+        <p>We built the Risk Index to ignore the jets and watch the money. If the US market is stable but the Taiwan Semiconductor Manufacturing Company (TSMC) experiences a sudden, unexplainable 4% drop, that is a red flag. It indicates that regional insiders are moving capital out of the blast radius.</p>
+    
+        <div class="disclaimer-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 20px; margin-top: 40px; font-size: 0.9rem;">
+            <strong>Track the Data:</strong> Review our <a href="../about.html">Methodology</a> to see exactly how we weigh ADIZ noise against hard market data.
+        </div>
+        
+        <p style="margin-top: 30px;"><a href="../articles.html">&larr; Back to Analysis Library</a></p>
     </div>
-    
-    <p style="margin-top: 30px;"><a href="../articles.html">&larr; Back to Analysis Library</a></p>
-</div>
