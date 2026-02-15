@@ -6,20 +6,22 @@
     <title>Taiwan Strait Risk Tracker | Live Intelligence</title>
     <meta name="description" content="Real-time geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, market signals, and rhetoric.">
     
+    
+    
     <link rel="canonical" href="https://taiwanstraittracker.com/" />
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --border: #e5e7eb; --accent: #2563eb; }
+        :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --border: #e5e7eb; }
         body { background-color: var(--bg); background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 60px; }
         
         /* Navbar */
         .navbar { background: var(--card); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 30px; }
         .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; color: #111; text-decoration: none; }
-        .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+        .dot { width: 10px; height: 10px; background: #2563eb; border-radius: 50%; }
         .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
         .twitter-btn { background: #000; color: #fff !important; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem !important; display: flex; align-items: center; gap: 6px; }
@@ -40,29 +42,21 @@
         .alert-bar { background: #1e293b; color: white; padding: 15px 25px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0; }
         .alert-text { font-weight: 600; font-size: 0.95rem; }
         .alert-btn { background: #3b82f6; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s; }
-        .alert-btn:hover { background: var(--accent); }
+        .alert-btn:hover { background: #2563eb; }
 
-        /* FEATURED CAROUSEL */
-        .carousel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .carousel-title { margin: 0; font-size: 0.9rem; color:#999; text-transform:uppercase; font-weight: 700; }
-        .carousel-dots { display: flex; gap: 5px; }
-        .c-dot { width: 8px; height: 8px; border-radius: 50%; background: #e5e7eb; transition: background 0.3s; }
-        .c-dot.active { background: var(--accent); }
-        
-        #featured-container { transition: opacity 0.4s ease-in-out; }
+        /* FEATURED ARTICLE */
         .featured-article { display: flex; gap: 20px; text-decoration: none; color: inherit; align-items: center; }
-        .featured-article:hover h3 { color: var(--accent); }
         .featured-thumb { width: 120px; height: 80px; background: #eee; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
-        .featured-content h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #111; transition: color 0.2s; }
+        .featured-content h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #111; }
         .featured-content p { margin: 0; font-size: 0.9rem; color: #666; line-height: 1.4; }
-        .featured-tag { font-size: 0.75rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .featured-tag { font-size: 0.75rem; color: #2563eb; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: block; }
 
         /* METRICS */
         .metric-card { display: flex; flex-direction: column; justify-content: flex-start; }
         .metric-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .metric-title { font-size: 0.85rem; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
         .metric-score { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; }
-        .evidence-box { background: #f9fafb; border-left: 3px solid var(--border); padding: 10px 15px; font-size: 0.85rem; color: #4b5563; margin-top: 15px; border-radius: 0 4px 4px 0; }
+        .evidence-box { background: #f9fafb; border-left: 3px solid #e5e7eb; padding: 10px 15px; font-size: 0.85rem; color: #4b5563; margin-top: 15px; border-radius: 0 4px 4px 0; }
         .evidence-label { font-size: 0.75rem; font-weight: 700; color: #9ca3af; margin-bottom: 4px; display: block; }
 
         /* CHART, ADS, ARCHIVE */
@@ -70,7 +64,7 @@
         .ad-box { background: #f9fafb; border: 1px dashed var(--border); height: 100px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #9ca3af; }
         .archive-list { list-style: none; padding: 0; margin: 0; }
         .archive-list li { border-bottom: 1px solid #f3f4f6; padding: 10px 0; }
-        .archive-list a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+        .archive-list a { color: #2563eb; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
         
         /* MOBILE FIXES */
         @media (max-width: 768px) {
@@ -92,10 +86,11 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-MLNGHZLK8D');
 </script>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-15_s30.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-15_s31.png">
 </head>
 <body>
     <nav class="navbar">
@@ -116,10 +111,10 @@
         <div class="card span-2 hero-card">
             <div class="score-left">
                 <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
-                <div class="big-number">30</div>
+                <div class="big-number">31</div>
                 
-                <div class="trend-badge" style="color: #6b7280;">
-                    ■ - pts since yesterday
+                <div class="trend-badge" style="color: #ef4444;">
+                    ▲ +1 pts since yesterday
                 </div>
                 
                 <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
@@ -142,10 +137,10 @@
         <div class="card metric-card">
             <div class="metric-header">
                 <span class="metric-title">Conflict Noise</span>
-                <span class="metric-score" style="color: #ef4444;">27</span>
+                <span class="metric-score" style="color: #ef4444;">29</span>
             </div>
             <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
-                <div style="height: 100%; width: 27%; background: #ef4444;"></div>
+                <div style="height: 100%; width: 29%; background: #ef4444;"></div>
             </div>
             <div class="evidence-box">
                 <span class="evidence-label">PRIMARY DRIVER</span>
@@ -168,21 +163,14 @@
         </div>
 
         <div class="card span-2">
-            <div class="carousel-header">
-                <h3 class="carousel-title">Featured Intelligence</h3>
-                <div class="carousel-dots">
-                    <div class="c-dot active" id="dot-0"></div>
-                    <div class="c-dot" id="dot-1"></div>
-                    <div class="c-dot" id="dot-2"></div>
-                </div>
-            </div>
+            <h3 style="margin-top: 0; font-size: 0.9rem; color:#999; text-transform:uppercase; margin-bottom:15px;">Featured Intelligence</h3>
             
-            <a href="articles/silicon-shield.html" class="featured-article" id="featured-container">
-                <img src="public/silicon-shield-thumb.png" class="featured-thumb" id="feat-img" onerror="this.src='https://via.placeholder.com/120x80/e2e8f0/94a3b8?text=Intel'">
+            <a href="articles/silicon-shield.html" class="featured-article">
+                <img src="public/silicon-shield-thumb.png" class="featured-thumb">
                 <div class="featured-content">
-                    <span class="featured-tag" id="feat-tag">Market Impact</span>
-                    <h3 id="feat-title">The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</h3>
-                    <p id="feat-excerpt">Does a 1% dip in TSMC really predict conflict? We analysed 5 years of data.</p>
+                    <span class="featured-tag">Market Impact</span>
+                    <h3>The "Silicon Shield": How TSMC Volatility Affects Your Portfolio</h3>
+                    <p>Does a 1% dip in TSMC really predict conflict? We analyzed 5 years of data.</p>
                 </div>
             </a>
         </div>
@@ -195,7 +183,8 @@
         <div class="card span-2">
             <h3 style="margin-top: 0; font-size: 1rem;">Daily Intelligence Briefings</h3>
             <ul class="archive-list">
-                </ul>
+                
+            </ul>
         </div>
 
         <div class="card span-2 ad-box">
@@ -205,65 +194,8 @@
     </div>
 
     <script>
-        // --- FEATURED ARTICLE ROTATOR ---
-        const featuredArticles = [
-            {
-                url: "articles/silicon-shield.html",
-                img: "public/silicon-shield-thumb.png",
-                tag: "Market Impact",
-                title: "The \"Silicon Shield\": How TSMC Volatility Affects Your Portfolio",
-                excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of data."
-            },
-            {
-                url: "articles/what-is-an-adiz.html",
-                img: "public/JADIZ_and_CADIZ_and_KADIZ_in_East_China_Sea.jpg", // Replace with real image when you have it
-                tag: "Airspace",
-                title: "What is an ADIZ? (And Why Flying Into It Is Not an Invasion)",
-                excerpt: "Media outlets constantly conflate Air Defence zones with sovereign airspace. Understand the legal difference."
-            },
-            {
-                url: "articles/grey-zone-tactics.html",
-                img: "public/coastguard.jpg", // Replace with real image when you have it
-                tag: "Strategy",
-                title: "Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot",
-                excerpt: "Sand dredgers, agricultural bans, and cyber warfare. How the conflict is fought daily in the grey zone."
-            }
-        ];
-
-        let currentArticleIdx = 0;
-        
-        function rotateArticle() {
-            const container = document.getElementById('featured-container');
-            container.style.opacity = 0; // Trigger fade out
-            
-            setTimeout(() => {
-                // Update dots
-                document.getElementById(`dot-${currentArticleIdx}`).classList.remove('active');
-                
-                // Advance index
-                currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
-                const article = featuredArticles[currentArticleIdx];
-                
-                // Inject new content
-                container.href = article.url;
-                document.getElementById('feat-img').src = article.img;
-                document.getElementById('feat-tag').innerText = article.tag;
-                document.getElementById('feat-title').innerText = article.title;
-                document.getElementById('feat-excerpt').innerText = article.excerpt;
-                
-                // Update new active dot
-                document.getElementById(`dot-${currentArticleIdx}`).classList.add('active');
-                
-                container.style.opacity = 1; // Trigger fade in
-            }, 400); // Wait for fade out CSS transition to finish
-        }
-        
-        // Start the rotation every 6 seconds
-        setInterval(rotateArticle, 6000);
-
-        // --- CHART DATA ---
-        const score = 30;
-        const historyData = [{"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}, {"date": "2026-02-11", "score": 29}, {"date": "2026-02-12", "score": 26}, {"date": "2026-02-13", "score": 32}, {"date": "2026-02-14", "score": 33}, {"date": "2026-02-15", "score": 30}];
+        const score = 31;
+        const historyData = [{"date": "2026-01-17", "score": 31}, {"date": "2026-01-18", "score": 35}, {"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}, {"date": "2026-02-11", "score": 29}, {"date": "2026-02-12", "score": 26}, {"date": "2026-02-13", "score": 32}, {"date": "2026-02-14", "score": 33}, {"date": "2026-02-15", "score": 31}];
 
         // --- 1. GAUGE NEEDLE PLUGIN ---
         const gaugeNeedle = {
