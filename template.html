@@ -433,5 +433,46 @@
             }
         });
     </script>
+    <style>
+    .site-footer {
+        max-width: 900px;
+        margin: 40px auto 20px;
+        padding: 20px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+        color: var(--text-sub);
+    }
+    .footer-links {
+        display: flex;
+        gap: 15px;
+    }
+    .footer-links a {
+        color: var(--text-sub);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .footer-links a:hover {
+        color: var(--accent);
+    }
+    @media (max-width: 600px) {
+        .site-footer {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+    }
+</style>
+
+<footer class="site-footer">
+    <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+    <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+    </div>
+</footer>
 </body>
 </html>
