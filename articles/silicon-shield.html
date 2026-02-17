@@ -102,7 +102,77 @@
 </script>
 </head>
 <body>
+<style>
+    .gsn-universal-header {
+        background-color: #050505; /* Deep command centre black */
+        color: #94a3b8;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1e293b;
+    }
+    .gsn-brand {
+        color: #f8fafc;
+        font-weight: 700;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .gsn-dot {
+        width: 6px;
+        height: 6px;
+        background-color: #0ea5e9; /* Network Neon Blue */
+        border-radius: 50%;
+    }
+    .gsn-network-links {
+        display: flex;
+        gap: 20px;
+    }
+    .gsn-link {
+        color: #94a3b8;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        font-weight: 500;
+    }
+    .gsn-link:hover {
+        color: #0ea5e9;
+    }
+    .gsn-link.active {
+        color: #ef4444; /* Signal Red for the active site */
+    }
 
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+        .gsn-universal-header { 
+            flex-direction: column; 
+            gap: 12px; 
+            padding: 12px 20px; 
+        }
+        .gsn-network-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+    }
+</style>
+
+<div class="gsn-universal-header">
+    <div class="gsn-brand">
+        <div class="gsn-dot"></div>
+        The Global Shift Network
+    </div>
+    <div class="gsn-network-links">
+        <a href="https://taiwanstraittracker.com" class="gsn-link active">Strait Risk Tracker</a>
+        <a href="https://taiwanstraittracker.com/ai-bubble" class="gsn-link">AI Bubble Index</a>
+        <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+    </div>
+</div>
     <nav class="navbar">
         <div class="nav-inner">
             <a href="../index.html" class="brand">Taiwan Strait Tracker</a>
