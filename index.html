@@ -98,9 +98,80 @@
   gtag('config', 'G-MLNGHZLK8D');
 </script>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-17_s33.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-02-17_s32.png">
 </head>
 <body>
+    <style>
+    .gsn-universal-header {
+        background-color: #050505; /* Deep command centre black */
+        color: #94a3b8;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 8px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1e293b;
+    }
+    .gsn-brand {
+        color: #f8fafc;
+        font-weight: 700;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .gsn-dot {
+        width: 6px;
+        height: 6px;
+        background-color: #0ea5e9; /* Network Neon Blue */
+        border-radius: 50%;
+    }
+    .gsn-network-links {
+        display: flex;
+        gap: 20px;
+    }
+    .gsn-link {
+        color: #94a3b8;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        font-weight: 500;
+    }
+    .gsn-link:hover {
+        color: #0ea5e9;
+    }
+    .gsn-link.active {
+        color: #ef4444; /* Signal Red for the active site */
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+        .gsn-universal-header { 
+            flex-direction: column; 
+            gap: 12px; 
+            padding: 12px 20px; 
+        }
+        .gsn-network-links {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+    }
+</style>
+
+<div class="gsn-universal-header">
+    <div class="gsn-brand">
+        <div class="gsn-dot"></div>
+        The Global Shift Network
+    </div>
+    <div class="gsn-network-links">
+        <a href="https://taiwanstraittracker.com" class="gsn-link active">Strait Risk Tracker</a>
+        <a href="https://taiwanstraittracker.com/ai-bubble" class="gsn-link">AI Bubble Index</a>
+        <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+    </div>
+</div>
     <nav class="navbar">
         <div class="nav-inner">
             <a href="/" class="brand"><div class="dot"></div> Taiwan Strait Tracker</a>
@@ -119,10 +190,10 @@
         <div class="card span-2 hero-card">
             <div class="score-left">
                 <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
-                <div class="big-number">33</div>
+                <div class="big-number">32</div>
                 
-                <div class="trend-badge" style="color: #ef4444;">
-                    ▲ +1 pts since yesterday
+                <div class="trend-badge" style="color: #10b981;">
+                    ▼ -1 pts since yesterday
                 </div>
                 
                 <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
@@ -145,10 +216,10 @@
         <div class="card metric-card">
             <div class="metric-header">
                 <span class="metric-title">Conflict Noise</span>
-                <span class="metric-score" style="color: #ef4444;">34</span>
+                <span class="metric-score" style="color: #ef4444;">32</span>
             </div>
             <div style="height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
-                <div style="height: 100%; width: 34%; background: #ef4444;"></div>
+                <div style="height: 100%; width: 32%; background: #ef4444;"></div>
             </div>
             <div class="evidence-box">
                 <span class="evidence-label">PRIMARY DRIVER</span>
@@ -259,8 +330,8 @@
         setInterval(rotateArticle, 6000);
 
         // --- DYNAMIC PYTHON VARIABLES ---
-        const score = 33;
-        const historyData = [{"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}, {"date": "2026-02-11", "score": 29}, {"date": "2026-02-12", "score": 26}, {"date": "2026-02-13", "score": 32}, {"date": "2026-02-14", "score": 33}, {"date": "2026-02-15", "score": 31}, {"date": "2026-02-16", "score": 32}, {"date": "2026-02-17", "score": 33}];
+        const score = 32;
+        const historyData = [{"date": "2026-01-19", "score": 28}, {"date": "2026-01-20", "score": 42}, {"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}, {"date": "2026-02-11", "score": 29}, {"date": "2026-02-12", "score": 26}, {"date": "2026-02-13", "score": 32}, {"date": "2026-02-14", "score": 33}, {"date": "2026-02-15", "score": 31}, {"date": "2026-02-16", "score": 32}, {"date": "2026-02-17", "score": 32}];
 
         // --- 1. GAUGE NEEDLE PLUGIN ---
         const gaugeNeedle = {
