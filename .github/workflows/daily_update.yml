@@ -35,6 +35,9 @@ jobs:
         run: |
           python build.py
           python build_ai.py
+          python build_k_shape.py
+          python build_supply.py
+          python build_fiat.py
         
       - name: Commit and Push
         run: |
