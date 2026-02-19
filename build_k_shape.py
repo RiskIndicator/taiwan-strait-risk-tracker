@@ -1,11 +1,11 @@
 import yfinance as yf
+from jinja2 import Template
 import json
 from datetime import datetime
 import pytz
 
-# Assets (The "Haves") vs Essentials (The "Have Nots")
-ASSETS = ['SPY', 'VNQ'] # S&P 500, Real Estate
-ESSENTIALS = ['DBA', 'XLP'] # Agriculture/Food, Consumer Staples
+ASSETS = ['SPY', 'VNQ'] 
+ESSENTIALS = ['DBA', 'XLP'] 
 
 def build_k_shape():
     print("CALCULATING WEALTH FRACTURE...")
@@ -16,7 +16,6 @@ def build_k_shape():
         asset_perf = normalized[ASSETS].mean(axis=1).iloc[-1]
         survival_perf = normalized[ESSENTIALS].mean(axis=1).iloc[-1]
         
-        # Calculate the divergence gap
         gap = (asset_perf - survival_perf) * 100
         score = int(max(0, min(100, 50 + (gap * 2.5))))
         
@@ -24,16 +23,25 @@ def build_k_shape():
         elif score < 35: status = "WEALTH COMPRESSION"
         else: status = "STABLE TREND"
 
-        output = {
-            "score": score,
-            "status": status,
-            "gap_percentage": round(gap, 1),
-            "updated": datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y')
-        }
+        update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y')
+
+        # Jinja2 Rendering
+        with open('inequality_template.html', 'r', encoding='utf-8') as f:
+            template = Template(f.read())
+
+        rendered = template.render(
+            score=score,
+            status_text=status,
+            gap_percentage=round(gap, 1),
+            asset_trend=round((asset_perf-1)*100, 1),
+            survival_trend=round((survival_perf-1)*100, 1),
+            last_updated=update_time
+        )
         
-        with open('inequality.json', 'w') as f:
-            json.dump(output, f)
-        print(f"Success: K-Shape Score {score}")
+        with open('inequality.html', 'w', encoding='utf-8') as f:
+            f.write(rendered)
+            
+        print(f"Success: inequality.html generated.")
     except Exception as e:
         print(f"Error: {e}")
 
