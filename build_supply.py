@@ -1,36 +1,37 @@
 import yfinance as yf
-import json
+from jinja2 import Template
 from datetime import datetime
 import pytz
 
 def build_supply_chain():
     print("CALCULATING SUPPLY CHAIN STRESS...")
     try:
-        # BDRY (Dry Bulk Shipping Freight), USO (Crude Oil)
         data = yf.download(['BDRY', 'USO'], period="3mo")['Close']
         normalized = data / data.iloc[0]
         
-        # If shipping and oil are spiking, the supply chain is fracturing
         shipping_stress = (normalized['BDRY'].iloc[-1] - 1) * 100
         energy_stress = (normalized['USO'].iloc[-1] - 1) * 100
         
-        base_score = 50 + (shipping_stress * 0.6) + (energy_stress * 0.4)
-        score = int(max(0, min(100, base_score)))
-        
-        if score > 70: status = "SEVERE BOTTLENECKS"
-        elif score > 55: status = "ELEVATED FRICTION"
-        else: status = "SUPPLY FLOWING"
+        score = int(max(0, min(100, 50 + (shipping_stress * 0.6) + (energy_stress * 0.4))))
+        status = "SEVERE BOTTLENECKS" if score > 70 else "ELEVATED FRICTION" if score > 55 else "SUPPLY FLOWING"
+        update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y')
 
-        output = {
-            "score": score,
-            "status": status,
-            "shipping_trend": round(shipping_stress, 1),
-            "updated": datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y')
-        }
+        # Jinja2 Rendering
+        with open('supply_template.html', 'r', encoding='utf-8') as f:
+            template = Template(f.read())
+
+        rendered = template.render(
+            score=score,
+            status_text=status,
+            shipping=round(shipping_stress, 1),
+            energy=round(energy_stress, 1),
+            last_updated=update_time
+        )
         
-        with open('supply_chain.json', 'w') as f:
-            json.dump(output, f)
-        print(f"Success: Supply Chain Score {score}")
+        with open('supply-chain.html', 'w', encoding='utf-8') as f:
+            f.write(rendered)
+            
+        print(f"Success: supply-chain.html generated.")
     except Exception as e:
         print(f"Error: {e}")
 
