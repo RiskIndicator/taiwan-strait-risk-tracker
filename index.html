@@ -15,7 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --border: #e5e7eb; --accent: #2563eb; }
-        body { background-color: var(--bg); background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 60px; }
+        body { background-color: var(--bg); background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 20px 20px; color: var(--text-main); font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
         /* Navbar */
         .navbar { background: var(--card); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 30px; }
@@ -27,7 +27,7 @@
         .twitter-btn { background: #000; color: #fff !important; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem !important; display: flex; align-items: center; gap: 6px; }
 
         /* Layout */
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .span-2 { grid-column: span 2; }
         
@@ -74,6 +74,12 @@
         .archive-list li { border-bottom: 1px solid #f3f4f6; padding: 10px 0; }
         .archive-list a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
         
+        /* FOOTER */
+        .site-footer { max-width: 900px; margin: 40px auto 0 auto; padding: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-sub); width: 100%; box-sizing: border-box; }
+        .footer-links { display: flex; gap: 15px; }
+        .footer-links a { color: var(--text-sub); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+
         /* MOBILE FIXES */
         @media (max-width: 768px) {
             .container { grid-template-columns: 1fr; }
@@ -81,12 +87,11 @@
             .hero-card { flex-direction: column-reverse; text-align: center; gap: 20px; }
             .score-right { width: 100%; height: 180px; }
             .alert-bar { flex-direction: column; text-align: center; gap: 15px; }
-            
-            /* Navbar Mobile */
             .nav-inner { flex-direction: column !important; align-items: flex-start !important; padding-bottom: 10px; }
             .brand { margin-bottom: 15px !important; width: 100% !important; display: block !important; }
             .nav-links { width: 100% !important; display: flex !important; justify-content: space-between !important; gap: 10px !important; }
             .nav-links a { margin-left: 0 !important; font-size: 0.85rem !important; }
+            .site-footer { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
@@ -102,76 +107,31 @@
 </head>
 <body>
     <style>
-    .gsn-universal-header {
-        background-color: #050505; /* Deep command centre black */
-        color: #94a3b8;
-        font-family: 'Inter', sans-serif;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding: 8px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #1e293b;
-    }
-    .gsn-brand {
-        color: #f8fafc;
-        font-weight: 700;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .gsn-dot {
-        width: 6px;
-        height: 6px;
-        background-color: #0ea5e9; /* Network Neon Blue */
-        border-radius: 50%;
-    }
-    .gsn-network-links {
-        display: flex;
-        gap: 20px;
-    }
-    .gsn-link {
-        color: #94a3b8;
-        text-decoration: none;
-        transition: color 0.2s ease;
-        font-weight: 500;
-    }
-    .gsn-link:hover {
-        color: #0ea5e9;
-    }
-    .gsn-link.active {
-        color: #ef4444; /* Signal Red for the active site */
-    }
-
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-        .gsn-universal-header { 
-            flex-direction: column; 
-            gap: 12px; 
-            padding: 12px 20px; 
+        .gsn-universal-header { background-color: #050505; color: #94a3b8; font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; z-index: 50; position: relative; }
+        .gsn-brand { color: #f8fafc; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .gsn-dot { width: 6px; height: 6px; background-color: #0ea5e9; border-radius: 50%; }
+        .gsn-network-links { display: flex; gap: 15px; }
+        .gsn-link { color: #94a3b8; text-decoration: none; transition: color 0.2s ease; font-weight: 500; }
+        .gsn-link:hover { color: #0ea5e9; }
+        .gsn-link.active { color: #ef4444; }
+        @media (max-width: 800px) {
+            .gsn-universal-header { flex-direction: column; gap: 12px; padding: 12px 20px; }
+            .gsn-network-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
         }
-        .gsn-network-links {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-    }
-</style>
-
-<div class="gsn-universal-header">
-    <div class="gsn-brand">
-        <div class="gsn-dot"></div>
-        The Global Shift Network
+    </style>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand">
+            <div class="gsn-dot"></div>
+            The Global Shift Network
+        </div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link active">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">K-Shape Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
     </div>
-    <div class="gsn-network-links">
-        <a href="https://taiwanstraittracker.com" class="gsn-link active">Strait Risk Tracker</a>
-        <a href="https://taiwanstraittracker.com/ai-bubble" class="gsn-link">AI Bubble Index</a>
-        <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
-    </div>
-</div>
     <nav class="navbar">
         <div class="nav-inner">
             <a href="/" class="brand"><div class="dot"></div> Taiwan Strait Tracker</a>
@@ -192,8 +152,8 @@
                 <div style="font-size: 0.9rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Current Risk Index</div>
                 <div class="big-number">34</div>
                 
-                <div class="trend-badge" style="color: #10b981;">
-                    ▼ -1 pts since yesterday
+                <div class="trend-badge" style="color: #6b7280;">
+                    ■ - pts since yesterday
                 </div>
                 
                 <p style="margin-top: 20px; line-height: 1.5; color: #374151; max-width: 400px;">
@@ -214,7 +174,6 @@
                     </defs>
                     
                     <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#e2e8f0" stroke-width="12" stroke-linecap="round" />
-                    
                     <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round" />
                     
                     <g style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + (34 * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
@@ -351,64 +310,9 @@
         setInterval(rotateArticle, 6000);
 
         // --- DYNAMIC PYTHON VARIABLES ---
-        const score = 34;
         const historyData = [{"date": "2026-01-21", "score": 30}, {"date": "2026-01-22", "score": 43}, {"date": "2026-01-23", "score": 37}, {"date": "2026-01-24", "score": 36}, {"date": "2026-01-25", "score": 38}, {"date": "2026-01-26", "score": 34}, {"date": "2026-01-27", "score": 43}, {"date": "2026-01-28", "score": 29}, {"date": "2026-01-29", "score": 40}, {"date": "2026-01-30", "score": 39}, {"date": "2026-01-31", "score": 33}, {"date": "2026-02-01", "score": 38}, {"date": "2026-02-02", "score": 44}, {"date": "2026-02-03", "score": 29}, {"date": "2026-02-04", "score": 41}, {"date": "2026-02-05", "score": 36}, {"date": "2026-02-06", "score": 25}, {"date": "2026-02-07", "score": 20}, {"date": "2026-02-08", "score": 34}, {"date": "2026-02-09", "score": 33}, {"date": "2026-02-10", "score": 29}, {"date": "2026-02-11", "score": 29}, {"date": "2026-02-12", "score": 26}, {"date": "2026-02-13", "score": 32}, {"date": "2026-02-14", "score": 33}, {"date": "2026-02-15", "score": 31}, {"date": "2026-02-16", "score": 32}, {"date": "2026-02-17", "score": 32}, {"date": "2026-02-18", "score": 31}, {"date": "2026-02-19", "score": 34}];
 
-        // --- 1. GAUGE NEEDLE PLUGIN ---
-        const gaugeNeedle = {
-            id: 'gaugeNeedle',
-            afterDatasetDraw(chart, args, options) {
-                const { ctx, config, data, chartArea: { top, bottom, left, right, width, height } } = chart;
-                ctx.save();
-                const needleValue = data.datasets[0].needleValue;
-                const dataTotal = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                const angle = Math.PI + (1 / dataTotal * needleValue * Math.PI);
-                const cx = width / 2;
-                const cy = chart._metasets[0].data[0].y;
-                
-                // Draw Needle
-                ctx.translate(cx, cy);
-                ctx.rotate(angle);
-                ctx.beginPath();
-                ctx.moveTo(0, -2);
-                ctx.lineTo(height - (ctx.canvas.height * 0.25), 0);
-                ctx.lineTo(0, 2);
-                ctx.fillStyle = '#444';
-                ctx.fill();
-                
-                // Draw Pivot
-                ctx.rotate(-angle);
-                ctx.beginPath();
-                ctx.arc(0, 0, 5, 0, 10);
-                ctx.fillStyle = '#444';
-                ctx.fill();
-                ctx.restore();
-            }
-        };
-
-        new Chart(document.getElementById('gaugeChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Safe', 'Caution', 'Danger'],
-                datasets: [{
-                    data: [33, 33, 34],
-                    backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
-                    borderWidth: 0,
-                    needleValue: score,
-                    cutout: '70%',
-                    circumference: 180,
-                    rotation: 270,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: false, tooltip: false }
-            },
-            plugins: [gaugeNeedle]
-        });
-
-        // --- 2. MULTI-COLOR GRADIENT TREND CHART ---
+        // --- MULTI-COLOR GRADIENT TREND CHART ---
         const ctxChart = document.getElementById('historyChart').getContext('2d');
         
         function getGradient(ctxChart, chartArea) {
@@ -454,46 +358,14 @@
             }
         });
     </script>
-    <style>
-    .site-footer {
-        max-width: 900px;
-        margin: 40px auto 20px;
-        padding: 20px;
-        border-top: 1px solid var(--border);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.85rem;
-        color: var(--text-sub);
-    }
-    .footer-links {
-        display: flex;
-        gap: 15px;
-    }
-    .footer-links a {
-        color: var(--text-sub);
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-    .footer-links a:hover {
-        color: var(--accent);
-    }
-    @media (max-width: 600px) {
-        .site-footer {
-            flex-direction: column;
-            gap: 15px;
-            text-align: center;
-        }
-    }
-</style>
 
-<footer class="site-footer">
-    <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
-    <div class="footer-links">
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-    </div>
-</footer>
+    <footer class="site-footer">
+        <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+    </footer>
 </body>
 </html>
