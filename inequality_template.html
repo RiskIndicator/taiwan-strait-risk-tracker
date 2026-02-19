@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Shape Inequality | Taiwan Strait Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-dark: #0f172a; --panel-dark: #1e293b; --text-bright: #f8fafc; --text-muted: #94a3b8; --neon-blue: #0ea5e9; --signal-red: #ef4444; --border: #334155; }
+        body { background-color: var(--bg-dark); color: var(--text-bright); font-family: 'Inter', sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .gsn-universal-header { background-color: #050505; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .gsn-brand { color: #f8fafc; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .gsn-network-links { display: flex; gap: 15px; }
+        .gsn-link { color: #94a3b8; text-decoration: none; font-weight: 500; }
+        .gsn-link.active { color: var(--signal-red); }
+        .navbar { background: var(--panel-dark); padding: 15px 20px; border-bottom: 1px solid var(--border); margin-bottom: 30px; font-weight: 700; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+        .panel { background: var(--panel-dark); border: 1px solid var(--border); border-radius: 12px; padding: 24px; text-align: center; }
+        .main-panel { grid-column: span 2; }
+        .data-readout { font-family: 'JetBrains Mono', monospace; font-size: 4rem; font-weight: 700; color: var(--neon-blue); margin: 10px 0; }
+        .status-badge { padding: 8px 16px; background: rgba(239, 68, 68, 0.1); color: var(--signal-red); border: 1px solid var(--signal-red); border-radius: 6px; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand"><div style="width:6px;height:6px;background:#0ea5e9;border-radius:50%;"></div> The Global Shift Network</div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link active">K-Shape Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
+    </div>
+    <nav class="navbar">Taiwan Strait Tracker // Macro Terminal</nav>
+
+    <div class="container">
+        <div class="panel main-panel">
+            <h2 style="margin-top:0; color:var(--text-muted); text-transform:uppercase;">K-Shape Fracture Index</h2>
+            <div class="data-readout">{{ score }}</div>
+            <div class="status-badge">{{ status_text }}</div>
+            <p style="color:var(--text-muted); margin-top:20px;">Current Wealth Gap Divergence: <strong>{{ gap_percentage }}%</strong></p>
+        </div>
+        <div class="panel">
+            <h3 style="color:var(--text-muted);">Asset Class Trend</h3>
+            <div class="data-readout" style="font-size:2.5rem;">+{{ asset_trend }}%</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Equities & Real Estate (6mo)</p>
+        </div>
+        <div class="panel">
+            <h3 style="color:var(--text-muted);">Survival Cost Trend</h3>
+            <div class="data-readout" style="font-size:2.5rem; color:var(--signal-red);">+{{ survival_trend }}%</div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Agriculture & Staples (6mo)</p>
+        </div>
+    </div>
+</body>
+</html>
