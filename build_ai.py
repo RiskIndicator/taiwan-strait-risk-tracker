@@ -103,10 +103,10 @@ def build_index():
         last_updated=update_time
     )
 
-    with open('ai_bubble.html', 'w', encoding='utf-8') as f:
+    with open('ai-bubble.html', 'w', encoding='utf-8') as f:
         f.write(rendered_html)
     
-    print("Success: ai_bubble.html generated.")
+    print("Success: ai-bubble.html generated.")
 
 if __name__ == "__main__":
     build_index()
