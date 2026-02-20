@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Invisible Gap: Why the stock market is booming while the cost of survival spikes | Taiwan Strait Tracker
+    </title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --panel-dark: #1e293b;
+            --text-bright: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-blue: #0ea5e9;
+            --signal-red: #ef4444;
+            --border: #334155;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-bright);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* GSN Universal Header */
+        .gsn-universal-header {
+            background-color: #050505;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            z-index: 50;
+            position: relative;
+        }
+
+        .gsn-brand {
+            color: #f8fafc;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gsn-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+        }
+
+        .gsn-network-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gsn-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .gsn-link:hover {
+            color: #0ea5e9;
+        }
+
+        .gsn-link.active {
+            color: #ef4444;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--panel-dark);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            margin-bottom: 0;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-bright);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .twitter-btn {
+            background: #000;
+            color: #fff !important;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem !important;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Article Layout */
+        .article-hero {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .article-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-tag {
+            color: var(--neon-blue);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+            color: #f8fafc;
+        }
+
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            font-weight: 400;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .article-body {
+            max-width: 760px;
+            margin: 50px auto;
+            padding: 0 20px;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+        }
+
+        .article-body p {
+            margin-bottom: 25px;
+        }
+
+        .article-body h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 40px 0 20px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .article-body h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin: 30px 0 15px 0;
+        }
+
+        .article-body a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
+            transition: border-color 0.2s;
+        }
+
+        .article-body a:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .article-body strong {
+            color: #f8fafc;
+        }
+
+        /* Image Styling */
+        figure {
+            margin: 40px 0;
+            background: var(--panel-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        figcaption {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* Read More Plug */
+        .plug-box {
+            margin: 50px 0;
+            background: rgba(14, 165, 233, 0.05);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .plug-box h3 {
+            margin-top: 0;
+            color: var(--neon-blue);
+        }
+
+        .plug-btn {
+            display: inline-block;
+            background: var(--neon-blue);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+            border: none !important;
+        }
+
+        .plug-btn:hover {
+            opacity: 0.9;
+            border: none !important;
+        }
+
+        /* Footer */
+        .site-footer {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .gsn-universal-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 20px;
+            }
+
+            .gsn-network-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .article-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand">
+            <div class="gsn-dot"></div>
+            The Global Shift Network
+        </div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="brand">
+                <div style="width:10px; height:10px; background:var(--neon-blue); border-radius:50%;"></div> Taiwan
+                Strait Tracker
+            </a>
+            <div class="nav-links">
+                <a href="articles.html" style="color: var(--text-bright);">Analysis</a>
+                <a href="about.html">Methodology</a>
+                <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    @StraitTracker
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-hero">
+        <div class="article-hero-content">
+            <span class="article-tag">Economic Analysis</span>
+            <h1 class="article-title">The Invisible Gap: Why the stock market is booming while the cost of survival
+                spikes</h1>
+            <p class="article-subtitle">Answering the most common economic question of the decade: If the official
+                economy is doing so well, why do I feel so broke?</p>
+        </div>
+    </header>
+
+    <main class="article-body">
+
+        <p>Turn on any financial news network, and you will hear a remarkably consistent story: the economy is
+            remarkably resilient. Gross Domestic Product (GDP) is growing, unemployment remains historically low, and
+            major stock indices like the S&P 500 continue to hit all-time highs.</p>
+
+        <p>But when you talk to everyday people at the grocery store or the petrol pump, the story flips completely.
+            People feel poorer. Housing feels permanently out of reach. A standard trip to the supermarket causes
+            genuine budget anxiety. There is a massive disconnect between the macroeconomic numbers and the
+            microeconomic reality of everyday households.</p>
+
+        <p>This is not a collective delusion. It is the result of a structural fracture in how wealth is generated, and
+            it comes down to a simple division: the Tale of Two Economies.</p>
+
+        <h2>The Tale of Two Economies</h2>
+
+        <p>To understand the modern economy, you have to stop looking at averages. Averages hide the truth. If a
+            billionaire walks into a crowded pub, the "average" net worth of everyone in that room suddenly skyrockets,
+            but no one actually got any richer.</p>
+
+        <p>The economy has firmly split into two distinct classes.</p>
+
+        <p>First, there is the <strong>Wage Earning Class</strong>. This group relies entirely on a salary for their
+            survival. Their primary economic inputs are the costs of daily essentials like rent, food, electricity, and
+            transport. When the price of eggs or petrol goes up, their standard of living immediately goes down, because
+            their wages rarely rise fast enough to match the speed of inflation.</p>
+
+        <p>Second, there is the <strong>Asset Owning Class</strong>. This group holds significant capital in things like
+            premium real estate, equity portfolios, and business ownership. While they also buy groceries, those
+            expenses represent a tiny fraction of their overall wealth.</p>
+
+        <figure>
+            <img src="images/wealth-gap.png"
+                alt="A diverging chart showing stock market highs versus rising supermarket costs">
+            <figcaption>The modern economy operates differently depending on whether you own assets or rent them.
+            </figcaption>
+        </figure>
+
+        <h2>How Geopolitics Drives Inequality</h2>
+
+        <p>So, what happens when global friction occurs? Let us look at what happens when a geopolitical choke point
+            like the Taiwan Strait or the Red Sea faces severe disruption.</p>
+
+        <p>When the global supply chain fractures, the cost of moving physical goods explodes. Ships have to take longer
+            routes, burning more fuel. Insurance premiums for cargo ships multiply overnight. This geopolitical friction
+            acts as a massive tax on the entire system.</p>
+
+        <p>Companies do not just absorb these costs out of the goodness of their hearts. They pass them directly down
+            the chain to the consumer. This causes a sudden, sharp spike in the cost of basic survival. Food becomes
+            more expensive to transport. Energy costs rise. The Wage Earning Class takes a direct hit to their quality
+            of life.</p>
+
+        <h2>The Inflation Shield</h2>
+
+        <p>Here is where the inequality accelerates. When global chaos drives up prices and slows down growth, central
+            banks often step in to "save" the economy by printing money or lowering interest rates. They inject
+            liquidity into the financial system to keep it from freezing.</p>
+
+        <p>But that newly printed money does not flow evenly into the pockets of everyday workers. It flows into
+            financial assets. The stock market surges. Real estate values climb higher. </p>
+
+        <figure>
+            <img src="images/inflation-shield.jpg" alt="Luxury real estate alongside a stock ticker">
+            <figcaption>Assets act as a shield, absorbing the impact of inflation while increasing the wealth of those
+                who hold them.</figcaption>
+        </figure>
+
+        <p>The Asset Owning Class holds a built-in "Inflation Shield". Because they own the things that are inflating in
+            value, their net worth actually grows during periods of economic distortion. Meanwhile, the Wage Earning
+            Class is left holding cash that is depreciating in value, trying to buy essentials that are appreciating in
+            price.</p>
+
+        <div class="plug-box">
+            <h3>Track the Divergence</h3>
+            <p>This structural fracture is exactly why we built the <strong>Wealth Inequality Index</strong>.</p>
+            <p>By tracking the real-time growth of financial assets (the rich getting richer) against the rising costs
+                of agricultural and energy commodities (the cost of survival), we can measure exactly how fast this gap
+                is widening.</p>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="plug-btn">View the Live Wealth Inequality
+                Index</a>
+        </div>
+
+        <p>The stock market is not the economy. When you see headlines celebrating new market highs, remember that for a
+            significant portion of the population, those highs are actively pricing them out of a comfortable future.
+        </p>
+
+    </main>
+
+    <footer class="site-footer">
+        <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </footer>
+</body>
+
+</html>

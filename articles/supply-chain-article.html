@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The End of Cheap Shipping: How geopolitical choke points are driving global inflation | Taiwan Strait Tracker
+    </title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --panel-dark: #1e293b;
+            --text-bright: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-blue: #0ea5e9;
+            --signal-red: #ef4444;
+            --border: #334155;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-bright);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* GSN Universal Header */
+        .gsn-universal-header {
+            background-color: #050505;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            z-index: 50;
+            position: relative;
+        }
+
+        .gsn-brand {
+            color: #f8fafc;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gsn-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+        }
+
+        .gsn-network-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gsn-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .gsn-link:hover {
+            color: #0ea5e9;
+        }
+
+        .gsn-link.active {
+            color: #ef4444;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--panel-dark);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            margin-bottom: 0;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-bright);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .twitter-btn {
+            background: #000;
+            color: #fff !important;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem !important;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Article Layout */
+        .article-hero {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .article-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-tag {
+            color: var(--neon-blue);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+            color: #f8fafc;
+        }
+
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            font-weight: 400;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .article-body {
+            max-width: 760px;
+            margin: 50px auto;
+            padding: 0 20px;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+        }
+
+        .article-body p {
+            margin-bottom: 25px;
+        }
+
+        .article-body h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin: 40px 0 20px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .article-body h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin: 30px 0 15px 0;
+        }
+
+        .article-body a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
+            transition: border-color 0.2s;
+        }
+
+        .article-body a:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .article-body strong {
+            color: #f8fafc;
+        }
+
+        /* Image Styling */
+        figure {
+            margin: 40px 0;
+            background: var(--panel-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        figcaption {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* Read More Plug */
+        .plug-box {
+            margin: 50px 0;
+            background: rgba(14, 165, 233, 0.05);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .plug-box h3 {
+            margin-top: 0;
+            color: var(--neon-blue);
+        }
+
+        .plug-btn {
+            display: inline-block;
+            background: var(--neon-blue);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+            border: none !important;
+        }
+
+        .plug-btn:hover {
+            opacity: 0.9;
+            border: none !important;
+        }
+
+        /* Footer */
+        .site-footer {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .gsn-universal-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 20px;
+            }
+
+            .gsn-network-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .article-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand">
+            <div class="gsn-dot"></div>
+            The Global Shift Network
+        </div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="brand">
+                <div style="width:10px; height:10px; background:var(--neon-blue); border-radius:50%;"></div> Taiwan
+                Strait Tracker
+            </a>
+            <div class="nav-links">
+                <a href="articles.html" style="color: var(--text-bright);">Analysis</a>
+                <a href="about.html">Methodology</a>
+                <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    @StraitTracker
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-hero">
+        <div class="article-hero-content">
+            <span class="article-tag">Logistics Analysis</span>
+            <h1 class="article-title">The End of Cheap Shipping: How geopolitical choke points are driving global
+                inflation</h1>
+            <p class="article-subtitle">We have built a global economy assuming that moving a physical good from a
+                factory in Asia to a shelf in the West will always be cheap and safe. That era is over.</p>
+        </div>
+    </header>
+
+    <main class="article-body">
+
+        <p>For the last thirty years, the global economy has run on a very specific, highly optimistic assumption:
+            peace. We designed "just-in-time" manufacturing systems assuming that a part made in Shenzhen could
+            seamlessly arrive at an assembly plant in Germany exactly when it was needed. We assumed the oceans would
+            remain safe, open, and cheap to navigate.</p>
+
+        <p>Because of this assumption, companies stopped storing excess inventory. Warehouses were viewed as an
+            unnecessary expense. The ocean itself became the global warehouse.</p>
+
+        <p>But the ocean is far more fragile than we like to admit.</p>
+
+        <h2>The Fragile Oceans</h2>
+
+        <p>Approximately 80% of all global trade by volume travels by sea. However, this massive flow of goods does not
+            move freely across open water. It is forced to funnel through a handful of narrow maritime choke points. The
+            Suez Canal, the Panama Canal, the Strait of Malacca, and the Taiwan Strait are the arteries of the global
+            economy.</p>
+
+        <p>When these choke points are threatened by geopolitical conflict, piracy, or blockades, the entire system
+            begins to back up. Ships are forced to reroute thousands of miles around continents, adding weeks to
+            delivery times and burning millions of dollars in extra fuel.</p>
+
+        <figure>
+            <img src="images/shipping-chokepoint.png"
+                alt="A global map highlighting maritime choke points (Source: flickr MrDevlar) ">
+            <figcaption>Global trade relies on a few critical, highly vulnerable maritime arteries to move physical
+                goods.</figcaption>
+        </figure>
+
+        <h2>The Freight and Energy Connection</h2>
+
+        <p>When the oceans become dangerous, two things happen immediately. First, shipping insurance premiums
+            skyrocket. In areas of active conflict, the cost to insure a massive cargo vessel can jump by hundreds of
+            thousands of dollars per voyage. Second, as ships take longer, safer routes, the demand for maritime fuel
+            spikes.</p>
+
+        <p>This creates a compounding crisis. Crude oil prices increase due to the same geopolitical tensions, making
+            the extra fuel required for longer journeys even more expensive. This dual spike in freight rates and energy
+            costs represents a massive friction tax on global trade.</p>
+
+        <p>Because companies operate on razor-thin margins, they cannot absorb these costs. The price of moving a
+            shipping container from Shanghai to Los Angeles eventually dictates the price of a television, a pair of
+            sneakers, or a car on the retail floor. The geopolitical risk premium is passed directly to the consumer in
+            the form of persistent inflation.</p>
+
+        <h2>The Domino Effect</h2>
+
+        <p>The Taiwan Strait is arguably the most critical of these maritime choke points. Nearly half of the global
+            container fleet and a vast majority of the world's largest ships pass through this narrow body of water
+            every year. It is the primary exit point for the manufacturing hubs of East Asia.</p>
+
+        <figure>
+            <img src="images/container-backlog.jpg" alt="A massive backlog of shipping containers at a port at night">
+            <figcaption>A disruption in the Taiwan Strait would trigger an immediate, catastrophic backlog across global
+                ports.</figcaption>
+        </figure>
+
+        <p>A blockade or conflict in the Taiwan Strait would not just isolate Taiwan; it would effectively freeze the
+            export of Asian manufacturing. Western factories that rely on imported parts would be forced to halt
+            production within days. The "just-in-time" supply chain would collapse, leading to immediate product
+            shortages and massive price hikes across the globe.</p>
+
+        <div class="plug-box">
+            <h3>Track the Fracture</h3>
+            <p>To monitor this threat, we built the <strong>Supply Chain Fracture Index</strong>.</p>
+            <p>By tracking the real-time volatility of global freight rates and crude oil prices, this dashboard
+                provides an early warning system for global trade friction. When the index flashes red, the cost of
+                moving physical goods is breaking down.</p>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="plug-btn">View the Live Supply Chain
+                Index</a>
+        </div>
+
+        <p>The era of frictionless globalisation was an anomaly, not the rule. As geopolitical tensions rise, the cost
+            of securing the global supply chain will continue to rise with it. Cheap shipping is no longer a guarantee;
+            it is a luxury of peacetime.</p>
+
+    </main>
+
+    <footer class="site-footer">
+        <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </footer>
+</body>
+
+</html>
