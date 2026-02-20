@@ -1,73 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supply Chain Fracture | Taiwan Strait Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
     <style>
-        :root { --bg-dark: #0f172a; --panel-dark: #1e293b; --text-bright: #f8fafc; --text-muted: #94a3b8; --neon-blue: #0ea5e9; --signal-red: #ef4444; --border: #334155; }
-        body { background-color: var(--bg-dark); color: var(--text-bright); font-family: 'Inter', sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        
+        :root {
+            --bg-dark: #0f172a;
+            --panel-dark: #1e293b;
+            --text-bright: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-blue: #0ea5e9;
+            --signal-red: #ef4444;
+            --border: #334155;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-bright);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
         /* GSN Universal Header */
-        .gsn-universal-header { background-color: #050505; color: #94a3b8; font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; z-index: 50; position: relative; }
-        .gsn-brand { color: #f8fafc; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .gsn-dot { width: 6px; height: 6px; background-color: #0ea5e9; border-radius: 50%; }
-        .gsn-network-links { display: flex; gap: 15px; }
-        .gsn-link { color: #94a3b8; text-decoration: none; transition: color 0.2s ease; font-weight: 500; }
-        .gsn-link:hover { color: #0ea5e9; }
-        .gsn-link.active { color: #ef4444; }
+        .gsn-universal-header {
+            background-color: #050505;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            z-index: 50;
+            position: relative;
+        }
+
+        .gsn-brand {
+            color: #f8fafc;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gsn-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+        }
+
+        .gsn-network-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gsn-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .gsn-link:hover {
+            color: #0ea5e9;
+        }
+
+        .gsn-link.active {
+            color: #ef4444;
+        }
 
         /* Navbar */
-        .navbar { background: var(--panel-dark); border-bottom: 1px solid var(--border); padding: 15px 0; margin-bottom: 30px; }
-        .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; color: var(--text-bright); text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .navbar {
+            background: var(--panel-dark);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-bright);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .twitter-btn {
+            background: #000;
+            color: #fff !important;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem !important;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
         /* Dashboard Layout */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 24px; flex: 1; margin-bottom: 40px; }
-        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            flex: 1;
+            margin-bottom: 40px;
+        }
+
         /* Hero Panel */
-        .hero-panel { background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border: 1px solid var(--border); border-radius: 12px; padding: 40px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .hero-text-content h1 { margin: 0 0 10px 0; font-size: 2.2rem; color: var(--text-bright); letter-spacing: -0.5px; }
-        .hero-text-content p { color: #cbd5e1; font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px; }
-        .status-badge { display: inline-block; padding: 10px 20px; background: rgba(239, 68, 68, 0.1); color: var(--signal-red); border: 1px solid var(--signal-red); border-radius: 8px; font-weight: 800; letter-spacing: 1px; font-size: 1.1rem; }
-        .multiplier-alert { margin-top: 25px; background: rgba(14, 165, 233, 0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(14, 165, 233, 0.3); color: #bae6fd; font-size: 0.9rem; line-height: 1.5; }
-        .multiplier-alert strong { display: block; color: var(--neon-blue); margin-bottom: 5px; font-size: 1rem; }
-        
-        .hero-visual { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0f172a; padding: 30px; border-radius: 12px; border: 1px solid var(--border); }
-        .data-readout { font-family: 'JetBrains Mono', monospace; font-size: 5.5rem; font-weight: 700; color: var(--neon-blue); line-height: 1; margin: 15px 0; text-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
-        .last-updated { font-size: 0.8rem; color: var(--text-muted); margin-top: 15px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-panel {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-text-content h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            color: var(--text-bright);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-text-content p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--signal-red);
+            border: 1px solid var(--signal-red);
+            border-radius: 8px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .multiplier-alert {
+            margin-top: 25px;
+            background: rgba(14, 165, 233, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: #bae6fd;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .multiplier-alert strong {
+            display: block;
+            color: var(--neon-blue);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .data-readout {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            line-height: 1;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .last-updated {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         /* Metrics Grid (2 Columns) */
-        .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .metric-card { background: var(--panel-dark); border: 1px solid var(--border); border-radius: 12px; padding: 30px; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
-        .metric-card:hover { transform: translateY(-5px); border-color: #475569; }
-        .metric-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-        .metric-title { font-size: 1.2rem; font-weight: 700; color: var(--text-bright); }
-        .metric-score { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 700; color: var(--text-bright); line-height: 1; }
-        .metric-score.danger { color: var(--signal-red); }
-        
-        .metric-explanation { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; flex: 1; }
-        .metric-explanation strong { color: var(--text-bright); display: block; margin-bottom: 5px; font-size: 1rem; }
-        .metric-technical { font-size: 0.75rem; color: var(--text-muted); margin-top: 25px; padding-top: 15px; border-top: 1px dashed var(--border); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .metric-card {
+            background: var(--panel-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: #475569;
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .metric-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-bright);
+        }
+
+        .metric-score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            line-height: 1;
+        }
+
+        .metric-score.danger {
+            color: var(--signal-red);
+        }
+
+        .metric-explanation {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .metric-explanation strong {
+            color: var(--text-bright);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .metric-technical {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
 
         /* Footer */
-        .site-footer { max-width: 1100px; margin: auto auto 0 auto; padding: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); width: 100%; box-sizing: border-box; }
-        .footer-links { display: flex; gap: 15px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--neon-blue); }
+        .site-footer {
+            max-width: 1100px;
+            margin: auto auto 0 auto;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
 
         @media (max-width: 900px) {
-            .hero-panel { grid-template-columns: 1fr; padding: 25px; }
-            .metrics-grid { grid-template-columns: 1fr; }
-            .gsn-universal-header { flex-direction: column; gap: 12px; padding: 12px 20px; }
-            .gsn-network-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
-            .nav-inner { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .hero-panel {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gsn-universal-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 20px;
+            }
+
+            .gsn-network-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="gsn-universal-header">
         <div class="gsn-brand">
@@ -78,36 +374,50 @@
             <a href="https://taiwanstraittracker.com" class="gsn-link">Strait Risk Tracker</a>
             <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
             <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
-            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link active">Supply Chain Fracture</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link active">Supply Chain
+                Fracture</a>
             <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
         </div>
     </div>
 
     <nav class="navbar">
         <div class="nav-inner">
-            <a href="/" class="brand"><div style="width:10px; height:10px; background:var(--neon-blue); border-radius:50%;"></div> Taiwan Strait Tracker</a>
+            <a href="/" class="brand">
+                <div style="width:10px; height:10px; background:var(--neon-blue); border-radius:50%;"></div> Taiwan
+                Strait Tracker
+            </a>
             <div class="nav-links">
                 <a href="articles.html">Analysis</a>
                 <a href="about.html">Methodology</a>
+                <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    @StraitTracker
+                </a>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        
+
         <div class="hero-panel">
             <div class="hero-text-content">
                 <h1>The Supply Chain Index</h1>
-                <p>A real-time measure of global trade friction. Are physical goods moving freely across the oceans, or is the system breaking down?</p>
-                
+                <p>A real-time measure of global trade friction. Are physical goods moving freely across the oceans, or
+                    is the system breaking down?</p>
+
                 <div class="status-badge">{{ status_text }}</div>
-                
+
                 <div class="multiplier-alert">
                     <strong>Why it matters: The Globalization Fracture</strong>
-                    In a stable world, shipping is cheap and energy is abundant. Geopolitical tension in major oceanic choke points (like the Taiwan Strait or the Red Sea) causes these costs to spike, driving inflation directly to your wallet.
+                    In a stable world, shipping is cheap and energy is abundant. Geopolitical tension in major oceanic
+                    choke points (like the Taiwan Strait or the Red Sea) causes these costs to spike, driving inflation
+                    directly to your wallet.
                 </div>
             </div>
-            
+
             <div class="hero-visual">
                 <svg viewBox="0 0 200 115" style="width: 100%; max-width: 250px;">
                     <defs>
@@ -120,9 +430,12 @@
                             <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.6" />
                         </filter>
                     </defs>
-                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12" stroke-linecap="round" />
-                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round" />
-                    <g style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ score }} * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
+                        stroke-linecap="round" />
+                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12"
+                        stroke-linecap="round" />
+                    <g
+                        style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ score }} * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
                         <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" filter="url(#needleShadow)" />
                         <circle cx="100" cy="100" r="7" fill="#f8fafc" />
                     </g>
@@ -133,15 +446,16 @@
         </div>
 
         <div class="metrics-grid">
-            
+
             <div class="metric-card">
                 <div class="metric-header">
                     <span class="metric-title">1. The Shipping Bottleneck</span>
                     <span class="metric-score {% if shipping > 20 %}danger{% endif %}">{{ shipping }}%</span>
                 </div>
                 <div class="metric-explanation">
-                    <strong>How hard is it to move goods?</strong> 
-                    This tracks the market cost of booking a massive dry-bulk cargo ship. When conflict, blockades, or tariffs threaten global waters, these freight rates explode upwards.
+                    <strong>How hard is it to move goods?</strong>
+                    This tracks the market cost of booking a massive dry-bulk cargo ship. When conflict, blockades, or
+                    tariffs threaten global waters, these freight rates explode upwards.
                 </div>
                 <div class="metric-technical">Metric: Freight Rate Variance (3mo)</div>
             </div>
@@ -152,8 +466,9 @@
                     <span class="metric-score {% if energy > 15 %}danger{% endif %}">{{ energy }}%</span>
                 </div>
                 <div class="metric-explanation">
-                    <strong>Is fuel getting too expensive?</strong> 
-                    This tracks the volatility of crude oil prices. Everything you buy requires energy to produce and transport. If oil spikes due to geopolitical conflict, the entire supply chain suffers.
+                    <strong>Is fuel getting too expensive?</strong>
+                    This tracks the volatility of crude oil prices. Everything you buy requires energy to produce and
+                    transport. If oil spikes due to geopolitical conflict, the entire supply chain suffers.
                 </div>
                 <div class="metric-technical">Metric: Crude Oil Variance (3mo)</div>
             </div>
@@ -170,4 +485,5 @@
         </div>
     </footer>
 </body>
+
 </html>

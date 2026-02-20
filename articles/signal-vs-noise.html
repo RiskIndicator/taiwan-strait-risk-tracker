@@ -1,86 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beyond TSMC: How a Taiwan Blockade Would Disrupt Apple and Nvidia | StraitTracker</title>
-    <meta name="description" content="A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's AI hardware shipments within 48 hours.">
-    
+    <meta name="description"
+        content="A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's AI hardware shipments within 48 hours.">
+
     <meta name="twitter:card" content="summary_large_image">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718"
+        crossorigin="anonymous"></script>
 
     <style>
-        :root { --bg: #f3f4f6; --card: #ffffff; --text-main: #111827; --text-sub: #6b7280; --accent: #2563eb; }
-        body { background-color: var(--bg); color: var(--text-main); font-family: 'Merriweather', serif; line-height: 1.8; margin: 0; padding-bottom: 80px; }
-        
+        :root {
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --text-main: #111827;
+            --text-sub: #6b7280;
+            --accent: #2563eb;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+            margin: 0;
+            padding-bottom: 80px;
+        }
+
         /* Navbar */
-        .navbar { background: var(--card); border-bottom: 1px solid #e5e7eb; padding: 15px 0; margin-bottom: 40px; font-family: 'Inter', sans-serif; }
-        .nav-inner { max-width: 800px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--text-main); }
-        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
+        .navbar {
+            background: var(--card);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 0;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 20px;
+        }
 
         /* Content Layout */
-        .container { max-width: 740px; margin: 0 auto; padding: 0 20px; background: #fff; padding: 50px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-        
+        .container {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
         /* Typography */
-        h1 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 2.2rem; margin-bottom: 10px; line-height: 1.3; color: #111; }
-        h2 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.5rem; margin-top: 40px; margin-bottom: 20px; color: #1f2937; }
-        p { margin-bottom: 20px; font-size: 1.05rem; color: #374151; }
-        li { margin-bottom: 10px; color: #374151; }
-        .lead { font-size: 1.2rem; font-weight: 600; color: #111827; margin-bottom: 30px; }
-        
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: #111;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #374151;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 30px;
+        }
+
         /* Disclaimer Box */
-        .disclaimer-box { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 20px; margin: 30px 0; font-size: 0.9rem; font-family: 'Inter', sans-serif; border-radius: 4px; }
-        
+        .disclaimer-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            border-radius: 4px;
+        }
+
         /* Ad Box */
-        .ad-box { background: #f9fafb; border: 1px dashed #e5e7eb; height: 120px; display: flex; align-items: center; justify-content: center; margin: 40px 0; font-family: sans-serif; color: #9ca3af; font-size: 0.8rem; }
-        
+        .ad-box {
+            background: #f9fafb;
+            border: 1px dashed #e5e7eb;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+            font-family: sans-serif;
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
         /* Buttons/Links */
-        .cta-box { background: #eff6ff; border: 1px solid #bfdbfe; padding: 25px; border-radius: 8px; margin: 30px 0; font-family: 'Inter', sans-serif; }
-        .cta-title { font-weight: 700; color: #1e40af; margin-bottom: 10px; display: block; }
-        a { color: #2563eb; text-decoration: underline; }
-        a:hover { color: #1e3a8a; }
+        .cta-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cta-title {
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: #1e3a8a;
+        }
 
         /* Image Styling */
-        .article-img { width: 100%; height: auto; border-radius: 8px; margin-bottom: 30px; display: block; }
-        
+        .article-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
         /* Blockquote */
-        blockquote { border-left: 4px solid #2563eb; padding-left: 15px; margin: 30px 0; font-style: italic; color: #4b5563; }
+        blockquote {
+            border-left: 4px solid #2563eb;
+            padding-left: 15px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #4b5563;
+        }
 
         /* Responsive */
-        @media (max-width: 600px) { .container { padding: 25px; } h1 { font-size: 1.8rem; } }
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
 
         /* MOBILE NAVBAR FIX */
         @media (max-width: 600px) {
-            .nav-inner { flex-direction: column; align-items: flex-start; padding-bottom: 10px; }
-            .brand { margin-bottom: 15px; width: 100%; }
-            .nav-links { width: 100%; display: flex; justify-content: space-between; gap: 10px; }
-            .nav-links a { margin-left: 0; font-size: 0.85rem; }
+            .nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-bottom: 10px;
+            }
+
+            .brand {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+
+            .nav-links {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+                font-size: 0.85rem;
+            }
         }
     </style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-MLNGHZLK8D');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MLNGHZLK8D');
+    </script>
 </head>
+
 <body>
-<style>
-        .gsn-universal-header { background-color: #050505; color: #94a3b8; font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; z-index: 50; position: relative; }
-        .gsn-brand { color: #f8fafc; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .gsn-dot { width: 6px; height: 6px; background-color: #0ea5e9; border-radius: 50%; }
-        .gsn-network-links { display: flex; gap: 15px; }
-        .gsn-link { color: #94a3b8; text-decoration: none; transition: color 0.2s ease; font-weight: 500; }
-        .gsn-link:hover { color: #0ea5e9; }
-        .gsn-link.active { color: #ef4444; }
+    <style>
+        .gsn-universal-header {
+            background-color: #050505;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            z-index: 50;
+            position: relative;
+        }
+
+        .gsn-brand {
+            color: #f8fafc;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gsn-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+        }
+
+        .gsn-network-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gsn-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .gsn-link:hover {
+            color: #0ea5e9;
+        }
+
+        .gsn-link.active {
+            color: #ef4444;
+        }
+
         @media (max-width: 800px) {
-            .gsn-universal-header { flex-direction: column; gap: 12px; padding: 12px 20px; }
-            .gsn-network-links { flex-wrap: wrap; justify-content: center; gap: 12px; }
+            .gsn-universal-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 20px;
+            }
+
+            .gsn-network-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
         }
     </style>
     <div class="gsn-universal-header">
@@ -91,7 +307,7 @@
         <div class="gsn-network-links">
             <a href="https://taiwanstraittracker.com" class="gsn-link active">Strait Risk Tracker</a>
             <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
-            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">K-Shape Inequality</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
             <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
             <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
         </div>
@@ -107,53 +323,84 @@
     </nav>
     <div class="container">
         <h1>Signal vs Noise: Why We Ignore 90% of Taiwan Strait News Headlines</h1>
-        <p style="color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">By Taiwan Strait Tracker Intelligence Team | February 2026</p>
-        
-        <p class="lead">The modern news cycle is built to monetise panic. When it comes to the Indo Pacific, this creates a dangerous environment where routine military posturing is constantly framed as the prelude to World War III.</p>
-    
-        <p>On any given day, a simple search for "Taiwan" yields hundreds of threat based headlines. If an intelligence analyst reacted to every single one, they would be paralysed by the sheer volume of data. To build a reliable OSINT dashboard, we had to engineer a system that ruthlessly strips away emotional journalism to find the actual kinetic threat.</p>
-    
+        <p style="color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">By Taiwan Strait
+            Tracker Intelligence Team | February 2026</p>
+
+        <p class="lead">The modern news cycle is built to monetise panic. When it comes to the Indo Pacific, this
+            creates a dangerous environment where routine military posturing is constantly framed as the prelude to
+            World War III.</p>
+
+        <p>On any given day, a simple search for "Taiwan" yields hundreds of threat based headlines. If an intelligence
+            analyst reacted to every single one, they would be paralysed by the sheer volume of data. To build a
+            reliable OSINT dashboard, we had to engineer a system that ruthlessly strips away emotional journalism to
+            find the actual kinetic threat.</p>
+
         <h2>The Media Incentive Structure</h2>
-        <p>We do not believe the media is intentionally lying; they are simply responding to algorithms. A headline that reads "China Conducts Standard Annual Naval Drill" will not generate clicks. A headline that reads "Chinese Warships Surround Taiwan in Terrifying Escalation" will go viral.</p>
-        
-        <p>This incentive structure means that the volume of news does not correlate with the severity of the risk. A spike in news coverage usually just means a slow news week globally, allowing regional posturing to dominate the front pages.</p>
-    
+        <p>We do not believe the media is intentionally lying; they are simply responding to algorithms. A headline that
+            reads "China Conducts Standard Annual Naval Drill" will not generate clicks. A headline that reads "Chinese
+            Warships Surround Taiwan in Terrifying Escalation" will go viral.</p>
+
+        <p>This incentive structure means that the volume of news does not correlate with the severity of the risk. A
+            spike in news coverage usually just means a slow news week globally, allowing regional posturing to dominate
+            the front pages.</p>
+
         <h2>How Our NLP Engine Filters the Noise</h2>
-        
-        
-        
-        <p>To bypass human bias, our tracker relies on Natural Language Processing (NLP). Instead of having analysts read articles and guess the risk, we feed the top daily geopolitical headlines into an automated sentiment engine.</p>
-        
-        <p>The NLP algorithm is trained to ignore adjectives and focus exclusively on verbs and specific military nouns. We categorise terminology into a strict hierarchy:</p>
-        
+
+
+
+        <p>To bypass human bias, our tracker relies on Natural Language Processing (NLP). Instead of having analysts
+            read articles and guess the risk, we feed the top daily geopolitical headlines into an automated sentiment
+            engine.</p>
+
+        <p>The NLP algorithm is trained to ignore adjectives and focus exclusively on verbs and specific military nouns.
+            We categorise terminology into a strict hierarchy:</p>
+
         <ul>
-            <li><strong>Level 1 (Noise):</strong> Words like "slams", "warns", "drills", "unprecedented", and "tensions". These generate clicks but indicate zero kinetic movement. They keep our tracker in the green Nominal zone.</li>
-            <li><strong>Level 2 (Elevated):</strong> Words like "deployment", "sanctions", "live fire", and "incursion". These indicate physical or economic movement. They push our tracker into the yellow zone.</li>
-            <li><strong>Level 3 (High Risk):</strong> Words like "blockade", "quarantine", "embargo", "kinetic", and "mobilisation". These are the precursors to actual conflict.</li>
+            <li><strong>Level 1 (Noise):</strong> Words like "slams", "warns", "drills", "unprecedented", and
+                "tensions". These generate clicks but indicate zero kinetic movement. They keep our tracker in the green
+                Nominal zone.</li>
+            <li><strong>Level 2 (Elevated):</strong> Words like "deployment", "sanctions", "live fire", and "incursion".
+                These indicate physical or economic movement. They push our tracker into the yellow zone.</li>
+            <li><strong>Level 3 (High Risk):</strong> Words like "blockade", "quarantine", "embargo", "kinetic", and
+                "mobilisation". These are the precursors to actual conflict.</li>
         </ul>
-    
+
         <h2>The Ultimate Filter: Capital Markets</h2>
-        
-        
-        
-        <p>Even with advanced NLP, words are ultimately just words. This is why our methodology pairs sentiment analysis directly with financial data.</p>
-        
-        <p>If our NLP engine detects a massive spike in High Risk keywords, but the S&P 500 and Taiwan Semiconductor Manufacturing Company (TSMC) remain perfectly stable, the algorithm flags the news as a diplomatic bluff. Capital markets act as our lie detector. Institutional money has access to satellite imagery and classified briefings that the public does not. If the smart money is not panicking, neither are we.</p>
-        
-        <p>By treating 90% of the news as background radiation, we ensure that when our Risk Index finally flashes red, it actually means something.</p>
-    
+
+
+
+        <p>Even with advanced NLP, words are ultimately just words. This is why our methodology pairs sentiment analysis
+            directly with financial data.</p>
+
+        <p>If our NLP engine detects a massive spike in High Risk keywords, but the S&P 500 and Taiwan Semiconductor
+            Manufacturing Company (TSMC) remain perfectly stable, the algorithm flags the news as a diplomatic bluff.
+            Capital markets act as our lie detector. Institutional money has access to satellite imagery and classified
+            briefings that the public does not. If the smart money is not panicking, neither are we.</p>
+
+        <p>By treating 90% of the news as background radiation, we ensure that when our Risk Index finally flashes red,
+            it actually means something.</p>
+
         <h2>Strategic Ambiguity in Practice</h2>
-        <p>To fully understand the dynamic we are tracking, it helps to look at the broader geopolitical context driving these headlines. The following briefing provides an excellent breakdown of the competing interests at play in the Indo Pacific.</p>
-    
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin: 30px 0;">
-            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/ZBjlVEa8TGQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p>To fully understand the dynamic we are tracking, it helps to look at the broader geopolitical context driving
+            these headlines. The following briefing provides an excellent breakdown of the competing interests at play
+            in the Indo Pacific.</p>
+
+        <div
+            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin: 30px 0;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                src="https://www.youtube.com/embed/ZBjlVEa8TGQ" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
         </div>
-    
-        <div class="disclaimer-box" style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 20px; margin-top: 40px; font-size: 0.9rem;">
-            <strong>Track the Data:</strong> Read our <a href="tracking-military-flights.html">Guide to Tracking Military Flights</a> to see how we verify these headlines with raw aviation data.
+
+        <div class="disclaimer-box"
+            style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 20px; margin-top: 40px; font-size: 0.9rem;">
+            <strong>Track the Data:</strong> Read our <a href="tracking-military-flights.html">Guide to Tracking
+                Military Flights</a> to see how we verify these headlines with raw aviation data.
         </div>
-        
+
         <p style="margin-top: 30px;"><a href="../articles.html">&larr; Back to Analysis Library</a></p>
     </div>
 </body>
+
 </html>
