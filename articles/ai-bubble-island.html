@@ -217,38 +217,21 @@
             color: #f8fafc;
         }
 
-        /* Image Placeholder Styling */
+        /* Image Styling */
         figure {
             margin: 40px 0;
             background: var(--panel-dark);
-            border: 1px dashed var(--border);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
-        }
-
-        .img-instruction {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #f59e0b;
-            margin-bottom: 15px;
-            text-align: left;
-            background: rgba(245, 158, 11, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .img-instruction strong {
-            color: #f8fafc;
-            display: block;
-            margin-bottom: 5px;
-            font-family: 'Inter', sans-serif;
         }
 
         figcaption {
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-top: 15px;
+            margin-bottom: 10px;
             font-style: italic;
         }
 
@@ -354,8 +337,8 @@
                 Strait Tracker
             </a>
             <div class="nav-links">
-                <a href="articles.html" style="color: var(--text-bright);">Analysis</a>
-                <a href="about.html">Methodology</a>
+                <a href="../articles.html" style="color: var(--text-bright);">Analysis</a>
+                <a href="../about.html">Methodology</a>
                 <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -377,25 +360,20 @@
     </header>
 
     <main class="article-body">
-
         <p>If you read the financial news today, you would think artificial intelligence exists purely in the cloud. We
             talk about algorithms, software, and infinite digital possibilities. We watch companies like Nvidia add
             billions of dollars to their valuation overnight, driven by the belief that AI will fundamentally reshape
             the global economy.</p>
-
         <p>But the "cloud" is just someone else's computer. And artificial intelligence is not magic; it is physical. It
             requires vast amounts of raw materials, electricity, and most importantly, highly specialised hardware.</p>
 
         <h2>The Hardware Reality</h2>
-
         <p>To train a model like ChatGPT, you cannot use standard computer processors. You need tens of thousands of
             specialized Graphics Processing Units (GPUs) wired together in massive, energy-hungry data centres. Right
             now, Nvidia designs the best AI GPUs in the world. Their H100 and Blackwell chips are the undisputed gold
             standard, and tech giants are spending billions to hoard them.</p>
-
         <p>But there is a catch that the stock market rarely focuses on: <strong>Nvidia does not actually make
                 anything.</strong></p>
-
         <p>Nvidia is what the industry calls a "fabless" semiconductor company. They employ brilliant engineers to
             design the architecture of the chips, but they do not own the factories required to physically manufacture
             them. The process of turning a design into a physical silicon chip is the most complex manufacturing process
@@ -403,37 +381,32 @@
             that are vastly purer than a hospital operating theatre.</p>
 
         <figure>
-               <img src="images/server.jpg" alt="Server Room">
+            <img src="../public/server.jpg" alt="Server Room">
             <figcaption>The "cloud" is entirely physical. AI relies on massive data centres filled with specialised
                 hardware.</figcaption>
         </figure>
 
         <h2>The TSMC Monopoly</h2>
-
         <p>So, who actually prints the chips that power the AI revolution? The answer lies almost exclusively on the
             island of Taiwan.</p>
-
         <p>The Taiwan Semiconductor Manufacturing Company (TSMC) is the undisputed king of silicon. For the highly
             advanced, sub-5-nanometer chips required for cutting-edge AI, TSMC manufactures over 90% of the global
             supply. They physically build the chips for Nvidia, Apple, AMD, and almost every other major tech player.
         </p>
-
         <p>This creates a stunning bottleneck in the global economy. The entire artificial intelligence boom, the
             trillion-dollar valuations, and the future of technological dominance all funnel through a handful of highly
             vulnerable manufacturing plants located on the western coast of Taiwan.</p>
 
         <h2>The Geopolitical Multiplier</h2>
-
         <p>This is where economics collides violently with geopolitics. The facilities producing the hardware for the AI
             revolution are situated on an island that the People's Republic of China claims as its own territory.
             Beijing has explicitly stated its intention to "reunify" with Taiwan, and refuses to rule out the use of
             military force to achieve it.</p>
-
         <p>If a geopolitical crisis triggers a blockade of the Taiwan Strait, or a kinetic conflict disrupts the power
             grid on the island, the physical supply chain for AI hardware does not just slow down; it drops to zero.</p>
 
         <figure>
-            <img src="images/chip.jpg" alt="High-tech map of Taiwan">
+            <img src="../public/chip.jpg" alt="High-tech map of Taiwan">
             <figcaption>Over 90% of the world's most advanced AI chips are manufactured in Taiwan.</figcaption>
         </figure>
 
@@ -455,15 +428,14 @@
         <p>The next time you see a headline about AI breaking new boundaries or tech stocks hitting record highs,
             remember the physical reality. The entire structure is balancing on the edge of the world's most dangerous
             geopolitical fault line.</p>
-
     </main>
 
     <footer class="site-footer">
         <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
         <div class="footer-links">
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact Us</a>
-            <a href="privacy.html">Privacy</a>
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact Us</a>
+            <a href="../privacy.html">Privacy</a>
         </div>
     </footer>
 </body>
