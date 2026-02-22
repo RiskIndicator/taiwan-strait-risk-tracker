@@ -633,14 +633,6 @@
             }
         }
     </style>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNGHZLK8D"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-MLNGHZLK8D');
-    </script>
 </head>
 
 <body>
@@ -679,9 +671,13 @@
 
     <div class="container">
 
-        <div class="card hero-card span-2">
+        <a href="{{ latest_report_url }}" class="card hero-card span-2"
+            style="text-decoration: none; color: inherit; display: flex; transition: transform 0.2s, border-color 0.3s;"
+            onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
             <div class="score-left">
-                <div class="metric-label">Current Risk Index</div>
+                <div class="metric-label">Current Risk Index <span
+                        style="font-size:0.75rem; font-weight:normal; color:var(--accent); text-transform:none; margin-left: 10px;">Click
+                        for Daily Briefing &rarr;</span></div>
                 <div class="big-number">{{ risk_score }}</div>
                 <div class="trend-badge"
                     style="color: {% if trend_arrow == '▲' %}var(--danger){% elif trend_arrow == '▼' %}var(--safe){% else %}var(--text-sub){% endif %};
@@ -706,12 +702,10 @@
                             <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0ea5e9" flood-opacity="0.3" />
                         </filter>
                     </defs>
-
                     <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
                         stroke-linecap="round" />
                     <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12"
                         stroke-linecap="round" />
-
                     <g
                         style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ risk_score }} * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
                         <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" filter="url(#glow)" />
@@ -720,10 +714,12 @@
                     </g>
                 </svg>
             </div>
-        </div>
+        </a>
 
         <div class="metrics-tower span-1">
-            <div class="small-metric-card">
+            <a href="{{ latest_report_url }}" class="small-metric-card"
+                style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
+                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div class="sm-header">
                     <span class="metric-label">Conflict Noise</span>
                     <span class="sm-score" style="color: var(--danger);">{{ conflict_score }}</span>
@@ -737,9 +733,11 @@
                     <strong style="display:block; color:var(--text-main); margin-bottom:4px;">Primary Driver:</strong>
                     "{{ top_headline }}"
                 </div>
-            </div>
+            </a>
 
-            <div class="small-metric-card">
+            <a href="{{ latest_report_url }}" class="small-metric-card"
+                style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
+                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
                 <div class="sm-header">
                     <span class="metric-label">Market Anxiety</span>
                     <span class="sm-score" style="color: var(--accent);">{{ market_score }}</span>
@@ -753,7 +751,7 @@
                     <strong style="display:block; color:var(--text-main); margin-bottom:4px;">TSMC vs S&P 500:</strong>
                     {{ market_evidence }}
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="span-full alert-bar">
@@ -765,7 +763,9 @@
         </div>
 
         <div class="card span-2">
-            <h3 class="section-header">30-Day Volatility Trend</h3>
+            <h3 class="section-header">30-Day Volatility Trend <span
+                    style="font-size:0.75rem; font-weight:normal; color:var(--text-sub); margin-left:10px;">(Click any
+                    point for daily report)</span></h3>
             <div class="chart-box"><canvas id="historyChart"></canvas></div>
         </div>
 
@@ -914,7 +914,7 @@
         // --- DYNAMIC PYTHON VARIABLES ---
         const historyData = {{ history_json }};
 
-        // --- UPGRADED "GLASS" TREND CHART ---
+        // --- UPGRADED "GLASS" TREND CHART WITH CLICK EVENTS ---
         const ctxChart = document.getElementById('historyChart').getContext('2d');
 
         function getLineGradient(ctxChart, chartArea) {
@@ -964,6 +964,20 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+
+                // --- CLICK INTERACTIVITY ---
+                onHover: (event, chartElement) => {
+                    event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                },
+                onClick: (event, activeElements) => {
+                    if (activeElements.length > 0) {
+                        const dataIndex = activeElements[0].index;
+                        const clickedDate = historyData[dataIndex].date;
+                        window.location.href = `reports/report_${clickedDate}.html`;
+                    }
+                },
+                // ---------------------------
+
                 plugins: {
                     legend: { display: false },
                     tooltip: {
