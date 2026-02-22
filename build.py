@@ -79,21 +79,17 @@ def get_conflict_risk():
         total = (sentiment_risk * 0.6) + (keyword_risk * 0.4)
         final_score = int(max(0, min(100, total)))
         
-        # --- THE FIX: SMART SIGNAL LABELING ---
+        # --- SMART SIGNAL LABELING ---
         top_phrase = "Sector Calm"
         
         if triggered_headlines:
-            # If the score is LOW (Safe), treat "Invasion/War" words as just "Rhetoric"
             if final_score < 60:
                  top_phrase = "Signal: NEWS FLOW"
-            
-            # If the score is HIGH (Danger), show the specific trigger
             else:
                 for word in warning_words:
                     if any(word in h.lower() for h in triggered_headlines):
                         top_phrase = f"Signal: {word.upper()}"
                         break
-        # --------------------------------------
 
         return {
             "score": final_score,
@@ -108,10 +104,6 @@ def get_conflict_risk():
 # --- 2. VISUALS GENERATION ---
 
 def generate_dark_mode_card(score, status, color, market_desc, conflict_phrase, trend_arrow):
-    """
-    Generates the HTML/CSS string for the 'Situation Room' card.
-    This replaces the old screenshot.py logic.
-    """
     html_str = f"""
     <!DOCTYPE html>
     <html>
@@ -166,7 +158,6 @@ def prepare_clickbait_tweet(status, score, summary, headlines, market_desc):
         
     hook = random.choice(hooks)
     
-    # Add teaser
     reason = ""
     if headlines:
         top_story = headlines[0].split('-')[0].strip()[:50]
@@ -182,7 +173,6 @@ def prepare_clickbait_tweet(status, score, summary, headlines, market_desc):
 def main():
     print("Starting Build Process...")
 
-    # A. GET DATA
     market_data = get_market_risk()
     conflict_data = get_conflict_risk()
     market_score = market_data['score']
@@ -196,7 +186,6 @@ def main():
     else:
         status = "HIGH RISK"; color = "#ef4444"; summary = "Significant anomaly detected."
 
-    # B. UPDATE HISTORY
     today_str = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%Y-%m-%d')
     try:
         with open('history.json', 'r', encoding='utf-8') as f: history = json.load(f)
@@ -213,7 +202,6 @@ def main():
     history = history[-30:]
     with open('history.json', 'w', encoding='utf-8') as f: json.dump(history, f)
 
-    # C. GENERATE CARD
     print("Generating Situation Room Card...")
     card_html = generate_dark_mode_card(final_score, status, color, market_data['desc'], conflict_data['top_phrase'], trend_arrow)
     
@@ -221,25 +209,19 @@ def main():
     try:
         hti = Html2Image(output_path='public', size=(1200, 628), custom_flags=['--no-sandbox', '--disable-gpu', '--hide-scrollbars'])
         os.makedirs('public', exist_ok=True)
-        
-        # Burn score into filename
         new_filename = f"card_{today_str}_s{final_score}.png"
         for f in glob.glob(f"public/card_{today_str}*.png"): os.remove(f)
-        
         hti.screenshot(html_str=card_html, save_as=new_filename)
         final_image_url = f"https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/{new_filename}"
         print(f"✅ Card Generated: {new_filename}")
-
     except Exception as e:
         print(f"❌ Screenshot Error: {e}")
 
-    # D. GENERATE TWEET
     tweet_content = prepare_clickbait_tweet(status, final_score, summary, conflict_data['headlines'], market_data['desc'])
 
-    # E. UPDATE WEBSITE & GENERATE REPORT
-    update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%Y-%m-%d %H:%M')
+    # --- THE FIX STARTS HERE ---
     
-    # 1. Generate Daily Report
+    # 1. Generate Daily Report first
     os.makedirs('reports', exist_ok=True)
     report_filename = f"report_{today_str}.html"
     report_filepath = os.path.join('reports', report_filename)
@@ -248,21 +230,16 @@ def main():
         with open('report_template.html', 'r', encoding='utf-8') as f:
             report_template = Template(f.read())
             
-        rendered_html = template.render(
+        rendered_report = report_template.render(
+            date_str=today_str,
             risk_score=final_score,
             status_text=status,
             market_score=market_score,
             conflict_score=conflict_score,
             color_code=color,
             daily_summary=summary,
-            last_updated=update_time,
-            history_json=json.dumps(history),
-            report_list=recent_reports,
-            trend_arrow=trend_arrow,
-            trend_desc=trend_desc,
             market_evidence=market_data['desc'],
-            top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No news flow",
-            latest_report_url=f"reports/report_{today_str}.html" # <--- ADD THIS LINE
+            headline_list=conflict_data['headlines']
         )
         with open(report_filepath, 'w', encoding='utf-8') as f:
             f.write(rendered_report)
@@ -270,8 +247,7 @@ def main():
     except Exception as e:
         print(f"❌ Report Generation Error: {e}")
 
-    # 2. Build the Archive List for the Homepage
-    # Scans the reports folder and grabs the 5 most recent files
+    # 2. Build the Archive List
     report_files = sorted(glob.glob('reports/report_*.html'), reverse=True)[:5]
     recent_reports = []
     for file_path in report_files:
@@ -283,32 +259,38 @@ def main():
         })
 
     # 3. Update the Homepage (index.html)
-    with open('template.html', 'r', encoding='utf-8') as f:
-        template = Template(f.read())
+    update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%Y-%m-%d %H:%M')
+    
+    try:
+        with open('template.html', 'r', encoding='utf-8') as f:
+            main_template = Template(f.read())
 
-    rendered_html = template.render(
-        risk_score=final_score,
-        status_text=status,
-        market_score=market_score,
-        conflict_score=conflict_score,
-        color_code=color,
-        daily_summary=summary,
-        last_updated=update_time,
-        history_json=json.dumps(history),
-        report_list=recent_reports, # This now feeds the 5 recent reports to the homepage!
-        trend_arrow=trend_arrow,
-        trend_desc=trend_desc,
-        market_evidence=market_data['desc'],
-        top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No news flow"
-    )
+        rendered_html = main_template.render(
+            risk_score=final_score,
+            status_text=status,
+            market_score=market_score,
+            conflict_score=conflict_score,
+            color_code=color,
+            daily_summary=summary,
+            last_updated=update_time,
+            history_json=json.dumps(history),
+            report_list=recent_reports, 
+            trend_arrow=trend_arrow,
+            trend_desc=trend_desc,
+            market_evidence=market_data['desc'],
+            top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No news flow",
+            latest_report_url=f"reports/{report_filename}" 
+        )
 
-    # Inject Meta Tags for Big Card
-    meta_tags = f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{final_image_url}">'
-    final_html = rendered_html.replace('<meta name="twitter:card" content="summary_large_image">', '').replace('<meta name="twitter:image" content="https://taiwanstraittracker.com/public/card_2026-02-09.png">', '')
-    final_html = final_html.replace("</head>", f"{meta_tags}\n</head>")
+        meta_tags = f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{final_image_url}">'
+        final_html = rendered_html.replace('<meta name="twitter:card" content="summary_large_image">', '').replace('<meta name="twitter:image" content="https://taiwanstraittracker.com/public/card_2026-02-09.png">', '')
+        final_html = final_html.replace("</head>", f"{meta_tags}\n</head>")
 
-    with open('index.html', 'w', encoding='utf-8') as f:
-        f.write(final_html)
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(final_html)
+        print("✅ Homepage Updated")
+    except Exception as e:
+        print(f"❌ Homepage Update Error: {e}")
 
     # F. GITHUB ACTIONS OUTPUT
     if os.getenv('GITHUB_OUTPUT'):
