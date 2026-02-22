@@ -973,7 +973,16 @@
                     if (activeElements.length > 0) {
                         const dataIndex = activeElements[0].index;
                         const clickedDate = historyData[dataIndex].date;
-                        window.location.href = `reports/report_${clickedDate}.html`;
+
+                        // The dates you manually saved earlier in the month
+                        const olderReports = ["2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09"];
+
+                        // Only navigate if it's a new automated report OR one of your saved older ones
+                        if (clickedDate >= "2026-02-22" || olderReports.includes(clickedDate)) {
+                            window.location.href = `reports/report_${clickedDate}.html`;
+                        } else {
+                            alert("Detailed intelligence briefings are not available for this specific date.");
+                        }
                     }
                 },
                 // ---------------------------
