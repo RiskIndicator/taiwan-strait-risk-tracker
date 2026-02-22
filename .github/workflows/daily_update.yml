@@ -21,7 +21,7 @@ jobs:
       image_output: ${{ steps.build.outputs.image_url }}
     steps:
       - uses: actions/checkout@v3
-      
+        
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -52,10 +52,9 @@ jobs:
             echo "No changes to commit."
           fi
 
-post-to-twitter:
+  post-to-twitter:
     needs: update-data
-    # Wrapped in ${{ }} and simplified to prevent null errors during cron runs
-    if: ${{ github.event_name == 'schedule' || inputs.post_tweet == true }}
+    if: github.event_name == 'schedule' || inputs.post_tweet == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
