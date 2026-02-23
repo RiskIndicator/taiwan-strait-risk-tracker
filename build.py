@@ -283,15 +283,20 @@ def main():
             latest_report_url=f"reports/{report_filename}" 
         )
 
+# --- CLEANED UP SECTION ---
         meta_tags = f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{final_image_url}">'
+        
+        # Remove the old static meta tags
         final_html = rendered_html.replace('<meta name="twitter:card" content="summary_large_image">', '').replace('<meta name="twitter:image" content="https://taiwanstraittracker.com/public/card_2026-02-09.png">', '')
-        final_html = final_html.replace("<link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
-</head>", f"{meta_tags}\n<link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
-</head>")
+        
+        # Inject the new dynamic meta tags right before the closing </head> tag
+        final_html = final_html.replace("</head>", f"{meta_tags}\n</head>")
 
         with open('index.html', 'w', encoding='utf-8') as f:
             f.write(final_html)
         print("✅ Homepage Updated")
+        # --------------------------
+
     except Exception as e:
         print(f"❌ Homepage Update Error: {e}")
 
