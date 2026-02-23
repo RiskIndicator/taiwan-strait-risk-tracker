@@ -11,35 +11,38 @@ def main():
     
     risk_score = os.getenv('RISK_SCORE', 'Checked')
 
-    # 2. Authenticate using the V2 Client
-    # We must provide all 4 keys to enable User Auth (Write access)
+    # 2. Authenticate using OAuth 1.0a (Required for Free Tier Posting)
     try:
-        client = tweepy.Client(
-            consumer_key=api_key,
-            consumer_secret=api_secret,
-            access_token=access_token,
-            access_token_secret=access_token_secret
-        )
-        print("🚀 Authentication successful. Preparing tweet...")
+        # This is the 'V1' handler which is more reliable for checking 401 errors
+        auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_token_secret)
+        api_v1 = tweepy.API(auth)
+        
+        # This line will confirm if X actually likes your keys
+        user = api_v1.verify_credentials()
+        print(f"✅ Authenticated successfully as: @{user.screen_name}")
+        
     except Exception as e:
-        print(f"❌ Authentication Setup Error: {e}")
+        print(f"❌ Authentication Failed: {e}")
+        print("💡 This means your keys are invalid or OAuth 1.0a isn't enabled in the portal.")
         sys.exit(1)
 
-    # 3. Format the message
-    report_url = "https://taiwanstraittracker.com"
-    message = f"🚨 Taiwan Strait Risk Update\n\nToday's Risk Index: {risk_score}/100\n\nFull intelligence briefing and radar: {report_url}"
+    # 3. Use the V2 Client to post the Tweet
+    client = tweepy.Client(
+        consumer_key=api_key,
+        consumer_secret=api_secret,
+        access_token=access_token,
+        access_token_secret=access_token_secret
+    )
 
-    # 4. Post with 'user_auth=True' (The Fix)
+    report_url = "https://taiwanstraittracker.com"
+    message = f"🚨 Taiwan Strait Risk Update\n\nToday's Risk Index: {risk_score}/100\n\nView full intelligence briefing and live radar: {report_url}"
+
     try:
-        # user_auth=True is required to use the Access Tokens for Write access
+        # user_auth=True forces it to use the OAuth 1.0a we just verified
         response = client.create_tweet(text=message, user_auth=True)
         print(f"✅ Tweet posted successfully! ID: {response.data['id']}")
-    except tweepy.errors.Unauthorized as e:
-        print(f"❌ 401 Unauthorized: Double check that your Access Tokens were regenerated AFTER you set permissions to Read/Write.")
-        print(f"Error Details: {e}")
-        sys.exit(1)
     except Exception as e:
-        print(f"❌ Twitter API Error: {e}")
+        print(f"❌ Post Failed: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
