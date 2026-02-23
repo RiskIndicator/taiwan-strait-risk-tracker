@@ -125,7 +125,8 @@ def generate_dark_mode_card(score, status, color, market_desc, conflict_phrase, 
         .intel-value {{ font-size: 28px; color: #f8fafc; font-weight: 700; border-left: 4px solid {color}; padding-left: 15px; }}
         .footer {{ position: absolute; bottom: 20px; right: 30px; color: #475569; font-size: 16px; letter-spacing: 1px; }}
     </style>
-    </head>
+    <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
+</head>
     <body>
         <div class="container">
             <div class="grid"></div>
@@ -284,7 +285,9 @@ def main():
 
         meta_tags = f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{final_image_url}">'
         final_html = rendered_html.replace('<meta name="twitter:card" content="summary_large_image">', '').replace('<meta name="twitter:image" content="https://taiwanstraittracker.com/public/card_2026-02-09.png">', '')
-        final_html = final_html.replace("</head>", f"{meta_tags}\n</head>")
+        final_html = final_html.replace("<link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
+</head>", f"{meta_tags}\n<link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
+</head>")
 
         with open('index.html', 'w', encoding='utf-8') as f:
             f.write(final_html)
