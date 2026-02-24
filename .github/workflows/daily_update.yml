@@ -19,6 +19,7 @@ jobs:
     outputs:
       tweet_output: ${{ steps.build.outputs.tweet }}
       image_output: ${{ steps.build.outputs.image_url }}
+      risk_score: ${{ steps.build.outputs.risk_score }} 
     steps:
       - uses: actions/checkout@v3
         
