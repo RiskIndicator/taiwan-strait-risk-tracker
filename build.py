@@ -310,3 +310,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import os
+
+# NOTE: Change 'final_risk_score' to whatever the actual variable 
+# name is in your script that holds the 0 to 100 number!
+final_score = 65 
+
+# This writes the score to GitHub Actions so the Tweet script can see it
+if 'GITHUB_OUTPUT' in os.environ:
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+        f.write(f"risk_score={final_score}\n")    
