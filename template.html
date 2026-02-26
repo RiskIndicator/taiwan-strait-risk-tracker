@@ -642,375 +642,384 @@
             <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
             <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
             <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
+            <a href="https://taiwanstraittracker.com/macro.html" class="gsn-link">Macro Outlook</a>
             <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
         </div>
-    </div>
 
-    <nav class="navbar">
-        <div class="nav-inner">
-            <a href="/" class="brand">
-                <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> Taiwan Strait Tracker
-            </a>
-            <div class="nav-links">
-                <a href="articles.html" style="color: var(--text-main);">Analysis</a>
-                <a href="about.html">Methodology</a>
-                <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
-                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                    Follow
+        <nav class="navbar">
+            <div class="nav-inner">
+                <a href="/" class="brand">
+                    <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> Taiwan Strait Tracker
                 </a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-
-        <a href="{{ latest_report_url }}" class="card hero-card span-2"
-            style="text-decoration: none; color: inherit; display: flex; transition: transform 0.2s, border-color 0.3s;"
-            onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-            <div class="score-left">
-                <div class="metric-label">Current Risk Index <span
-                        style="font-size:0.75rem; font-weight:normal; color:var(--accent); text-transform:none; margin-left: 10px;">Click
-                        for Daily Briefing &rarr;</span></div>
-                <div class="big-number">{{ risk_score }}</div>
-                <div class="trend-badge"
-                    style="color: {% if trend_arrow == '▲' %}var(--danger){% elif trend_arrow == '▼' %}var(--safe){% else %}var(--text-sub){% endif %};
-                            background: {% if trend_arrow == '▲' %}rgba(239, 68, 68, 0.1){% elif trend_arrow == '▼' %}rgba(16, 185, 129, 0.1){% else %}rgba(148, 163, 184, 0.1){% endif %};
-                            border: 1px solid {% if trend_arrow == '▲' %}rgba(239, 68, 68, 0.2){% elif trend_arrow == '▼' %}rgba(16, 185, 129, 0.2){% else %}rgba(148, 163, 184, 0.2){% endif %};">
-                    {{ trend_arrow }} {{ trend_desc }} pts since yesterday
-                </div>
-                <p class="status-text">
-                    <strong style="color: {{ color_code }}">{{ status_text }}:</strong> {{ daily_summary }}
-                </p>
-            </div>
-            <div class="score-right">
-                <svg viewBox="0 0 200 115"
-                    style="width: 100%; height: 100%; max-height: 160px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));">
-                    <defs>
-                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#10b981" />
-                            <stop offset="50%" stop-color="#f59e0b" />
-                            <stop offset="100%" stop-color="#ef4444" />
-                        </linearGradient>
-                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0ea5e9" flood-opacity="0.3" />
-                        </filter>
-                    </defs>
-                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
-                        stroke-linecap="round" />
-                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12"
-                        stroke-linecap="round" />
-                    <g
-                        style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ risk_score }} * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                        <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" filter="url(#glow)" />
-                        <circle cx="100" cy="100" r="7" fill="#f8fafc" />
-                        <circle cx="100" cy="100" r="2.5" fill="#0f172a" />
-                    </g>
-                </svg>
-            </div>
-        </a>
-
-        <div class="metrics-tower span-1">
-            <a href="{{ latest_report_url }}" class="small-metric-card"
-                style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
-                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div class="sm-header">
-                    <span class="metric-label">Conflict Noise</span>
-                    <span class="sm-score" style="color: var(--danger);">{{ conflict_score }}</span>
-                </div>
-                <div class="sm-bar-bg">
-                    <div
-                        style="height: 100%; width: {{ conflict_score }}%; background: var(--danger); box-shadow: 0 0 8px var(--danger);">
-                    </div>
-                </div>
-                <div class="evidence-box">
-                    <strong style="display:block; color:var(--text-main); margin-bottom:4px;">Primary Driver:</strong>
-                    "{{ top_headline }}"
-                </div>
-            </a>
-
-            <a href="{{ latest_report_url }}" class="small-metric-card"
-                style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
-                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-                <div class="sm-header">
-                    <span class="metric-label">Market Anxiety</span>
-                    <span class="sm-score" style="color: var(--accent);">{{ market_score }}</span>
-                </div>
-                <div class="sm-bar-bg">
-                    <div
-                        style="height: 100%; width: {{ market_score }}%; background: var(--accent); box-shadow: 0 0 8px var(--accent);">
-                    </div>
-                </div>
-                <div class="evidence-box">
-                    <strong style="display:block; color:var(--text-main); margin-bottom:4px;">TSMC vs S&P 500:</strong>
-                    {{ market_evidence }}
-                </div>
-            </a>
-        </div>
-
-        <div class="span-full alert-bar">
-            <div class="alert-text">
-                <span style="font-size:1.3rem;">🔴</span>
-                Get notified instantly when the Risk Index spikes above 50.
-            </div>
-            <a href="https://twitter.com/StraitTracker" target="_blank" class="alert-btn">Enable Alerts</a>
-        </div>
-
-        <div class="card span-2">
-            <h3 class="section-header">30-Day Volatility Trend <span
-                    style="font-size:0.75rem; font-weight:normal; color:var(--text-sub); margin-left:10px;">(Click any
-                    point for daily report)</span></h3>
-            <div class="chart-box"><canvas id="historyChart"></canvas></div>
-        </div>
-
-        <div class="card span-1">
-            <div class="carousel-container">
-                <div>
-                    <div class="carousel-header">
-                        <span class="metric-label" style="margin:0;">Featured Briefing</span>
-                        <div class="carousel-dots">
-                            <div class="c-dot active" id="dot-0"></div>
-                            <div class="c-dot" id="dot-1"></div>
-                            <div class="c-dot" id="dot-2"></div>
-                            <div class="c-dot" id="dot-3"></div>
-                            <div class="c-dot" id="dot-4"></div>
-                            <div class="c-dot" id="dot-5"></div>
-                        </div>
-                    </div>
-
-                    <a href="articles/ai-bubble-island.html" id="featured-container"
-                        style="flex-direction: column; align-items: flex-start;">
-                        <img src="public/chip.jpg" class="featured-thumb" id="feat-img"
-                            style="width: 100%; height: 140px;"
-                            onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Image'">
-                        <div class="featured-content">
-                            <span class="featured-tag" id="feat-tag">Supply Chain</span>
-                            <h3 id="feat-title">Why the Trillion Dollar AI Boom Relies on One Island</h3>
-                            <p id="feat-excerpt">Everyone is buying Nvidia stock, but the physical reality of AI is
-                                built on a massive point of failure.</p>
-                        </div>
+                <div class="nav-links">
+                    <a href="articles.html" style="color: var(--text-main);">Analysis</a>
+                    <a href="about.html">Methodology</a>
+                    <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                        Follow
                     </a>
                 </div>
             </div>
-        </div>
+        </nav>
 
-        <div class="span-full" style="margin-top: 20px;">
-            <h3 class="section-header" style="margin-bottom: 25px;">Understanding the Indices</h3>
-            <div class="analysis-grid">
-                <a href="articles/wealth-inequality-article.html" class="analysis-card">
-                    <span class="featured-tag">Economics</span>
-                    <h4>The Invisible Gap: Why You Feel Broke While Markets Boom</h4>
-                    <p>If the official economy is doing so well, why is the cost of basic survival spiking for everyday
-                        people?</p>
-                </a>
-                <a href="articles/supply-chain-article.html" class="analysis-card">
-                    <span class="featured-tag">Logistics</span>
-                    <h4>The End of Cheap Shipping and the Rise of Inflation</h4>
-                    <p>How geopolitical choke points in the oceans are directly driving up the cost of everything you
-                        buy.</p>
-                </a>
-                <a href="articles/silicon-shield.html" class="analysis-card">
-                    <span class="featured-tag">Market Impact</span>
-                    <h4>The "Silicon Shield": TSMC Volatility and Your Portfolio</h4>
-                    <p>Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data.
+        <div class="container">
+
+            <a href="{{ latest_report_url }}" class="card hero-card span-2"
+                style="text-decoration: none; color: inherit; display: flex; transition: transform 0.2s, border-color 0.3s;"
+                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div class="score-left">
+                    <div class="metric-label">Current Risk Index <span
+                            style="font-size:0.75rem; font-weight:normal; color:var(--accent); text-transform:none; margin-left: 10px;">Click
+                            for Daily Briefing &rarr;</span></div>
+                    <div class="big-number">{{ risk_score }}</div>
+                    <div class="trend-badge"
+                        style="color: {% if trend_arrow == '▲' %}var(--danger){% elif trend_arrow == '▼' %}var(--safe){% else %}var(--text-sub){% endif %};
+                            background: {% if trend_arrow == '▲' %}rgba(239, 68, 68, 0.1){% elif trend_arrow == '▼' %}rgba(16, 185, 129, 0.1){% else %}rgba(148, 163, 184, 0.1){% endif %};
+                            border: 1px solid {% if trend_arrow == '▲' %}rgba(239, 68, 68, 0.2){% elif trend_arrow == '▼' %}rgba(16, 185, 129, 0.2){% else %}rgba(148, 163, 184, 0.2){% endif %};">
+                        {{ trend_arrow }} {{ trend_desc }} pts since yesterday
+                    </div>
+                    <p class="status-text">
+                        <strong style="color: {{ color_code }}">{{ status_text }}:</strong> {{ daily_summary }}
                     </p>
+                </div>
+                <div class="score-right">
+                    <svg viewBox="0 0 200 115"
+                        style="width: 100%; height: 100%; max-height: 160px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));">
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#10b981" />
+                                <stop offset="50%" stop-color="#f59e0b" />
+                                <stop offset="100%" stop-color="#ef4444" />
+                            </linearGradient>
+                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0ea5e9"
+                                    flood-opacity="0.3" />
+                            </filter>
+                        </defs>
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
+                            stroke-linecap="round" />
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)"
+                            stroke-width="12" stroke-linecap="round" />
+                        <g
+                            style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ risk_score }} * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" filter="url(#glow)" />
+                            <circle cx="100" cy="100" r="7" fill="#f8fafc" />
+                            <circle cx="100" cy="100" r="2.5" fill="#0f172a" />
+                        </g>
+                    </svg>
+                </div>
+            </a>
+
+            <div class="metrics-tower span-1">
+                <a href="{{ latest_report_url }}" class="small-metric-card"
+                    style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
+                    onmouseover="this.style.transform='translateY(-4px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <div class="sm-header">
+                        <span class="metric-label">Conflict Noise</span>
+                        <span class="sm-score" style="color: var(--danger);">{{ conflict_score }}</span>
+                    </div>
+                    <div class="sm-bar-bg">
+                        <div
+                            style="height: 100%; width: {{ conflict_score }}%; background: var(--danger); box-shadow: 0 0 8px var(--danger);">
+                        </div>
+                    </div>
+                    <div class="evidence-box">
+                        <strong style="display:block; color:var(--text-main); margin-bottom:4px;">Primary
+                            Driver:</strong>
+                        "{{ top_headline }}"
+                    </div>
                 </a>
+
+                <a href="{{ latest_report_url }}" class="small-metric-card"
+                    style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
+                    onmouseover="this.style.transform='translateY(-4px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <div class="sm-header">
+                        <span class="metric-label">Market Anxiety</span>
+                        <span class="sm-score" style="color: var(--accent);">{{ market_score }}</span>
+                    </div>
+                    <div class="sm-bar-bg">
+                        <div
+                            style="height: 100%; width: {{ market_score }}%; background: var(--accent); box-shadow: 0 0 8px var(--accent);">
+                        </div>
+                    </div>
+                    <div class="evidence-box">
+                        <strong style="display:block; color:var(--text-main); margin-bottom:4px;">TSMC vs S&P
+                            500:</strong>
+                        {{ market_evidence }}
+                    </div>
+                </a>
+            </div>
+
+            <div class="span-full alert-bar">
+                <div class="alert-text">
+                    <span style="font-size:1.3rem;">🔴</span>
+                    Get notified instantly when the Risk Index spikes above 50.
+                </div>
+                <a href="https://twitter.com/StraitTracker" target="_blank" class="alert-btn">Enable Alerts</a>
+            </div>
+
+            <div class="card span-2">
+                <h3 class="section-header">30-Day Volatility Trend <span
+                        style="font-size:0.75rem; font-weight:normal; color:var(--text-sub); margin-left:10px;">(Click
+                        any
+                        point for daily report)</span></h3>
+                <div class="chart-box"><canvas id="historyChart"></canvas></div>
+            </div>
+
+            <div class="card span-1">
+                <div class="carousel-container">
+                    <div>
+                        <div class="carousel-header">
+                            <span class="metric-label" style="margin:0;">Featured Briefing</span>
+                            <div class="carousel-dots">
+                                <div class="c-dot active" id="dot-0"></div>
+                                <div class="c-dot" id="dot-1"></div>
+                                <div class="c-dot" id="dot-2"></div>
+                                <div class="c-dot" id="dot-3"></div>
+                                <div class="c-dot" id="dot-4"></div>
+                                <div class="c-dot" id="dot-5"></div>
+                            </div>
+                        </div>
+
+                        <a href="articles/ai-bubble-island.html" id="featured-container"
+                            style="flex-direction: column; align-items: flex-start;">
+                            <img src="public/chip.jpg" class="featured-thumb" id="feat-img"
+                                style="width: 100%; height: 140px;"
+                                onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Image'">
+                            <div class="featured-content">
+                                <span class="featured-tag" id="feat-tag">Supply Chain</span>
+                                <h3 id="feat-title">Why the Trillion Dollar AI Boom Relies on One Island</h3>
+                                <p id="feat-excerpt">Everyone is buying Nvidia stock, but the physical reality of AI is
+                                    built on a massive point of failure.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="span-full" style="margin-top: 20px;">
+                <h3 class="section-header" style="margin-bottom: 25px;">Understanding the Indices</h3>
+                <div class="analysis-grid">
+                    <a href="articles/wealth-inequality-article.html" class="analysis-card">
+                        <span class="featured-tag">Economics</span>
+                        <h4>The Invisible Gap: Why You Feel Broke While Markets Boom</h4>
+                        <p>If the official economy is doing so well, why is the cost of basic survival spiking for
+                            everyday
+                            people?</p>
+                    </a>
+                    <a href="articles/supply-chain-article.html" class="analysis-card">
+                        <span class="featured-tag">Logistics</span>
+                        <h4>The End of Cheap Shipping and the Rise of Inflation</h4>
+                        <p>How geopolitical choke points in the oceans are directly driving up the cost of everything
+                            you
+                            buy.</p>
+                    </a>
+                    <a href="articles/silicon-shield.html" class="analysis-card">
+                        <span class="featured-tag">Market Impact</span>
+                        <h4>The "Silicon Shield": TSMC Volatility and Your Portfolio</h4>
+                        <p>Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation
+                            data.
+                        </p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card span-full">
+                <h3 class="section-header">Daily Intelligence Briefings</h3>
+                <ul class="archive-list">
+                    {% for report in report_list %}
+                    <li><a href="{{ report.url }}">{{ report.date }} Risk Analysis &rarr;</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="card span-full ad-box">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2906019839191718"
+                    data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
         </div>
 
-        <div class="card span-full">
-            <h3 class="section-header">Daily Intelligence Briefings</h3>
-            <ul class="archive-list">
-                {% for report in report_list %}
-                <li><a href="{{ report.url }}">{{ report.date }} Risk Analysis &rarr;</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="card span-full ad-box">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2906019839191718"
-                data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-    </div>
-
-    <script>
-        const featuredArticles = [
-            {
-                url: "articles/ai-bubble-island.html",
-                img: "public/chip.jpg",
-                tag: "Supply Chain",
-                title: "Why the Trillion Dollar AI Boom Relies on One Island",
-                excerpt: "Everyone is buying Nvidia stock, but the physical reality of AI is built on a massive point of failure."
-            },
-            {
-                url: "articles/wealth-inequality-article.html",
-                img: "public/wealth-gap.png",
-                tag: "Economics",
-                title: "The Invisible Gap: Why You Feel Broke While Markets Boom",
-                excerpt: "If the official economy is doing so well, why is the cost of basic survival spiking for everyday people?"
-            },
-            {
-                url: "articles/supply-chain-article.html",
-                img: "public/shipping-chokepoint.png",
-                tag: "Logistics",
-                title: "The End of Cheap Shipping and the Rise of Inflation",
-                excerpt: "How geopolitical choke points in the oceans are directly driving up the cost of everything you buy."
-            },
-            {
-                url: "articles/silicon-shield.html",
-                img: "public/silicon-shield-thumb.png",
-                tag: "Market Impact",
-                title: "The \"Silicon Shield\": How TSMC Volatility Affects Your Portfolio",
-                excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of data."
-            },
-            {
-                url: "articles/what-is-an-adiz.html",
-                img: "public/JADIZ_and_CADIZ_and_KADIZ_in_East_China_Sea.jpg",
-                tag: "Airspace",
-                title: "What is an ADIZ? (And Why Flying Into It Is Not an Invasion)",
-                excerpt: "Media outlets constantly conflate Air Defence zones with sovereign airspace. Understand the legal difference."
-            },
-            {
-                url: "articles/grey-zone-tactics.html",
-                img: "public/coastguard.jpg",
-                tag: "Strategy",
-                title: "Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot",
-                excerpt: "Sand dredgers, agricultural bans, and cyber warfare. How the conflict is fought daily in the grey zone."
-            }
-        ];
-
-        let currentArticleIdx = 0;
-
-        function rotateArticle() {
-            const container = document.getElementById('featured-container');
-            container.style.opacity = 0;
-
-            setTimeout(() => {
-                document.getElementById(`dot-${currentArticleIdx}`).classList.remove('active');
-                currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
-                const article = featuredArticles[currentArticleIdx];
-
-                container.href = article.url;
-                document.getElementById('feat-img').src = article.img;
-                document.getElementById('feat-tag').innerText = article.tag;
-                document.getElementById('feat-title').innerText = article.title;
-                document.getElementById('feat-excerpt').innerText = article.excerpt;
-
-                document.getElementById(`dot-${currentArticleIdx}`).classList.add('active');
-                container.style.opacity = 1;
-            }, 400);
-        }
-
-        setInterval(rotateArticle, 7000);
-
-        const historyData = {{ history_json }};
-        const ctxChart = document.getElementById('historyChart').getContext('2d');
-
-        function getLineGradient(ctxChart, chartArea) {
-            const gradient = ctxChart.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-            gradient.addColorStop(0, '#10b981');
-            gradient.addColorStop(0.5, '#f59e0b');
-            gradient.addColorStop(1, '#ef4444');
-            return gradient;
-        }
-
-        function getFillGradient(ctxChart, chartArea) {
-            const gradient = ctxChart.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-            gradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
-            gradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
-            return gradient;
-        }
-
-        new Chart(ctxChart, {
-            type: 'line',
-            data: {
-                labels: historyData.map(d => d.date.slice(5)),
-                datasets: [{
-                    data: historyData.map(d => d.score),
-                    borderWidth: 3,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#0f172a',
-                    pointBorderColor: '#0ea5e9',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 6,
-                    pointHoverBackgroundColor: '#0ea5e9',
-                    borderColor: function (context) {
-                        const chart = context.chart;
-                        const { ctx, chartArea } = chart;
-                        if (!chartArea) return null;
-                        return getLineGradient(ctx, chartArea);
-                    },
-                    backgroundColor: function (context) {
-                        const chart = context.chart;
-                        const { ctx, chartArea } = chart;
-                        if (!chartArea) return null;
-                        return getFillGradient(ctx, chartArea);
-                    },
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-
-                onHover: (event, chartElement) => {
-                    event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+        <script>
+            const featuredArticles = [
+                {
+                    url: "articles/ai-bubble-island.html",
+                    img: "public/chip.jpg",
+                    tag: "Supply Chain",
+                    title: "Why the Trillion Dollar AI Boom Relies on One Island",
+                    excerpt: "Everyone is buying Nvidia stock, but the physical reality of AI is built on a massive point of failure."
                 },
-                onClick: (event, activeElements) => {
-                    if (activeElements.length > 0) {
-                        const dataIndex = activeElements[0].index;
-                        const clickedDate = historyData[dataIndex].date;
+                {
+                    url: "articles/wealth-inequality-article.html",
+                    img: "public/wealth-gap.png",
+                    tag: "Economics",
+                    title: "The Invisible Gap: Why You Feel Broke While Markets Boom",
+                    excerpt: "If the official economy is doing so well, why is the cost of basic survival spiking for everyday people?"
+                },
+                {
+                    url: "articles/supply-chain-article.html",
+                    img: "public/shipping-chokepoint.png",
+                    tag: "Logistics",
+                    title: "The End of Cheap Shipping and the Rise of Inflation",
+                    excerpt: "How geopolitical choke points in the oceans are directly driving up the cost of everything you buy."
+                },
+                {
+                    url: "articles/silicon-shield.html",
+                    img: "public/silicon-shield-thumb.png",
+                    tag: "Market Impact",
+                    title: "The \"Silicon Shield\": How TSMC Volatility Affects Your Portfolio",
+                    excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of data."
+                },
+                {
+                    url: "articles/what-is-an-adiz.html",
+                    img: "public/JADIZ_and_CADIZ_and_KADIZ_in_East_China_Sea.jpg",
+                    tag: "Airspace",
+                    title: "What is an ADIZ? (And Why Flying Into It Is Not an Invasion)",
+                    excerpt: "Media outlets constantly conflate Air Defence zones with sovereign airspace. Understand the legal difference."
+                },
+                {
+                    url: "articles/grey-zone-tactics.html",
+                    img: "public/coastguard.jpg",
+                    tag: "Strategy",
+                    title: "Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot",
+                    excerpt: "Sand dredgers, agricultural bans, and cyber warfare. How the conflict is fought daily in the grey zone."
+                }
+            ];
 
-                        const olderReports = ["2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09"];
+            let currentArticleIdx = 0;
 
-                        if (clickedDate >= "2026-02-22" || olderReports.includes(clickedDate)) {
-                            window.location.href = `reports/report_${clickedDate}.html`;
-                        } else {
-                            alert("Detailed intelligence briefings are not available for this specific date.");
+            function rotateArticle() {
+                const container = document.getElementById('featured-container');
+                container.style.opacity = 0;
+
+                setTimeout(() => {
+                    document.getElementById(`dot-${currentArticleIdx}`).classList.remove('active');
+                    currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
+                    const article = featuredArticles[currentArticleIdx];
+
+                    container.href = article.url;
+                    document.getElementById('feat-img').src = article.img;
+                    document.getElementById('feat-tag').innerText = article.tag;
+                    document.getElementById('feat-title').innerText = article.title;
+                    document.getElementById('feat-excerpt').innerText = article.excerpt;
+
+                    document.getElementById(`dot-${currentArticleIdx}`).classList.add('active');
+                    container.style.opacity = 1;
+                }, 400);
+            }
+
+            setInterval(rotateArticle, 7000);
+
+            const historyData = {{ history_json }};
+            const ctxChart = document.getElementById('historyChart').getContext('2d');
+
+            function getLineGradient(ctxChart, chartArea) {
+                const gradient = ctxChart.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+                gradient.addColorStop(0, '#10b981');
+                gradient.addColorStop(0.5, '#f59e0b');
+                gradient.addColorStop(1, '#ef4444');
+                return gradient;
+            }
+
+            function getFillGradient(ctxChart, chartArea) {
+                const gradient = ctxChart.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                gradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
+                gradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
+                return gradient;
+            }
+
+            new Chart(ctxChart, {
+                type: 'line',
+                data: {
+                    labels: historyData.map(d => d.date.slice(5)),
+                    datasets: [{
+                        data: historyData.map(d => d.score),
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0f172a',
+                        pointBorderColor: '#0ea5e9',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 6,
+                        pointHoverBackgroundColor: '#0ea5e9',
+                        borderColor: function (context) {
+                            const chart = context.chart;
+                            const { ctx, chartArea } = chart;
+                            if (!chartArea) return null;
+                            return getLineGradient(ctx, chartArea);
+                        },
+                        backgroundColor: function (context) {
+                            const chart = context.chart;
+                            const { ctx, chartArea } = chart;
+                            if (!chartArea) return null;
+                            return getFillGradient(ctx, chartArea);
+                        },
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const dataIndex = activeElements[0].index;
+                            const clickedDate = historyData[dataIndex].date;
+
+                            const olderReports = ["2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09"];
+
+                            if (clickedDate >= "2026-02-22" || olderReports.includes(clickedDate)) {
+                                window.location.href = `reports/report_${clickedDate}.html`;
+                            } else {
+                                alert("Detailed intelligence briefings are not available for this specific date.");
+                            }
+                        }
+                    },
+
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleColor: '#94a3b8',
+                            bodyColor: '#f8fafc',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            padding: 10,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#64748b', maxRotation: 45, minRotation: 45 }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#64748b', stepSize: 20 }
                         }
                     }
-                },
-
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                        titleColor: '#94a3b8',
-                        bodyColor: '#f8fafc',
-                        borderColor: '#334155',
-                        borderWidth: 1,
-                        padding: 10,
-                        displayColors: false
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#64748b', maxRotation: 45, minRotation: 45 }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        grid: { color: '#1e293b' },
-                        ticks: { color: '#64748b', stepSize: 20 }
-                    }
                 }
-            }
-        });
-    </script>
+            });
+        </script>
 
-    <footer class="site-footer">
-        <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
-        <div class="footer-links">
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact Us</a>
-            <a href="privacy.html">Privacy Policy</a>
-        </div>
-    </footer>
+        <footer class="site-footer">
+            <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </footer>
 </body>
 
 </html>

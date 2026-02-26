@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro Outlook | The Big Cycle</title>
+    <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border: #334155;
+            --accent: #0ea5e9;
+            --danger: #ef4444;
+            --safe: #10b981;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* GSN Universal Header */
+        .gsn-universal-header {
+            background-color: #050505;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            z-index: 50;
+        }
+
+        .gsn-brand {
+            color: #f8fafc;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .gsn-network-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gsn-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .gsn-link:hover {
+            color: var(--accent);
+        }
+
+        .gsn-link.active {
+            color: var(--danger);
+        }
+
+        /* Dashboard Container */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .header-box {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-box h1 {
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .header-box p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+        }
+
+        /* The Wave Graphic */
+        .wave-wrapper {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .cycle-wave {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .marker {
+            position: absolute;
+            padding: 8px 16px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            transform: translateX(-50%);
+            z-index: 10;
+            border: 2px solid;
+            font-family: 'JetBrains Mono', monospace;
+            transition: left 0.5s ease-in-out;
+        }
+
+        .marker.us {
+            border-color: var(--danger);
+            color: var(--danger);
+            top: 100px;
+        }
+
+        .marker.china {
+            border-color: var(--safe);
+            color: var(--safe);
+            top: 180px;
+        }
+
+        /* Data Grid */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .card h2 {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 0;
+        }
+
+        .score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-sub);
+            padding: 20px;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 850px) {
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gsn-universal-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .gsn-network-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand">
+            <img src="/public/gsn-logo-mono.png" alt="GSN" style="height: 22px; margin-right: 8px;">
+            The Global Shift Network
+        </div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link active">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain Fracture</a>
+            <a href="https://taiwanstraittracker.com/macro.html" class="gsn-link">Macro Outlook</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header-box">
+            <h1>The Big Cycle: Macro Outlook</h1>
+            <p>Tracking the Archetypal Rise and Fall of Empires using real-time debt market data.</p>
+        </div>
+
+        <div class="wave-wrapper">
+            <div class="marker us" style="left: {{ us_pos }}%;">USA: Late Cycle</div>
+            <div class="marker china" style="left: {{ china_pos }}%;">China: Rising Phase</div>
+
+            <svg class="cycle-wave" viewBox="0 0 100 20" preserveAspectRatio="none">
+                <path d="M0,15 Q25,-5 50,10 T100,10" fill="none" stroke="#475569" stroke-width="0.5" />
+            </svg>
+        </div>
+
+        <div class="data-grid">
+            <div class="card">
+                <h2>Fiat Stability Index</h2>
+                <div class="score" style="color: {{ fiat_color }}">{{ fiat_desc }}</div>
+                <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5;">
+                    Hard Asset Divergence: <strong style="color: var(--text-main);">{{ fiat_ratio }}%</strong><br><br>
+                    Measures trust in the current debt system versus hard assets like Gold and Bitcoin. A higher score
+                    indicates capital flight to hard assets.
+                </p>
+            </div>
+            <div class="card">
+                <h2>Cycle Positioning</h2>
+                <p style="font-size: 1.1rem; margin: 10px 0;">
+                    <strong style="color: var(--danger);">USA:</strong> {{ us_pos }}% (Peak to Decline)
+                </p>
+                <p style="font-size: 1.1rem; margin: 10px 0;">
+                    <strong style="color: var(--safe);">China:</strong> {{ china_pos }}% (Ascending)
+                </p>
+                <p style="color: var(--text-sub); font-size: 0.9rem; margin-top: 20px;">
+                    Positions shift dynamically along the sine wave based on fiat stress and geopolitical conflict
+                    signals.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+</body>
+
+</html>
