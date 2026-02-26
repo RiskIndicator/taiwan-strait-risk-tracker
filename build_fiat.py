@@ -7,7 +7,10 @@ import json
 def build_fiat_confidence():
     print("CALCULATING FIAT SOVEREIGNTY...")
     try:
-        data = yf.download(['GLD', 'BTC-USD', 'TLT', 'UUP'], period="3mo")['Close']
+        raw_data = yf.download(['GLD', 'BTC-USD', 'TLT', 'UUP'], period="3mo")['Close']
+        
+        data = raw_data.ffill().dropna()
+        
         normalized = data / data.iloc[0]
         
         hard_assets = (normalized['GLD'].iloc[-1] + normalized['BTC-USD'].iloc[-1]) / 2

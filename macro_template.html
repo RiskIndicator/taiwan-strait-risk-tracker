@@ -225,13 +225,36 @@
             <p>Tracking the Archetypal Rise and Fall of Empires using real-time debt market data.</p>
         </div>
 
-        <div class="wave-wrapper">
-            <div class="marker us" style="left: {{ us_pos }}%;">USA: Late Cycle</div>
-            <div class="marker china" style="left: {{ china_pos }}%;">China: Rising Phase</div>
+        <div class="phase-tracker"
+            style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 40px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
 
-            <svg class="cycle-wave" viewBox="0 0 100 20" preserveAspectRatio="none">
-                <path d="M0,15 Q25,-5 50,10 T100,10" fill="none" stroke="#475569" stroke-width="0.5" />
-            </svg>
+            <div
+                style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; font-family: 'JetBrains Mono', monospace;">
+                <span style="color: var(--safe);">1. The Rise</span>
+                <span style="color: #fbbf24;">2. The Peak</span>
+                <span style="color: #f97316;">3. The Decline</span>
+                <span style="color: var(--danger);">4. Crisis / Reset</span>
+            </div>
+
+            <div
+                style="height: 12px; width: 100%; background: linear-gradient(90deg, #10b981 0%, #fbbf24 45%, #f97316 75%, #ef4444 100%); border-radius: 6px; position: relative;">
+
+                <div
+                    style="position: absolute; left: {{ china_pos }}%; top: -45px; transform: translateX(-50%); background: var(--bg); border: 2px solid var(--safe); padding: 6px 12px; border-radius: 6px; color: var(--safe); font-weight: 800; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); transition: left 1s ease;">
+                    🇨🇳 CHINA
+                    <div
+                        style="position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid var(--safe);">
+                    </div>
+                </div>
+
+                <div
+                    style="position: absolute; left: {{ us_pos }}%; top: 25px; transform: translateX(-50%); background: var(--bg); border: 2px solid var(--danger); padding: 6px 12px; border-radius: 6px; color: var(--danger); font-weight: 800; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2); transition: left 1s ease;">
+                    <div
+                        style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 6px solid var(--danger);">
+                    </div>
+                    🇺🇸 USA
+                </div>
+            </div>
         </div>
 
         <div class="data-grid">
