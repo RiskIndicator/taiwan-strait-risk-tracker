@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taiwan Strait Risk Report: 2026-02-26 | Status: NOMINAL</title>
+    <title>Taiwan Strait Risk Report: {{ date_str }} | Status: {{ status_text }}</title>
     <meta name="description"
-        content="Daily geopolitical analysis for 2026-02-26. Conflict signal is 35/100. Primary driver: Japan to install missiles near Taiwan: Are China tensions set to spike? - Al Jazeera.">
+        content="Daily geopolitical analysis for {{ date_str }}. Conflict signal is {{ conflict_score }}/100.">
 
     <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
 
@@ -20,23 +20,6 @@
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-MLNGHZLK8D');
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718"
-        crossorigin="anonymous"></script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "Taiwan Strait Risk Analysis: 2026-02-26",
-      "datePublished": "2026-02-26",
-      "dateline": "Taipei",
-      "articleBody": "Daily risk assessment for the Taiwan Strait. Market anxiety signal is 34. Conflict noise signal is 35. Standard variance. No indicators.",
-      "author": {
-        "@type": "Organization",
-        "name": "Taiwan Strait Tracker"
-      }
-    }
     </script>
 
     <style>
@@ -187,6 +170,10 @@
             transition: opacity 0.2s;
         }
 
+        .twitter-btn:hover {
+            opacity: 0.9;
+        }
+
         /* Content Layout */
         .container {
             max-width: 800px;
@@ -231,6 +218,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        /* JINJA CSS FIXES */
         .exec-summary {
             border-left: 4px solid {
                     {
@@ -317,19 +305,6 @@
             color: var(--text-main);
         }
 
-        .ad-box {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px dashed var(--border);
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            border-radius: 12px;
-            margin: 40px 0;
-        }
-
         .site-footer {
             margin-top: 60px;
             padding: 20px 0;
@@ -385,7 +360,7 @@
                 <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> Taiwan Strait Tracker
             </a>
             <div class="nav-links">
-                <a href="../articles.html">Analysis</a>
+                <a href="../articles.html" style="color: var(--text-main);">Analysis</a>
                 <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
                     <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -397,64 +372,65 @@
         </div>
     </nav>
 
-        <div class="container">
-            <div class="breadcrumb"><a href="../">&larr; Live Dashboard</a> / Daily Briefings</div>
+    <div class="container">
+        <div class="breadcrumb"><a href="../">&larr; Live Dashboard</a> / Daily Briefings</div>
 
-            <div class="page-header">
-                <h1>Intelligence Briefing: 2026-02-26</h1>
-                <p style="color: var(--text-sub); margin: 0;">Automated OSINT extraction and market correlation report.
-                </p>
+        <div class="page-header">
+            <h1>Intelligence Briefing: 2026-02-26</h1>
+            <p style="color: var(--text-sub); margin: 0;">Automated OSINT extraction and market correlation report.
+            </p>
+        </div>
+
+        <div class="card exec-summary">
+            <span class="exec-title">Executive Summary</span>
+            <div class="big-score">34 <span style="font-size: 1.2rem; color: var(--text-sub);">/
+                    100</span></div>
+            <p style="font-size: 1.1rem; margin-bottom: 0;"><strong>Status: <span
+                        style="color: #10b981">NOMINAL</span>.</strong> Standard variance. No indicators.</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="metric-box">
+                <span class="exec-title" style="color: var(--accent);">Market Anxiety</span>
+                <div class="val">34</div>
+                <div class="desc">Market Volatility Normal</div>
             </div>
-
-            <div class="card exec-summary">
-                <span class="exec-title">Executive Summary</span>
-                <div class="big-score">34 <span style="font-size: 1.2rem; color: var(--text-sub);">/
-                        100</span></div>
-                <p style="font-size: 1.1rem; margin-bottom: 0;"><strong>Status: <span style="color: #10b981">NOMINAL</span>.</strong> Standard variance. No indicators.</p>
-            </div>
-
-            <div class="grid-2">
-                <div class="metric-box">
-                    <span class="exec-title" style="color: var(--accent);">Market Anxiety</span>
-                    <div class="val">34</div>
-                    <div class="desc">Market Volatility Normal</div>
-                </div>
-                <div class="metric-box">
-                    <span class="exec-title" style="color: var(--danger);">Conflict Noise</span>
-                    <div class="val">35</div>
-                    <div class="desc">Algorithmic sentiment and keyword score.</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="exec-title">Detected Signals & Sources</span>
-                <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px;">The following open-source
-                    intelligence headlines triggered the conflict algorithm during the 24-hour observation period:</p>
-                <ul class="source-list">
-                    
-                    <li>"Japan to install missiles near Taiwan: Are China tensions set to spike? - Al Jazeera"</li>
-                    
-                    <li>"US moves to expand missiles in Philippines, putting China within range - AOL.com"</li>
-                    
-                    <li>"Japan Defies China Warnings With Frontline Missile Plan - Newsweek"</li>
-                    
-                </ul>
-            </div>
-
-            <div class="ad-box">
-                <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="ca-pub-2906019839191718"
-                    data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
-
-            <div class="site-footer">
-                <div>&copy; 2026 Taiwan Strait Tracker</div>
-                <div class="footer-links">
-                    <a href="../about.html">Methodology</a>
-                    <a href="../privacy.html">Privacy</a>
-                </div>
+            <div class="metric-box">
+                <span class="exec-title" style="color: var(--danger);">Conflict Noise</span>
+                <div class="val">35</div>
+                <div class="desc">Algorithmic sentiment and keyword score.</div>
             </div>
         </div>
+
+        <div class="card">
+            <span class="exec-title">Detected Signals & Sources</span>
+            <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px;">The following open-source
+                intelligence headlines triggered the conflict algorithm during the 24-hour observation period:</p>
+            <ul class="source-list">
+
+                <li>"Japan to install missiles near Taiwan: Are China tensions set to spike? - Al Jazeera"</li>
+
+                <li>"US moves to expand missiles in Philippines, putting China within range - AOL.com"</li>
+
+                <li>"Japan Defies China Warnings With Frontline Missile Plan - Newsweek"</li>
+
+            </ul>
+        </div>
+
+        <div class="ad-box">
+            <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="ca-pub-2906019839191718"
+                data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="site-footer">
+            <div>&copy; 2026 Taiwan Strait Tracker</div>
+            <div class="footer-links">
+                <a href="../about.html">Methodology</a>
+                <a href="../privacy.html">Privacy</a>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
