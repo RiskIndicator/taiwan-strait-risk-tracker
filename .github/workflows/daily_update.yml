@@ -40,6 +40,7 @@ jobs:
           python build_supply.py
           python build_fiat.py
           python build_macro.py
+          python build_middle_east.py
         
       - name: Commit and Push
         run: |
