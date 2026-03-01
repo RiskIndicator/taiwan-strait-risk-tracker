@@ -1,6 +1,8 @@
 import tweepy
 import os
 import sys
+from datetime import datetime
+import pytz
 
 def main():
     # 1. Pull secrets from GitHub
@@ -11,22 +13,7 @@ def main():
     
     risk_score = os.getenv('RISK_SCORE', 'Checked')
 
-    # 2. Authenticate using OAuth 1.0a (Required for Free Tier Posting)
-    try:
-        # This is the 'V1' handler which is more reliable for checking 401 errors
-        auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_token_secret)
-        api_v1 = tweepy.API(auth)
-        
-        # This line will confirm if X actually likes your keys
-        user = api_v1.verify_credentials()
-        print(f"✅ Authenticated successfully as: @{user.screen_name}")
-        
-    except Exception as e:
-        print(f"❌ Authentication Failed: {e}")
-        print("💡 This means your keys are invalid or OAuth 1.0a isn't enabled in the portal.")
-        sys.exit(1)
-
-    # 3. Use the V2 Client to post the Tweet
+    # 2. Use the V2 Client directly (Bypassing the deprecated v1.1 API)
     client = tweepy.Client(
         consumer_key=api_key,
         consumer_secret=api_secret,
@@ -34,11 +21,15 @@ def main():
         access_token_secret=access_token_secret
     )
 
+    # 3. Add a timestamp to prevent 403 Duplicate Tweet filters
+    current_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y, %H:%M')
+    
     report_url = "https://taiwanstraittracker.com"
-    message = f"🚨 Taiwan Strait Risk Update\n\nToday's Risk Index: {risk_score}/100\n\nView full intelligence briefing and live radar: {report_url}"
+    message = f"🚨 Taiwan Strait Risk Update ({current_time})\n\nToday's Risk Index: {risk_score}/100\n\nView full intelligence briefing and live radar: {report_url}"
 
+    # 4. Post the Tweet
     try:
-        # user_auth=True forces it to use the OAuth 1.0a we just verified
+        # user_auth=True forces it to use the OAuth 1.0a keys for posting
         response = client.create_tweet(text=message, user_auth=True)
         print(f"✅ Tweet posted successfully! ID: {response.data['id']}")
     except Exception as e:
