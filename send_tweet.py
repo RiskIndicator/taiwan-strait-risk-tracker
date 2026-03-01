@@ -25,7 +25,7 @@ def main():
     current_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y, %H:%M')
     
     report_url = "https://taiwanstraittracker.com"
-    message = f"🚨 Taiwan Strait Risk Update ({current_time})\n\nToday's Risk Index: {risk_score}/100\n\nView full intelligence briefing and live radar: {report_url}"
+    message = f"🚨 Taiwan Strait Risk Update ({current_time})\n\nToday's Risk Index: {risk_score}/100"
 
     # 4. Post the Tweet
     try:
