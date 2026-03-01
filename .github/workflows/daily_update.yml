@@ -19,7 +19,8 @@ jobs:
     outputs:
       tweet_output: ${{ steps.build.outputs.tweet }}
       image_output: ${{ steps.build.outputs.image_url }}
-      risk_score: ${{ steps.build.outputs.risk_score }} 
+      risk_score: ${{ steps.build.outputs.risk_score }}
+      top_headline: ${{ steps.build.outputs.top_headline }} # <-- Added this line
     steps:
       - uses: actions/checkout@v3
         
@@ -77,4 +78,5 @@ jobs:
           TWITTER_ACCESS_TOKEN: "${{ secrets.TWITTER_ACCESS_TOKEN }}"
           TWITTER_ACCESS_SECRET: "${{ secrets.TWITTER_ACCESS_SECRET }}"
           RISK_SCORE: "${{ needs.update-data.outputs.risk_score }}"
+          TOP_HEADLINE: "${{ needs.update-data.outputs.top_headline }}" # <-- Added this line
         run: python send_tweet.py

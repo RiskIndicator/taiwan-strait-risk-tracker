@@ -5,13 +5,14 @@ from datetime import datetime
 import pytz
 
 def main():
-    # 1. Pull secrets from GitHub
+    # 1. Pull secrets and data from GitHub
     api_key = os.getenv('TWITTER_API_KEY')
     api_secret = os.getenv('TWITTER_API_SECRET')
     access_token = os.getenv('TWITTER_ACCESS_TOKEN')
     access_token_secret = os.getenv('TWITTER_ACCESS_SECRET')
     
     risk_score = os.getenv('RISK_SCORE', 'Checked')
+    top_headline = os.getenv('TOP_HEADLINE', 'Standard market variance detected.') # <-- Added this line
 
     # 2. Authenticate the V2 Client
     client = tweepy.Client(
@@ -25,7 +26,7 @@ def main():
     current_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y, %H:%M')
     
     # Tweet 1: Safe text only
-    main_message = f"🚨 Taiwan Strait Risk Update ({current_time})\n\nToday's Risk Index: {risk_score}/100"
+    main_message = f"🚨 Taiwan Strait Risk Index: {risk_score}/100 ({current_time})\n\nPrimary Escalation Driver Detected:\n\"{top_headline}\"\n\nSee how this is impacting market anxiety and silicon supply chains in today's briefing. 👇"
     
     # Tweet 2: The flagged URL
     report_url = "https://taiwanstraittracker.com"

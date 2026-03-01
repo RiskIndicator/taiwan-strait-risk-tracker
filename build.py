@@ -309,5 +309,20 @@ def main():
             print(f"image_url={final_image_url}", file=fh)
             print(f"risk_score={final_score}", file=fh)
 
+    # --- EXPORT DATA FOR GITHUB ACTIONS ---
+    if 'GITHUB_OUTPUT' in os.environ:
+        # Safety catch: grab the headline whether it is a string or the first item in a list
+        try:
+            export_headline = top_headline
+        except NameError:
+            try:
+                export_headline = headline_list[0] if headline_list else "Standard market variance detected."
+            except NameError:
+                export_headline = "Standard market variance detected."
+                
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"risk_score={risk_score}\n")
+            f.write(f"top_headline={export_headline}\n")
+
 if __name__ == "__main__":
     main()
