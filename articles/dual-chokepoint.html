@@ -5,9 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Dual Chokepoint: Why Silicon and Crude are Intrinsically Linked | Taiwan Strait Tracker</title>
+    <meta name="description"
+        content="Monitoring the intersection of the Taiwan Strait and the Strait of Hormuz to measure global market vulnerability.">
+
+    <meta name="twitter:card" content="summary_large_image">
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@300;400;700&display=swap"
         rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718"
+        crossorigin="anonymous"></script>
+
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -20,14 +29,17 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-bright);
-            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            /* Light background */
+            color: #111827;
+            /* Dark text */
+            font-family: 'Merriweather', serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            line-height: 1.6;
+            line-height: 1.8;
+            padding-bottom: 80px;
         }
 
         /* GSN Universal Header */
@@ -56,13 +68,6 @@
             gap: 8px;
         }
 
-        .gsn-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #0ea5e9;
-            border-radius: 50%;
-        }
-
         .gsn-network-links {
             display: flex;
             gap: 15px;
@@ -85,14 +90,15 @@
 
         /* Navbar */
         .navbar {
-            background: var(--panel-dark);
-            border-bottom: 1px solid var(--border);
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
             padding: 15px 0;
-            margin-bottom: 0;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
         }
 
         .nav-inner {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -103,11 +109,11 @@
         .brand {
             font-weight: 700;
             font-size: 1.1rem;
+            text-decoration: none;
+            color: #111827;
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--text-bright);
-            text-decoration: none;
         }
 
         .nav-links {
@@ -117,7 +123,7 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: #6b7280;
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
@@ -134,22 +140,23 @@
             gap: 6px;
         }
 
-        /* Article Layout */
-        .article-hero {
-            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-            padding: 60px 20px;
-            border-bottom: 1px solid var(--border);
-            text-align: center;
+        /* Content Layout */
+        .container {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .article-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            margin-bottom: 30px;
         }
 
         .article-tag {
-            color: var(--neon-blue);
-            font-family: 'JetBrains Mono', monospace;
+            color: #2563eb;
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -158,110 +165,92 @@
             margin-bottom: 15px;
         }
 
-        .article-title {
-            font-size: 2.8rem;
+        h1 {
+            font-family: 'Inter', sans-serif;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0 0 20px 0;
-            line-height: 1.2;
-            color: #f8fafc;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: #111;
         }
 
         .article-subtitle {
             font-size: 1.2rem;
-            color: #cbd5e1;
-            font-weight: 400;
+            color: #374151;
+            font-weight: 600;
             margin: 0;
             line-height: 1.5;
+            font-family: 'Inter', sans-serif;
         }
 
-        .article-body {
-            max-width: 760px;
-            margin: 50px auto;
-            padding: 0 20px;
-            font-size: 1.1rem;
-            color: #e2e8f0;
-        }
-
-        .article-body p {
-            margin-bottom: 25px;
-        }
-
-        .article-body h2 {
-            font-size: 1.8rem;
+        h2 {
+            font-family: 'Inter', sans-serif;
             font-weight: 700;
-            color: #f8fafc;
-            margin: 40px 0 20px 0;
-            letter-spacing: -0.5px;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #1f2937;
         }
 
-        .article-body h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #f8fafc;
-            margin: 30px 0 15px 0;
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #374151;
         }
 
-        .article-body a {
-            color: var(--neon-blue);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
-            transition: border-color 0.2s;
+        a {
+            color: #2563eb;
+            text-decoration: underline;
         }
 
-        .article-body a:hover {
-            border-color: var(--neon-blue);
-        }
-
-        .article-body strong {
-            color: #f8fafc;
+        a:hover {
+            color: #1e3a8a;
         }
 
         /* Image Styling */
         figure {
             margin: 40px 0;
-            background: var(--panel-dark);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px;
             text-align: center;
+        }
+
+        img.article-pic {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
         }
 
         figcaption {
             font-size: 0.9rem;
-            color: var(--text-muted);
+            color: #6b7280;
             margin-top: 15px;
             margin-bottom: 10px;
             font-style: italic;
-        }
-
-        img {
-            width: 100%;
-            border-radius: 8px;
-            display: block;
-            background-color: #0f172a;
-            min-height: 200px;
+            font-family: 'Inter', sans-serif;
         }
 
         /* Read More Plug */
         .plug-box {
-            margin: 50px 0;
-            background: rgba(14, 165, 233, 0.05);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 40px 0;
+            font-family: 'Inter', sans-serif;
         }
 
         .plug-box h3 {
             margin-top: 0;
-            color: var(--neon-blue);
+            color: #1e40af;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
 
         .plug-btn {
             display: inline-block;
-            background: var(--neon-blue);
-            color: #0f172a !important;
+            background: #2563eb;
+            color: #fff !important;
             font-weight: 700;
             padding: 12px 24px;
             border-radius: 6px;
@@ -273,25 +262,29 @@
 
         .plug-btn:hover {
             opacity: 0.9;
-            border: none !important;
         }
 
         /* Footer */
         .site-footer {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 40px auto 0 auto;
             padding: 20px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.85rem;
-            color: var(--text-muted);
-            width: 100%;
-            box-sizing: border-box;
+            color: #6b7280;
+            font-family: 'Inter', sans-serif;
         }
 
-        @media (max-width: 900px) {
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
             .gsn-universal-header {
                 flex-direction: column;
                 gap: 12px;
@@ -310,8 +303,12 @@
                 gap: 15px;
             }
 
-            .article-title {
-                font-size: 2.2rem;
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -320,7 +317,8 @@
 <body>
     <div class="gsn-universal-header">
         <div class="gsn-brand">
-            <img src="/public/gsn-logo-mono.png" alt="GSN Logo" style="height: 22px; width: auto; margin-right: 8px;">
+            <img src="../public/gsn-logo-mono.jpg" alt="GSN Logo"
+                style="height: 22px !important; width: auto !important; max-width: 150px !important; margin-right: 8px; flex-shrink: 0; display: block;">
             The Global Shift Network
         </div>
         <div class="gsn-network-links">
@@ -336,13 +334,13 @@
 
     <nav class="navbar">
         <div class="nav-inner">
-            <a href="/" class="brand">
-                <div style="width:10px; height:10px; background:var(--neon-blue); border-radius:50%;"></div> Taiwan
-                Strait Tracker
+            <a href="../index.html" class="brand">
+                <div style="width:10px; height:10px; background:#0ea5e9; border-radius:50%;"></div> Taiwan Strait
+                Tracker
             </a>
             <div class="nav-links">
-                <a href="../articles.html" style="color: var(--text-bright);">Analysis</a>
-                <a href="../about.html">Methodology</a>
+                <a href="../index.html">Dashboard</a>
+                <a href="../articles.html">All Analysis</a>
                 <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -354,76 +352,79 @@
         </div>
     </nav>
 
-    <header class="article-hero">
-        <div class="article-hero-content">
+    <div class="container">
+        <header class="article-hero-content">
             <span class="article-tag">Supply Chain Intelligence</span>
-            <h1 class="article-title">The Dual Chokepoint: Why Silicon and Crude are Intrinsically Linked</h1>
+            <h1>The Dual Chokepoint: Why Silicon and Crude are Intrinsically Linked</h1>
             <p class="article-subtitle">Monitoring the intersection of the Taiwan Strait and the Strait of Hormuz to
                 measure global market vulnerability.</p>
-        </div>
-    </header>
+        </header>
 
-    <main class="article-body">
-        <p>When analysing global supply chain risk, it is easy to view geopolitical conflicts in isolation. A skirmish
-            in the Red Sea affects European shipping, while posturing in the South China Sea impacts Asian tech
-            manufacturing.</p>
+        <main>
+            <p>When analysing global supply chain risk, it is easy to view geopolitical conflicts in isolation. A
+                skirmish in the Red Sea affects European shipping, while posturing in the South China Sea impacts Asian
+                tech manufacturing.</p>
 
-        <p>However, global logistics is a singular, highly integrated machine. Like any critical system, it has primary
-            points of failure. Right now, the global economy is balanced precariously on two distinct, yet deeply
-            interconnected maritime chokepoints: the Taiwan Strait and the Strait of Hormuz.</p>
+            <p>However, global logistics is a singular, highly integrated machine. Like any critical system, it has
+                primary points of failure. Right now, the global economy is balanced precariously on two distinct, yet
+                deeply interconnected maritime chokepoints: the Taiwan Strait and the Strait of Hormuz.</p>
 
-        <p>Monitoring one without the other provides an incomplete picture of global market vulnerability.</p>
+            <p>Monitoring one without the other provides an incomplete picture of global market vulnerability.</p>
 
-        <h2>The Silicon Chokepoint</h2>
-        <p>The Taiwan Strait is the undisputed bottleneck for global compute. With Taiwan producing over 60% of the
-            world's semiconductors and upwards of 90% of the most advanced chips, any kinetic disruption or blockade in
-            these waters immediately fractures the tech, automotive, and defence supply chains. We track this daily on
-            our primary <a href="https://taiwanstraittracker.com">Strait Risk Tracker</a>.</p>
+            <h2>The Silicon Chokepoint</h2>
+            <p>The Taiwan Strait is the undisputed bottleneck for global compute. With Taiwan producing over 60% of the
+                world's semiconductors and upwards of 90% of the most advanced chips, any kinetic disruption or blockade
+                in these waters immediately fractures the tech, automotive, and defence supply chains. We track this
+                daily on our primary <a href="https://taiwanstraittracker.com">Strait Risk Tracker</a>.</p>
 
-        <figure>
-            <img src="../public/traderoute.png"
-                alt="A map illustrating global maritime trade routes between the Middle East and Asia.">
-            <figcaption>The maritime corridor connecting the Middle East to East Asia is a critical artery, facilitating
-                the flow of energy eastward and advanced technology westward.</figcaption>
-        </figure>
+            <figure>
+                <img src="../public/traderoute.png"
+                    alt="A map illustrating global maritime trade routes between the Middle East and Asia."
+                    class="article-pic">
+                <figcaption>The maritime corridor connecting the Middle East to East Asia is a critical artery,
+                    facilitating the flow of energy eastward and advanced technology westward.</figcaption>
+            </figure>
 
-        <h2>The Energy Chokepoint</h2>
-        <p>Conversely, the Middle East controls the energy required to power that manufacturing and logistics network.
-            The Strait of Hormuz sees approximately 20% of the world's global oil consumption pass through it daily,
-            alongside massive volumes of liquified natural gas (LNG).</p>
+            <h2>The Energy Chokepoint</h2>
+            <p>Conversely, the Middle East controls the energy required to power that manufacturing and logistics
+                network. The Strait of Hormuz sees approximately 20% of the world's global oil consumption pass through
+                it daily, alongside massive volumes of liquified natural gas (LNG).</p>
 
-        <h2>The Compounding Fracture</h2>
-        <p>The true risk to markets is not an isolated event in either strait, but the compounding effect of disruption.
-        </p>
+            <h2>The Compounding Fracture</h2>
+            <p>The true risk to markets is not an isolated event in either strait, but the compounding effect of
+                disruption.</p>
 
-        <p>If escalation in the Middle East spikes Brent Crude prices, the cost to manufacture energy intensive
-            semiconductors and ship them globally skyrockets. This creates a supply side inflation shock. If tensions in
-            the Taiwan Strait simultaneously limit chip availability, the resulting tech deficit stalls the very defence
-            and manufacturing systems required to stabilise the first crisis.</p>
+            <p>If escalation in the Middle East spikes Brent Crude prices, the cost to manufacture energy intensive
+                semiconductors and ship them globally skyrockets. This creates a supply side inflation shock. If
+                tensions in the Taiwan Strait simultaneously limit chip availability, the resulting tech deficit stalls
+                the very defence and manufacturing systems required to stabilise the first crisis.</p>
 
-        <figure>
-            <img src="../public/oil barrels.jpg" alt="A collection of industrial oil barrels.">
-            <figcaption>Energy costs dictate manufacturing viability. When crude prices spike due to instability, the
-                cost to produce and transport advanced technology rises simultaneously.</figcaption>
-        </figure>
+            <figure>
+                <img src="../public/oil barrels.jpg" alt="A collection of industrial oil barrels." class="article-pic">
+                <figcaption>Energy costs dictate manufacturing viability. When crude prices spike due to instability,
+                    the cost to produce and transport advanced technology rises simultaneously.</figcaption>
+            </figure>
 
-        <p>It is a feedback loop of escalating costs and reduced capability.</p>
+            <p>It is a feedback loop of escalating costs and reduced capability.</p>
 
-        <h2>Condition Monitoring for Global Trade</h2>
-        <p>You cannot rely on breaking news to measure this risk; by the time the headlines hit, the market has already
-            priced in the disruption. Effective risk management requires continuous condition monitoring of both regions
-            to detect capital flight and rhetorical shifts before physical supply lines are cut.</p>
+            <h2>Condition Monitoring for Global Trade</h2>
+            <p>You cannot rely on breaking news to measure this risk; by the time the headlines hit, the market has
+                already priced in the disruption. Effective risk management requires continuous condition monitoring of
+                both regions to detect capital flight and rhetorical shifts before physical supply lines are cut.</p>
 
-        <div class="plug-box">
-            <h3>Track the Energy Chokepoint</h3>
-            <p>To provide a complete picture of this dual threat, we have launched a live data feed tracking the
-                algorithmic conflict noise and market anxiety out of the Gulf.</p>
-            <p>Monitor real-time military escalation signals and oil price volatility before it hits the broader market.
-            </p>
-            <a href="https://taiwanstraittracker.com/middle-east.html" class="plug-btn">View the Live Middle East
-                Tracker</a>
-        </div>
-    </main>
+            <div class="plug-box">
+                <h3>Track the Energy Chokepoint</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #374151;">To provide a complete
+                    picture of this dual threat, we have launched a live data feed tracking the algorithmic conflict
+                    noise and market anxiety out of the Gulf.</p>
+                <a href="https://taiwanstraittracker.com/middle-east.html" class="plug-btn">View the Live Middle East
+                    Tracker</a>
+            </div>
+
+            <p style="margin-top: 30px; font-family: 'Inter', sans-serif; font-weight: 600;"><a
+                    href="../articles.html">&larr; Back to Analysis Library</a></p>
+        </main>
+    </div>
 
     <footer class="site-footer">
         <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>

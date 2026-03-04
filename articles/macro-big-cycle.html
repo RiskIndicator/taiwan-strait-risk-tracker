@@ -5,29 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Big Cycle: How Energy Shocks Accelerate Fiat Capital Flight | Taiwan Strait Tracker</title>
+    <meta name="description"
+        content="Tracking the archetypal rise and fall of economic empires through the lens of modern geopolitical inflation triggers.">
+
+    <meta name="twitter:card" content="summary_large_image">
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@300;400;700&display=swap"
         rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718"
+        crossorigin="anonymous"></script>
+
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --panel-dark: #1e293b;
-            --text-bright: #f8fafc;
-            --text-muted: #94a3b8;
-            --neon-blue: #0ea5e9;
-            --signal-red: #ef4444;
-            --border: #334155;
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --text-main: #111827;
+            --text-sub: #6b7280;
+            --accent: #2563eb;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-bright);
-            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #111827;
+            font-family: 'Merriweather', serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            line-height: 1.6;
+            line-height: 1.8;
+            padding-bottom: 80px;
         }
 
         /* GSN Universal Header */
@@ -56,13 +64,6 @@
             gap: 8px;
         }
 
-        .gsn-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #0ea5e9;
-            border-radius: 50%;
-        }
-
         .gsn-network-links {
             display: flex;
             gap: 15px;
@@ -85,14 +86,15 @@
 
         /* Navbar */
         .navbar {
-            background: var(--panel-dark);
-            border-bottom: 1px solid var(--border);
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
             padding: 15px 0;
-            margin-bottom: 0;
+            margin-bottom: 40px;
+            font-family: 'Inter', sans-serif;
         }
 
         .nav-inner {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -103,11 +105,11 @@
         .brand {
             font-weight: 700;
             font-size: 1.1rem;
+            text-decoration: none;
+            color: #111827;
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--text-bright);
-            text-decoration: none;
         }
 
         .nav-links {
@@ -117,10 +119,14 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: #6b7280;
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #111827;
         }
 
         .twitter-btn {
@@ -134,22 +140,23 @@
             gap: 6px;
         }
 
-        /* Article Layout */
-        .article-hero {
-            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-            padding: 60px 20px;
-            border-bottom: 1px solid var(--border);
-            text-align: center;
+        /* Content Layout */
+        .container {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .article-hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            margin-bottom: 30px;
         }
 
         .article-tag {
-            color: var(--neon-blue);
-            font-family: 'JetBrains Mono', monospace;
+            color: #2563eb;
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -158,111 +165,92 @@
             margin-bottom: 15px;
         }
 
-        .article-title {
-            font-size: 2.8rem;
+        h1 {
+            font-family: 'Inter', sans-serif;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0 0 20px 0;
-            line-height: 1.2;
-            color: #f8fafc;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: #111;
         }
 
         .article-subtitle {
             font-size: 1.2rem;
-            color: #cbd5e1;
-            font-weight: 400;
+            color: #374151;
+            font-weight: 600;
             margin: 0;
             line-height: 1.5;
+            font-family: 'Inter', sans-serif;
         }
 
-        .article-body {
-            max-width: 760px;
-            margin: 50px auto;
-            padding: 0 20px;
-            font-size: 1.1rem;
-            color: #e2e8f0;
-        }
-
-        .article-body p {
-            margin-bottom: 25px;
-        }
-
-        .article-body h2 {
-            font-size: 1.8rem;
+        h2 {
+            font-family: 'Inter', sans-serif;
             font-weight: 700;
-            color: #f8fafc;
-            margin: 40px 0 20px 0;
-            letter-spacing: -0.5px;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #1f2937;
         }
 
-        .article-body h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #f8fafc;
-            margin: 30px 0 15px 0;
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            color: #374151;
         }
 
-        .article-body a {
-            color: var(--neon-blue);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(14, 165, 233, 0.3);
-            transition: border-color 0.2s;
+        a {
+            color: #2563eb;
+            text-decoration: underline;
         }
 
-        .article-body a:hover {
-            border-color: var(--neon-blue);
-        }
-
-        .article-body strong {
-            color: #f8fafc;
+        a:hover {
+            color: #1e3a8a;
         }
 
         /* Image Styling */
         figure {
             margin: 40px 0;
-            background: var(--panel-dark);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px;
             text-align: center;
+        }
+
+        img.article-pic {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
         }
 
         figcaption {
             font-size: 0.9rem;
-            color: var(--text-muted);
+            color: #6b7280;
             margin-top: 15px;
             margin-bottom: 10px;
             font-style: italic;
-        }
-
-        img {
-            width: 100%;
-            border-radius: 8px;
-            display: block;
-            background-color: #0f172a;
-            min-height: 200px;
-            filter: grayscale(80%) contrast(110%);
+            font-family: 'Inter', sans-serif;
         }
 
         /* Read More Plug */
         .plug-box {
-            margin: 50px 0;
-            background: rgba(14, 165, 233, 0.05);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 40px 0;
+            font-family: 'Inter', sans-serif;
         }
 
         .plug-box h3 {
             margin-top: 0;
-            color: var(--neon-blue);
+            color: #1e40af;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
 
         .plug-btn {
             display: inline-block;
-            background: var(--neon-blue);
-            color: #0f172a !important;
+            background: #2563eb;
+            color: #fff !important;
             font-weight: 700;
             padding: 12px 24px;
             border-radius: 6px;
@@ -274,25 +262,29 @@
 
         .plug-btn:hover {
             opacity: 0.9;
-            border: none !important;
         }
 
         /* Footer */
         .site-footer {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 40px auto 0 auto;
             padding: 20px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid #e5e7eb;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 0.85rem;
-            color: var(--text-muted);
-            width: 100%;
-            box-sizing: border-box;
+            color: #6b7280;
+            font-family: 'Inter', sans-serif;
         }
 
-        @media (max-width: 900px) {
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
             .gsn-universal-header {
                 flex-direction: column;
                 gap: 12px;
@@ -311,8 +303,12 @@
                 gap: 15px;
             }
 
-            .article-title {
-                font-size: 2.2rem;
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -321,7 +317,8 @@
 <body>
     <div class="gsn-universal-header">
         <div class="gsn-brand">
-            <img src="/public/gsn-logo-mono.png" alt="GSN Logo" style="height: 22px; width: auto; margin-right: 8px;">
+            <img src="../public/gsn-logo-mono.jpg" alt="GSN Logo"
+                style="height: 22px !important; width: auto !important; max-width: 150px !important; margin-right: 8px; flex-shrink: 0; display: block;">
             The Global Shift Network
         </div>
         <div class="gsn-network-links">
@@ -337,13 +334,13 @@
 
     <nav class="navbar">
         <div class="nav-inner">
-            <a href="/" class="brand">
-                <div style="width:10px; height:10px; background:var(--neon-blue); border-radius:50%;"></div> Taiwan
-                Strait Tracker
+            <a href="../index.html" class="brand">
+                <div style="width:10px; height:10px; background:#0ea5e9; border-radius:50%;"></div> Taiwan Strait
+                Tracker
             </a>
             <div class="nav-links">
-                <a href="../articles.html" style="color: var(--text-bright);">Analysis</a>
-                <a href="../about.html">Methodology</a>
+                <a href="../index.html">Dashboard</a>
+                <a href="../articles.html">All Analysis</a>
                 <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -355,71 +352,76 @@
         </div>
     </nav>
 
-    <header class="article-hero">
-        <div class="article-hero-content">
+    <div class="container">
+        <header class="article-hero-content">
             <span class="article-tag">Macroeconomic Theory</span>
-            <h1 class="article-title">The Big Cycle: How Energy Shocks Accelerate Fiat Capital Flight</h1>
+            <h1>The Big Cycle: How Energy Shocks Accelerate Fiat Capital Flight</h1>
             <p class="article-subtitle">Tracking the archetypal rise and fall of economic empires through the lens of
                 modern geopolitical inflation triggers.</p>
-        </div>
-    </header>
+        </header>
 
-    <main class="article-body">
-        <p>In macroeconomic theory, the changing of world orders is rarely a sudden political event. As popularised by
-            Ray Dalio's "Big Cycle" framework, the shift in global hegemony is a predictable, mechanical process driven
-            by debt cycles, currency devaluation, and ultimately, external conflict.</p>
+        <main>
+            <p>In macroeconomic theory, the changing of world orders is rarely a sudden political event. As popularised
+                by Ray Dalio's "Big Cycle" framework, the shift in global hegemony is a predictable, mechanical process
+                driven by debt cycles, currency devaluation, and ultimately, external conflict.</p>
 
-        <p>Right now, global markets are exhibiting classic late stage cycle behaviour. National debt levels are
-            historically high, and the printing of fiat currency has become the default mechanism to solve domestic
-            crises. But the true catalyst that accelerates a system from decline into crisis is almost always an
-            external shock to the cost of energy.</p>
+            <p>Right now, global markets are exhibiting classic late stage cycle behaviour. National debt levels are
+                historically high, and the printing of fiat currency has become the default mechanism to solve domestic
+                crises. But the true catalyst that accelerates a system from decline into crisis is almost always an
+                external shock to the cost of energy.</p>
 
-        <h2>The Energy-Inflation Nexus</h2>
-        <p>This is precisely why monitoring the Middle East is vital for macro investors. The global economic baseline
-            relies on cheap, predictable energy flowing through the Strait of Hormuz. When kinetic military action
-            threatens this corridor, it generates immediate crude oil volatility.</p>
+            <h2>The Energy-Inflation Nexus</h2>
+            <p>This is precisely why monitoring the Middle East is vital for macro investors. The global economic
+                baseline relies on cheap, predictable energy flowing through the Strait of Hormuz. When kinetic military
+                action threatens this corridor, it generates immediate crude oil volatility.</p>
 
-        <p>In a late stage debt cycle, an energy shock acts as a catastrophic geopolitical inflation trigger. Higher oil
-            prices ripple through the entire supply chain, driving up the cost of manufacturing and transport. This
-            creates "sticky" inflation that central banks cannot simply print their way out of without completely
-            destroying the purchasing power of their currency.</p>
+            <p>In a late stage debt cycle, an energy shock acts as a catastrophic geopolitical inflation trigger. Higher
+                oil prices ripple through the entire supply chain, driving up the cost of manufacturing and transport.
+                This creates "sticky" inflation that central banks cannot simply print their way out of without
+                completely destroying the purchasing power of their currency.</p>
 
-        <figure>
-            <img src="../public/macro-data.jpg"
-                alt="A financial line graph displaying intersecting economic data trends on a dark screen.">
-            <figcaption>Central banks become trapped during energy shocks: raising interest rates crashes the debt
-                burdened economy, while lowering rates accelerates runaway inflation.</figcaption>
-        </figure>
+            <figure>
+                <img src="../public/macro-data.jpg"
+                    alt="A financial line graph displaying intersecting economic data trends on a dark screen."
+                    class="article-pic">
+                <figcaption>Central banks become trapped during energy shocks: raising interest rates crashes the debt
+                    burdened economy, while lowering rates accelerates runaway inflation.</figcaption>
+            </figure>
 
-        <h2>The Fiat Stability Problem</h2>
-        <p>When investors realise that the dominant currency is trapped between crushing debt and energy driven
-            inflation, trust in the system fractures. We measure this directly through macro capital flight indicators.
-        </p>
+            <h2>The Fiat Stability Problem</h2>
+            <p>When investors realise that the dominant currency is trapped between crushing debt and energy driven
+                inflation, trust in the system fractures. We measure this directly through macro capital flight
+                indicators.</p>
 
-        <p>Smart money begins to exit traditional fiat systems and rotates heavily into hard, finite assets. We track
-            the real time divergence of trust in the prevailing debt system by measuring the performance of Gold and
-            Bitcoin against standard sovereign bonds. A rising score on our Fiat Stability Index is a glaring red
-            warning light on the dashboard of the Big Cycle.</p>
+            <p>Smart money begins to exit traditional fiat systems and rotates heavily into hard, finite assets. We
+                track the real time divergence of trust in the prevailing debt system by measuring the performance of
+                Gold and Bitcoin against standard sovereign bonds. A rising score on our Fiat Stability Index is a
+                glaring red warning light on the dashboard of the Big Cycle.</p>
 
-        <figure>
-            <img src="../public/hard-assets.jpg"
-                alt="A close up shot of physical gold bullion or a metallic Bitcoin token.">
-            <figcaption>Capital flight to non sovereign assets like Gold and Bitcoin serves as a quantifiable metric for
-                declining trust in the prevailing global order.</figcaption>
-        </figure>
+            <figure>
+                <img src="../public/hard-assets.jpg"
+                    alt="A close up shot of physical gold bullion or a metallic Bitcoin token." class="article-pic">
+                <figcaption>Capital flight to non sovereign assets like Gold and Bitcoin serves as a quantifiable metric
+                    for declining trust in the prevailing global order.</figcaption>
+            </figure>
 
-        <p>The geopolitical landscape is deeply interconnected. The Taiwan Strait represents the technological hegemony
-            of the current order, while the Middle East dictates its energy baseline. Disruption in either region
-            rapidly accelerates the timeline of the Big Cycle, forcing capital to seek safe harbour outside of standard
-            fiat instruments.</p>
+            <p>The geopolitical landscape is deeply interconnected. The Taiwan Strait represents the technological
+                hegemony of the current order, while the Middle East dictates its energy baseline. Disruption in either
+                region rapidly accelerates the timeline of the Big Cycle, forcing capital to seek safe harbour outside
+                of standard fiat instruments.</p>
 
-        <div class="plug-box">
-            <h3>Monitor The Big Cycle Live</h3>
-            <p>Our Macro Outlook dashboard tracks the archetypal rise and fall of economic empires using real-time debt
-                market data and hard asset divergence.</p>
-            <a href="https://taiwanstraittracker.com/macro.html" class="plug-btn">View the Macro Outlook Tracker</a>
-        </div>
-    </main>
+            <div class="plug-box">
+                <h3>Monitor The Big Cycle Live</h3>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #374151;">Our Macro Outlook
+                    dashboard tracks the archetypal rise and fall of economic empires using real-time debt market data
+                    and hard asset divergence.</p>
+                <a href="https://taiwanstraittracker.com/macro.html" class="plug-btn">View the Macro Outlook Tracker</a>
+            </div>
+
+            <p style="margin-top: 30px; font-family: 'Inter', sans-serif; font-weight: 600;"><a
+                    href="../articles.html">&larr; Back to Analysis Library</a></p>
+        </main>
+    </div>
 
     <footer class="site-footer">
         <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
