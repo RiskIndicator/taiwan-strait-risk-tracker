@@ -283,7 +283,6 @@ def main():
             latest_report_url=f"reports/{report_filename}" 
         )
 
-# --- CLEANED UP SECTION ---
         meta_tags = f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{final_image_url}">'
         
         # Remove the old static meta tags
@@ -295,34 +294,25 @@ def main():
         with open('index.html', 'w', encoding='utf-8') as f:
             f.write(final_html)
         print("✅ Homepage Updated")
-        # --------------------------
 
     except Exception as e:
         print(f"❌ Homepage Update Error: {e}")
 
-    # F. GITHUB ACTIONS OUTPUT
-    if os.getenv('GITHUB_OUTPUT'):
-        with open(os.getenv('GITHUB_OUTPUT'), 'a') as fh:
+    # --- 4. EXPORT DATA FOR GITHUB ACTIONS (CONSOLIDATED & FIXED) ---
+    if 'GITHUB_OUTPUT' in os.environ:
+        # Safely extract headline
+        export_headline = conflict_data['headlines'][0] if conflict_data['headlines'] else "Standard market variance detected."
+        
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+            # Output legacy variables
             print("tweet<<EOF", file=fh)
             print(tweet_content, file=fh)
             print("EOF", file=fh)
             print(f"image_url={final_image_url}", file=fh)
+            
+            # Output Twitter pipeline variables safely
             print(f"risk_score={final_score}", file=fh)
-
-    # --- EXPORT DATA FOR GITHUB ACTIONS ---
-    if 'GITHUB_OUTPUT' in os.environ:
-        # Safety catch: grab the headline whether it is a string or the first item in a list
-        try:
-            export_headline = top_headline
-        except NameError:
-            try:
-                export_headline = headline_list[0] if headline_list else "Standard market variance detected."
-            except NameError:
-                export_headline = "Standard market variance detected."
-                
-        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-            f.write(f"risk_score={risk_score}\n")
-            f.write(f"top_headline={export_headline}\n")
+            print(f"top_headline={export_headline}", file=fh)
 
 if __name__ == "__main__":
     main()
