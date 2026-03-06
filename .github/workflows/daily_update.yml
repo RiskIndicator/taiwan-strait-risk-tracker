@@ -66,11 +66,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11' 
       
       - name: Install Dependencies
-        # ADDED google-generativeai HERE 👇
-        run: pip install tweepy pytz google-generativeai
+        
+        run: pip install tweepy pytz google-genai
 
       - name: Run Tweet Script
         env:
@@ -78,7 +78,7 @@ jobs:
           TWITTER_API_SECRET: "${{ secrets.TWITTER_API_SECRET }}"
           TWITTER_ACCESS_TOKEN: "${{ secrets.TWITTER_ACCESS_TOKEN }}"
           TWITTER_ACCESS_SECRET: "${{ secrets.TWITTER_ACCESS_SECRET }}"
-          GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}" # <-- ADDED THIS LINE
+          GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"
           RISK_SCORE: "${{ needs.update-data.outputs.risk_score }}"
           TOP_HEADLINE: "${{ needs.update-data.outputs.top_headline }}"
         run: python send_tweet.py

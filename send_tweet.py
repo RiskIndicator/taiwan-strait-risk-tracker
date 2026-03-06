@@ -1,7 +1,7 @@
 import tweepy
 import os
 import sys
-import google.generativeai as genai
+from google import genai # <-- The new import
 
 def main():
     # 1. Pull secrets from GitHub
@@ -18,21 +18,26 @@ def main():
         print("❌ Missing GEMINI_API_KEY.")
         sys.exit(1)
 
-    # 2. Generate Unique Tweet Copy using Google AI Studio
-    genai.configure(api_key=gemini_api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    
-    prompt = f"""
-    You are a professional open-source intelligence (OSINT) analyst. 
-    Write a single, urgent Twitter post announcing today's Taiwan Strait Risk Score is {risk_score}/100. 
-    The primary escalation driver is this headline: "{top_headline}".
-    Keep it highly professional, analytical, and strictly under 200 characters. 
-    Do not use any hashtags. End the tweet by telling the reader to view the full report below.
-    """
-    
+    # 2. Generate Unique Tweet Copy using the NEW Google GenAI SDK
     try:
         print("Generating unique copy via Google AI...")
-        response = model.generate_content(prompt)
+        
+        # Initialize the new client
+        ai_client = genai.Client(api_key=gemini_api_key)
+        
+        prompt = f"""
+        You are a professional open-source intelligence (OSINT) analyst. 
+        Write a single, urgent Twitter post announcing today's Taiwan Strait Risk Score is {risk_score}/100. 
+        The primary escalation driver is this headline: "{top_headline}".
+        Keep it highly professional, analytical, and strictly under 200 characters. 
+        Do not use any hashtags. End the tweet by telling the reader to view the full report below.
+        """
+        
+        # Call the model using the new syntax
+        response = ai_client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         main_message = response.text.strip()
     except Exception as e:
         print(f"❌ AI Generation Failed: {e}")
@@ -46,7 +51,7 @@ def main():
         access_token_secret=twitter_access_secret
     )
 
-    # 4. Prepare Reply Message (Keeping the link out of the main tweet boosts algorithmic reach)
+    # 4. Prepare Reply Message
     report_url = "https://taiwanstraittracker.com"
     reply_message = f"Dive into the institutional data, capital flight metrics, and full market impact here:\n{report_url}"
 
