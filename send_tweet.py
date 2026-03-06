@@ -1,46 +1,62 @@
 import tweepy
 import os
 import sys
-from datetime import datetime
-import pytz
+import google.generativeai as genai
 
 def main():
-    # 1. Pull secrets and data from GitHub
-    api_key = os.getenv('TWITTER_API_KEY')
-    api_secret = os.getenv('TWITTER_API_SECRET')
-    access_token = os.getenv('TWITTER_ACCESS_TOKEN')
-    access_token_secret = os.getenv('TWITTER_ACCESS_SECRET')
+    # 1. Pull secrets from GitHub
+    twitter_api_key = os.getenv('TWITTER_API_KEY')
+    twitter_api_secret = os.getenv('TWITTER_API_SECRET')
+    twitter_access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+    twitter_access_secret = os.getenv('TWITTER_ACCESS_SECRET')
+    gemini_api_key = os.getenv('GEMINI_API_KEY')
     
-    risk_score = os.getenv('RISK_SCORE', 'Checked')
-    top_headline = os.getenv('TOP_HEADLINE', 'Standard market variance detected.') # <-- Added this line
+    risk_score = os.getenv('RISK_SCORE', 'Unchanged')
+    top_headline = os.getenv('TOP_HEADLINE', 'Standard market variance detected.')
 
-    # 2. Authenticate the V2 Client
+    if not gemini_api_key:
+        print("❌ Missing GEMINI_API_KEY.")
+        sys.exit(1)
+
+    # 2. Generate Unique Tweet Copy using Google AI Studio
+    genai.configure(api_key=gemini_api_key)
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    
+    prompt = f"""
+    You are a professional open-source intelligence (OSINT) analyst. 
+    Write a single, urgent Twitter post announcing today's Taiwan Strait Risk Score is {risk_score}/100. 
+    The primary escalation driver is this headline: "{top_headline}".
+    Keep it highly professional, analytical, and strictly under 200 characters. 
+    Do not use any hashtags. End the tweet by telling the reader to view the full report below.
+    """
+    
+    try:
+        print("Generating unique copy via Google AI...")
+        response = model.generate_content(prompt)
+        main_message = response.text.strip()
+    except Exception as e:
+        print(f"❌ AI Generation Failed: {e}")
+        sys.exit(1)
+
+    # 3. Authenticate Twitter V2 Client
     client = tweepy.Client(
-        consumer_key=api_key,
-        consumer_secret=api_secret,
-        access_token=access_token,
-        access_token_secret=access_token_secret
+        consumer_key=twitter_api_key,
+        consumer_secret=twitter_api_secret,
+        access_token=twitter_access_token,
+        access_token_secret=twitter_access_secret
     )
 
-    # 3. Prepare the payload
-    current_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y, %H:%M')
-    
-    # Tweet 1: Safe text only
-    main_message = f"🚨 Taiwan Strait Risk Index: {risk_score}/100 ({current_time})\n\nPrimary Escalation Driver Detected:\n\"{top_headline}\"\n\nSee how this is impacting market anxiety and silicon supply chains in today's briefing. 👇"
-    
-    # Tweet 2: The flagged URL
+    # 4. Prepare Reply Message (Keeping the link out of the main tweet boosts algorithmic reach)
     report_url = "https://taiwanstraittracker.com"
-    reply_message = f"View the full intelligence briefing and live radar here:\n{report_url}"
+    reply_message = f"Dive into the institutional data, capital flight metrics, and full market impact here:\n{report_url}"
 
-    # 4. Execute the Thread
+    # 5. Execute the Thread
     try:
-        # Post the main tweet
-        print("Posting main text update...")
+        print("Posting main AI generated text update...")
         main_response = client.create_tweet(text=main_message, user_auth=True)
         main_tweet_id = main_response.data['id']
         print(f"✅ Main tweet posted! ID: {main_tweet_id}")
 
-        # Post the reply using the ID from the main tweet
         print("Posting URL as a threaded reply...")
         reply_response = client.create_tweet(
             text=reply_message, 
