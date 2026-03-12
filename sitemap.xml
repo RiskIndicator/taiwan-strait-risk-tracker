@@ -2,38 +2,148 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://taiwanstraittracker.com/reports/2026-02-04-risk-analysis.html</loc>
-        <lastmod>2026-02-04</lastmod>
-        <changefreq>never</changefreq>
+        <loc>https://taiwanstraittracker.com/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
     </url>
-    
     <url>
-        <loc>https://taiwanstraittracker.com/reports/2026-02-05-risk-analysis.html</loc>
-        <lastmod>2026-02-04</lastmod>
-        <changefreq>never</changefreq>
+        <loc>https://taiwanstraittracker.com/about.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
-    
     <url>
-        <loc>https://taiwanstraittracker.com/reports/2026-02-06-risk-analysis.html</loc>
-        <lastmod>2026-02-05</lastmod>
-        <changefreq>never</changefreq>
+        <loc>https://taiwanstraittracker.com/articles.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
-    
     <url>
-        <loc>https://taiwanstraittracker.com/reports/2026-02-07-risk-analysis.html</loc>
-        <lastmod>2026-02-06</lastmod>
-        <changefreq>never</changefreq>
+        <loc>https://taiwanstraittracker.com/dual-chokepoint.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
-    
     <url>
-        <loc>https://taiwanstraittracker.com/reports/2026-02-08-risk-analysis.html</loc>
-        <lastmod>2026-02-07</lastmod>
-        <changefreq>never</changefreq>
+        <loc>https://taiwanstraittracker.com/quantitative-signal.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
-    
     <url>
-        <loc>https://taiwanstraittracker.com/reports/2026-02-09-risk-analysis.html</loc>
-        <lastmod>2026-02-08</lastmod>
+        <loc>https://taiwanstraittracker.com/macro-big-cycle.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-12.html</loc>
+        <lastmod>report_202</lastmod>
         <changefreq>never</changefreq>
     </url>
-    </urlset>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-11.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-10.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-09.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-08.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-07.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-06.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-05.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-04.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-01.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-28.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-27.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-26.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-25.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-24.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-23.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-22.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-09.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-08.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-07.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-06.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-05.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-02-04.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
+    </url>
+</urlset>
