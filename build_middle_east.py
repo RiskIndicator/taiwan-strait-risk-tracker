@@ -54,9 +54,17 @@ def build_middle_east_index():
         osint_score = 50
         top_headline = "News feed unavailable."
 
-    # Calculate Master Score
+    # Calculate Base Master Score
     master_score = int((energy_score * 0.4) + (defense_score * 0.3) + (osint_score * 0.3))
     
+    # 🚨 THE CIRCUIT BREAKER 🚨
+    # If the energy shock breaches 90 (e.g., Hormuz effectively closed), 
+    # it triggers a systemic override, ignoring the sluggish defense and OSINT averages.
+    if energy_score > 90:
+        master_score = max(master_score, energy_score)
+    elif energy_score > 80:
+        master_score = max(master_score, 85)
+        
     if master_score > 75:
         status = "CRITICAL ESCALATION"
         color = "#ef4444"
