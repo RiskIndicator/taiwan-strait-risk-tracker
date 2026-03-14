@@ -670,6 +670,18 @@
 
     <div class="container">
 
+        <div class="span-full">
+            <a href="https://taiwanstraittracker.com/middle-east.html" class="alert-bar"
+                style="text-decoration: none; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); margin-bottom: 10px;">
+                <div class="alert-text">
+                    <span style="font-size:1.3rem;">🚨</span>
+                    <span><strong>CRITICAL ALERT:</strong> Strait of Hormuz disruption detected. View the live Middle
+                        East Risk Index.</span>
+                </div>
+                <div class="alert-btn" style="background: #ef4444; color: #fff !important;">View Tracker</div>
+            </a>
+        </div>
+
         <a href="{{ latest_report_url }}" class="card hero-card span-2"
             style="text-decoration: none; color: inherit; display: flex; transition: transform 0.2s, border-color 0.3s;"
             onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
@@ -783,19 +795,20 @@
                             <div class="c-dot" id="dot-3"></div>
                             <div class="c-dot" id="dot-4"></div>
                             <div class="c-dot" id="dot-5"></div>
+                            <div class="c-dot" id="dot-6"></div>
                         </div>
                     </div>
 
-                    <a href="articles/ai-bubble-island.html" id="featured-container"
+                    <a href="articles/dual-chokepoint.html" id="featured-container"
                         style="flex-direction: column; align-items: flex-start;">
-                        <img src="public/chip.jpg" class="featured-thumb" id="feat-img"
+                        <img src="public/shipping-chokepoint.png" class="featured-thumb" id="feat-img"
                             style="width: 100%; height: 140px;"
                             onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Image'">
                         <div class="featured-content">
-                            <span class="featured-tag" id="feat-tag">Supply Chain</span>
-                            <h3 id="feat-title">Why the Trillion Dollar AI Boom Relies on One Island</h3>
-                            <p id="feat-excerpt">Everyone is buying Nvidia stock, but the physical reality of AI is
-                                built on a massive point of failure.</p>
+                            <span class="featured-tag" id="feat-tag">Geopolitics</span>
+                            <h3 id="feat-title">The Dual Chokepoint: Hormuz and Taiwan</h3>
+                            <p id="feat-excerpt">What happens to global markets when the world's primary energy and
+                                technology shipping lanes face simultaneous disruption?</p>
                         </div>
                     </a>
                 </div>
@@ -847,6 +860,13 @@
 
     <script>
         const featuredArticles = [
+            {
+                url: "articles/dual-chokepoint.html",
+                img: "public/shipping-chokepoint.png",
+                tag: "Geopolitics",
+                title: "The Dual Chokepoint: Hormuz and Taiwan",
+                excerpt: "What happens to global markets when the world's primary energy and technology shipping lanes face simultaneous disruption?"
+            },
             {
                 url: "articles/ai-bubble-island.html",
                 img: "public/chip.jpg",
