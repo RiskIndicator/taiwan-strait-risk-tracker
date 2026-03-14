@@ -8,8 +8,6 @@
     <meta name="description"
         content="Real-time geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, market signals, and rhetoric.">
 
-    
-    
     <link rel="canonical" href="https://taiwanstraittracker.com/" />
 
     <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
@@ -629,8 +627,9 @@
             }
         }
     </style>
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-03-14_s31.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image"
+        content="https://raw.githubusercontent.com/RiskIndicator/taiwan-strait-risk-tracker/main/public/card_2026-03-14_s31.png">
 </head>
 
 <body>
@@ -672,6 +671,18 @@
 
     <div class="container">
 
+        <div class="span-full">
+            <a href="https://taiwanstraittracker.com/middle-east.html" class="alert-bar"
+                style="text-decoration: none; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); margin-bottom: 10px;">
+                <div class="alert-text">
+                    <span style="font-size:1.3rem;">🚨</span>
+                    <span><strong>CRITICAL ALERT:</strong> Strait of Hormuz disruption detected. View the live Middle
+                        East Risk Index.</span>
+                </div>
+                <div class="alert-btn" style="background: #ef4444; color: #fff !important;">View Tracker</div>
+            </a>
+        </div>
+
         <a href="reports/report_2026-03-14.html" class="card hero-card span-2"
             style="text-decoration: none; color: inherit; display: flex; transition: transform 0.2s, border-color 0.3s;"
             onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
@@ -680,8 +691,7 @@
                         style="font-size:0.75rem; font-weight:normal; color:var(--accent); text-transform:none; margin-left: 10px;">Click
                         for Daily Briefing &rarr;</span></div>
                 <div class="big-number">31</div>
-                <div class="trend-badge"
-                    style="color: var(--safe);
+                <div class="trend-badge" style="color: var(--safe);
                             background: rgba(16, 185, 129, 0.1);
                             border: 1px solid rgba(16, 185, 129, 0.2);">
                     ▼ -1 pts since yesterday
@@ -785,19 +795,20 @@
                             <div class="c-dot" id="dot-3"></div>
                             <div class="c-dot" id="dot-4"></div>
                             <div class="c-dot" id="dot-5"></div>
+                            <div class="c-dot" id="dot-6"></div>
                         </div>
                     </div>
 
-                    <a href="articles/ai-bubble-island.html" id="featured-container"
+                    <a href="articles/dual-chokepoint.html" id="featured-container"
                         style="flex-direction: column; align-items: flex-start;">
-                        <img src="public/chip.jpg" class="featured-thumb" id="feat-img"
+                        <img src="public/shipping-chokepoint.png" class="featured-thumb" id="feat-img"
                             style="width: 100%; height: 140px;"
                             onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Image'">
                         <div class="featured-content">
-                            <span class="featured-tag" id="feat-tag">Supply Chain</span>
-                            <h3 id="feat-title">Why the Trillion Dollar AI Boom Relies on One Island</h3>
-                            <p id="feat-excerpt">Everyone is buying Nvidia stock, but the physical reality of AI is
-                                built on a massive point of failure.</p>
+                            <span class="featured-tag" id="feat-tag">Geopolitics</span>
+                            <h3 id="feat-title">The Dual Chokepoint: Hormuz and Taiwan</h3>
+                            <p id="feat-excerpt">What happens to global markets when the world's primary energy and
+                                technology shipping lanes face simultaneous disruption?</p>
                         </div>
                     </a>
                 </div>
@@ -834,17 +845,17 @@
         <div class="card span-full">
             <h3 class="section-header">Daily Intelligence Briefings</h3>
             <ul class="archive-list">
-                
+
                 <li><a href="reports/report_2026-03-14.html">2026-03-14 Risk Analysis &rarr;</a></li>
-                
+
                 <li><a href="reports/report_2026-03-13.html">2026-03-13 Risk Analysis &rarr;</a></li>
-                
+
                 <li><a href="reports/report_2026-03-12.html">2026-03-12 Risk Analysis &rarr;</a></li>
-                
+
                 <li><a href="reports/report_2026-03-11.html">2026-03-11 Risk Analysis &rarr;</a></li>
-                
+
                 <li><a href="reports/report_2026-03-10.html">2026-03-10 Risk Analysis &rarr;</a></li>
-                
+
             </ul>
         </div>
 
@@ -857,6 +868,13 @@
 
     <script>
         const featuredArticles = [
+            {
+                url: "articles/dual-chokepoint.html",
+                img: "public/shipping-chokepoint.png",
+                tag: "Geopolitics",
+                title: "The Dual Chokepoint: Hormuz and Taiwan",
+                excerpt: "What happens to global markets when the world's primary energy and technology shipping lanes face simultaneous disruption?"
+            },
             {
                 url: "articles/ai-bubble-island.html",
                 img: "public/chip.jpg",
@@ -925,7 +943,7 @@
 
         setInterval(rotateArticle, 7000);
 
-        const historyData = [{"date": "2026-02-11", "score": 29}, {"date": "2026-02-12", "score": 26}, {"date": "2026-02-13", "score": 32}, {"date": "2026-02-14", "score": 33}, {"date": "2026-02-15", "score": 31}, {"date": "2026-02-16", "score": 32}, {"date": "2026-02-17", "score": 32}, {"date": "2026-02-18", "score": 31}, {"date": "2026-02-19", "score": 33}, {"date": "2026-02-20", "score": 30}, {"date": "2026-02-21", "score": 26}, {"date": "2026-02-22", "score": 25}, {"date": "2026-02-23", "score": 27}, {"date": "2026-02-24", "score": 25}, {"date": "2026-02-25", "score": 27}, {"date": "2026-02-26", "score": 34}, {"date": "2026-02-27", "score": 40}, {"date": "2026-02-28", "score": 32}, {"date": "2026-03-01", "score": 30}, {"date": "2026-03-04", "score": 31}, {"date": "2026-03-05", "score": 31}, {"date": "2026-03-06", "score": 29}, {"date": "2026-03-07", "score": 30}, {"date": "2026-03-08", "score": 31}, {"date": "2026-03-09", "score": 31}, {"date": "2026-03-10", "score": 28}, {"date": "2026-03-11", "score": 32}, {"date": "2026-03-12", "score": 28}, {"date": "2026-03-13", "score": 32}, {"date": "2026-03-14", "score": 31}];
+        const historyData = [{ "date": "2026-02-11", "score": 29 }, { "date": "2026-02-12", "score": 26 }, { "date": "2026-02-13", "score": 32 }, { "date": "2026-02-14", "score": 33 }, { "date": "2026-02-15", "score": 31 }, { "date": "2026-02-16", "score": 32 }, { "date": "2026-02-17", "score": 32 }, { "date": "2026-02-18", "score": 31 }, { "date": "2026-02-19", "score": 33 }, { "date": "2026-02-20", "score": 30 }, { "date": "2026-02-21", "score": 26 }, { "date": "2026-02-22", "score": 25 }, { "date": "2026-02-23", "score": 27 }, { "date": "2026-02-24", "score": 25 }, { "date": "2026-02-25", "score": 27 }, { "date": "2026-02-26", "score": 34 }, { "date": "2026-02-27", "score": 40 }, { "date": "2026-02-28", "score": 32 }, { "date": "2026-03-01", "score": 30 }, { "date": "2026-03-04", "score": 31 }, { "date": "2026-03-05", "score": 31 }, { "date": "2026-03-06", "score": 29 }, { "date": "2026-03-07", "score": 30 }, { "date": "2026-03-08", "score": 31 }, { "date": "2026-03-09", "score": 31 }, { "date": "2026-03-10", "score": 28 }, { "date": "2026-03-11", "score": 32 }, { "date": "2026-03-12", "score": 28 }, { "date": "2026-03-13", "score": 32 }, { "date": "2026-03-14", "score": 31 }];
         const ctxChart = document.getElementById('historyChart').getContext('2d');
 
         function getLineGradient(ctxChart, chartArea) {
