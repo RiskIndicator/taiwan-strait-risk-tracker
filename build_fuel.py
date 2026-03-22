@@ -4,49 +4,80 @@ import feedparser
 from jinja2 import Template
 from datetime import datetime
 import pytz
+import json
+import time
 
 EIA_API_KEY = os.environ.get("EIA_API_KEY", "")
+CACHE_FILE = "fuel_cache.json"
 
-def fetch_eia_data(series_id):
+def fetch_eia_data(series_id, max_retries=3):
     url = f"https://api.eia.gov/v2/petroleum/stoc/wstk/data/?api_key={EIA_API_KEY}&frequency=weekly&data[0]=value&facets[series][]={series_id}&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=1"
-    try:
-        response = requests.get(url, timeout=10)
-        if response.status_code == 200:
-            return response.json().get("response", {}).get("data", [])
-    except Exception as e:
-        print(f"API Error for {series_id}: {e}")
+    
+    for attempt in range(max_retries):
+        try:
+            response = requests.get(url, timeout=15)
+            if response.status_code == 200:
+                data = response.json().get("response", {}).get("data", [])
+                if data:
+                    return data[0]['value']
+            print(f"EIA API attempt {attempt + 1} failed with status {response.status_code}.")
+        except requests.exceptions.RequestException as e:
+            print(f"EIA API connection attempt {attempt + 1} failed: {e}")
+        
+        # Wait before retrying (5s, then 10s)
+        time.sleep(5 * (attempt + 1))
+        
     return None
 
 def build_fuel_index():
     print("Calculating Days of Supply...")
     
-    # Fallbacks to prevent Exit Code 1 crashes
-    comm_days, spr_days, total_days = 0.0, 0.0, 0.0
-    comm_m, spr_m = 0.0, 0.0
-    top_headline = "Awaiting OSINT data."
-    
-    # Approx daily benchmark refinery input in millions of barrels
+    # Defaults and standard daily consumption
     daily_consumption = 16.0 
+    comm_val, spr_val = None, None
+    top_headline = "Awaiting OSINT data."
+    is_cached = False
 
-    comm_data = fetch_eia_data("WCESTUS1")
-    if comm_data and len(comm_data) > 0:
-        comm_m = comm_data[0]['value'] / 1000
-        comm_days = round(comm_m / daily_consumption, 1)
+    # 1. Try to fetch live data
+    if EIA_API_KEY:
+        comm_val = fetch_eia_data("WCESTUS1")
+        spr_val = fetch_eia_data("WCSSTUS1")
 
-    spr_data = fetch_eia_data("WCSSTUS1")
-    if spr_data and len(spr_data) > 0:
-        spr_m = spr_data[0]['value'] / 1000
-        spr_days = round(spr_m / daily_consumption, 1)
-        
+    # 2. Fallback to Cache if API is down
+    if comm_val is None or spr_val is None:
+        print("API failed. Attempting to load from cache...")
+        is_cached = True
+        try:
+            with open(CACHE_FILE, 'r') as f:
+                cache = json.load(f)
+                comm_val = cache.get("comm_val", 350000) # Fallback baseline
+                spr_val = cache.get("spr_val", 350000)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print("No cache found. Using hardcoded baselines.")
+            comm_val = 350000
+            spr_val = 350000
+    else:
+        # Save fresh data to cache
+        with open(CACHE_FILE, 'w') as f:
+            json.dump({"comm_val": comm_val, "spr_val": spr_val}, f)
+
+    # 3. Calculate Math
+    comm_m = comm_val / 1000
+    spr_m = spr_val / 1000
+    
+    comm_days = round(comm_m / daily_consumption, 1)
+    spr_days = round(spr_m / daily_consumption, 1)
     total_days = round(comm_days + spr_days, 1)
 
+    # 4. Fetch News (with broad search)
     try:
-        feed = feedparser.parse("https://news.google.com/rss/search?q=oil+supply+shortage+OPEC+embargo+SPR+release+when:1d&hl=en-US&gl=US&ceid=US:en")
+        feed = feedparser.parse("https://news.google.com/rss/search?q=oil+supply+OR+crude+inventory+when:1d&hl=en-US&gl=US&ceid=US:en")
         if feed.entries:
             top_headline = feed.entries[0].title
     except Exception:
         pass
 
+    # 5. Logic Gates
     if total_days < 35:
         status, color = "CRITICAL DEPLETION", "#ef4444"
     elif total_days < 50:
@@ -57,7 +88,10 @@ def build_fuel_index():
     iea_mandate_pct = min(100, int((total_days / 90) * 100))
 
     update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y %H:%M AEST')
+    if is_cached:
+        update_time += " (Cached Data)"
 
+    # 6. Render
     try:
         with open('fuel_template.html', 'r', encoding='utf-8') as f:
             template = Template(f.read())
