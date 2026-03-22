@@ -62,8 +62,8 @@ def build_fuel_index():
             json.dump({"comm_val": comm_val, "spr_val": spr_val}, f)
 
     # 3. Calculate Math
-    comm_m = comm_val / 1000
-    spr_m = spr_val / 1000
+    comm_m = float(comm_val) / 1000.0
+    spr_m = float(spr_val) / 1000.0
     
     comm_days = round(comm_m / daily_consumption, 1)
     spr_days = round(spr_m / daily_consumption, 1)
