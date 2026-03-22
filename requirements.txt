@@ -6,3 +6,4 @@ requests
 html2image
 tweepy==4.14.0
 google-generativeai
+feedparser
