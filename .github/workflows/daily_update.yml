@@ -20,7 +20,7 @@ jobs:
       tweet_output: ${{ steps.build.outputs.tweet }}
       image_output: ${{ steps.build.outputs.image_url }}
       risk_score: ${{ steps.build.outputs.risk_score }}
-      top_headline: ${{ steps.build.outputs.top_headline }} # <-- Added this line
+      top_headline: ${{ steps.build.outputs.top_headline }}
     steps:
       - uses: actions/checkout@v3
         
@@ -34,6 +34,8 @@ jobs:
 
       - name: Run Build Scripts
         id: build
+        env:
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
         run: |
           python build.py
           python build_ai.py
@@ -42,6 +44,7 @@ jobs:
           python build_fiat.py
           python build_macro.py
           python build_middle_east.py
+          python build_fuel.py
           python build_sitemap.py
         
       - name: Commit and Push
@@ -70,7 +73,6 @@ jobs:
           python-version: '3.11' 
       
       - name: Install Dependencies
-        
         run: pip install tweepy pytz google-genai
 
       - name: Run Tweet Script
