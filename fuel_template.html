@@ -29,7 +29,6 @@
             min-height: 100vh;
         }
 
-        /* GSN Universal Header */
         .gsn-universal-header {
             background-color: #050505;
             color: #94a3b8;
@@ -75,7 +74,6 @@
             color: #ef4444;
         }
 
-        /* Navbar */
         .navbar {
             background: var(--panel-dark);
             border-bottom: 1px solid var(--border);
@@ -115,7 +113,6 @@
             font-weight: 500;
         }
 
-        /* Dashboard Layout */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -127,7 +124,6 @@
             margin-bottom: 40px;
         }
 
-        /* Hero Panel */
         .hero-panel {
             background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
             border: 1px solid var(--border);
@@ -224,7 +220,6 @@
             letter-spacing: 1px;
         }
 
-        /* Metrics Grid */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -295,7 +290,6 @@
             font-size: 1rem;
         }
 
-        /* Headline Card */
         .headline-card {
             background: var(--panel-dark);
             border: 1px solid var(--border);
@@ -318,7 +312,6 @@
             font-weight: 500;
         }
 
-        /* Footer */
         .site-footer {
             max-width: 1100px;
             margin: auto auto 0 auto;
@@ -412,12 +405,11 @@
     </nav>
 
     <div class="container">
-
         <div class="hero-panel">
             <div class="hero-text-content">
                 <h1>Strategic Fuel Reserve Index</h1>
-                <p>Monitoring the global countdown clock. A data driven measure of commercial inventories versus
-                    emergency SPR buffers.</p>
+                <p>Monitoring the global countdown clock. A data-driven measure of the days of supply remaining in the
+                    global anchor stockpile.</p>
 
                 <div class="status-badge" style="color: {{ color_code }}; border-color: {{ color_code }};">{{
                     status_text }}</div>
@@ -425,64 +417,64 @@
 
             <div class="hero-visual">
                 <div class="data-readout" style="color: {{ color_code }}; text-shadow: 0 0 20px {{ color_code }}40;">{{
-                    score }}</div>
+                    total_days }}</div>
                 <div
                     style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase;">
-                    System Vulnerability</div>
+                    Total Days of Supply</div>
                 <div class="last-updated">UPDATED: {{ update_time }}</div>
             </div>
         </div>
 
         <div class="metrics-grid">
-
             <div class="metric-card">
                 <div class="metric-header">
-                    <span class="metric-title">1. SPR Buffer</span>
-                    <span class="metric-score" style="color: var(--neon-blue);">{{ spr_score }} / 100</span>
+                    <span class="metric-title">1. Commercial Buffer</span>
+                    <span class="metric-score" style="color: var(--neon-blue);">{{ comm_days }} Days</span>
                 </div>
                 <div class="bar-bg">
                     <div class="bar-fill"
-                        style="width: {{ spr_score }}%; background: var(--neon-blue); box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);">
+                        style="width: 100%; background: var(--neon-blue); box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);">
                     </div>
                 </div>
                 <div class="metric-explanation">
-                    <strong>Is the emergency tank full?</strong>
-                    {{ spr_desc }}
+                    <strong>Commercial Inventories</strong>
+                    The market currently holds {{ comm_m }} million barrels in commercial storage to keep refineries
+                    running.
                 </div>
             </div>
 
             <div class="metric-card">
                 <div class="metric-header">
-                    <span class="metric-title">2. Commercial Stocks</span>
-                    <span class="metric-score" style="color: #f59e0b;">{{ comm_score }} / 100</span>
+                    <span class="metric-title">2. Strategic Reserve</span>
+                    <span class="metric-score" style="color: #f59e0b;">{{ spr_days }} Days</span>
                 </div>
                 <div class="bar-bg">
                     <div class="bar-fill"
-                        style="width: {{ comm_score }}%; background: #f59e0b; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);">
-                    </div>
+                        style="width: 100%; background: #f59e0b; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);"></div>
                 </div>
                 <div class="metric-explanation">
-                    <strong>Are refineries running dry?</strong>
-                    {{ comm_desc }}
+                    <strong>Emergency Government Cover</strong>
+                    The Strategic Petroleum Reserve can provide an additional {{ spr_m }} million barrels of emergency
+                    lifeline.
                 </div>
             </div>
 
             <div class="metric-card">
                 <div class="metric-header">
-                    <span class="metric-title">3. Supply Shock OSINT</span>
-                    <span class="metric-score" style="color: #ef4444;">{{ osint_score }} / 100</span>
+                    <span class="metric-title">3. IEA 90-Day Mandate</span>
+                    <span class="metric-score" style="color: #ef4444;">{{ iea_pct }}% Secure</span>
                 </div>
                 <div class="bar-bg">
                     <div class="bar-fill"
-                        style="width: {{ osint_score }}%; background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);">
+                        style="width: {{ iea_pct }}%; background: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);">
                     </div>
                 </div>
                 <div class="metric-explanation">
-                    <strong>Are the markets panicking?</strong>
-                    Algorithmic scan of global OPEC disruption and embargo chatter across financial news.
+                    <strong>Global Security Threshold</strong>
+                    The International Energy Agency mandates 90 days of reserve cover. This tracks how close the
+                    benchmark is to compliance.
                 </div>
             </div>
-
         </div>
 
         <div class="headline-card">
