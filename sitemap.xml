@@ -2,47 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://taiwanstraittracker.com/ai_template.html</loc>
+        <loc>https://taiwanstraittracker.com/about.html</loc>
         <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/ai-bubble.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/privacy.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/macro.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/report_template.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fiat_template.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/template.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fiat.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -52,7 +17,42 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://taiwanstraittracker.com/report_template.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>https://taiwanstraittracker.com/contact.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/supply_template.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/inequality.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/ai_template.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/privacy.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -67,22 +67,37 @@
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/middle-east.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
         <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/about.html</loc>
+        <loc>https://taiwanstraittracker.com/middle-east.html</loc>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/supply_template.html</loc>
+        <loc>https://taiwanstraittracker.com/fiat_template.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/inequality_template.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/template.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/fiat.html</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/macro.html</loc>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -92,19 +107,9 @@
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/inequality.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/inequality_template.html</loc>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        <loc>https://taiwanstraittracker.com/reports/report_2026-03-27.html</loc>
+        <lastmod>report_202</lastmod>
+        <changefreq>never</changefreq>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/reports/report_2026-03-26.html</loc>
