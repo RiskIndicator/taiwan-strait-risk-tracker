@@ -187,7 +187,9 @@ def main():
     else:
         status = "HIGH RISK"; color = "#ef4444"; summary = "Significant anomaly detected."
 
+    # Around line where today_str is defined, add this:
     today_str = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%Y-%m-%d')
+    update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%Y-%m-%d %H:%M AEST')  # ADD THIS
     try:
         with open('history.json', 'r', encoding='utf-8') as f: history = json.load(f)
     except: history = []
