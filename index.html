@@ -320,13 +320,26 @@
         }
 
         // 3. Telemetry Fetchers
+
+        // A. Fetch the LLM Agent's Live Synthesis
+        fetch('agentic_briefing.json')
+            .then(r => r.json())
+            .then(data => {
+                const statusBox = document.getElementById('orchestrator-status');
+                statusBox.innerText = data.agent_briefing;
+                statusBox.style.color = "#e2e8f0"; // Clean terminal white
+            })
+            .catch(e => {
+                const statusBox = document.getElementById('orchestrator-status');
+                statusBox.innerText = "> AGENT OFFLINE. AWAITING TELEMETRY SYNTHESIS...";
+                statusBox.style.color = "#94a3b8";
+            });
+
+        // B. Fetch the Hard-Coded System Alerts for the Banner
         fetch('active_alerts.json').then(r => r.json()).then(data => {
             document.getElementById('master-time').innerText = "UPDATED: " + (data.last_updated || "JUST NOW");
-            const statusBox = document.getElementById('orchestrator-status');
 
             if (data.alert_count > 0 && data.alerts.length > 0) {
-                statusBox.innerText = `${data.alert_count} SYSTEMIC ANOMALIES DETECTED`;
-                statusBox.style.color = "#ef4444";
                 const banner = document.getElementById('triage-banner');
                 banner.style.display = 'flex';
                 let currentIndex = 0;
@@ -339,16 +352,10 @@
                 }
                 updateBanner();
                 if (data.alerts.length > 1) setInterval(updateBanner, 5000);
-            } else {
-                statusBox.innerText = "SYSTEM NOMINAL. NO ACTIVE ANOMALIES.";
-                statusBox.style.color = "#10b981";
             }
-        }).catch(e => {
-            const statusBox = document.getElementById('orchestrator-status');
-            statusBox.innerText = "SYSTEM NOMINAL. NO ACTIVE ANOMALIES.";
-            statusBox.style.color = "#10b981";
-        });
+        }).catch(e => { });
 
+        // C. Fetch Node Telemetry for UI Cards
         fetch('taiwan_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-taiwan').innerText = d.current_risk_score;
             document.getElementById('desc-taiwan').innerText = `> Media Noise: ${d.media_noise}`;
