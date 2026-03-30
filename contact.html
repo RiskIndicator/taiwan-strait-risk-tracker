@@ -4,12 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Taiwan Strait Risk Tracker</title>
+    <title>Contact | Global Shift Network</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet">
-    
-    <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
     <link rel="stylesheet" href="/gsn-core.css">
+    <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
+    <style>
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .content-container h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .content-container h3 {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .content-container p,
+        .content-container ul {
+            font-size: 1.05rem;
+            color: var(--text-sub);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .content-container li {
+            margin-bottom: 10px;
+        }
+
+        .content-container a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .content-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +64,8 @@
             The Global Shift Network
         </div>
         <div class="gsn-network-links">
-            <a href="https://taiwanstraittracker.com" class="gsn-link">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com" class="gsn-link">Terminal</a>
+            <a href="https://taiwanstraittracker.com/taiwan" class="gsn-link">Strait Risk Tracker</a>
             <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
             <a href="https://taiwanstraittracker.com/middle-east.html" class="gsn-link">Middle East Tracker</a>
             <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link active">Fuel Reserves</a>
@@ -28,51 +74,51 @@
             <a href="https://taiwanstraittracker.com/macro.html" class="gsn-link">Macro Outlook</a>
             <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
         </div>
+    </div>
 
-
-        <nav class="navbar">
-            <div class="nav-inner">
-                <a href="/" class="brand">
-                    <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> GSN Terminal
-                </a>
-                <div class="nav-links">
-                    <a href="articles.html" style="color: var(--text-main);">Intelligence Reports</a>
-                    <a href="about.html">Methodology</a>
-                </div>
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="brand">
+                <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> GSN Terminal
+            </a>
+            <div class="nav-links">
+                <a href="articles.html" style="color: var(--text-sub);">Intelligence Reports</a>
+                <a href="about.html">Methodology</a>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <div class="container">
+    <div class="container">
+        <div class="content-container span-full">
             <h1>Contact Us</h1>
             <p>We value feedback on our data methodology and reporting accuracy.</p>
 
             <h3>General Inquiries</h3>
             <p>For questions regarding the risk index algorithm or data sources, please contact us via our official
-                email or
-                social channels:</p>
+                email or social channels:</p>
             <ul>
-                <li><strong>Email:</strong> <a href="mailto:brandhunterchannel@gmail.com"
-                        class="text-link">brandhunterchannel@gmail.com</a></li>
-                <li><strong>X (Twitter):</strong> <a href="https://x.com/StraitTracker" target="_blank"
-                        class="text-link">@StraitTracker</a></li>
+                <li><strong>Email:</strong> <a
+                        href="mailto:brandhunterchannel@gmail.com">brandhunterchannel@gmail.com</a></li>
+                <li><strong>X (Twitter):</strong> <a href="https://x.com/StraitTracker"
+                        target="_blank">@StraitTracker</a></li>
             </ul>
 
             <h3>Data Corrections</h3>
             <p>If you believe our automated scraper has flagged a false positive (for example, misinterpreting a
-                standard
-                military exercise as an incursion), please submit an issue on our <a
-                    href="https://github.com/RiskIndicator/taiwan-strait-risk-tracker" target="_blank"
-                    class="text-link">Public Repository</a>.</p>
+                standard military exercise as an incursion), please submit an issue on our <a
+                    href="https://github.com/RiskIndicator/taiwan-strait-risk-tracker" target="_blank">Public
+                    Repository</a>.</p>
         </div>
+    </div>
 
-        <footer class="site-footer">
-            <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
-            <div class="footer-links">
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="privacy.html">Privacy Policy</a>
-            </div>
-        </footer>
+    <footer class="site-footer">
+        <div>&copy; 2026 Global Shift Network. All Rights Reserved.</div>
+        <div class="footer-links">
+            <a href="about.html">Methodology</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </footer>
 </body>
 
 </html>
