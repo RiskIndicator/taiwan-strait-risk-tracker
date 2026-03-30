@@ -954,4 +954,122 @@ body {
         display: block;
     }
 
+    /* --- 9. DAILY BRIEFING REPORT STYLES --- */
+    .breadcrumb {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        color: var(--text-sub);
+        margin-bottom: 20px;
+    }
+
+    .breadcrumb a {
+        color: var(--accent);
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+        text-decoration: underline;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+        font-size: 2.2rem;
+        color: var(--text-main);
+        margin-bottom: 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .exec-summary {
+        padding: 30px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 24px;
+    }
+
+    .exec-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: var(--text-sub);
+        display: block;
+        margin-bottom: 15px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .big-score {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 4.5rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 15px;
+    }
+
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+
+    .metric-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .metric-box .val {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-main);
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+
+    .metric-box .desc {
+        color: var(--text-sub);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .source-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .source-list li {
+        padding: 15px;
+        border-bottom: 1px dashed var(--border);
+        color: #cbd5e1;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .source-list li:last-child {
+        border-bottom: none;
+    }
+
+    .source-list li::before {
+        content: "»";
+        color: var(--accent);
+        margin-right: 10px;
+        font-family: 'JetBrains Mono', monospace;
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+    }
+
 }
