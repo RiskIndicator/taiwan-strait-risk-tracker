@@ -3,6 +3,7 @@ import feedparser
 from jinja2 import Template
 from datetime import datetime
 import pytz
+import json
 
 def build_middle_east_index():
     print("CALCULATING MIDDLE EAST WAR RISK...")

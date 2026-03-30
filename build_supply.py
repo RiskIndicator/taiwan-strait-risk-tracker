@@ -2,6 +2,7 @@ import yfinance as yf
 from jinja2 import Template
 from datetime import datetime
 import pytz
+import json
 
 def build_supply_chain():
     print("CALCULATING SUPPLY CHAIN STRESS...")
