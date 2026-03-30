@@ -10,17 +10,24 @@ ESSENTIALS = ['DBA', 'XLP']
 def build_k_shape():
     print("CALCULATING WEALTH FRACTURE...")
     try:
+        # Download data and forward-fill any missing daily values
         data = yf.download(ASSETS + ESSENTIALS, period="6mo")['Close']
+        data = data.ffill().dropna()
+        
         normalized = data / data.iloc[0]
         
-        asset_perf = normalized[ASSETS].mean(axis=1).iloc[-1]
-        survival_perf = normalized[ESSENTIALS].mean(axis=1).iloc[-1]
+        asset_series = normalized[ASSETS].mean(axis=1)
+        survival_series = normalized[ESSENTIALS].mean(axis=1)
+        
+        asset_perf = asset_series.iloc[-1]
+        survival_perf = survival_series.iloc[-1]
         
         gap = (asset_perf - survival_perf) * 100
         
-        # Every 1% of gap results in a 15px vertical shift
-        # Negative gap (Survival > Assets) pushes the bottom card down
-        displacement = int(gap * 15) 
+        # Prepare historical data for the chart (converted to % growth)
+        dates = [d.strftime('%b %d') for d in asset_series.index]
+        asset_chart_data = [round((val - 1) * 100, 2) for val in asset_series]
+        survival_chart_data = [round((val - 1) * 100, 2) for val in survival_series]
 
         update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y')
 
@@ -29,10 +36,12 @@ def build_k_shape():
 
         rendered = template.render(
             fracture_score=round(gap, 1),
-            displacement=displacement,
             asset_growth=round((asset_perf-1)*100, 1),
             survival_inflation=round((survival_perf-1)*100, 1),
-            last_updated=update_time
+            last_updated=update_time,
+            chart_dates=json.dumps(dates),
+            chart_assets=json.dumps(asset_chart_data),
+            chart_survival=json.dumps(survival_chart_data)
         )
         
         with open('inequality.html', 'w', encoding='utf-8') as f:
