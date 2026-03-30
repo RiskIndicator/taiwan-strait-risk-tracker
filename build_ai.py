@@ -56,6 +56,11 @@ def get_sentiment_score():
 def get_adoption_velocity():
     return 65 # V1 Placeholder for Enterprise Stability
 
+def get_color_code(score):
+    if score < 40: return "#10b981"
+    elif score < 65: return "#f59e0b"
+    else: return "#ef4444"
+
 def build_index():
     print("ASSEMBLING AI BUBBLE INDEX...")
     
@@ -91,17 +96,18 @@ def build_index():
         template = Template(f.read())
 
     rendered_html = template.render(
-        bubble_score=final_score,
-        status_text=status,
-        multiplier=round(multiplier, 2),
-        strait_risk=strait_risk,
-        v_score=v_score,
-        c_score=c_score,
-        s_score=s_score,
-        a_score=a_score,
-        avg_pe=avg_pe,
-        last_updated=update_time
-    )
+    final_score=final_score,
+    status_text=status,
+    conflict_multiplier=round(multiplier, 2),
+    strait_risk=strait_risk,
+    valuation_score=v_score,
+    infrastructure_score=c_score,
+    hype_score=s_score,
+    adoption_score=a_score,
+    avg_pe=avg_pe,
+    last_updated=update_time,
+    color_code=get_color_code(final_score)  # You'll need to add this function
+)
 
     with open('ai-bubble.html', 'w', encoding='utf-8') as f:
         f.write(rendered_html)
