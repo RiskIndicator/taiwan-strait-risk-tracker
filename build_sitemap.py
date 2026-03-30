@@ -5,6 +5,13 @@ BASE_URL = "https://taiwanstraittracker.com"
 # Specific settings for your core navigational pages
 CORE_PAGES = {
     "index.html": {"loc": "/", "priority": "1.0", "changefreq": "daily"},
+    "macro.html": {"loc": "/macro.html", "priority": "0.9", "changefreq": "daily"},
+    "ai-bubble.html": {"loc": "/ai-bubble.html", "priority": "0.9", "changefreq": "daily"},
+    "middle-east.html": {"loc": "/middle-east.html", "priority": "0.9", "changefreq": "daily"},
+    "fuel-reserves.html": {"loc": "/fuel-reserves.html", "priority": "0.9", "changefreq": "daily"},
+    "supply-chain.html": {"loc": "/supply-chain.html", "priority": "0.9", "changefreq": "daily"},
+    "inequality.html": {"loc": "/inequality.html", "priority": "0.9", "changefreq": "daily"},
+    "fiat.html": {"loc": "/fiat.html", "priority": "0.9", "changefreq": "daily"},
     "about.html": {"loc": "/about.html", "priority": "0.8", "changefreq": "monthly"},
     "articles.html": {"loc": "/articles.html", "priority": "0.8", "changefreq": "weekly"}
 }
