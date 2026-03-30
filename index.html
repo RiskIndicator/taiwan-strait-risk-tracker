@@ -57,7 +57,8 @@
 
     <div class="container">
 
-        <div id="triage-banner" onclick="window.location.href=document.getElementById('alert-link').href">
+        <div id="triage-banner" style="display: none;"
+            onclick="window.location.href=document.getElementById('alert-link').href">
             <div class="alert-content">
                 <div class="alert-badge" id="alert-type">CRITICAL ALERT</div>
                 <div class="alert-headline" id="alert-text">Loading diagnostics...</div>
@@ -338,9 +339,9 @@
         // B. Fetch the Hard-Coded System Alerts for the Banner
         fetch('active_alerts.json').then(r => r.json()).then(data => {
             document.getElementById('master-time').innerText = "UPDATED: " + (data.last_updated || "JUST NOW");
+            const banner = document.getElementById('triage-banner');
 
             if (data.alert_count > 0 && data.alerts.length > 0) {
-                const banner = document.getElementById('triage-banner');
                 banner.style.display = 'flex';
                 let currentIndex = 0;
                 function updateBanner() {
@@ -351,9 +352,15 @@
                     currentIndex = (currentIndex + 1) % data.alerts.length;
                 }
                 updateBanner();
-                if (data.alerts.length > 1) setInterval(updateBanner, 5000);
+                // Clear any old intervals if this runs multiple times
+                if (window.bannerInterval) clearInterval(window.bannerInterval);
+                if (data.alerts.length > 1) window.bannerInterval = setInterval(updateBanner, 5000);
+            } else {
+                banner.style.display = 'none'; // Explicitly hide if 0 alerts
             }
-        }).catch(e => { });
+        }).catch(e => {
+            document.getElementById('triage-banner').style.display = 'none';
+        });
 
         // C. Fetch Node Telemetry for UI Cards
         fetch('taiwan_data.json').then(r => r.json()).then(d => {
@@ -380,6 +387,19 @@
             document.getElementById('val-ai').innerText = d.bubble_index;
             document.getElementById('desc-ai').innerText = `> Valuation Stress: ${d.valuation_score}`;
             setCardState('ai', d.bubble_index);
+        }).catch(e => { });
+
+        fetch('kshape_data.json').then(r => r.json()).then(d => {
+            document.getElementById('val-inequality').innerText = d.fracture_score;
+            document.getElementById('desc-inequality').innerText = `> Systemic Fracture`;
+            setCardState('inequality', d.fracture_score);
+        }).catch(e => { });
+
+        fetch('fuel_cache.json').then(r => r.json()).then(d => {
+            let days = ((d.comm_val / 1000) / 16.0).toFixed(1);
+            document.getElementById('val-fuel').innerText = days;
+            document.getElementById('desc-fuel').innerText = `> Commercial buffer`;
+            setCardState('fuel', days, true);
         }).catch(e => { });
 
         // FIAT FETCH REPLACED WITH INEQUALITY

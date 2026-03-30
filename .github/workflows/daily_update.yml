@@ -36,6 +36,7 @@ jobs:
         id: build
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # ADDED FOR THE ORCHESTRATOR
         run: |
           python build.py
           python build_ai.py
@@ -46,8 +47,8 @@ jobs:
           python build_middle_east.py
           python build_fuel.py
           python build_sitemap.py
+          python run_orchestrator.py # ADDED ORCHESTRATOR
 
-        
       - name: Commit and Push
         run: |
           git config --global user.name 'GitHub Action'
@@ -73,8 +74,9 @@ jobs:
         with:
           python-version: '3.11' 
       
+      # FIXED PIP PACKAGE NAME
       - name: Install Dependencies
-        run: pip install tweepy pytz google-genai
+        run: pip install tweepy pytz google-generativeai
 
       - name: Run Tweet Script
         env:
