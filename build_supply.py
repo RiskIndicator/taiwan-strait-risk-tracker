@@ -35,5 +35,13 @@ def build_supply_chain():
     except Exception as e:
         print(f"Error: {e}")
 
+# --- EXPORT FOR ORCHESTRATOR ---
+        supply_export = {
+            "stress_score": score,
+            "shipping_stress": float(shipping_stress),
+            "energy_stress": float(energy_stress)
+        }
+        with open('supply_data.json', 'w') as f: json.dump(supply_export, f)
+
 if __name__ == "__main__":
     build_supply_chain()

@@ -45,5 +45,12 @@ def build_k_shape():
     except Exception as e:
         print(f"Error: {e}")
 
+# --- EXPORT FOR ORCHESTRATOR ---
+        kshape_export = {
+            "fracture_score": score,
+            "wealth_gap": float(gap)
+        }
+        with open('kshape_data.json', 'w') as f: json.dump(kshape_export, f)
+
 if __name__ == "__main__":
     build_k_shape()

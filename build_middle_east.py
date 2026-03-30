@@ -101,5 +101,12 @@ def build_middle_east_index():
     except Exception as e:
         print(f"❌ Template Error: {e}")
 
+# --- EXPORT FOR ORCHESTRATOR ---
+    me_export = {
+        "risk_index": master_score,
+        "energy_spike": float(oil_spike) if 'oil_spike' in locals() else 0.0
+    }
+    with open('me_data.json', 'w') as f: json.dump(me_export, f)
+
 if __name__ == "__main__":
     build_middle_east_index()

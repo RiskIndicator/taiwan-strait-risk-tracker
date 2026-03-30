@@ -108,5 +108,12 @@ def build_index():
     
     print("Success: ai-bubble.html generated.")
 
+# --- EXPORT FOR ORCHESTRATOR ---
+    ai_export = {
+        "bubble_index": final_score,
+        "valuation_score": v_score
+    }
+    with open('ai_bubble_data.json', 'w') as f: json.dump(ai_export, f)
+
 if __name__ == "__main__":
     build_index()
