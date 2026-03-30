@@ -55,6 +55,38 @@
             max-width: 800px;
             margin: 0 auto;
         }
+
+        /* Timeframe Toggle UI */
+        .time-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .time-btn {
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            color: #94a3b8;
+            padding: 6px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .time-btn:hover {
+            border-color: #64748b;
+            color: #e2e8f0;
+        }
+
+        .time-btn.active {
+            background: rgba(14, 165, 233, 0.15);
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+        }
     </style>
 </head>
 
@@ -95,23 +127,29 @@
             <div class="metric-card asset-card">
                 <div class="metric-header">
                     <span class="metric-title">1. THE ASSET OWNERS</span>
-                    <span class="metric-score" style="color: #f59e0b;">-4.1%</span>
+                    <span class="metric-score" style="color: #f59e0b;">16.6%</span>
                 </div>
                 <div class="metric-explanation">
                     <strong>Are the rich getting richer?</strong>
-                    Performance of S&P 500 and Real Estate over 6 months.
+                    Performance of S&P 500 and Real Estate over 12 months.
                 </div>
             </div>
 
-            <div class="chart-wrapper">
-                <canvas id="divergenceChart"></canvas>
+            <div class="chart-section" style="max-width: 800px; margin: 0 auto; width: 100%;">
+                <div class="time-toggle">
+                    <button id="btn-10y" class="time-btn active" onclick="switchData('10y')">10 YEAR (MACRO)</button>
+                    <button id="btn-1y" class="time-btn" onclick="switchData('1y')">1 YEAR (LOCAL)</button>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="divergenceChart"></canvas>
+                </div>
             </div>
 
             <div class="gap-container">
-                <div class="big-gap">-9.3%</div>
+                <div class="big-gap">9.5%</div>
                 <div
                     style="font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 3px; color: var(--text-main); font-weight: 700; margin-top: 10px;">
-                    Systemic Fracture</div>
+                    Recent Systemic Fracture</div>
                 <div style="font-size: 0.85rem; color: var(--text-sub); margin-top: 5px;">Updated: 31 Mar 2026
                 </div>
             </div>
@@ -119,34 +157,43 @@
             <div class="metric-card survival-card">
                 <div class="metric-header">
                     <span class="metric-title">2. THE COST OF SURVIVAL</span>
-                    <span class="metric-score" style="color: #ef4444;">5.2%</span>
+                    <span class="metric-score" style="color: #ef4444;">7.1%</span>
                 </div>
                 <div class="metric-explanation">
                     <strong>Are basics getting more expensive?</strong>
-                    Cost of Food, Energy, and Staples over 6 months.
+                    Cost of Food, Energy, and Staples over 12 months.
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Data injected from Python
-        const chartDates = ["Sep 30", "Oct 01", "Oct 02", "Oct 03", "Oct 06", "Oct 07", "Oct 08", "Oct 09", "Oct 10", "Oct 13", "Oct 14", "Oct 15", "Oct 16", "Oct 17", "Oct 20", "Oct 21", "Oct 22", "Oct 23", "Oct 24", "Oct 27", "Oct 28", "Oct 29", "Oct 30", "Oct 31", "Nov 03", "Nov 04", "Nov 05", "Nov 06", "Nov 07", "Nov 10", "Nov 11", "Nov 12", "Nov 13", "Nov 14", "Nov 17", "Nov 18", "Nov 19", "Nov 20", "Nov 21", "Nov 24", "Nov 25", "Nov 26", "Nov 28", "Dec 01", "Dec 02", "Dec 03", "Dec 04", "Dec 05", "Dec 08", "Dec 09", "Dec 10", "Dec 11", "Dec 12", "Dec 15", "Dec 16", "Dec 17", "Dec 18", "Dec 19", "Dec 22", "Dec 23", "Dec 24", "Dec 26", "Dec 29", "Dec 30", "Dec 31", "Jan 02", "Jan 05", "Jan 06", "Jan 07", "Jan 08", "Jan 09", "Jan 12", "Jan 13", "Jan 14", "Jan 15", "Jan 16", "Jan 20", "Jan 21", "Jan 22", "Jan 23", "Jan 26", "Jan 27", "Jan 28", "Jan 29", "Jan 30", "Feb 02", "Feb 03", "Feb 04", "Feb 05", "Feb 06", "Feb 09", "Feb 10", "Feb 11", "Feb 12", "Feb 13", "Feb 17", "Feb 18", "Feb 19", "Feb 20", "Feb 23", "Feb 24", "Feb 25", "Feb 26", "Feb 27", "Mar 02", "Mar 03", "Mar 04", "Mar 05", "Mar 06", "Mar 09", "Mar 10", "Mar 11", "Mar 12", "Mar 13", "Mar 16", "Mar 17", "Mar 18", "Mar 19", "Mar 20", "Mar 23", "Mar 24", "Mar 25", "Mar 26", "Mar 27", "Mar 30"];
-        const assetData = [0.0, 0.25, 0.04, 0.23, -0.06, -0.43, -0.39, -0.8, -2.79, -1.73, -1.29, -0.36, -0.88, -0.27, 0.75, 0.61, 0.56, 0.82, 1.38, 2.13, 1.27, 0.01, -0.33, -0.03, -0.01, -0.53, -0.31, -1.1, -0.29, 0.47, 1.14, 0.79, -0.66, -0.57, -1.44, -1.67, -1.86, -2.82, -1.55, -0.69, 0.24, 0.81, 1.25, 0.44, 0.36, 0.66, 0.58, 0.62, 0.09, -0.14, 0.37, 0.71, 0.09, 0.17, -0.33, -0.71, -0.59, -0.32, 0.25, 0.46, 0.96, 1.01, 0.92, 0.96, 0.17, 0.28, 0.74, 1.4, 0.75, 1.18, 1.63, 1.78, 1.95, 2.12, 2.61, 3.18, 1.18, 1.96, 1.74, 1.85, 2.05, 2.24, 1.72, 2.31, 2.2, 1.94, 1.39, 1.85, 1.13, 2.9, 3.37, 3.91, 3.62, 2.75, 3.53, 4.11, 3.75, 3.5, 4.26, 3.74, 4.25, 4.54, 4.61, 4.45, 4.61, 3.88, 4.3, 3.49, 2.25, 2.81, 2.65, 2.05, 0.92, 0.72, 1.65, 2.01, 0.54, 0.22, -2.06, -1.17, -2.18, -1.94, -2.89, -4.12, -4.1];
-        const survivalData = [0.0, 0.02, -0.42, -0.39, -0.62, -0.42, -0.59, -0.72, -0.99, -0.99, 0.14, 0.21, 0.14, 0.46, 0.84, 0.72, 1.25, 0.92, 0.14, -0.34, -1.08, -1.96, -2.13, -2.06, -1.42, -1.72, -1.94, -2.98, -2.11, -1.52, -1.01, -1.34, -1.64, -1.96, -1.64, -1.48, -2.44, -2.37, -1.94, -2.89, -1.9, -0.83, 0.0, -0.29, -0.4, -0.42, -0.51, -0.39, -1.03, -0.92, -0.6, 0.05, 0.22, 0.03, -0.37, -0.23, -0.62, -0.78, -0.67, -0.83, -0.11, -0.02, -0.0, -0.24, -0.64, -0.56, -0.27, -0.16, -0.57, 0.8, 0.87, 1.18, 1.66, 2.27, 2.51, 2.36, 2.31, 2.48, 2.47, 3.15, 3.1, 3.5, 3.04, 2.9, 3.38, 4.0, 5.07, 5.72, 5.79, 6.44, 6.08, 5.86, 6.84, 7.49, 7.49, 6.49, 6.64, 6.52, 6.91, 7.49, 8.06, 7.81, 7.58, 8.26, 7.36, 6.8, 6.62, 6.05, 6.87, 6.69, 6.64, 6.09, 5.97, 6.28, 5.86, 6.0, 5.24, 4.93, 4.26, 4.17, 4.22, 4.61, 4.66, 5.19, 5.16];
+        // Datasets injected from Python
+        const datasets = {
+            '10y': {
+                labels: ["Mar 2016", "Apr 2016", "May 2016", "Jun 2016", "Jul 2016", "Aug 2016", "Sep 2016", "Oct 2016", "Nov 2016", "Dec 2016", "Jan 2017", "Feb 2017", "Mar 2017", "Apr 2017", "May 2017", "Jun 2017", "Jul 2017", "Aug 2017", "Sep 2017", "Oct 2017", "Nov 2017", "Dec 2017", "Jan 2018", "Feb 2018", "Mar 2018", "Apr 2018", "May 2018", "Jun 2018", "Jul 2018", "Aug 2018", "Sep 2018", "Oct 2018", "Nov 2018", "Dec 2018", "Jan 2019", "Feb 2019", "Mar 2019", "Apr 2019", "May 2019", "Jun 2019", "Jul 2019", "Aug 2019", "Sep 2019", "Oct 2019", "Nov 2019", "Dec 2019", "Jan 2020", "Feb 2020", "Mar 2020", "Apr 2020", "May 2020", "Jun 2020", "Jul 2020", "Aug 2020", "Sep 2020", "Oct 2020", "Nov 2020", "Dec 2020", "Jan 2021", "Feb 2021", "Mar 2021", "Apr 2021", "May 2021", "Jun 2021", "Jul 2021", "Aug 2021", "Sep 2021", "Oct 2021", "Nov 2021", "Dec 2021", "Jan 2022", "Feb 2022", "Mar 2022", "Apr 2022", "May 2022", "Jun 2022", "Jul 2022", "Aug 2022", "Sep 2022", "Oct 2022", "Nov 2022", "Dec 2022", "Jan 2023", "Feb 2023", "Mar 2023", "Apr 2023", "May 2023", "Jun 2023", "Jul 2023", "Aug 2023", "Sep 2023", "Oct 2023", "Nov 2023", "Dec 2023", "Jan 2024", "Feb 2024", "Mar 2024", "Apr 2024", "May 2024", "Jun 2024", "Jul 2024", "Aug 2024", "Sep 2024", "Oct 2024", "Nov 2024", "Dec 2024", "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025", "Sep 2025", "Oct 2025", "Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026"],
+        assets: { { assets_10y | safe } },
+        survival: { { survival_10y | safe } }
+            },
+        '1y': {
+            labels: { { dates_1y | safe } },
+            assets: { { assets_1y | safe } },
+            survival: { { survival_1y | safe } }
+        }
+        };
 
         const ctx = document.getElementById('divergenceChart').getContext('2d');
         Chart.defaults.color = '#94a3b8';
         Chart.defaults.font.family = "'Inter', sans-serif";
 
-        new Chart(ctx, {
+        let myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: chartDates,
+                labels: datasets['10y'].labels,
                 datasets: [
                     {
                         label: 'Asset Owners',
-                        data: assetData,
+                        data: datasets['10y'].assets,
                         borderColor: '#f59e0b',
                         backgroundColor: 'rgba(245, 158, 11, 0.1)',
                         borderWidth: 2,
@@ -156,7 +203,7 @@
                     },
                     {
                         label: 'Cost of Survival',
-                        data: survivalData,
+                        data: datasets['10y'].survival,
                         borderColor: '#ef4444',
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
                         borderWidth: 2,
@@ -174,9 +221,7 @@
                     intersect: false,
                 },
                 plugins: {
-                    legend: {
-                        display: false // Handled by your UI cards instead
-                    },
+                    legend: { display: false },
                     tooltip: {
                         backgroundColor: 'rgba(15, 23, 42, 0.9)',
                         titleFont: { size: 13, family: "'JetBrains Mono', monospace" },
@@ -203,6 +248,20 @@
                 }
             }
         });
+
+        // Toggle logic
+        function switchData(timeframe) {
+            // Update UI buttons
+            document.getElementById('btn-10y').classList.remove('active');
+            document.getElementById('btn-1y').classList.remove('active');
+            document.getElementById(`btn-${timeframe}`).classList.add('active');
+
+            // Update Chart Data
+            myChart.data.labels = datasets[timeframe].labels;
+            myChart.data.datasets[0].data = datasets[timeframe].assets;
+            myChart.data.datasets[1].data = datasets[timeframe].survival;
+            myChart.update();
+        }
     </script>
 </body>
 
