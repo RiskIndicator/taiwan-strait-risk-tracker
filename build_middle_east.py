@@ -18,6 +18,7 @@ def build_middle_east_index():
         energy_desc = f"Brent Crude diverging {round(oil_spike, 1)}% from 30 day average." if oil_spike > 2 else "Oil markets absorbing kinetic action."
     except Exception:
         energy_score = 50
+        oil_spike = 0.0
         energy_desc = "Energy data unavailable."
 
     try:
@@ -58,9 +59,6 @@ def build_middle_east_index():
     # Calculate Base Master Score
     master_score = int((energy_score * 0.4) + (defense_score * 0.3) + (osint_score * 0.3))
     
-    # 🚨 THE CIRCUIT BREAKER 🚨
-    # If the energy shock breaches 90 (e.g., Hormuz effectively closed), 
-    # it triggers a systemic override, ignoring the sluggish defense and OSINT averages.
     if energy_score > 90:
         master_score = max(master_score, energy_score)
     elif energy_score > 80:
@@ -83,31 +81,30 @@ def build_middle_east_index():
             template = Template(f.read())
 
         rendered = template.render(
-            score=master_score,
+            risk_index=master_score,
             status_text=status,
             color_code=color,
-            energy_score=energy_score,
-            energy_desc=energy_desc,
-            defense_score=defense_score,
-            defense_desc=defense_desc,
-            osint_score=osint_score,
+            energy_spike=round(oil_spike, 1),
+            defense_rotation=defense_score,
+            gulf_contagion=osint_score,
             top_headline=top_headline,
-            update_time=update_time
+            last_updated=update_time
         )
         
         with open('middle-east.html', 'w', encoding='utf-8') as f:
             f.write(rendered)
             
         print("✅ Middle East Index Generated: middle-east.html")
+        
+        # --- EXPORT FOR ORCHESTRATOR (Now correctly inside the Try block) ---
+        me_export = {
+            "risk_index": master_score,
+            "energy_spike": float(oil_spike)
+        }
+        with open('me_data.json', 'w') as f: json.dump(me_export, f)
+
     except Exception as e:
         print(f"❌ Template Error: {e}")
-
-# --- EXPORT FOR ORCHESTRATOR ---
-    me_export = {
-        "risk_index": master_score,
-        "energy_spike": float(oil_spike) if 'oil_spike' in locals() else 0.0
-    }
-    with open('me_data.json', 'w') as f: json.dump(me_export, f)
 
 if __name__ == "__main__":
     build_middle_east_index()

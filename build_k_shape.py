@@ -30,11 +30,10 @@ def build_k_shape():
             template = Template(f.read())
 
         rendered = template.render(
-            score=score,
+            fracture_score=round(gap, 1),
             status_text=status,
-            gap_percentage=round(gap, 1),
-            asset_trend=round((asset_perf-1)*100, 1),
-            survival_trend=round((survival_perf-1)*100, 1),
+            asset_growth=round((asset_perf-1)*100, 1),
+            survival_inflation=round((survival_perf-1)*100, 1),
             last_updated=update_time
         )
         
@@ -42,15 +41,16 @@ def build_k_shape():
             f.write(rendered)
             
         print(f"Success: inequality.html generated.")
-    except Exception as e:
-        print(f"Error: {e}")
-
-# --- EXPORT FOR ORCHESTRATOR ---
+        
+        # --- EXPORT FOR ORCHESTRATOR (Now correctly inside the Try block) ---
         kshape_export = {
             "fracture_score": score,
             "wealth_gap": float(gap)
         }
         with open('kshape_data.json', 'w') as f: json.dump(kshape_export, f)
+
+    except Exception as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     build_k_shape()

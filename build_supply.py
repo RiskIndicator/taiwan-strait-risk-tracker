@@ -22,10 +22,10 @@ def build_supply_chain():
             template = Template(f.read())
 
         rendered = template.render(
-            score=score,
+            stress_score=score,
             status_text=status,
-            shipping=round(shipping_stress, 1),
-            energy=round(energy_stress, 1),
+            shipping_stress=round(shipping_stress, 1),
+            energy_stress=round(energy_stress, 1),
             last_updated=update_time
         )
         
@@ -33,16 +33,17 @@ def build_supply_chain():
             f.write(rendered)
             
         print(f"Success: supply-chain.html generated.")
-    except Exception as e:
-        print(f"Error: {e}")
-
-# --- EXPORT FOR ORCHESTRATOR ---
+        
+        # --- EXPORT FOR ORCHESTRATOR (Now correctly inside the Try block) ---
         supply_export = {
             "stress_score": score,
             "shipping_stress": float(shipping_stress),
             "energy_stress": float(energy_stress)
         }
         with open('supply_data.json', 'w') as f: json.dump(supply_export, f)
+
+    except Exception as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     build_supply_chain()

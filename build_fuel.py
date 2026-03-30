@@ -24,7 +24,6 @@ def fetch_eia_data(series_id, max_retries=3):
         except requests.exceptions.RequestException as e:
             print(f"EIA API connection attempt {attempt + 1} failed: {e}")
         
-        # Wait before retrying (5s, then 10s)
         time.sleep(5 * (attempt + 1))
         
     return None
@@ -32,36 +31,31 @@ def fetch_eia_data(series_id, max_retries=3):
 def build_fuel_index():
     print("Calculating Days of Supply...")
     
-    # Defaults and standard daily consumption
     daily_consumption = 16.0 
     comm_val, spr_val = None, None
     top_headline = "Awaiting OSINT data."
     is_cached = False
 
-    # 1. Try to fetch live data
     if EIA_API_KEY:
         comm_val = fetch_eia_data("WCESTUS1")
         spr_val = fetch_eia_data("WCSSTUS1")
 
-    # 2. Fallback to Cache if API is down
     if comm_val is None or spr_val is None:
         print("API failed. Attempting to load from cache...")
         is_cached = True
         try:
             with open(CACHE_FILE, 'r') as f:
                 cache = json.load(f)
-                comm_val = cache.get("comm_val", 350000) # Fallback baseline
+                comm_val = cache.get("comm_val", 350000)
                 spr_val = cache.get("spr_val", 350000)
         except (FileNotFoundError, json.JSONDecodeError):
             print("No cache found. Using hardcoded baselines.")
             comm_val = 350000
             spr_val = 350000
     else:
-        # Save fresh data to cache
         with open(CACHE_FILE, 'w') as f:
             json.dump({"comm_val": comm_val, "spr_val": spr_val}, f)
 
-    # 3. Calculate Math
     comm_m = float(comm_val) / 1000.0
     spr_m = float(spr_val) / 1000.0
     
@@ -69,7 +63,6 @@ def build_fuel_index():
     spr_days = round(spr_m / daily_consumption, 1)
     total_days = round(comm_days + spr_days, 1)
 
-    # 4. Fetch News (with broad search)
     try:
         feed = feedparser.parse("https://news.google.com/rss/search?q=oil+supply+OR+crude+inventory+when:1d&hl=en-US&gl=US&ceid=US:en")
         if feed.entries:
@@ -77,7 +70,6 @@ def build_fuel_index():
     except Exception:
         pass
 
-    # 5. Logic Gates
     if total_days < 35:
         status, color = "CRITICAL DEPLETION", "#ef4444"
     elif total_days < 50:
@@ -91,13 +83,12 @@ def build_fuel_index():
     if is_cached:
         update_time += " (Cached Data)"
 
-    # 6. Render
     try:
         with open('fuel_template.html', 'r', encoding='utf-8') as f:
             template = Template(f.read())
 
         rendered = template.render(
-            total_days=total_days,
+            days_buffer=total_days,
             status_text=status,
             color_code=color,
             comm_days=comm_days,
@@ -106,7 +97,7 @@ def build_fuel_index():
             spr_m=int(spr_m),
             iea_pct=iea_mandate_pct,
             top_headline=top_headline,
-            update_time=update_time
+            last_updated=update_time
         )
         
         with open('fuel-reserves.html', 'w', encoding='utf-8') as f:
