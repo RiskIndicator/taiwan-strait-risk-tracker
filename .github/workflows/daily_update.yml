@@ -47,7 +47,7 @@ jobs:
           python build_middle_east.py
           python build_fuel.py
           python build_sitemap.py
-          python run_orchestrator.py # ADDED ORCHESTRATOR
+          python build_orchestrator.py # ADDED ORCHESTRATOR
 
       - name: Commit and Push
         run: |
