@@ -14,10 +14,8 @@
 
 <body>
     <div class="gsn-universal-header">
-        <div class="gsn-brand">
-            <img src="/public/gsn-logo-mono.png" alt="GSN Logo" style="height: 22px; width: auto; margin-right: 8px;">
-            The Global Shift Network
-        </div>
+        <div class="gsn-brand"><img src="/public/gsn-logo-mono.png" alt="GSN Logo"
+                style="height: 22px; width: auto; margin-right: 8px;"> The Global Shift Network</div>
         <div class="gsn-network-links">
             <a href="https://taiwanstraittracker.com" class="gsn-link">Terminal</a>
             <a href="https://taiwanstraittracker.com/taiwan" class="gsn-link">Strait Risk Tracker</a>
@@ -32,14 +30,10 @@
     </div>
 
     <nav class="navbar">
-        <div class="nav-inner">
-            <a href="/" class="brand">
-                <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> GSN Terminal
-            </a>
-            <div class="nav-links">
-                <a href="articles.html" style="color: var(--text-main);">Intelligence Reports</a>
-                <a href="about.html">Methodology</a>
-            </div>
+        <div class="nav-inner"><a href="/" class="brand"><img src="/public/radar-logo.png" alt="Radar System"
+                    class="brand-img"> GSN Terminal</a>
+            <div class="nav-links"><a href="articles.html" style="color: var(--text-main);">Intelligence Reports</a><a
+                    href="about.html">Methodology</a></div>
         </div>
     </nav>
 
@@ -59,7 +53,7 @@
                         Multiplier: {{ conflict_multiplier }}x</strong>
                     <span style="color: var(--text-sub); font-size: 0.9rem;">The entire AI boom relies on computer chips
                         manufactured in Taiwan. Because our Strait Tracker is detecting geopolitical danger, this Bubble
-                        Score is mathematically amplified to reflect the fragile supply chain.</span>
+                        Score is mathematically amplified.</span>
                 </div>
             </div>
 
@@ -91,51 +85,36 @@
 
         <div class="metrics-grid span-full">
             <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-title">1. The Price Tag</span>
-                    <span class="metric-score">{{ valuation_score }}<span
-                            style="font-size:1rem; color:var(--text-sub);"> / 100</span></span>
-                </div>
+                <div class="metric-header"><span class="metric-title">1. The Price Tag</span><span
+                        class="metric-score">{{ valuation_score }}<span style="font-size:1rem; color:var(--text-sub);">
+                            / 100</span></span></div>
                 <div class="bar-bg">
                     <div class="bar-fill" style="width: {{ valuation_score }}%;"></div>
                 </div>
-                <div class="metric-explanation">
-                    <strong>Are we overpaying?</strong>
-                    We compare the stock prices of the biggest AI companies against normal, everyday businesses. A high
-                    score means investors are paying extreme premiums based on hope rather than current revenue.
-                </div>
+                <div class="metric-explanation"><strong>Are we overpaying?</strong> We compare the stock prices of the
+                    biggest AI companies against normal businesses.</div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-title">2. The Hardware Check</span>
-                    <span class="metric-score">{{ infrastructure_score }}<span
-                            style="font-size:1rem; color:var(--text-sub);"> / 100</span></span>
-                </div>
+                <div class="metric-header"><span class="metric-title">2. The Hardware Check</span><span
+                        class="metric-score">{{ infrastructure_score }}<span
+                            style="font-size:1rem; color:var(--text-sub);"> / 100</span></span></div>
                 <div class="bar-bg">
                     <div class="bar-fill" style="width: {{ infrastructure_score }}%;"></div>
                 </div>
-                <div class="metric-explanation">
-                    <strong>Is the boom real?</strong>
-                    We track the volume of real money being spent on building data centres and buying hardware. If
-                    spending drops but stock prices rise, the bubble is expanding.
-                </div>
+                <div class="metric-explanation"><strong>Is the boom real?</strong> We track the volume of real money
+                    being spent on building data centres and buying hardware.</div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-header">
-                    <span class="metric-title">3. The Hype Train</span>
-                    <span class="metric-score">{{ hype_score }}<span style="font-size:1rem; color:var(--text-sub);"> /
-                            100</span></span>
-                </div>
+                <div class="metric-header"><span class="metric-title">3. The Hype Train</span><span
+                        class="metric-score">{{ hype_score }}<span style="font-size:1rem; color:var(--text-sub);"> /
+                            100</span></span></div>
                 <div class="bar-bg">
                     <div class="bar-fill" style="width: {{ hype_score }}%;"></div>
                 </div>
-                <div class="metric-explanation">
-                    <strong>Are people getting greedy?</strong>
-                    We scan global news for signs of market panic or euphoria. A score near 100 means the market is
-                    running purely on emotion and FOMO (Fear Of Missing Out).
-                </div>
+                <div class="metric-explanation"><strong>Are people getting greedy?</strong> We scan global news for
+                    signs of market panic or euphoria.</div>
             </div>
         </div>
     </div>

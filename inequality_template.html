@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wealth Inequality Index | Global Shift Network</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
     <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
     <link rel="stylesheet" href="/gsn-core.css">
 </head>
+
 <body>
     <div class="gsn-universal-header">
-        <div class="gsn-brand">
-            <img src="/public/gsn-logo-mono.png" alt="GSN Logo" style="height: 22px; width: auto; margin-right: 8px;">
-            The Global Shift Network
-        </div>
+        <div class="gsn-brand"><img src="/public/gsn-logo-mono.png" alt="GSN Logo"
+                style="height: 22px; width: auto; margin-right: 8px;"> The Global Shift Network</div>
         <div class="gsn-network-links">
             <a href="https://taiwanstraittracker.com" class="gsn-link">Terminal</a>
             <a href="https://taiwanstraittracker.com/taiwan" class="gsn-link">Strait Risk Tracker</a>
@@ -28,9 +30,10 @@
     </div>
 
     <nav class="navbar">
-        <div class="nav-inner">
-            <a href="/" class="brand"><img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> GSN Terminal</a>
-            <div class="nav-links"><a href="articles.html" style="color: var(--text-main);">Intelligence Reports</a><a href="about.html">Methodology</a></div>
+        <div class="nav-inner"><a href="/" class="brand"><img src="/public/radar-logo.png" alt="Radar System"
+                    class="brand-img"> GSN Terminal</a>
+            <div class="nav-links"><a href="articles.html" style="color: var(--text-main);">Intelligence Reports</a><a
+                    href="about.html">Methodology</a></div>
         </div>
     </nav>
 
@@ -38,23 +41,37 @@
         <div class="hero-panel span-full">
             <div class="hero-text-content">
                 <h1>The Wealth Inequality Index</h1>
-                <p>A real-time measure of the widening gap between the asset-owning class (the rich) and the wage-earning class (everyone else).</p>
-                
-                <div style="background: rgba(14, 165, 233, 0.05); border-left: 3px solid var(--accent); padding: 15px; margin-top: 15px;">
-                    <strong style="color: var(--accent); text-transform: uppercase;">Current Wealth Divergence Gap: {{ fracture_score }}%</strong>
-                    <br><span style="color: var(--text-sub); font-size: 0.9rem;">When the cost of survival rises faster than wages, but the stock market keeps hitting record highs, extreme economic pressure builds. This invisible gap is the primary driver behind major political and social shifts.</span>
+                <p>A real-time measure of the widening gap between the asset-owning class (the rich) and the
+                    wage-earning class (everyone else).</p>
+
+                <div
+                    style="background: rgba(14, 165, 233, 0.05); border-left: 3px solid var(--accent); padding: 15px; margin-top: 15px;">
+                    <strong style="color: var(--accent); text-transform: uppercase;">Current Wealth Divergence Gap: {{
+                        fracture_score }}%</strong>
+                    <br><span style="color: var(--text-sub); font-size: 0.9rem;">When the cost of survival rises faster
+                        than wages, but the stock market keeps hitting record highs, extreme economic pressure builds.
+                        This invisible gap is the primary driver behind major political and social shifts.</span>
                 </div>
             </div>
 
             <div class="hero-visual">
                 <div style="width: 250px; height: 140px; position: relative; margin-bottom: 20px;">
                     <svg viewBox="0 0 200 115" style="width: 100%; height: 100%;">
-                        <defs><linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#10b981"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#ef4444"/></linearGradient></defs>
-                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12" stroke-linecap="round"/>
-                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round"/>
-                        <g style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ fracture_score }} * 1.8deg)));">
-                            <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc"/>
-                            <circle cx="100" cy="100" r="7" fill="#f8fafc"/>
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#10b981" />
+                                <stop offset="50%" stop-color="#f59e0b" />
+                                <stop offset="100%" stop-color="#ef4444" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
+                            stroke-linecap="round" />
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)"
+                            stroke-width="12" stroke-linecap="round" />
+                        <g
+                            style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ fracture_score }} * 1.8deg)));">
+                            <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" />
+                            <circle cx="100" cy="100" r="7" fill="#f8fafc" />
                         </g>
                     </svg>
                 </div>
@@ -65,16 +82,21 @@
 
         <div class="metrics-grid span-full">
             <div class="metric-card">
-                <div class="metric-header"><span class="metric-title">1. The Asset Owners</span><span class="metric-score">{{ asset_growth }}%</span></div>
-                <div class="metric-explanation"><strong>Are the rich getting richer?</strong> This tracks the 6-month performance of the stock market and premium real estate. It shows how rapidly wealth is growing for those who already have enough capital to own major assets.</div>
+                <div class="metric-header"><span class="metric-title">1. The Asset Owners</span><span
+                        class="metric-score">{{ asset_growth }}%</span></div>
+                <div class="metric-explanation"><strong>Are the rich getting richer?</strong> This tracks the 6-month
+                    performance of the stock market and premium real estate.</div>
                 <div class="metric-technical">Metric: S&P 500 & Real Estate ETF Growth (6mo)</div>
             </div>
             <div class="metric-card">
-                <div class="metric-header"><span class="metric-title">2. The Cost of Survival</span><span class="metric-score">{{ survival_inflation }}%</span></div>
-                <div class="metric-explanation"><strong>Are basics getting more expensive?</strong> This tracks the 6-month cost of everyday essentials like agriculture, food, and energy. It shows the real inflation hitting the working class, completely ignoring luxury goods.</div>
+                <div class="metric-header"><span class="metric-title">2. The Cost of Survival</span><span
+                        class="metric-score">{{ survival_inflation }}%</span></div>
+                <div class="metric-explanation"><strong>Are basics getting more expensive?</strong> This tracks the
+                    6-month cost of everyday essentials like agriculture, food, and energy.</div>
                 <div class="metric-technical">Metric: Agriculture & Consumer Staples ETF Growth (6mo)</div>
             </div>
         </div>
     </div>
 </body>
+
 </html>
