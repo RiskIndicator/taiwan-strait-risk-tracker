@@ -3,6 +3,14 @@
    Master styles for The Global Shift Network & Sub-Nodes
    ========================================================= */
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Prevents horizontal overflow */
+
 :root {
     --bg: #0f172a;
     --card: #1e293b;
@@ -30,9 +38,11 @@ body {
     flex-direction: column;
     min-height: 100vh;
     line-height: 1.6;
+    overflow-x: hidden;
+    /* Stops mobile horizontal wobble */
 }
 
-/* --- 1. GSN UNIVERSAL HEADER (Horizontal Swipe Enabled) --- */
+/* --- 1. HEADERS & NAVIGATION --- */
 .gsn-universal-header {
     background-color: #050505;
     color: #94a3b8;
@@ -47,8 +57,7 @@ body {
     border-bottom: 1px solid #1e293b;
     z-index: 50;
     position: relative;
-    overflow: hidden;
-    /* Locks container */
+    width: 100%;
 }
 
 .gsn-brand {
@@ -71,11 +80,10 @@ body {
     display: flex;
     gap: 15px;
     overflow-x: auto;
-    /* Enables mobile swiping */
     white-space: nowrap;
-    /* Forces single line */
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    padding-bottom: 2px;
 }
 
 .gsn-network-links::-webkit-scrollbar {
@@ -89,36 +97,30 @@ body {
     font-weight: 500;
 }
 
-.gsn-link:hover {
-    color: var(--accent);
-}
-
+.gsn-link:hover,
 .gsn-link.active {
     color: var(--accent);
 }
 
-/* Standardized to accent, use --danger explicitly on specific nodes if preferred */
-
-/* --- 2. MAIN NAVBAR (Strictly Height-Restricted) --- */
 .navbar {
     background: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    height: 65px;
-    /* STRICT LOCK to prevent logo blowout */
+    min-height: 65px;
     display: flex;
     align-items: center;
     margin-bottom: 30px;
     position: sticky;
     top: 0;
     z-index: 40;
+    width: 100%;
 }
 
 .nav-inner {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -133,19 +135,21 @@ body {
     color: var(--text-main);
     text-decoration: none;
     letter-spacing: -0.5px;
+    flex-shrink: 0;
 }
 
 .brand-img {
     max-height: 32px;
-    /* Limits max logo size */
     width: auto;
     filter: drop-shadow(0 0 8px var(--accent-glow));
 }
 
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 .nav-links a {
@@ -154,13 +158,13 @@ body {
     font-size: 0.9rem;
     font-weight: 600;
     transition: color 0.2s;
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
     color: var(--text-main);
 }
 
-/* Buttons */
 .twitter-btn {
     background: #1da1f2;
     color: #fff !important;
@@ -176,19 +180,29 @@ body {
     text-decoration: none;
 }
 
-.twitter-btn:hover {
-    opacity: 0.9;
-}
-
-/* --- 3. LAYOUT & CONTAINERS --- */
+/* --- 2. GLOBAL LAYOUT CONTAINERS --- */
 .container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
     flex: 1;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    align-content: start;
+}
+
+.span-full {
+    grid-column: 1 / -1;
+}
+
+.span-2 {
+    grid-column: span 2;
+}
+
+.span-1 {
+    grid-column: span 1;
 }
 
 .war-room-grid {
@@ -196,12 +210,14 @@ body {
     grid-template-columns: 1fr 2fr 1fr;
     gap: 20px;
     margin-bottom: 40px;
+    grid-column: 1 / -1;
 }
 
 .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
+    grid-column: 1 / -1;
 }
 
 .side-col {
@@ -216,49 +232,16 @@ body {
     gap: 20px;
 }
 
-/* --- 4. PANELS & CARDS --- */
-.hero-panel {
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 40px;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
-    align-items: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.hero-text-content h1 {
-    margin: 0 0 10px 0;
-    font-size: 2.2rem;
-    color: var(--text-main);
-    letter-spacing: -0.5px;
-}
-
-.hero-text-content p {
-    color: #cbd5e1;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
-
-.hero-visual {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #0f172a;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-}
-
+/* --- 3. CARDS & PANELS --- */
+.card,
 .metric-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 20px;
+}
+
+.metric-card {
     text-decoration: none;
     color: inherit;
     display: flex;
@@ -274,7 +257,27 @@ body {
     background: var(--card-hover);
 }
 
-.metric-card.critical {
+/* Flashing Animation for Critical Metrics */
+@keyframes critical-pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+        border-color: var(--danger);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(239, 68, 68, 0.8), inset 0 0 10px rgba(239, 68, 68, 0.2);
+        border-color: #ff7b7b;
+    }
+
+    100% {
+        box-shadow: 0 0 5px rgba(239, 68, 68, 0.4);
+        border-color: var(--danger);
+    }
+}
+
+.metric-card.critical,
+.alert-bar {
+    animation: critical-pulse 2s infinite;
     border-color: var(--danger);
 }
 
@@ -309,8 +312,6 @@ body {
 
 .critical .status-dot {
     background: var(--danger);
-    box-shadow: 0 0 10px var(--danger);
-    animation: pulse-red 2s infinite;
 }
 
 .card-value-wrap {
@@ -332,7 +333,7 @@ body {
 
 .critical .card-value {
     color: var(--danger);
-    text-shadow: 0 0 15px var(--danger-glow);
+    text-shadow: 0 0 10px var(--danger-glow);
 }
 
 .data-readout {
@@ -404,36 +405,184 @@ body {
     text-transform: uppercase;
 }
 
-/* --- 5. ALERTS & TERMINAL BLOCKS --- */
-#triage-banner {
+/* --- 4. RESTORED TAIWAN TRACKER LAYOUT --- */
+.hero-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+}
+
+.score-left {
+    flex: 1;
+}
+
+.score-right {
+    width: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.metric-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.big-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 10px 0;
+    color: var(--text-main);
+}
+
+.trend-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.status-text {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+    margin: 0;
+}
+
+.metrics-tower {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.small-metric-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+
+.sm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sm-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.sm-bar-bg {
+    height: 6px;
+    background: #0f172a;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
+}
+
+.evidence-box {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+    background: rgba(15, 23, 42, 0.5);
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 2px solid var(--border);
+}
+
+.chart-box {
+    height: 280px;
+    width: 100%;
+    position: relative;
+}
+
+/* Carousel */
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.c-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.c-dot.active {
+    background: var(--accent);
+}
+
+.featured-thumb {
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    margin-bottom: 15px;
+}
+
+.featured-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 5. ALERTS & UI ELEMENTS --- */
+#triage-banner,
+.alert-bar {
     background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, var(--bg) 100%);
     border-left: 4px solid var(--danger);
     border-radius: 4px;
     padding: 15px 25px;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    text-decoration: none;
     cursor: pointer;
-    box-shadow: 0 0 20px var(--danger-glow);
 }
 
-.alert-badge {
-    background: var(--danger);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    animation: pulse-red 2s infinite;
-}
-
-.alert-headline {
-    font-weight: 700;
+.alert-text {
+    font-weight: 600;
     font-size: 1.05rem;
     color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .alert-btn {
@@ -445,24 +594,20 @@ body {
     font-weight: 800;
     text-decoration: none;
     border: none;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.multiplier-alert {
-    margin-top: 25px;
-    background: rgba(245, 158, 11, 0.05);
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: #fbbf24;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.multiplier-alert strong {
-    display: block;
-    color: #f59e0b;
-    margin-bottom: 5px;
-    font-size: 1rem;
+.radar-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .live-feed {
@@ -475,13 +620,37 @@ body {
     border-radius: 6px;
 }
 
-.blinking-cursor {
-    animation: blink 1s step-end infinite;
-    color: var(--text-main);
-    font-weight: bold;
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    grid-column: 1 / -1;
+    width: 100%;
 }
 
-/* --- 6. FOOTER & ARTICLES --- */
+.terminal-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.terminal-header h1::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* --- 6. ARTICLES WITH IMAGES --- */
 .section-header {
     font-size: 1.1rem;
     font-weight: 700;
@@ -505,24 +674,40 @@ body {
 
 .analysis-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    grid-column: 1 / -1;
 }
 
 .analysis-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 20px;
     text-decoration: none;
     transition: transform 0.2s, border-color 0.2s;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    padding: 0;
 }
 
 .analysis-card:hover {
     transform: translateY(-4px);
-    border-color: #475569;
+    border-color: var(--accent);
+}
+
+.card-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .featured-tag {
@@ -531,7 +716,7 @@ body {
     color: var(--accent);
     font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     display: block;
     letter-spacing: 0.5px;
 }
@@ -551,6 +736,36 @@ body {
     flex-grow: 1;
 }
 
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.archive-list li {
+    border-bottom: 1px dashed var(--border);
+    padding: 12px 0;
+}
+
+.archive-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.archive-list a {
+    color: var(--text-sub);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    display: block;
+}
+
+.archive-list a:hover {
+    color: var(--accent);
+    padding-left: 5px;
+}
+
 .site-footer {
     max-width: 1200px;
     margin: auto auto 0 auto;
@@ -568,6 +783,8 @@ body {
 .footer-links {
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-links a {
@@ -580,41 +797,75 @@ body {
     color: var(--accent);
 }
 
-/* --- ANIMATIONS & RESPONSIVE --- */
-@keyframes pulse-red {
-    0% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-    }
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
+/* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 950px) {
+
+    /* Navbar Wrapping */
+    .gsn-universal-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 20px;
+    }
+
+    .gsn-brand {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .gsn-network-links {
+        width: 100%;
+        padding-bottom: 8px;
+    }
+
+    .nav-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .brand {
+        justify-content: center;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    /* Layout Stacking */
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .span-2,
+    .span-1 {
+        grid-column: 1 / -1;
+    }
+
+    /* Order Manipulation: Radar goes to the Top */
     .war-room-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
     }
 
-    .hero-panel {
-        grid-template-columns: 1fr;
-        padding: 25px;
+    .nexus-center {
+        order: -1;
     }
 
-    .metrics-grid,
-    .analysis-grid {
-        grid-template-columns: 1fr;
+    /* Triage Resizing */
+    .hero-card {
+        flex-direction: column;
+        text-align: center;
     }
 
-    /* Let the swiper handle the top links on mobile natively now */
+    .score-right {
+        margin-top: 20px;
+    }
+
+    #triage-banner,
+    .alert-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
 }
