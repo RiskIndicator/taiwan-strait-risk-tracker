@@ -9,9 +9,11 @@
         content="Real-time condition monitoring for global macro risk, supply chains, and geopolitical choke points.">
 
     <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/gsn-core.css">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -150,42 +152,73 @@
         </div>
 
         <div style="margin-top: 40px; grid-column: 1 / -1;">
+            <h3 class="section-header">Featured Intelligence</h3>
+
+            <div class="carousel-container"
+                style="background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 30px; margin-bottom: 30px;">
+                <div class="carousel-header"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <span
+                        style="font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; font-weight: 700;">Featured
+                        Briefing</span>
+                    <div class="carousel-dots" style="display: flex; gap: 8px;">
+                        <div class="c-dot active" id="dot-0"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-1"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-2"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-3"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-4"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-5"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-6"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                        <div class="c-dot" id="dot-7"
+                            style="width: 8px; height: 8px; border-radius: 50%; background: var(--text-sub); opacity: 0.3; cursor: pointer; transition: opacity 0.3s;">
+                        </div>
+                    </div>
+                </div>
+
+                <a href="inequality.html" id="featured-container"
+                    style="display: flex; gap: 25px; align-items: center; text-decoration: none; color: inherit; transition: opacity 0.4s;">
+                    <img src="public/wealth-gap.png" id="feat-img"
+                        style="width: 300px; height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);"
+                        onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Image'">
+                    <div class="featured-content" style="flex: 1;">
+                        <span class="featured-tag" id="feat-tag"
+                            style="font-size: 0.75rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block;">Wealth
+                            Inequality</span>
+                        <h3 id="feat-title" style="font-size: 1.5rem; margin: 0 0 12px 0; color: var(--text-main);">
+                            Real-Time Wealth Gap Tracker</h3>
+                        <p id="feat-excerpt"
+                            style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.6; margin: 0;">Track how
+                            the gap between the ultra-wealthy and median workers is widening in real-time.</p>
+                    </div>
+                </a>
+            </div>
+
             <h3 class="section-header">Understanding the Indices</h3>
             <div class="analysis-grid">
-
+                <!-- Keep your existing 3 static cards here -->
                 <a href="articles/wealth-inequality-article.html" class="analysis-card">
-                    <img src="public/wealth-gap.png" alt="Wealth Inequality" class="card-img"
-                        onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Economics'">
-                    <div class="card-content">
-                        <span class="featured-tag">Economics</span>
-                        <h4>The Invisible Gap: Why You Feel Broke While Markets Boom</h4>
-                        <p>If the official economy is doing so well, why is the cost of basic survival spiking for
-                            everyday people?</p>
-                    </div>
+                    <!-- ... existing card content ... -->
                 </a>
-
                 <a href="articles/supply-chain-article.html" class="analysis-card">
-                    <img src="public/shipping-chokepoint.png" alt="Supply Chain" class="card-img"
-                        onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Logistics'">
-                    <div class="card-content">
-                        <span class="featured-tag">Logistics</span>
-                        <h4>The End of Cheap Shipping and the Rise of Inflation</h4>
-                        <p>How geopolitical choke points in the oceans are directly driving up the cost of everything
-                            you buy.</p>
-                    </div>
+                    <!-- ... existing card content ... -->
                 </a>
-
                 <a href="articles/silicon-shield.html" class="analysis-card">
-                    <img src="public/silicon-shield-thumb.png" alt="Silicon Shield" class="card-img"
-                        onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Market+Impact'">
-                    <div class="card-content">
-                        <span class="featured-tag">Market Impact</span>
-                        <h4>The "Silicon Shield": TSMC Volatility and Your Portfolio</h4>
-                        <p>Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation
-                            data.</p>
-                    </div>
+                    <!-- ... existing card content ... -->
                 </a>
-
             </div>
         </div>
 
@@ -329,6 +362,95 @@
             document.getElementById('desc-fuel').innerText = `> Commercial buffer`;
             setCardState('fuel', days, true); updateRadar(5, days, true);
         }).catch(e => { });
+
+
+        // Featured Article Carousel
+        const featuredArticles = [
+            {
+                url: "inequality.html",
+                img: "public/wealth-gap.png",
+                tag: "Wealth Inequality",
+                title: "Real-Time Wealth Gap Tracker",
+                excerpt: "Track how the gap between the ultra-wealthy and median workers is widening in real-time."
+            },
+            {
+                url: "articles/wealth-inequality-article.html",
+                img: "public/wealth-gap.png",
+                tag: "Economics",
+                title: "The Invisible Gap: Why You Feel Broke While Markets Boom",
+                excerpt: "If the official economy is doing so well, why is the cost of basic survival spiking for everyday people?"
+            },
+            {
+                url: "supply-chain.html",
+                img: "public/shipping-chokepoint.png",
+                tag: "Supply Chain",
+                title: "Live Global Shipping Stress Monitor",
+                excerpt: "Real-time tracking of container costs, port congestion, and maritime chokepoint disruptions."
+            },
+            {
+                url: "articles/supply-chain-article.html",
+                img: "public/shipping-chokepoint.png",
+                tag: "Logistics",
+                title: "The End of Cheap Shipping and the Rise of Inflation",
+                excerpt: "How geopolitical choke points in the oceans are directly driving up the cost of everything you buy."
+            },
+            {
+                url: "middle-east.html",
+                img: "public/hormuz-strait.png",
+                tag: "Middle East",
+                title: "Strait of Hormuz Risk Index",
+                excerpt: "Live monitoring of the world's most critical oil shipping lane and regional stability."
+            },
+            {
+                url: "fuel-reserves.html",
+                img: "public/fuel-tank.png",
+                tag: "Energy Security",
+                title: "Global Fuel Reserve Monitor",
+                excerpt: "How many days of commercial petroleum reserves does the world actually have?"
+            },
+            {
+                url: "ai-bubble.html",
+                img: "public/chip.jpg",
+                tag: "AI Bubble",
+                title: "AI Stock Valuation Index",
+                excerpt: "Are artificial intelligence stocks priced on reality, or dangerous hype?"
+            },
+            {
+                url: "articles/silicon-shield.html",
+                img: "public/silicon-shield-thumb.png",
+                tag: "Market Impact",
+                title: "The Silicon Shield: TSMC Volatility and Your Portfolio",
+                excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data."
+            }
+        ];
+
+        let currentArticleIdx = 0;
+
+        function rotateArticle() {
+            const container = document.getElementById('featured-container');
+            container.style.opacity = 0;
+
+            setTimeout(() => {
+                document.getElementById(`dot-${currentArticleIdx}`).classList.remove('active');
+                document.getElementById(`dot-${currentArticleIdx}`).style.opacity = 0.3;
+
+                currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
+                const article = featuredArticles[currentArticleIdx];
+
+                container.href = article.url;
+                document.getElementById('feat-img').src = article.img;
+                document.getElementById('feat-tag').innerText = article.tag;
+                document.getElementById('feat-title').innerText = article.title;
+                document.getElementById('feat-excerpt').innerText = article.excerpt;
+
+                document.getElementById(`dot-${currentArticleIdx}`).classList.add('active');
+                document.getElementById(`dot-${currentArticleIdx}`).style.opacity = 1;
+                container.style.opacity = 1;
+            }, 400);
+        }
+
+        // Auto-rotate every 6 seconds
+        setInterval(rotateArticle, 6000);
 
     </script>
 </body>
