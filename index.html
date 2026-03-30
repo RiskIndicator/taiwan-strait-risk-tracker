@@ -24,11 +24,11 @@
             The Global Shift Network
         </div>
         <div class="gsn-network-links">
-            <a href="https://taiwanstraittracker.com" class="gsn-link">Terminal</a>
+            <a href="https://taiwanstraittracker.com" class="gsn-link active">Terminal</a>
             <a href="https://taiwanstraittracker.com/taiwan" class="gsn-link">Strait Risk Tracker</a>
             <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
             <a href="https://taiwanstraittracker.com/middle-east.html" class="gsn-link">Middle East Tracker</a>
-            <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link active">Fuel Reserves</a>
+            <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link">Fuel Reserves</a>
             <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
             <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain</a>
             <a href="https://taiwanstraittracker.com/macro.html" class="gsn-link">Macro Outlook</a>
@@ -276,11 +276,11 @@
                 labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Bubble', 'Fiat', 'Fuel'],
                 datasets: [{
                     data: radarData,
-                    backgroundColor: 'rgba(14, 165, 233, 0.15)',
-                    borderColor: '#0ea5e9',
-                    pointBackgroundColor: '#0ea5e9',
+                    backgroundColor: 'rgba(239, 68, 68, 0.15)', // Changed to a red tint to imply risk
+                    borderColor: '#ef4444',
+                    pointBackgroundColor: '#ef4444',
                     pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#ef4444',
+                    pointHoverBackgroundColor: '#f87171',
                     borderWidth: 2,
                 }]
             },
@@ -289,22 +289,32 @@
                 maintainAspectRatio: false,
                 scales: {
                     r: {
+                        min: 0,   // FIXED: Moved outside of ticks
+                        max: 100, // FIXED: Moved outside of ticks
+                        beginAtZero: true,
                         angleLines: { color: 'rgba(51, 65, 85, 0.5)' },
-                        grid: { color: 'rgba(51, 65, 85, 0.5)' },
+                        grid: {
+                            color: [
+                                'rgba(51, 65, 85, 0.2)', // 20
+                                'rgba(51, 65, 85, 0.4)', // 40
+                                'rgba(245, 158, 11, 0.3)', // 60 (Warning threshold)
+                                'rgba(239, 68, 68, 0.4)',  // 80 (Critical threshold)
+                                'rgba(239, 68, 68, 0.8)'   // 100
+                            ]
+                        },
                         pointLabels: { font: { size: 11, weight: 'bold' }, color: '#94a3b8' },
-                        ticks: { display: false, min: 0, max: 100 }
+                        ticks: {
+                            display: true, // Turn ticks back on for readability
+                            stepSize: 25,
+                            color: 'rgba(148, 163, 184, 0.6)',
+                            backdropColor: 'transparent',
+                            font: { size: 9 }
+                        }
                     }
                 },
                 plugins: { legend: { display: false } }
             }
         });
-
-        function updateRadar(index, val, isInverted = false) {
-            let riskScore = parseFloat(val);
-            if (isInverted) riskScore = Math.max(0, Math.min(100, 100 - ((val - 35) * 4)));
-            radarData[index] = riskScore;
-            myRadarChart.update();
-        }
 
         // 1. Fetch Orchestrator Master File (Fixed Empty State)
         fetch('active_alerts.json')

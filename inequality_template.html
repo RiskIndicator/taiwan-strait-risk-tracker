@@ -50,47 +50,32 @@
 
         .chart-wrapper {
             position: relative;
-            height: 350px;
+            height: 300px;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Timeframe Toggle UI */
-        .time-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
             margin-bottom: 20px;
         }
 
-        .time-btn {
-            background: transparent;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            color: #94a3b8;
-            padding: 6px 16px;
-            border-radius: 4px;
-            cursor: pointer;
+        .chart-title {
+            color: var(--text-main);
+            text-align: left;
+            margin-bottom: 10px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .time-btn:hover {
-            border-color: #64748b;
-            color: #e2e8f0;
-        }
-
-        .time-btn.active {
-            background: rgba(14, 165, 233, 0.15);
-            border-color: #0ea5e9;
-            color: #0ea5e9;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: #94a3b8;
         }
     </style>
 </head>
 
 <body>
+    <script id="data-10y-labels" type="application/json">{{ dates_10y | safe }}</script>
+    <script id="data-10y-assets" type="application/json">{{ assets_10y | safe }}</script>
+    <script id="data-10y-survival" type="application/json">{{ survival_10y | safe }}</script>
+
+    <script id="data-1y-labels" type="application/json">{{ dates_1y | safe }}</script>
+    <script id="data-1y-assets" type="application/json">{{ assets_1y | safe }}</script>
+    <script id="data-1y-survival" type="application/json">{{ survival_1y | safe }}</script>
+
     <div class="gsn-universal-header">
         <div class="gsn-brand"><img src="/public/gsn-logo-mono.png" alt="GSN Logo"
                 style="height: 22px; width: auto; margin-right: 8px;"> The Global Shift Network</div>
@@ -136,13 +121,18 @@
             </div>
 
             <div class="chart-section" style="max-width: 800px; margin: 0 auto; width: 100%;">
-                <div class="time-toggle">
-                    <button id="btn-10y" class="time-btn active" onclick="switchData('10y')">10 YEAR (MACRO)</button>
-                    <button id="btn-1y" class="time-btn" onclick="switchData('1y')">1 YEAR (LOCAL)</button>
-                </div>
+
+                <h4 class="chart-title">10-YEAR MACRO TREND</h4>
                 <div class="chart-wrapper">
-                    <canvas id="divergenceChart"></canvas>
+                    <canvas id="chart10y"></canvas>
                 </div>
+
+                <div style="height: 20px;"></div>
+                <h4 class="chart-title">1-YEAR LOCAL TREND</h4>
+                <div class="chart-wrapper">
+                    <canvas id="chart1y"></canvas>
+                </div>
+
             </div>
 
             <div class="gap-container">
@@ -168,100 +158,96 @@
     </div>
 
     <script>
-        // Datasets injected from Python
+        // Safely parse the injected JSON strings
         const datasets = {
             '10y': {
-                labels: {{ dates_10y | safe}},
-        assets: { { assets_10y | safe } },
-        survival: { { survival_10y | safe } }
+                labels: JSON.parse(document.getElementById('data-10y-labels').textContent || '[]'),
+                assets: JSON.parse(document.getElementById('data-10y-assets').textContent || '[]'),
+                survival: JSON.parse(document.getElementById('data-10y-survival').textContent || '[]')
             },
-        '1y': {
-            labels: { { dates_1y | safe } },
-            assets: { { assets_1y | safe } },
-            survival: { { survival_1y | safe } }
-        }
+            '1y': {
+                labels: JSON.parse(document.getElementById('data-1y-labels').textContent || '[]'),
+                assets: JSON.parse(document.getElementById('data-1y-assets').textContent || '[]'),
+                survival: JSON.parse(document.getElementById('data-1y-survival').textContent || '[]')
+            }
         };
 
-        const ctx = document.getElementById('divergenceChart').getContext('2d');
         Chart.defaults.color = '#94a3b8';
         Chart.defaults.font.family = "'Inter', sans-serif";
 
-        let myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: datasets['10y'].labels,
-                datasets: [
-                    {
-                        label: 'Asset Owners',
-                        data: datasets['10y'].assets,
-                        borderColor: '#f59e0b',
-                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        tension: 0.4,
-                        fill: true
-                    },
-                    {
-                        label: 'Cost of Survival',
-                        data: datasets['10y'].survival,
-                        borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        tension: 0.4,
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
+        // Reusable configuration builder so we don't repeat the settings twice
+        function buildChartConfig(labels, assetData, survivalData) {
+            return {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Asset Owners',
+                            data: assetData,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Cost of Survival',
+                            data: survivalData,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
                 },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                        titleFont: { size: 13, family: "'JetBrains Mono', monospace" },
-                        bodyFont: { size: 13, family: "'JetBrains Mono', monospace" },
-                        padding: 12,
-                        callbacks: {
-                            label: function (context) {
-                                return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + '%';
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: { size: 13, family: "'JetBrains Mono', monospace" },
+                            bodyFont: { size: 13, family: "'JetBrains Mono', monospace" },
+                            padding: 12,
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' },
+                            ticks: { maxTicksLimit: 6 }
+                        },
+                        y: {
+                            grid: { color: 'rgba(51, 65, 85, 0.2)' },
+                            ticks: {
+                                callback: function (value) { return value + '%'; }
                             }
                         }
                     }
-                },
-                scales: {
-                    x: {
-                        grid: { color: 'rgba(51, 65, 85, 0.2)' },
-                        ticks: { maxTicksLimit: 6 }
-                    },
-                    y: {
-                        grid: { color: 'rgba(51, 65, 85, 0.2)' },
-                        ticks: {
-                            callback: function (value) { return value + '%'; }
-                        }
-                    }
                 }
-            }
-        });
-
-        // Toggle logic
-        function switchData(timeframe) {
-            // Update UI buttons
-            document.getElementById('btn-10y').classList.remove('active');
-            document.getElementById('btn-1y').classList.remove('active');
-            document.getElementById(`btn-${timeframe}`).classList.add('active');
-
-            // Update Chart Data
-            myChart.data.labels = datasets[timeframe].labels;
-            myChart.data.datasets[0].data = datasets[timeframe].assets;
-            myChart.data.datasets[1].data = datasets[timeframe].survival;
-            myChart.update();
+            };
         }
+
+        // Render both charts
+        const ctx10y = document.getElementById('chart10y').getContext('2d');
+        new Chart(ctx10y, buildChartConfig(datasets['10y'].labels, datasets['10y'].assets, datasets['10y'].survival));
+
+        const ctx1y = document.getElementById('chart1y').getContext('2d');
+        new Chart(ctx1y, buildChartConfig(datasets['1y'].labels, datasets['1y'].assets, datasets['1y'].survival));
+
     </script>
 </body>
 
