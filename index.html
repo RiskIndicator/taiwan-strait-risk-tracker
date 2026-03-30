@@ -249,22 +249,7 @@
     </div>
 
     <script>
-        // Dynamic Threshold Coloring
-        function setCardState(id, score, isInverted = false) {
-            const card = document.getElementById(`card-${id}`);
-            let s = parseFloat(score);
-            card.classList.remove('critical', 'warning');
-
-            if (isInverted) {
-                if (s < 35) card.classList.add('critical');
-                else if (s < 50) card.classList.add('warning');
-            } else {
-                if (s > 70) card.classList.add('critical');
-                else if (s > 55) card.classList.add('warning');
-            }
-        }
-
-        // Radar Chart Initialization
+        // 1. Radar Chart Initialization
         let radarData = [0, 0, 0, 0, 0, 0];
         const ctx = document.getElementById('riskRadar').getContext('2d');
         Chart.defaults.color = '#64748b';
@@ -276,7 +261,7 @@
                 labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Bubble', 'Fiat', 'Fuel'],
                 datasets: [{
                     data: radarData,
-                    backgroundColor: 'rgba(239, 68, 68, 0.15)', // Changed to a red tint to imply risk
+                    backgroundColor: 'rgba(239, 68, 68, 0.15)',
                     borderColor: '#ef4444',
                     pointBackgroundColor: '#ef4444',
                     pointBorderColor: '#fff',
@@ -289,22 +274,22 @@
                 maintainAspectRatio: false,
                 scales: {
                     r: {
-                        min: 0,   // FIXED: Moved outside of ticks
-                        max: 100, // FIXED: Moved outside of ticks
+                        min: 0,
+                        max: 100,
                         beginAtZero: true,
                         angleLines: { color: 'rgba(51, 65, 85, 0.5)' },
                         grid: {
                             color: [
                                 'rgba(51, 65, 85, 0.2)', // 20
                                 'rgba(51, 65, 85, 0.4)', // 40
-                                'rgba(245, 158, 11, 0.3)', // 60 (Warning threshold)
-                                'rgba(239, 68, 68, 0.4)',  // 80 (Critical threshold)
+                                'rgba(245, 158, 11, 0.3)', // 60 (Warning)
+                                'rgba(239, 68, 68, 0.4)',  // 80 (Critical)
                                 'rgba(239, 68, 68, 0.8)'   // 100
                             ]
                         },
                         pointLabels: { font: { size: 11, weight: 'bold' }, color: '#94a3b8' },
                         ticks: {
-                            display: true, // Turn ticks back on for readability
+                            display: true,
                             stepSize: 25,
                             color: 'rgba(148, 163, 184, 0.6)',
                             backdropColor: 'transparent',
@@ -316,175 +301,115 @@
             }
         });
 
-        // 1. Fetch Orchestrator Master File (Fixed Empty State)
-        fetch('active_alerts.json')
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('master-time').innerText = "UPDATED: " + data.last_updated;
-                const statusBox = document.getElementById('orchestrator-status');
+        // 2. Dynamic Threshold Coloring for UI Cards
+        function setCardState(id, score, isInverted = false) {
+            const card = document.getElementById(`card-${id}`);
+            if (!card) return;
+            let s = parseFloat(score);
+            card.classList.remove('critical', 'warning');
 
-                if (data.alert_count > 0) {
-                    statusBox.innerText = `${data.alert_count} SYSTEMIC ANOMALIES DETECTED`;
-                    statusBox.style.color = "#ef4444";
+            if (isInverted) {
+                if (s < 35) card.classList.add('critical');
+                else if (s < 50) card.classList.add('warning');
+            } else {
+                if (s > 70) card.classList.add('critical');
+                else if (s > 55) card.classList.add('warning');
+            }
+        }
 
-                    const banner = document.getElementById('triage-banner');
-                    banner.style.display = 'flex';
-                    let currentIndex = 0;
-                    function updateBanner() {
-                        document.getElementById('alert-type').innerText = data.alerts[currentIndex].type;
-                        document.getElementById('alert-text').innerText = data.alerts[currentIndex].headline;
-                        document.getElementById('alert-link').href = data.alerts[currentIndex].link;
-                        currentIndex = (currentIndex + 1) % data.alerts.length;
-                    }
-                    updateBanner();
-                    if (data.alerts.length > 1) setInterval(updateBanner, 5000);
-                } else {
-                    // This explicitly sets the green "Nominal" text when there are no alerts.
-                    statusBox.innerText = "SYSTEM NOMINAL. NO ACTIVE ANOMALIES.";
-                    statusBox.style.color = "#10b981";
+        // 3. Telemetry Fetchers (Pulls JSON data and updates UI cards)
+        fetch('active_alerts.json').then(r => r.json()).then(data => {
+            document.getElementById('master-time').innerText = "UPDATED: " + (data.last_updated || "JUST NOW");
+            const statusBox = document.getElementById('orchestrator-status');
+            if (data.alert_count > 0 && data.alerts.length > 0) {
+                statusBox.innerText = `${data.alert_count} SYSTEMIC ANOMALIES DETECTED`;
+                statusBox.style.color = "#ef4444";
+                const banner = document.getElementById('triage-banner');
+                banner.style.display = 'flex';
+                let currentIndex = 0;
+                function updateBanner() {
+                    if (!data.alerts[currentIndex]) return;
+                    document.getElementById('alert-type').innerText = data.alerts[currentIndex].type;
+                    document.getElementById('alert-text').innerText = data.alerts[currentIndex].headline;
+                    document.getElementById('alert-link').href = data.alerts[currentIndex].link;
+                    currentIndex = (currentIndex + 1) % data.alerts.length;
                 }
-            })
-            .catch(e => {
-                // Failsafe if the JSON hasn't generated yet
-                const statusBox = document.getElementById('orchestrator-status');
+                updateBanner();
+                if (data.alerts.length > 1) setInterval(updateBanner, 5000);
+            } else {
                 statusBox.innerText = "SYSTEM NOMINAL. NO ACTIVE ANOMALIES.";
                 statusBox.style.color = "#10b981";
-            });
+            }
+        }).catch(e => {
+            const statusBox = document.getElementById('orchestrator-status');
+            statusBox.innerText = "SYSTEM NOMINAL. NO ACTIVE ANOMALIES.";
+            statusBox.style.color = "#10b981";
+        });
 
-        // 2. Fetch Node Telemetry
         fetch('taiwan_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-taiwan').innerText = d.current_risk_score;
             document.getElementById('desc-taiwan').innerText = `> Media Noise: ${d.media_noise}`;
-            setCardState('taiwan', d.current_risk_score); updateRadar(0, d.current_risk_score);
+            setCardState('taiwan', d.current_risk_score);
         }).catch(e => { });
 
         fetch('me_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-me').innerText = d.risk_index;
             document.getElementById('desc-me').innerText = `> Energy Premium: ${d.energy_spike.toFixed(1)}%`;
-            setCardState('me', d.risk_index); updateRadar(1, d.risk_index);
+            setCardState('me', d.risk_index);
         }).catch(e => { });
 
-        // Fixed Supply Chain Fetch
         fetch('supply_data.json').then(r => r.json()).then(d => {
             if (d.stress_score !== undefined) {
                 document.getElementById('val-supply').innerText = d.stress_score;
                 document.getElementById('desc-supply').innerText = `> Shipping Friction: ${d.shipping_stress.toFixed(1)}%`;
-                setCardState('supply', d.stress_score); updateRadar(2, d.stress_score);
+                setCardState('supply', d.stress_score);
             }
-        }).catch(e => {
-            // Fallback so it doesn't just show "--" if the JSON fails
-            document.getElementById('val-supply').innerText = "50";
-            document.getElementById('desc-supply').innerText = `> Awaiting pipeline...`;
-            setCardState('supply', 50); updateRadar(2, 50);
-        });
+        }).catch(e => { });
 
         fetch('ai_bubble_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-ai').innerText = d.bubble_index;
             document.getElementById('desc-ai').innerText = `> Valuation Stress: ${d.valuation_score}`;
-            setCardState('ai', d.bubble_index); updateRadar(3, d.bubble_index);
+            setCardState('ai', d.bubble_index);
         }).catch(e => { });
 
         fetch('fiat_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-fiat').innerText = d.score;
             document.getElementById('desc-fiat').innerText = `> Status: ${d.desc}`;
-            setCardState('fiat', d.score); updateRadar(4, d.score);
+            setCardState('fiat', d.score);
         }).catch(e => { });
 
         fetch('fuel_cache.json').then(r => r.json()).then(d => {
             let days = ((d.comm_val / 1000) / 16.0).toFixed(1);
             document.getElementById('val-fuel').innerText = days;
             document.getElementById('desc-fuel').innerText = `> Commercial buffer`;
-            setCardState('fuel', days, true); updateRadar(5, days, true);
+            setCardState('fuel', days, true);
         }).catch(e => { });
 
+        // 4. The Bulletproof Dashboard Synchroniser
+        // This forces the radar chart to mathematically match whatever numbers are currently on the UI cards.
+        setInterval(() => {
+            const getVal = (id) => {
+                let el = document.getElementById(id);
+                if (!el) return 0;
+                let num = parseFloat(el.innerText);
+                return isNaN(num) ? 0 : num; // If the fetch failed and the card says "--", it safely returns 0
+            };
 
-        // Featured Article Carousel
-        const featuredArticles = [
-            {
-                url: "inequality.html",
-                img: "public/wealth-gap.png",
-                tag: "Wealth Inequality",
-                title: "Real-Time Wealth Gap Tracker",
-                excerpt: "Track how the gap between the ultra-wealthy and median workers is widening in real-time."
-            },
-            {
-                url: "articles/wealth-inequality-article.html",
-                img: "public/wealth-gap.png",
-                tag: "Economics",
-                title: "The Invisible Gap: Why You Feel Broke While Markets Boom",
-                excerpt: "If the official economy is doing so well, why is the cost of basic survival spiking for everyday people?"
-            },
-            {
-                url: "supply-chain.html",
-                img: "public/shipping-chokepoint.png",
-                tag: "Supply Chain",
-                title: "Live Global Shipping Stress Monitor",
-                excerpt: "Real-time tracking of container costs, port congestion, and maritime chokepoint disruptions."
-            },
-            {
-                url: "articles/supply-chain-article.html",
-                img: "public/shipping-chokepoint.png",
-                tag: "Logistics",
-                title: "The End of Cheap Shipping and the Rise of Inflation",
-                excerpt: "How geopolitical choke points in the oceans are directly driving up the cost of everything you buy."
-            },
-            {
-                url: "middle-east.html",
-                img: "public/hormuz-strait.png",
-                tag: "Middle East",
-                title: "Strait of Hormuz Risk Index",
-                excerpt: "Live monitoring of the world's most critical oil shipping lane and regional stability."
-            },
-            {
-                url: "fuel-reserves.html",
-                img: "public/fuel-tank.png",
-                tag: "Energy Security",
-                title: "Global Fuel Reserve Monitor",
-                excerpt: "How many days of commercial petroleum reserves does the world actually have?"
-            },
-            {
-                url: "ai-bubble.html",
-                img: "public/chip.jpg",
-                tag: "AI Bubble",
-                title: "AI Stock Valuation Index",
-                excerpt: "Are artificial intelligence stocks priced on reality, or dangerous hype?"
-            },
-            {
-                url: "articles/silicon-shield.html",
-                img: "public/silicon-shield-thumb.png",
-                tag: "Market Impact",
-                title: "The Silicon Shield: TSMC Volatility and Your Portfolio",
-                excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data."
-            }
-        ];
+            let taiwan = getVal('val-taiwan');
+            let me = getVal('val-me');
+            let supply = getVal('val-supply');
+            let ai = getVal('val-ai');
+            let fiat = getVal('val-fiat');
 
-        let currentArticleIdx = 0;
+            // Fuel is inverted (Lower buffer days = higher risk spreading outwards)
+            // Formula: If days are > 90, risk is 0. If days drop to 20, risk spikes toward 100.
+            let fuelRaw = getVal('val-fuel');
+            let fuelRisk = (fuelRaw === 0) ? 0 : Math.max(0, Math.min(100, (90 - fuelRaw) * 1.4));
 
-        function rotateArticle() {
-            const container = document.getElementById('featured-container');
-            container.style.opacity = 0;
-
-            setTimeout(() => {
-                document.getElementById(`dot-${currentArticleIdx}`).classList.remove('active');
-                document.getElementById(`dot-${currentArticleIdx}`).style.opacity = 0.3;
-
-                currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
-                const article = featuredArticles[currentArticleIdx];
-
-                container.href = article.url;
-                document.getElementById('feat-img').src = article.img;
-                document.getElementById('feat-tag').innerText = article.tag;
-                document.getElementById('feat-title').innerText = article.title;
-                document.getElementById('feat-excerpt').innerText = article.excerpt;
-
-                document.getElementById(`dot-${currentArticleIdx}`).classList.add('active');
-                document.getElementById(`dot-${currentArticleIdx}`).style.opacity = 1;
-                container.style.opacity = 1;
-            }, 400);
-        }
-
-        // Auto-rotate every 6 seconds
-        setInterval(rotateArticle, 6000);
+            // Inject directly into the chart dataset
+            myRadarChart.data.datasets[0].data = [taiwan, me, supply, ai, fiat, fuelRisk];
+            myRadarChart.update();
+        }, 1000); // Re-syncs every 1 second
 
     </script>
 </body>
