@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwan Strait Risk Tracker | Live Intelligence</title>
+    <meta name="description"
+        content="Real-time geopolitical risk index for the Taiwan Strait. Monitoring ADIZ incursions, market signals, and rhetoric.">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://taiwanstraittracker.com/public/card_2026-02-09.png">
+    <link rel="canonical" href="https://taiwanstraittracker.com/" />
+
+    <link rel="icon" type="image/png" href="/public/gsn-logo-mono.png">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906019839191718"
+        crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --card-hover: #334155;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border: #334155;
+            --accent: #0ea5e9;
+            --accent-glow: rgba(14, 165, 233, 0.15);
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --safe: #10b981;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* --- NEW LOGO STYLES --- */
+        .gsn-header-img {
+            height: 22px;
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .brand-img {
+            height: 36px;
+            width: auto;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+        }
+
+        /* GSN Universal Header */
+        .gsn-universal-header {
+            background-color: #050505;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            z-index: 50;
+            position: relative;
+        }
+
+        .gsn-brand {
+            color: #f8fafc;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gsn-network-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .gsn-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .gsn-link:hover {
+            color: var(--accent);
+        }
+
+        .gsn-link.active {
+            color: var(--danger);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .nav-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .twitter-btn {
+            background: #1da1f2;
+            color: #fff !important;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem !important;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700 !important;
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        .twitter-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Dashboard Grid Layout */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            flex: 1;
+        }
+
+        /* Reusable Card Base */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: border-color 0.3s;
+        }
+
+        .card:hover {
+            border-color: #475569;
+        }
+
+        .span-full {
+            grid-column: span 3;
+        }
+
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-1 {
+            grid-column: span 1;
+        }
+
+        /* MAIN HERO GAUGE */
+        .hero-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 35px 40px;
+        }
+
+        .score-left {
+            flex: 1;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .big-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .status-text {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            max-width: 90%;
+        }
+
+        .score-right {
+            width: 220px;
+            height: 150px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        /* SUB-METRICS TOWER */
+        .metrics-tower {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .small-metric-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sm-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .sm-score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .sm-bar-bg {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .evidence-box {
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 2px solid var(--border);
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ALERT BAR */
+        .alert-bar {
+            background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--accent);
+            color: var(--text-main);
+            padding: 15px 25px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .alert-text {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-btn {
+            background: var(--accent);
+            color: #0f172a !important;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .alert-btn:hover {
+            background: #38bdf8;
+            transform: scale(1.02);
+        }
+
+        /* CHART BOX */
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 20px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-header::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .chart-box {
+            height: 280px;
+            width: 100%;
+        }
+
+        /* ARCHIVE LIST */
+        .archive-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .archive-list li {
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+
+        .archive-list a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .archive-list a:hover {
+            color: #38bdf8;
+        }
+
+        /* FEATURED CAROUSEL */
+        .carousel-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .c-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: all 0.3s;
+        }
+
+        .c-dot.active {
+            background: var(--accent);
+            width: 16px;
+            border-radius: 4px;
+        }
+
+        #featured-container {
+            transition: opacity 0.4s ease-in-out;
+            display: flex;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+        }
+
+        #featured-container:hover {
+            border-color: var(--border);
+            background: var(--bg);
+        }
+
+        .featured-thumb {
+            width: 130px;
+            height: 90px;
+            background: #000;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .featured-content h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.15rem;
+            color: var(--text-main);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .featured-content p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .featured-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+
+        /* LATEST ANALYSIS GRID */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .analysis-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .analysis-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+        }
+
+        .analysis-card h4 {
+            color: var(--text-main);
+            margin: 0 0 10px 0;
+            font-size: 1.05rem;
+            line-height: 1.4;
+        }
+
+        .analysis-card p {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        /* ADS & FOOTER */
+        .ad-box {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px dashed var(--border);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            border-radius: 12px;
+        }
+
+        .site-footer {
+            max-width: 1000px;
+            margin: 40px auto 0 auto;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* MOBILE FIXES */
+        @media (max-width: 850px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .span-2,
+            .span-1,
+            .span-full {
+                grid-column: span 1;
+            }
+
+            .hero-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+                padding: 30px 20px;
+            }
+
+            .score-right {
+                width: 100%;
+                height: 160px;
+            }
+
+            .status-text {
+                margin: 20px auto 0 auto;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .alert-bar {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .gsn-universal-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 20px;
+            }
+
+            .gsn-network-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand">
+            <img src="/public/gsn-logo-mono.png" alt="GSN Logo" class="gsn-header-img">
+            The Global Shift Network
+        </div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/middle-east.html" class="gsn-link">Middle East Tracker</a>
+            <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link active">Fuel Reserves</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain</a>
+            <a href="https://taiwanstraittracker.com/macro.html" class="gsn-link">Macro Outlook</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="brand">
+                <img src="/public/radar-logo.png" alt="Radar System" class="brand-img"> Taiwan Strait Tracker
+            </a>
+            <div class="nav-links">
+                <a href="articles.html" style="color: var(--text-main);">Analysis</a>
+                <a href="about.html">Methodology</a>
+                <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    Follow
+                </a>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="span-full">
+            <a href="https://taiwanstraittracker.com/middle-east.html" class="alert-bar"
+                style="text-decoration: none; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); margin-bottom: 10px;">
+                <div class="alert-text">
+                    <span style="font-size:1.3rem;">🚨</span>
+                    <span><strong>CRITICAL ALERT:</strong> Strait of Hormuz disruption detected. View the live Middle
+                        East Risk Index.</span>
+                </div>
+                <div class="alert-btn" style="background: #ef4444; color: #fff !important;">View Tracker</div>
+            </a>
+        </div>
+
+        <a href="{{ latest_report_url }}" class="card hero-card span-2"
+            style="text-decoration: none; color: inherit; display: flex; transition: transform 0.2s, border-color 0.3s;"
+            onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div class="score-left">
+                <div class="metric-label">Current Risk Index <span
+                        style="font-size:0.75rem; font-weight:normal; color:var(--accent); text-transform:none; margin-left: 10px;">Click
+                        for Daily Briefing &rarr;</span></div>
+                <div class="big-number">{{ risk_score }}</div>
+                <div class="trend-badge"
+                    style="color: {% if trend_arrow == '▲' %}var(--danger){% elif trend_arrow == '▼' %}var(--safe){% else %}var(--text-sub){% endif %};
+                            background: {% if trend_arrow == '▲' %}rgba(239, 68, 68, 0.1){% elif trend_arrow == '▼' %}rgba(16, 185, 129, 0.1){% else %}rgba(148, 163, 184, 0.1){% endif %};
+                            border: 1px solid {% if trend_arrow == '▲' %}rgba(239, 68, 68, 0.2){% elif trend_arrow == '▼' %}rgba(16, 185, 129, 0.2){% else %}rgba(148, 163, 184, 0.2){% endif %};">
+                    {{ trend_arrow }} {{ trend_desc }} pts since yesterday
+                </div>
+                <p class="status-text">
+                    <strong style="color: {{ color_code }}">{{ status_text }}:</strong> {{ daily_summary }}
+                </p>
+            </div>
+            <div class="score-right">
+                <svg viewBox="0 0 200 115"
+                    style="width: 100%; height: 100%; max-height: 160px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));">
+                    <defs>
+                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#10b981" />
+                            <stop offset="50%" stop-color="#f59e0b" />
+                            <stop offset="100%" stop-color="#ef4444" />
+                        </linearGradient>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0ea5e9" flood-opacity="0.3" />
+                        </filter>
+                    </defs>
+                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
+                        stroke-linecap="round" />
+                    <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)" stroke-width="12"
+                        stroke-linecap="round" />
+                    <g
+                        style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ risk_score }} * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                        <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" filter="url(#glow)" />
+                        <circle cx="100" cy="100" r="7" fill="#f8fafc" />
+                        <circle cx="100" cy="100" r="2.5" fill="#0f172a" />
+                    </g>
+                </svg>
+            </div>
+        </a>
+
+        <div class="metrics-tower span-1">
+            <a href="{{ latest_report_url }}" class="small-metric-card"
+                style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
+                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div class="sm-header">
+                    <span class="metric-label">Conflict Noise</span>
+                    <span class="sm-score" style="color: var(--danger);">{{ conflict_score }}</span>
+                </div>
+                <div class="sm-bar-bg">
+                    <div
+                        style="height: 100%; width: {{ conflict_score }}%; background: var(--danger); box-shadow: 0 0 8px var(--danger);">
+                    </div>
+                </div>
+                <div class="evidence-box">
+                    <strong style="display:block; color:var(--text-main); margin-bottom:4px;">Primary
+                        Driver:</strong>
+                    "{{ top_headline }}"
+                </div>
+            </a>
+
+            <a href="{{ latest_report_url }}" class="small-metric-card"
+                style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.3s;"
+                onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div class="sm-header">
+                    <span class="metric-label">Market Anxiety</span>
+                    <span class="sm-score" style="color: var(--accent);">{{ market_score }}</span>
+                </div>
+                <div class="sm-bar-bg">
+                    <div
+                        style="height: 100%; width: {{ market_score }}%; background: var(--accent); box-shadow: 0 0 8px var(--accent);">
+                    </div>
+                </div>
+                <div class="evidence-box">
+                    <strong style="display:block; color:var(--text-main); margin-bottom:4px;">TSMC vs S&P
+                        500:</strong>
+                    {{ market_evidence }}
+                </div>
+            </a>
+        </div>
+
+        <div class="span-full alert-bar">
+            <div class="alert-text">
+                <span style="font-size:1.3rem;">🔴</span>
+                Get notified instantly when the Risk Index spikes above 50.
+            </div>
+            <a href="https://twitter.com/StraitTracker" target="_blank" class="alert-btn">Enable Alerts</a>
+        </div>
+
+        <div class="card span-2">
+            <h3 class="section-header">30-Day Volatility Trend <span
+                    style="font-size:0.75rem; font-weight:normal; color:var(--text-sub); margin-left:10px;">(Click
+                    any
+                    point for daily report)</span></h3>
+            <div class="chart-box"><canvas id="historyChart"></canvas></div>
+        </div>
+
+        <div class="card span-1">
+            <div class="carousel-container">
+                <div>
+                    <div class="carousel-header">
+                        <span class="metric-label" style="margin:0;">Featured Briefing</span>
+                        <div class="carousel-dots">
+                            <div class="c-dot active" id="dot-0"></div>
+                            <div class="c-dot" id="dot-1"></div>
+                            <div class="c-dot" id="dot-2"></div>
+                            <div class="c-dot" id="dot-3"></div>
+                            <div class="c-dot" id="dot-4"></div>
+                            <div class="c-dot" id="dot-5"></div>
+                            <div class="c-dot" id="dot-6"></div>
+                        </div>
+                    </div>
+
+                    <a href="articles/dual-chokepoint.html" id="featured-container"
+                        style="flex-direction: column; align-items: flex-start;">
+                        <img src="public/shipping-chokepoint.png" class="featured-thumb" id="feat-img"
+                            style="width: 100%; height: 140px;"
+                            onerror="this.src='https://via.placeholder.com/400x200/1e293b/94a3b8?text=Image'">
+                        <div class="featured-content">
+                            <span class="featured-tag" id="feat-tag">Geopolitics</span>
+                            <h3 id="feat-title">The Dual Chokepoint: Hormuz and Taiwan</h3>
+                            <p id="feat-excerpt">What happens to global markets when the world's primary energy and
+                                technology shipping lanes face simultaneous disruption?</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="span-full" style="margin-top: 20px;">
+            <h3 class="section-header" style="margin-bottom: 25px;">Understanding the Indices</h3>
+            <div class="analysis-grid">
+                <a href="articles/wealth-inequality-article.html" class="analysis-card">
+                    <span class="featured-tag">Economics</span>
+                    <h4>The Invisible Gap: Why You Feel Broke While Markets Boom</h4>
+                    <p>If the official economy is doing so well, why is the cost of basic survival spiking for
+                        everyday
+                        people?</p>
+                </a>
+                <a href="articles/supply-chain-article.html" class="analysis-card">
+                    <span class="featured-tag">Logistics</span>
+                    <h4>The End of Cheap Shipping and the Rise of Inflation</h4>
+                    <p>How geopolitical choke points in the oceans are directly driving up the cost of everything
+                        you
+                        buy.</p>
+                </a>
+                <a href="articles/silicon-shield.html" class="analysis-card">
+                    <span class="featured-tag">Market Impact</span>
+                    <h4>The "Silicon Shield": TSMC Volatility and Your Portfolio</h4>
+                    <p>Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation
+                        data.
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="card span-full">
+            <h3 class="section-header">Daily Intelligence Briefings</h3>
+            <ul class="archive-list">
+                {% for report in report_list %}
+                <li><a href="{{ report.url }}">{{ report.date }} Risk Analysis &rarr;</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card span-full ad-box">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2906019839191718"
+                data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <script>
+        const featuredArticles = [
+            {
+                url: "articles/dual-chokepoint.html",
+                img: "public/shipping-chokepoint.png",
+                tag: "Geopolitics",
+                title: "The Dual Chokepoint: Hormuz and Taiwan",
+                excerpt: "What happens to global markets when the world's primary energy and technology shipping lanes face simultaneous disruption?"
+            },
+            {
+                url: "articles/ai-bubble-island.html",
+                img: "public/chip.jpg",
+                tag: "Supply Chain",
+                title: "Why the Trillion Dollar AI Boom Relies on One Island",
+                excerpt: "Everyone is buying Nvidia stock, but the physical reality of AI is built on a massive point of failure."
+            },
+            {
+                url: "articles/wealth-inequality-article.html",
+                img: "public/wealth-gap.png",
+                tag: "Economics",
+                title: "The Invisible Gap: Why You Feel Broke While Markets Boom",
+                excerpt: "If the official economy is doing so well, why is the cost of basic survival spiking for everyday people?"
+            },
+            {
+                url: "articles/supply-chain-article.html",
+                img: "public/shipping-chokepoint.png",
+                tag: "Logistics",
+                title: "The End of Cheap Shipping and the Rise of Inflation",
+                excerpt: "How geopolitical choke points in the oceans are directly driving up the cost of everything you buy."
+            },
+            {
+                url: "articles/silicon-shield.html",
+                img: "public/silicon-shield-thumb.png",
+                tag: "Market Impact",
+                title: "The \"Silicon Shield\": How TSMC Volatility Affects Your Portfolio",
+                excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of data."
+            },
+            {
+                url: "articles/what-is-an-adiz.html",
+                img: "public/JADIZ_and_CADIZ_and_KADIZ_in_East_China_Sea.jpg",
+                tag: "Airspace",
+                title: "What is an ADIZ? (And Why Flying Into It Is Not an Invasion)",
+                excerpt: "Media outlets constantly conflate Air Defence zones with sovereign airspace. Understand the legal difference."
+            },
+            {
+                url: "articles/grey-zone-tactics.html",
+                img: "public/coastguard.jpg",
+                tag: "Strategy",
+                title: "Grey Zone Tactics: How China Tests Taiwan Without Firing a Shot",
+                excerpt: "Sand dredgers, agricultural bans, and cyber warfare. How the conflict is fought daily in the grey zone."
+            }
+        ];
+
+        let currentArticleIdx = 0;
+
+        function rotateArticle() {
+            const container = document.getElementById('featured-container');
+            container.style.opacity = 0;
+
+            setTimeout(() => {
+                document.getElementById(`dot-${currentArticleIdx}`).classList.remove('active');
+                currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
+                const article = featuredArticles[currentArticleIdx];
+
+                container.href = article.url;
+                document.getElementById('feat-img').src = article.img;
+                document.getElementById('feat-tag').innerText = article.tag;
+                document.getElementById('feat-title').innerText = article.title;
+                document.getElementById('feat-excerpt').innerText = article.excerpt;
+
+                document.getElementById(`dot-${currentArticleIdx}`).classList.add('active');
+                container.style.opacity = 1;
+            }, 400);
+        }
+
+        setInterval(rotateArticle, 7000);
+
+        const historyData = {{ history_json }};
+        const ctxChart = document.getElementById('historyChart').getContext('2d');
+
+        function getLineGradient(ctxChart, chartArea) {
+            const gradient = ctxChart.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, '#10b981');
+            gradient.addColorStop(0.5, '#f59e0b');
+            gradient.addColorStop(1, '#ef4444');
+            return gradient;
+        }
+
+        function getFillGradient(ctxChart, chartArea) {
+            const gradient = ctxChart.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+            gradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
+            gradient.addColorStop(1, 'rgba(14, 165, 233, 0.0)');
+            return gradient;
+        }
+
+        new Chart(ctxChart, {
+            type: 'line',
+            data: {
+                labels: historyData.map(d => d.date.slice(5)),
+                datasets: [{
+                    data: historyData.map(d => d.score),
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#0f172a',
+                    pointBorderColor: '#0ea5e9',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 6,
+                    pointHoverBackgroundColor: '#0ea5e9',
+                    borderColor: function (context) {
+                        const chart = context.chart;
+                        const { ctx, chartArea } = chart;
+                        if (!chartArea) return null;
+                        return getLineGradient(ctx, chartArea);
+                    },
+                    backgroundColor: function (context) {
+                        const chart = context.chart;
+                        const { ctx, chartArea } = chart;
+                        if (!chartArea) return null;
+                        return getFillGradient(ctx, chartArea);
+                    },
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                onHover: (event, chartElement) => {
+                    event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                },
+                onClick: (event, activeElements) => {
+                    if (activeElements.length > 0) {
+                        const dataIndex = activeElements[0].index;
+                        const clickedDate = historyData[dataIndex].date;
+
+                        const olderReports = ["2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09"];
+
+                        if (clickedDate >= "2026-02-22" || olderReports.includes(clickedDate)) {
+                            window.location.href = `reports/report_${clickedDate}.html`;
+                        } else {
+                            alert("Detailed intelligence briefings are not available for this specific date.");
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#94a3b8',
+                        bodyColor: '#f8fafc',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#64748b', maxRotation: 45, minRotation: 45 }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: '#1e293b' },
+                        ticks: { color: '#64748b', stepSize: 20 }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <footer class="site-footer">
+        <div>&copy; 2026 Taiwan Strait Tracker. A Global Shift Network Property.</div>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+    </footer>
+</body>
+
+</html>
