@@ -49,12 +49,17 @@
                 <h1>The AI Bubble Index</h1>
                 <p>A real-time, data-driven measure to answer one simple question: Are artificial intelligence stocks
                     priced on reality, or dangerous hype?</p>
-                <div class="status-badge" style="margin-bottom: 15px;">{{ status_text }}</div>
-                <div class="multiplier-alert">
-                    <strong>⚠️ Geopolitical Reality Multiplier: {{ conflict_multiplier }}x</strong>
-                    The entire AI boom relies on computer chips manufactured in Taiwan. Because our Strait Tracker is
-                    detecting geopolitical danger, this Bubble Score is mathematically amplified to reflect the fragile
-                    supply chain.
+                <div class="status-badge"
+                    style="color: {{ color_code }}; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 15px;">
+                    {{ status_text }}</div>
+
+                <div
+                    style="background: rgba(239, 68, 68, 0.05); border: 1px solid var(--danger); box-shadow: 0 0 15px var(--danger-glow); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong style="color: var(--danger); display: block; margin-bottom: 5px;">⚠️ Geopolitical Reality
+                        Multiplier: {{ conflict_multiplier }}x</strong>
+                    <span style="color: var(--text-sub); font-size: 0.9rem;">The entire AI boom relies on computer chips
+                        manufactured in Taiwan. Because our Strait Tracker is detecting geopolitical danger, this Bubble
+                        Score is mathematically amplified to reflect the fragile supply chain.</span>
                 </div>
             </div>
 
@@ -88,7 +93,8 @@
             <div class="metric-card">
                 <div class="metric-header">
                     <span class="metric-title">1. The Price Tag</span>
-                    <span class="metric-score">{{ valuation_score }} / 100</span>
+                    <span class="metric-score">{{ valuation_score }}<span
+                            style="font-size:1rem; color:var(--text-sub);"> / 100</span></span>
                 </div>
                 <div class="bar-bg">
                     <div class="bar-fill" style="width: {{ valuation_score }}%;"></div>
@@ -103,7 +109,8 @@
             <div class="metric-card">
                 <div class="metric-header">
                     <span class="metric-title">2. The Hardware Check</span>
-                    <span class="metric-score">{{ infrastructure_score }} / 100</span>
+                    <span class="metric-score">{{ infrastructure_score }}<span
+                            style="font-size:1rem; color:var(--text-sub);"> / 100</span></span>
                 </div>
                 <div class="bar-bg">
                     <div class="bar-fill" style="width: {{ infrastructure_score }}%;"></div>
@@ -118,7 +125,8 @@
             <div class="metric-card">
                 <div class="metric-header">
                     <span class="metric-title">3. The Hype Train</span>
-                    <span class="metric-score">{{ hype_score }} / 100</span>
+                    <span class="metric-score">{{ hype_score }}<span style="font-size:1rem; color:var(--text-sub);"> /
+                            100</span></span>
                 </div>
                 <div class="bar-bg">
                     <div class="bar-fill" style="width: {{ hype_score }}%;"></div>
