@@ -259,31 +259,56 @@ def main():
             'date': date_part
         })
 
+    # --- 3. SAVE THE TAIWAN DETAILED PAGE ---
 
+    try:
+        with open('template.html', 'r', encoding='utf-8') as f:
+            main_template = Template(f.read())
 
-    # --- 4. EXPORT DATA FOR GITHUB ACTIONS (CONSOLIDATED & FIXED) ---
+        rendered_html = main_template.render(
+            risk_score=final_score,
+            status_text=status,
+            market_score=market_score,
+            conflict_score=conflict_score,
+            color_code=color,
+            daily_summary=summary,
+            last_updated=update_time,
+            history_json=json.dumps(history),
+            report_list=recent_reports, 
+            trend_arrow=trend_arrow,
+            trend_desc=trend_desc,
+            market_evidence=market_data['desc'],
+            top_headline=conflict_data['headlines'][0] if conflict_data['headlines'] else "No news flow",
+            latest_report_url=f"reports/{report_filename}" 
+        )
+
+        # Update the file name here from index.html to taiwan.html
+        with open('taiwan.html', 'w', encoding='utf-8') as f:
+            f.write(rendered_html)
+        print("✅ Taiwan Detail Page Generated (taiwan.html)")
+
+    except Exception as e:
+        print(f"❌ Taiwan Page Update Error: {e}")
+
+    # --- 4. EXPORT DATA FOR GITHUB ACTIONS ---
     if 'GITHUB_OUTPUT' in os.environ:
-        # Safely extract headline
         export_headline = conflict_data['headlines'][0] if conflict_data['headlines'] else "Standard market variance detected."
-        
         with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-            # Output legacy variables
             print("tweet<<EOF", file=fh)
             print(tweet_content, file=fh)
             print("EOF", file=fh)
             print(f"image_url={final_image_url}", file=fh)
-            
-            # Output Twitter pipeline variables safely
             print(f"risk_score={final_score}", file=fh)
             print(f"top_headline={export_headline}", file=fh)
 
-# --- EXPORT FOR ORCHESTRATOR ---
+    # --- 5. EXPORT FOR ORCHESTRATOR ---
     tw_export = {
         "current_risk_score": final_score,
         "media_noise": conflict_score,
         "daily_change": score_change
     }
-    with open('taiwan_data.json', 'w') as f: json.dump(tw_export, f)
+    with open('taiwan_data.json', 'w') as f:
+        json.dump(tw_export, f)
 
 if __name__ == "__main__":
     main()
