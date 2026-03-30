@@ -55,6 +55,38 @@
             max-width: 800px;
             margin: 0 auto;
         }
+
+        /* Timeframe Toggle UI */
+        .time-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .time-btn {
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            color: #94a3b8;
+            padding: 6px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .time-btn:hover {
+            border-color: #64748b;
+            color: #e2e8f0;
+        }
+
+        .time-btn.active {
+            background: rgba(14, 165, 233, 0.15);
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+        }
     </style>
 </head>
 
@@ -99,19 +131,25 @@
                 </div>
                 <div class="metric-explanation">
                     <strong>Are the rich getting richer?</strong>
-                    Performance of S&P 500 and Real Estate over 6 months.
+                    Performance of S&P 500 and Real Estate over 12 months.
                 </div>
             </div>
 
-            <div class="chart-wrapper">
-                <canvas id="divergenceChart"></canvas>
+            <div class="chart-section" style="max-width: 800px; margin: 0 auto; width: 100%;">
+                <div class="time-toggle">
+                    <button id="btn-10y" class="time-btn active" onclick="switchData('10y')">10 YEAR (MACRO)</button>
+                    <button id="btn-1y" class="time-btn" onclick="switchData('1y')">1 YEAR (LOCAL)</button>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="divergenceChart"></canvas>
+                </div>
             </div>
 
             <div class="gap-container">
                 <div class="big-gap">{{ fracture_score }}%</div>
                 <div
                     style="font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 3px; color: var(--text-main); font-weight: 700; margin-top: 10px;">
-                    Systemic Fracture</div>
+                    Recent Systemic Fracture</div>
                 <div style="font-size: 0.85rem; color: var(--text-sub); margin-top: 5px;">Updated: {{ last_updated }}
                 </div>
             </div>
@@ -123,30 +161,39 @@
                 </div>
                 <div class="metric-explanation">
                     <strong>Are basics getting more expensive?</strong>
-                    Cost of Food, Energy, and Staples over 6 months.
+                    Cost of Food, Energy, and Staples over 12 months.
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Data injected from Python
-        const chartDates = {{ chart_dates | safe }};
-        const assetData = {{ chart_assets | safe }};
-        const survivalData = {{ chart_survival | safe }};
+        // Datasets injected from Python
+        const datasets = {
+            '10y': {
+                labels: {{ dates_10y | safe }},
+        assets: { { assets_10y | safe } },
+        survival: { { survival_10y | safe } }
+            },
+        '1y': {
+            labels: { { dates_1y | safe } },
+            assets: { { assets_1y | safe } },
+            survival: { { survival_1y | safe } }
+        }
+        };
 
         const ctx = document.getElementById('divergenceChart').getContext('2d');
         Chart.defaults.color = '#94a3b8';
         Chart.defaults.font.family = "'Inter', sans-serif";
 
-        new Chart(ctx, {
+        let myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: chartDates,
+                labels: datasets['10y'].labels,
                 datasets: [
                     {
                         label: 'Asset Owners',
-                        data: assetData,
+                        data: datasets['10y'].assets,
                         borderColor: '#f59e0b',
                         backgroundColor: 'rgba(245, 158, 11, 0.1)',
                         borderWidth: 2,
@@ -156,7 +203,7 @@
                     },
                     {
                         label: 'Cost of Survival',
-                        data: survivalData,
+                        data: datasets['10y'].survival,
                         borderColor: '#ef4444',
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
                         borderWidth: 2,
@@ -174,9 +221,7 @@
                     intersect: false,
                 },
                 plugins: {
-                    legend: {
-                        display: false // Handled by your UI cards instead
-                    },
+                    legend: { display: false },
                     tooltip: {
                         backgroundColor: 'rgba(15, 23, 42, 0.9)',
                         titleFont: { size: 13, family: "'JetBrains Mono', monospace" },
@@ -203,6 +248,20 @@
                 }
             }
         });
+
+        // Toggle logic
+        function switchData(timeframe) {
+            // Update UI buttons
+            document.getElementById('btn-10y').classList.remove('active');
+            document.getElementById('btn-1y').classList.remove('active');
+            document.getElementById(`btn-${timeframe}`).classList.add('active');
+
+            // Update Chart Data
+            myChart.data.labels = datasets[timeframe].labels;
+            myChart.data.datasets[0].data = datasets[timeframe].assets;
+            myChart.data.datasets[1].data = datasets[timeframe].survival;
+            myChart.update();
+        }
     </script>
 </body>
 

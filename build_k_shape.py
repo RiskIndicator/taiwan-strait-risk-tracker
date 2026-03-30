@@ -1,4 +1,5 @@
 import yfinance as yf
+import pandas as pd
 from jinja2 import Template
 import json
 from datetime import datetime
@@ -8,26 +9,39 @@ ASSETS = ['SPY', 'VNQ']
 ESSENTIALS = ['DBA', 'XLP'] 
 
 def build_k_shape():
-    print("CALCULATING WEALTH FRACTURE...")
+    print("CALCULATING MULTI-TIMEFRAME WEALTH FRACTURE...")
     try:
-        # Download data and forward-fill any missing daily values
-        data = yf.download(ASSETS + ESSENTIALS, period="6mo")['Close']
+        # Pull 10 years of data
+        data = yf.download(ASSETS + ESSENTIALS, period="10y")['Close']
         data = data.ffill().dropna()
         
-        normalized = data / data.iloc[0]
+        # --- 10-Year Data (Monthly) ---
+        data_10y = data.resample('ME').last()
+        norm_10y = data_10y / data_10y.iloc[0]
+        assets_10y = norm_10y[ASSETS].mean(axis=1)
+        survival_10y = norm_10y[ESSENTIALS].mean(axis=1)
         
-        asset_series = normalized[ASSETS].mean(axis=1)
-        survival_series = normalized[ESSENTIALS].mean(axis=1)
+        # --- 1-Year Data (Weekly) ---
+        cutoff_1y = data.index.max() - pd.DateOffset(years=1)
+        data_1y = data[data.index >= cutoff_1y].resample('W-FRI').last()
+        norm_1y = data_1y / data_1y.iloc[0]
+        assets_1y = norm_1y[ASSETS].mean(axis=1)
+        survival_1y = norm_1y[ESSENTIALS].mean(axis=1)
         
-        asset_perf = asset_series.iloc[-1]
-        survival_perf = survival_series.iloc[-1]
+        # Calculate headline metrics based on the 1-year view for current relevance
+        asset_perf_1y = assets_1y.iloc[-1]
+        survival_perf_1y = survival_1y.iloc[-1]
+        gap_1y = (asset_perf_1y - survival_perf_1y) * 100
         
-        gap = (asset_perf - survival_perf) * 100
-        
-        # Prepare historical data for the chart (converted to % growth)
-        dates = [d.strftime('%b %d') for d in asset_series.index]
-        asset_chart_data = [round((val - 1) * 100, 2) for val in asset_series]
-        survival_chart_data = [round((val - 1) * 100, 2) for val in survival_series]
+        # Prepare 10-year chart JSON
+        dates_10y_json = [d.strftime('%b %Y') for d in assets_10y.index]
+        chart_assets_10y = [round((val - 1) * 100, 2) for val in assets_10y]
+        chart_survival_10y = [round((val - 1) * 100, 2) for val in survival_10y]
+
+        # Prepare 1-year chart JSON
+        dates_1y_json = [d.strftime('%d %b %Y') for d in assets_1y.index]
+        chart_assets_1y = [round((val - 1) * 100, 2) for val in assets_1y]
+        chart_survival_1y = [round((val - 1) * 100, 2) for val in survival_1y]
 
         update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y')
 
@@ -35,20 +49,23 @@ def build_k_shape():
             template = Template(f.read())
 
         rendered = template.render(
-            fracture_score=round(gap, 1),
-            asset_growth=round((asset_perf-1)*100, 1),
-            survival_inflation=round((survival_perf-1)*100, 1),
+            fracture_score=round(gap_1y, 1),
+            asset_growth=round((asset_perf_1y-1)*100, 1),
+            survival_inflation=round((survival_perf_1y-1)*100, 1),
             last_updated=update_time,
-            chart_dates=json.dumps(dates),
-            chart_assets=json.dumps(asset_chart_data),
-            chart_survival=json.dumps(survival_chart_data)
+            dates_10y=json.dumps(dates_10y_json),
+            assets_10y=json.dumps(chart_assets_10y),
+            survival_10y=json.dumps(chart_survival_10y),
+            dates_1y=json.dumps(dates_1y_json),
+            assets_1y=json.dumps(chart_assets_1y),
+            survival_1y=json.dumps(chart_survival_1y)
         )
         
         with open('inequality.html', 'w', encoding='utf-8') as f:
             f.write(rendered)
             
         # Export for Orchestrator
-        kshape_export = {"fracture_score": round(gap, 1), "wealth_gap": float(gap)}
+        kshape_export = {"fracture_score": round(gap_1y, 1), "wealth_gap": float(gap_1y)}
         with open('kshape_data.json', 'w') as f: json.dump(kshape_export, f)
         print("Success: inequality.html generated.")
 
