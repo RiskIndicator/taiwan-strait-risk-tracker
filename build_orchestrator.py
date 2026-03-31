@@ -2,10 +2,11 @@ import json
 import os
 from datetime import datetime
 import pytz
-from google import genai # Updated import
+from google import genai
 
 # Configure your API Key
 API_KEY = os.environ.get("GEMINI_API_KEY")
+# Initialize the new SDK client
 client = genai.Client(api_key=API_KEY) if API_KEY else None
 
 DATA_FILES = {
@@ -33,7 +34,7 @@ def generate_agentic_briefing(metrics):
     print("Engaging Agentic Model for Synthesis...")
     
     if not client:
-        print("WARNING: No API Key found.")
+        print("WARNING: No API Key found in environment variables.")
         return "AGENT OFFLINE. Awaiting valid API credentials for dynamic synthesis."
     
     prompt = f"""
@@ -51,7 +52,7 @@ def generate_agentic_briefing(metrics):
     """
     
     try:
-        # Updated call for the new SDK
+        # The new SDK call format
         response = client.models.generate_content(
             model="gemini-1.5-flash", 
             contents=prompt
@@ -59,13 +60,13 @@ def generate_agentic_briefing(metrics):
         return response.text.strip()
     except Exception as e:
         print(f"Agentic Synthesis Failed: {e}")
-        return "AGENT OFFLINE. Synthesis pipeline encountered an error."
+        return "AGENT OFFLINE. Synthesis pipeline encountered a network error."
 
 def run_orchestrator():
     print("Initializing Agentic Master Orchestrator...")
     active_alerts = []
     
-    # Load all data
+    # Load all telemetry nodes
     tw_data = load_json(DATA_FILES["taiwan"]) or {}
     ai_data = load_json(DATA_FILES["ai_bubble"]) or {}
     fuel_data = load_json(DATA_FILES["fuel"]) or {}
@@ -83,13 +84,14 @@ def run_orchestrator():
         "kshape_score": kshape_data.get("fracture_score", 50)
     }
 
+    # Generate the AI synthesis
     agent_briefing = generate_agentic_briefing(metrics)
     
     with open(BRIEFING_OUTPUT_FILE, 'w') as f:
         json.dump({"agent_briefing": agent_briefing}, f)
-        print("Agentic briefing saved.")
+        print("Agentic briefing saved successfully.")
 
-    # [Hardcoded alert logic here - no changes needed to triggers]
+    # Hardcoded System Triggers
     if metrics["tw_media_panic"] >= 80 and abs(metrics["tw_physical_change"]) <= 2:
         active_alerts.append({"type": "DIVERGENCE", "severity": "ELEVATED", "headline": "Taiwan Strait: Media hysteria diverging from physical supply data.", "link": "/taiwan.html"})
     if 0 < metrics["fuel_days"] < 35:
@@ -99,17 +101,13 @@ def run_orchestrator():
     if metrics["kshape_score"] > 15.0:
         active_alerts.append({"type": "SYSTEMIC FRACTURE", "severity": "SEVERE", "headline": f"Wealth Compression: Cost of survival outpacing asset growth by {metrics['kshape_score']}%.", "link": "/inequality.html"})
 
+    # Export Alert Feed
     update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y %H:%M AEST')
-    
-    output_data = {
-        "last_updated": update_time,
-        "alert_count": len(active_alerts),
-        "alerts": active_alerts
-    }
+    output_data = {"last_updated": update_time, "alert_count": len(active_alerts), "alerts": active_alerts}
 
     with open(ALERTS_OUTPUT_FILE, 'w') as f:
         json.dump(output_data, f, indent=4)
-    print(f"Orchestrator Complete. {len(active_alerts)} anomalies detected.")
+    print(f"Orchestrator Complete. {len(active_alerts)} systemic anomalies identified.")
 
 if __name__ == "__main__":
     run_orchestrator()
