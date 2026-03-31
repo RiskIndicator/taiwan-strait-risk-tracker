@@ -1,1 +1,3 @@
-{"agent_briefing": "AGENT OFFLINE. Synthesis pipeline encountered a network error."}
+{
+    "agent_briefing": "AGENT OFFLINE. Synthesis pipeline encountered a network error."
+}
