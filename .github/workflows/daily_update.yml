@@ -40,7 +40,7 @@ jobs:
           python src/build_k_shape.py
           python src/build_middle_east.py
           python src/build_supply.py
-          python src/build_taiwan.py
+          python src/build.py
           python src/build_sitemap.py
           
       - name: Execute Agentic Orchestrator (Conditional)
