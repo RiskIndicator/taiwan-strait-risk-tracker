@@ -5,10 +5,10 @@ import pytz
 from google import genai
 
 # ==============================
-# Configuration
+# GSN Configuration
 # ==============================
 API_KEY = os.environ.get("GEMINI_API_KEY")
-print("Gemini key present:", bool(API_KEY))
+print("GSN TERMINAL: Gemini key verification:", bool(API_KEY))
 
 client = genai.Client(api_key=API_KEY) if API_KEY else None
 
@@ -24,44 +24,50 @@ DATA_FILES = {
 ALERTS_OUTPUT_FILE = "data/active_alerts.json"
 BRIEFING_OUTPUT_FILE = "data/agentic_briefing.json"
 
-
 # ==============================
 # Utility Functions
 # ==============================
 def load_json(filepath):
     if os.path.exists(filepath):
-        with open(filepath, "r") as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             try:
                 return json.load(f)
             except json.JSONDecodeError:
-                print(f"WARNING: Failed to decode JSON from {filepath}")
+                print(f"GSN TERMINAL: WARNING - Failed to decode JSON from {filepath}")
                 return None
     return None
-
 
 # ==============================
 # Gemini Agentic Synthesis
 # ==============================
 def generate_agentic_briefing(metrics):
-    print("Engaging Agentic Model for Synthesis...")
+    print("GSN TERMINAL: Initialising Agentic Synthesis...")
 
     if not client:
-        print("WARNING: No API Key found in environment variables.")
-        return "AGENT OFFLINE. Awaiting valid API credentials for dynamic synthesis."
+        print("GSN TERMINAL: WARNING - API Key absent. Synthesis suspended.")
+        return {
+            "risk_score": 5,
+            "executive_summary": "AGENT OFFLINE. Awaiting valid API credentials for dynamic synthesis.",
+            "correlations": "None - Pipeline Offline."
+        }
 
     prompt = f"""
-You are the central intelligence node of the Global Shift Network.
-Review the following live telemetry and identify any critical cross-correlations or systemic risks.
-Provide a clinical, highly analytical 2-3 sentence executive briefing. Do not use pleasantries.
+    You are the central intelligence node of the Global Shift Network.
+    Review the following live telemetry. Identify critical cross-correlations.
+    
+    Current Telemetry:
+    - Taiwan Media Panic vs Physical Change: {metrics['tw_media_panic']} vs {metrics['tw_physical_change']}
+    - AI Bubble Index: {metrics['ai_score']} / 100
+    - Global Fuel Reserves: {metrics['fuel_days']} Days
+    - Middle East Energy Spike: +{metrics['me_energy_spike']}%
+    - Supply Chain Stress Score: {metrics['supply_score']} / 100
+    - Wealth Inequality Fracture Gap: {metrics['kshape_score']}%
 
-Current Telemetry:
-- Taiwan Media Panic vs Physical Change: {metrics['tw_media_panic']} vs {metrics['tw_physical_change']}
-- AI Bubble Index: {metrics['ai_score']} / 100
-- Global Fuel Reserves: {metrics['fuel_days']} Days
-- Middle East Energy Spike: +{metrics['me_energy_spike']}%
-- Supply Chain Stress Score: {metrics['supply_score']} / 100
-- Wealth Inequality Fracture Gap: {metrics['kshape_score']}%
-"""
+    Response Requirements (Strictly follow this format):
+    RISK_SCORE: [1-10 integer]
+    SUMMARY: [Clinical, analytical 2-3 sentence executive briefing. Australian English. No dashes.]
+    CORRELATIONS: [Brief note on systemic linkage between two metrics.]
+    """
 
     try:
         response = client.models.generate_content(
@@ -69,21 +75,41 @@ Current Telemetry:
             contents=prompt,
         )
 
-        if not response or not getattr(response, "text", None):
-            raise RuntimeError("Empty response from Gemini")
+        raw_text = response.text.strip()
+        
+        # Simple clinical parsing
+        lines = raw_text.split('\n')
+        score = 5
+        summary = "Synthesis failed to parse."
+        correlations = "No correlations identified."
 
-        return response.text.strip()
+        for line in lines:
+            if line.startswith("RISK_SCORE:"):
+                score = int(''.join(filter(str.isdigit, line)))
+            elif line.startswith("SUMMARY:"):
+                summary = line.replace("SUMMARY:", "").strip()
+            elif line.startswith("CORRELATIONS:"):
+                correlations = line.replace("CORRELATIONS:", "").strip()
+
+        return {
+            "risk_score": score,
+            "executive_summary": summary,
+            "correlations": correlations
+        }
 
     except Exception as e:
-        print(f"ERROR: Gemini synthesis failed: {e}")
-        return "AGENT OFFLINE. Synthesis pipeline encountered a network error."
-
+        print(f"GSN TERMINAL: ERROR - Gemini synthesis failed: {e}")
+        return {
+            "risk_score": 0,
+            "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+            "correlations": "Error State."
+        }
 
 # ==============================
 # Main Orchestrator
 # ==============================
 def run_orchestrator():
-    print("Initializing Agentic Master Orchestrator...")
+    print("GSN TERMINAL: Initialising Agentic Master Orchestrator...")
     active_alerts = []
 
     # Load telemetry nodes
@@ -98,87 +124,77 @@ def run_orchestrator():
         "tw_media_panic": tw_data.get("media_noise", 30),
         "tw_physical_change": tw_data.get("daily_change", 0),
         "ai_score": ai_data.get("bubble_index", 50),
-        "fuel_days": round((float(fuel_data.get("comm_val", 350000)) / 1000.0) / 16.0, 1)
-        if fuel_data
-        else 0,
+        "fuel_days": round((float(fuel_data.get("comm_val", 350000)) / 1000.0) / 16.0, 1) if fuel_data else 0,
         "me_energy_spike": me_data.get("energy_spike", 0.0),
         "supply_score": supply_data.get("stress_score", 50),
         "kshape_score": kshape_data.get("fracture_score", 50),
     }
 
-    # ==============================
     # Generate AI synthesis
-    # ==============================
-    agent_briefing = generate_agentic_briefing(metrics) or "Synthesis unavailable"
+    intelligence = generate_agentic_briefing(metrics)
 
-    with open(BRIEFING_OUTPUT_FILE, "w") as f:
-        json.dump({"agent_briefing": agent_briefing}, f, indent=4)
+    # Save to agentic_briefing.json with status stamping
+    update_time = datetime.now(pytz.timezone("Australia/Brisbane")).strftime("%Y-%m-%d %H:%M:%S")
+    
+    briefing_payload = {
+        "status": "LIVE_INTELLIGENCE",
+        "timestamp": update_time,
+        "risk_score": intelligence["risk_score"],
+        "executive_summary": intelligence["executive_summary"],
+        "correlations": intelligence["correlations"]
+    }
 
-    print("Agentic briefing saved successfully.")
+    with open(BRIEFING_OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(briefing_payload, f, indent=4)
 
-    # ==============================
-    # Hardcoded System Triggers
-    # ==============================
+    print("GSN TERMINAL: Agentic briefing saved with status LIVE_INTELLIGENCE.")
+
+    # Hardcoded System Triggers for Alerts
     if metrics["tw_media_panic"] >= 80 and abs(metrics["tw_physical_change"]) <= 2:
-        active_alerts.append(
-            {
-                "type": "DIVERGENCE",
-                "severity": "ELEVATED",
-                "headline": "Taiwan Strait: Media hysteria diverging from physical supply data.",
-                "link": "taiwan.html",
-            }
-        )
+        active_alerts.append({
+            "type": "DIVERGENCE",
+            "severity": "ELEVATED",
+            "headline": "Taiwan Strait: Media hysteria diverging from physical supply data.",
+            "link": "taiwan.html",
+        })
 
     if 0 < metrics["fuel_days"] < 35:
-        active_alerts.append(
-            {
-                "type": "CREEPING BASELINE",
-                "severity": "CRITICAL",
-                "headline": f"Global Fuel Reserves Vulnerable: Commercial Buffer at {metrics['fuel_days']} Days.",
-                "link": "fuel-reserves.html",
-            }
-        )
+        active_alerts.append({
+            "type": "CREEPING BASELINE",
+            "severity": "CRITICAL",
+            "headline": f"Global Fuel Reserves Vulnerable: Commercial Buffer at {metrics['fuel_days']} Days.",
+            "link": "fuel-reserves.html",
+        })
 
     if metrics["supply_score"] > 65 and metrics["me_energy_spike"] > 5.0:
-        active_alerts.append(
-            {
-                "type": "CROSS-CORRELATION",
-                "severity": "SEVERE",
-                "headline": "Systemic Shock: Energy sector volatility compounding global shipping bottlenecks.",
-                "link": "supply-chain.html",
-            }
-        )
+        active_alerts.append({
+            "type": "CROSS-CORRELATION",
+            "severity": "SEVERE",
+            "headline": "Systemic Shock: Energy sector volatility compounding global shipping bottlenecks.",
+            "link": "supply-chain.html",
+        })
 
     if metrics["kshape_score"] > 15.0:
-        active_alerts.append(
-            {
-                "type": "SYSTEMIC FRACTURE",
-                "severity": "SEVERE",
-                "headline": f"Wealth Compression: Cost of survival outpacing asset growth by {metrics['kshape_score']}%.",
-                "link": "inequality.html",
-            }
-        )
+        active_alerts.append({
+            "type": "SYSTEMIC FRACTURE",
+            "severity": "SEVERE",
+            "headline": f"Wealth Compression: Cost of survival outpacing asset growth by {metrics['kshape_score']}%.",
+            "link": "inequality.html",
+        })
 
-    # ==============================
     # Export Alert Feed
-    # ==============================
-    update_time = datetime.now(pytz.timezone("Australia/Brisbane")).strftime(
-        "%d %b %Y %H:%M AEST"
-    )
-
+    display_time = datetime.now(pytz.timezone("Australia/Brisbane")).strftime("%d %b %Y %H:%M AEST")
+    
     output_data = {
-        "last_updated": update_time,
+        "last_updated": display_time,
         "alert_count": len(active_alerts),
         "alerts": active_alerts,
     }
 
-    with open(ALERTS_OUTPUT_FILE, "w") as f:
+    with open(ALERTS_OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=4)
 
-    print(
-        f"Orchestrator Complete. {len(active_alerts)} systemic anomalies identified."
-    )
-
+    print(f"GSN TERMINAL: Orchestrator Complete. {len(active_alerts)} systemic anomalies identified.")
 
 if __name__ == "__main__":
     run_orchestrator()
