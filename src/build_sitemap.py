@@ -1,65 +1,52 @@
 import os
+from datetime import datetime
+
+# GSN Terminal: Sitemap Generator Calibration
+# Target: Technical SEO Optimisation
 
 BASE_URL = "https://taiwanstraittracker.com"
-
-# Specific settings for your core navigational pages
-CORE_PAGES = {
-    "index.html": {"loc": "/", "priority": "1.0", "changefreq": "daily"},
-    "macro.html": {"loc": "/macro.html", "priority": "0.9", "changefreq": "daily"},
-    "ai-bubble.html": {"loc": "/ai-bubble.html", "priority": "0.9", "changefreq": "daily"},
-    "middle-east.html": {"loc": "/middle-east.html", "priority": "0.9", "changefreq": "daily"},
-    "fuel-reserves.html": {"loc": "/fuel-reserves.html", "priority": "0.9", "changefreq": "daily"},
-    "supply-chain.html": {"loc": "/supply-chain.html", "priority": "0.9", "changefreq": "daily"},
-    "inequality.html": {"loc": "/inequality.html", "priority": "0.9", "changefreq": "daily"},
-    "fiat.html": {"loc": "/fiat.html", "priority": "0.9", "changefreq": "daily"},
-    "about.html": {"loc": "/about.html", "priority": "0.8", "changefreq": "monthly"},
-    "articles.html": {"loc": "/articles.html", "priority": "0.8", "changefreq": "weekly"}
-}
+ROOT_DIR = "."
+ARTICLES_DIR = "articles"
 
 def generate_sitemap():
-    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\n'
-
-    # 1. Dynamically scan the main folder for ALL articles and pages
-    root_files = [f for f in os.listdir('templates') if f.endswith('.html')]
+    print("GSN TERMINAL: Initialising sitemap recalibration...")
     
-    for file in root_files:
-        if file in CORE_PAGES:
-            # Apply specific priority for core pages
-            page = CORE_PAGES[file]
-            xml_content += "    <url>\n"
-            xml_content += f"        <loc>{BASE_URL}{page['loc']}</loc>\n"
-            xml_content += f"        <changefreq>{page['changefreq']}</changefreq>\n"
-            xml_content += f"        <priority>{page['priority']}</priority>\n"
-            xml_content += "    </url>\n"
-        else:
-            # Treat any other HTML file (like your articles) as high priority
-            xml_content += "    <url>\n"
-            xml_content += f"        <loc>{BASE_URL}/{file}</loc>\n"
-            xml_content += "        <changefreq>monthly</changefreq>\n"
-            xml_content += "        <priority>0.9</priority>\n"
-            xml_content += "    </url>\n"
+    pages = []
+    
+    # 1. Process Root Directory
+    for file in os.listdir(ROOT_DIR):
+        if file.endswith(".html"):
+            # Exclusion Logic: Skip templates and internal blueprints
+            if "template" in file or file == "index.html":
+                continue
+            pages.append({"loc": f"{BASE_URL}/{file}", "priority": "0.9", "freq": "daily"})
 
-    # 2. Dynamically scan the daily reports folder
-    reports_dir = "templates/reports"
-    if os.path.exists(reports_dir):
-        report_files = [f for f in os.listdir(reports_dir) if f.endswith('.html')]
-        report_files.sort(reverse=True)
+    # 2. Add Index explicitly
+    pages.append({"loc": f"{BASE_URL}/", "priority": "1.0", "freq": "daily"})
 
-        for report in report_files:
-            date_str = report[:10]
-            xml_content += "    <url>\n"
-            xml_content += f"        <loc>{BASE_URL}/reports/{report}</loc>\n"
-            xml_content += f"        <lastmod>{date_str}</lastmod>\n"
-            xml_content += "        <changefreq>never</changefreq>\n"
-            xml_content += "    </url>\n"
+    # 3. Process Articles Directory
+    if os.path.exists(ARTICLES_DIR):
+        for file in os.listdir(ARTICLES_DIR):
+            if file.endswith(".html"):
+                pages.append({"loc": f"{BASE_URL}/articles/{file}", "priority": "0.8", "freq": "weekly"})
 
-    xml_content += "</urlset>"
+    # XML Construction
+    sitemap_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    sitemap_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
-    with open("sitemap.xml", "w") as f:
-        f.write(xml_content)
-        
-    print("✅ sitemap.xml generated successfully with all root articles included!")
+    for page in pages:
+        sitemap_content += f"""    <url>
+        <loc>{page['loc']}</loc>
+        <changefreq>{page['freq']}</changefreq>
+        <priority>{page['priority']}</priority>
+    </url>\n"""
+
+    sitemap_content += "</urlset>"
+
+    with open("sitemap.xml", "w", encoding="utf-8") as f:
+        f.write(sitemap_content)
+    
+    print(f"GSN TERMINAL: Sitemap recalibrated. {len(pages)} nodes indexed. Templates purged.")
 
 if __name__ == "__main__":
     generate_sitemap()
