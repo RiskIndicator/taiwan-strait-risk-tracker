@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Fuel Node | Global Shift Network</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="public/gsn-logo-mono.png">
+    <link rel="stylesheet" href="public/gsn-core.css">
+</head>
+
+<body>
+    <div class="gsn-universal-header">
+        <div class="gsn-brand"><img src="public/gsn-logo-mono.png" alt="GSN Logo"
+                style="height: 22px; width: auto; margin-right: 8px;"> The Global Shift Network</div>
+        <div class="gsn-network-links">
+            <a href="https://taiwanstraittracker.com" class="gsn-link">Terminal</a>
+            <a href="https://taiwanstraittracker.com/taiwan" class="gsn-link">Strait Risk Tracker</a>
+            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/middle-east.html" class="gsn-link">Middle East Tracker</a>
+            <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link active">Fuel Reserves</a>
+            <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
+            <a href="https://taiwanstraittracker.com/supply-chain.html" class="gsn-link">Supply Chain</a>
+            <a href="https://taiwanstraittracker.com/macro.html" class="gsn-link">Macro Outlook</a>
+            <a href="https://whatsmypolitics.com" class="gsn-link">Ideology Compass</a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-inner"><a href="/" class="brand"><img src="public/radar-logo.png" alt="Radar System"
+                    class="brand-img"> GSN Terminal</a>
+            <div class="nav-links"><a href="articles.html" style="color: var(--text-main);">Intelligence Reports</a><a
+                    href="about.html">Methodology</a></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero-panel span-full metric-card critical">
+            <div class="hero-text-content">
+                <h1>Global Fuel Node</h1>
+                <p>Tracking the structural baseline of commercial fuel reserves. In the event of a systemic geopolitical
+                    shock, how many days of fuel buffer does the commercial supply chain have left?</p>
+
+                <div
+                    style="background: rgba(239, 68, 68, 0.05); border: 2px solid var(--danger); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <strong
+                        style="color: var(--danger); font-size: 1.1rem; text-transform: uppercase; display: block; margin-bottom: 5px;">{{
+                        status_text }}</strong>
+                    <span style="color: var(--text-main); font-size: 0.95rem;">Current reserves are nearing a critical
+                        structural baseline. Further degradation will impact global logistics networks.</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div style="width: 250px; height: 140px; position: relative; margin-bottom: 20px;">
+                    <svg viewBox="0 0 200 115" style="width: 100%; height: 100%;">
+                        <defs>
+                            <linearGradient id="fuelGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ef4444" />
+                                <stop offset="50%" stop-color="#f59e0b" />
+                                <stop offset="100%" stop-color="#10b981" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#334155" stroke-width="12"
+                            stroke-linecap="round" />
+                        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#fuelGradient)"
+                            stroke-width="12" stroke-linecap="round" />
+                        <g
+                            style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + ({{ days_buffer }} * 3deg)));">
+                            <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" />
+                            <circle cx="100" cy="100" r="7" fill="#f8fafc" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="data-readout" style="color: var(--danger);">{{ days_buffer }}</div>
+                <div class="card-unit">Days Buffer</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -38,16 +38,16 @@ jobs:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # ADDED FOR THE ORCHESTRATOR
         run: |
-          python build.py
-          python build_ai.py
-          python build_k_shape.py
-          python build_supply.py
-          python build_fiat.py
-          python build_macro.py
-          python build_middle_east.py
-          python build_fuel.py
-          python build_sitemap.py
-          python build_orchestrator.py # ADDED ORCHESTRATOR
+          python src/build.py
+          python src/build_ai.py
+          python src/build_k_shape.py
+          python src/build_supply.py
+          python src/build_fiat.py
+          python src/build_macro.py
+          python src/build_middle_east.py
+          python src/build_fuel.py
+          python src/build_sitemap.py
+          python src/build_orchestrator.py # ADDED ORCHESTRATOR
 
       - name: Commit and Push
         run: |
@@ -87,4 +87,4 @@ jobs:
           GEMINI_API_KEY: "${{ secrets.GEMINI_API_KEY }}"
           RISK_SCORE: "${{ needs.update-data.outputs.risk_score }}"
           TOP_HEADLINE: "${{ needs.update-data.outputs.top_headline }}"
-        run: python send_tweet.py
+        run: python src/send_tweet.py
