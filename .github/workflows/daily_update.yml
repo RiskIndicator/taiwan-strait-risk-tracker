@@ -76,7 +76,7 @@ jobs:
       
       # FIXED PIP PACKAGE NAME
       - name: Install Dependencies
-        run: pip install tweepy pytz google-generativeai
+        run: pip install tweepy pytz google-genai
 
       - name: Run Tweet Script
         env:
