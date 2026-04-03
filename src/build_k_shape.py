@@ -28,17 +28,20 @@ def build_k_shape():
         assets_1y = norm_1y[ASSETS].mean(axis=1)
         survival_1y = norm_1y[ESSENTIALS].mean(axis=1)
         
-        # Calculate headline metrics based on the 1-year view for current relevance
+        # Calculate headline metrics
         asset_perf_1y = assets_1y.iloc[-1]
         survival_perf_1y = survival_1y.iloc[-1]
         gap_1y = (asset_perf_1y - survival_perf_1y) * 100
         
-        # Prepare 10-year chart JSON
+        # GSN Normalisation: 25% Gap = 100 Systemic Stress
+        max_threshold = 25.0
+        stress_score = min(max((gap_1y / max_threshold) * 100, 0), 100.0)
+
+        # Prepare chart JSON
         dates_10y_json = [d.strftime('%b %Y') for d in assets_10y.index]
         chart_assets_10y = [round((val - 1) * 100, 2) for val in assets_10y]
         chart_survival_10y = [round((val - 1) * 100, 2) for val in survival_10y]
 
-        # Prepare 1-year chart JSON
         dates_1y_json = [d.strftime('%d %b %Y') for d in assets_1y.index]
         chart_assets_1y = [round((val - 1) * 100, 2) for val in assets_1y]
         chart_survival_1y = [round((val - 1) * 100, 2) for val in survival_1y]
@@ -64,9 +67,14 @@ def build_k_shape():
         with open('inequality.html', 'w', encoding='utf-8') as f:
             f.write(rendered)
             
-        # Export for Orchestrator
-        kshape_export = {"fracture_score": round(gap_1y, 1), "wealth_gap": float(gap_1y)}
-        with open('data/kshape_data.json', 'w') as f: json.dump(kshape_export, f)
+        # Export for Orchestrator and Macro Dashboard
+        kshape_export = {
+            "fracture_score": round(gap_1y, 1), 
+            "stress_score": round(stress_score, 1)
+        }
+        with open('data/kshape_data.json', 'w') as f: 
+            json.dump(kshape_export, f)
+            
         print("Success: inequality.html generated.")
 
     except Exception as e:

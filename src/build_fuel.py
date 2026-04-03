@@ -52,9 +52,6 @@ def build_fuel_index():
             print("No cache found. Using hardcoded baselines.")
             comm_val = 350000
             spr_val = 350000
-    else:
-        with open(CACHE_FILE, 'w') as f:
-            json.dump({"comm_val": comm_val, "spr_val": spr_val}, f)
 
     comm_m = float(comm_val) / 1000.0
     spr_m = float(spr_val) / 1000.0
@@ -63,6 +60,29 @@ def build_fuel_index():
     spr_days = round(spr_m / daily_consumption, 1)
     total_days = round(comm_days + spr_days, 1)
 
+    # GSN Normalisation: 35 days = Healthy (0 Stress), 20 days = Critical (100 Stress)
+    baseline = 35.0
+    critical = 20.0
+    if comm_days >= baseline:
+        fuel_stress = 0.0
+    elif comm_days <= critical:
+        fuel_stress = 100.0
+    else:
+        fuel_stress = ((baseline - comm_days) / (baseline - critical)) * 100.0
+    
+    fuel_stress = round(fuel_stress, 1)
+
+    # Save absolute source of truth to cache
+    if not is_cached:
+        with open(CACHE_FILE, 'w') as f:
+            json.dump({
+                "comm_val": comm_val, 
+                "spr_val": spr_val,
+                "comm_days": comm_days,
+                "total_days": total_days,
+                "fuel_stress_score": fuel_stress
+            }, f)
+
     try:
         feed = feedparser.parse("https://news.google.com/rss/search?q=oil+supply+OR+crude+inventory+when:1d&hl=en-US&gl=US&ceid=US:en")
         if feed.entries:
@@ -70,9 +90,9 @@ def build_fuel_index():
     except Exception:
         pass
 
-    if total_days < 35:
+    if comm_days < 25:
         status, color = "CRITICAL DEPLETION", "#ef4444"
-    elif total_days < 50:
+    elif comm_days < 32:
         status, color = "VULNERABLE", "#f59e0b"
     else:
         status, color = "SUPPLY SECURE", "#10b981"
@@ -87,8 +107,10 @@ def build_fuel_index():
         with open('templates/fuel_template.html', 'r', encoding='utf-8') as f:
             template = Template(f.read())
 
+        # Note: days_buffer is now tied strictly to comm_days to match the dashboard
         rendered = template.render(
-            days_buffer=total_days,
+            days_buffer=comm_days,
+            total_days=total_days,
             status_text=status,
             color_code=color,
             comm_days=comm_days,

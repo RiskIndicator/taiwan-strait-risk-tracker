@@ -58,10 +58,10 @@ def generate_agentic_briefing(metrics):
     Current Telemetry:
     - Taiwan Media Panic vs Physical Change: {metrics['tw_media_panic']} vs {metrics['tw_physical_change']}
     - AI Bubble Index: {metrics['ai_score']} / 100
-    - Global Fuel Reserves: {metrics['fuel_days']} Days
+    - Global Fuel Reserves: {metrics['fuel_days']} Days (Stress: {metrics['fuel_stress']}/100)
     - Middle East Energy Spike: +{metrics['me_energy_spike']}%
     - Supply Chain Stress Score: {metrics['supply_score']} / 100
-    - Wealth Inequality Fracture Gap: {metrics['kshape_score']}%
+    - Wealth Inequality Fracture Gap: {metrics['kshape_raw_gap']}% (Stress: {metrics['kshape_stress']}/100)
 
     Response Requirements (Strictly follow this format):
     RISK_SCORE: [1-10 integer]
@@ -77,7 +77,6 @@ def generate_agentic_briefing(metrics):
 
         raw_text = response.text.strip()
         
-        # Simple clinical parsing
         lines = raw_text.split('\n')
         score = 5
         summary = "Synthesis failed to parse."
@@ -112,7 +111,6 @@ def run_orchestrator():
     print("GSN TERMINAL: Initialising Agentic Master Orchestrator...")
     active_alerts = []
 
-    # Load telemetry nodes
     tw_data = load_json(DATA_FILES["taiwan"]) or {}
     ai_data = load_json(DATA_FILES["ai_bubble"]) or {}
     fuel_data = load_json(DATA_FILES["fuel"]) or {}
@@ -124,16 +122,16 @@ def run_orchestrator():
         "tw_media_panic": tw_data.get("media_noise", 30),
         "tw_physical_change": tw_data.get("daily_change", 0),
         "ai_score": ai_data.get("bubble_index", 50),
-        "fuel_days": round((float(fuel_data.get("comm_val", 350000)) / 1000.0) / 16.0, 1) if fuel_data else 0,
+        "fuel_days": fuel_data.get("comm_days", 35.0), # Direct from Single Source of Truth
+        "fuel_stress": fuel_data.get("fuel_stress_score", 0.0),
         "me_energy_spike": me_data.get("energy_spike", 0.0),
         "supply_score": supply_data.get("stress_score", 50),
-        "kshape_score": kshape_data.get("fracture_score", 50),
+        "kshape_raw_gap": kshape_data.get("fracture_score", 0.0),
+        "kshape_stress": kshape_data.get("stress_score", 0.0),
     }
 
-    # Generate AI synthesis
     intelligence = generate_agentic_briefing(metrics)
 
-    # Save to agentic_briefing.json with status stamping
     update_time = datetime.now(pytz.timezone("Australia/Brisbane")).strftime("%Y-%m-%d %H:%M:%S")
     
     briefing_payload = {
@@ -149,7 +147,6 @@ def run_orchestrator():
 
     print("GSN TERMINAL: Agentic briefing saved with status LIVE_INTELLIGENCE.")
 
-    # Hardcoded System Triggers for Alerts
     if metrics["tw_media_panic"] >= 80 and abs(metrics["tw_physical_change"]) <= 2:
         active_alerts.append({
             "type": "DIVERGENCE",
@@ -158,7 +155,7 @@ def run_orchestrator():
             "link": "taiwan.html",
         })
 
-    if 0 < metrics["fuel_days"] < 35:
+    if 0 < metrics["fuel_days"] < 25:
         active_alerts.append({
             "type": "CREEPING BASELINE",
             "severity": "CRITICAL",
@@ -174,15 +171,14 @@ def run_orchestrator():
             "link": "supply-chain.html",
         })
 
-    if metrics["kshape_score"] > 15.0:
+    if metrics["kshape_stress"] > 75.0:
         active_alerts.append({
             "type": "SYSTEMIC FRACTURE",
             "severity": "SEVERE",
-            "headline": f"Wealth Compression: Cost of survival outpacing asset growth by {metrics['kshape_score']}%.",
+            "headline": f"Wealth Compression: Cost of survival outpacing asset growth by {metrics['kshape_raw_gap']}%.",
             "link": "inequality.html",
         })
 
-    # Export Alert Feed
     display_time = datetime.now(pytz.timezone("Australia/Brisbane")).strftime("%d %b %Y %H:%M AEST")
     
     output_data = {

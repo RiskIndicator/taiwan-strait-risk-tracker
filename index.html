@@ -253,7 +253,15 @@
 
     <script>
         // 1. Radar Chart Initialization
-        let radarData = [0, 0, 0, 0, 0, 0];
+        let globalRadarData = {
+            taiwan: 0,
+            me: 0,
+            supply: 0,
+            ai: 0,
+            inequality: 0,
+            fuel: 0
+        };
+
         const ctx = document.getElementById('riskRadar').getContext('2d');
         Chart.defaults.color = '#64748b';
         Chart.defaults.font.family = "'JetBrains Mono', monospace";
@@ -261,9 +269,9 @@
         const myRadarChart = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Bubble', 'Inequality', 'Fuel'], // FIAT REPLACED WITH INEQUALITY
+                labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Bubble', 'Inequality', 'Fuel'],
                 datasets: [{
-                    data: radarData,
+                    data: [0, 0, 0, 0, 0, 0],
                     backgroundColor: 'rgba(239, 68, 68, 0.15)',
                     borderColor: '#ef4444',
                     pointBackgroundColor: '#ef4444',
@@ -322,15 +330,13 @@
 
         // 3. Telemetry Fetchers
 
-        // GSN Terminal: Calibrated Intel Fetch
+        // Orchestrator Synthesis Fetch
         fetch('data/agentic_briefing.json')
             .then(r => r.json())
             .then(data => {
                 const statusBox = document.getElementById('orchestrator-status');
-
-                // Update to the new schema key
                 statusBox.innerText = data.executive_summary;
-                statusBox.style.color = "#e2e8f0"; // Clean terminal white
+                statusBox.style.color = "#e2e8f0"; 
             })
             .catch(e => {
                 const statusBox = document.getElementById('orchestrator-status');
@@ -338,7 +344,7 @@
                 statusBox.style.color = "#94a3b8";
             });
 
-        // B. Fetch the Hard-Coded System Alerts for the Banner
+        // Active Alerts Fetch
         fetch('data/active_alerts.json').then(r => r.json()).then(data => {
             document.getElementById('master-time').innerText = "UPDATED: " + (data.last_updated || "JUST NOW");
             const banner = document.getElementById('triage-banner');
@@ -354,27 +360,28 @@
                     currentIndex = (currentIndex + 1) % data.alerts.length;
                 }
                 updateBanner();
-                // Clear any old intervals if this runs multiple times
                 if (window.bannerInterval) clearInterval(window.bannerInterval);
                 if (data.alerts.length > 1) window.bannerInterval = setInterval(updateBanner, 5000);
             } else {
-                banner.style.display = 'none'; // Explicitly hide if 0 alerts
+                banner.style.display = 'none'; 
             }
         }).catch(e => {
             document.getElementById('triage-banner').style.display = 'none';
         });
 
-        // C. Fetch Node Telemetry for UI Cards
+        // Node Data Fetchers
         fetch('data/taiwan_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-taiwan').innerText = d.current_risk_score;
             document.getElementById('desc-taiwan').innerText = `> Media Noise: ${d.media_noise}`;
             setCardState('taiwan', d.current_risk_score);
+            globalRadarData.taiwan = d.current_risk_score;
         }).catch(e => { });
 
         fetch('data/me_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-me').innerText = d.risk_index;
             document.getElementById('desc-me').innerText = `> Energy Premium: ${d.energy_spike.toFixed(1)}%`;
             setCardState('me', d.risk_index);
+            globalRadarData.me = d.risk_index;
         }).catch(e => { });
 
         fetch('data/supply_data.json').then(r => r.json()).then(d => {
@@ -382,6 +389,7 @@
                 document.getElementById('val-supply').innerText = d.stress_score;
                 document.getElementById('desc-supply').innerText = `> Shipping Friction: ${d.shipping_stress.toFixed(1)}%`;
                 setCardState('supply', d.stress_score);
+                globalRadarData.supply = d.stress_score;
             }
         }).catch(e => { });
 
@@ -389,55 +397,37 @@
             document.getElementById('val-ai').innerText = d.bubble_index;
             document.getElementById('desc-ai').innerText = `> Valuation Stress: ${d.valuation_score}`;
             setCardState('ai', d.bubble_index);
+            globalRadarData.ai = d.bubble_index;
         }).catch(e => { });
 
+        // GSN: Updated to pull raw gap for UI and stress_score for Radar Chart
         fetch('data/kshape_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-inequality').innerText = d.fracture_score;
             document.getElementById('desc-inequality').innerText = `> Systemic Fracture`;
             setCardState('inequality', d.fracture_score);
+            globalRadarData.inequality = d.stress_score || 0; 
         }).catch(e => { });
 
+        // GSN: Updated to pull comm_days for UI and fuel_stress_score for Radar Chart
         fetch('data/fuel_cache.json').then(r => r.json()).then(d => {
-            let days = ((d.comm_val / 1000) / 16.0).toFixed(1);
+            let days = d.comm_days !== undefined ? d.comm_days : ((d.comm_val / 1000) / 16.0).toFixed(1);
             document.getElementById('val-fuel').innerText = days;
             document.getElementById('desc-fuel').innerText = `> Commercial buffer`;
             setCardState('fuel', days, true);
+            globalRadarData.fuel = d.fuel_stress_score || 0;
         }).catch(e => { });
 
-        // FIAT FETCH REPLACED WITH INEQUALITY
-        fetch('data/kshape_data.json').then(r => r.json()).then(d => {
-            document.getElementById('val-inequality').innerText = d.fracture_score;
-            document.getElementById('desc-inequality').innerText = `> Systemic Fracture`;
-            setCardState('inequality', d.fracture_score);
-        }).catch(e => { });
 
-        fetch('data/fuel_cache.json').then(r => r.json()).then(d => {
-            let days = ((d.comm_val / 1000) / 16.0).toFixed(1);
-            document.getElementById('val-fuel').innerText = days;
-            document.getElementById('desc-fuel').innerText = `> Commercial buffer`;
-            setCardState('fuel', days, true);
-        }).catch(e => { });
-
-        // 4. Dashboard Synchroniser
+        // 4. Cleaned Dashboard Synchroniser (Reads global state, doesn't scrape HTML)
         setInterval(() => {
-            const getVal = (id) => {
-                let el = document.getElementById(id);
-                if (!el) return 0;
-                let num = parseFloat(el.innerText);
-                return isNaN(num) ? 0 : num;
-            };
-
-            let taiwan = getVal('val-taiwan');
-            let me = getVal('val-me');
-            let supply = getVal('val-supply');
-            let ai = getVal('val-ai');
-            let inequality = getVal('val-inequality'); // UPDATED TO READ INEQUALITY
-
-            let fuelRaw = getVal('val-fuel');
-            let fuelRisk = (fuelRaw === 0) ? 0 : Math.max(0, Math.min(100, (90 - fuelRaw) * 1.4));
-
-            // Inject dataset
-            myRadarChart.data.datasets[0].data = [taiwan, me, supply, ai, inequality, fuelRisk];
+            myRadarChart.data.datasets[0].data = [
+                globalRadarData.taiwan, 
+                globalRadarData.me, 
+                globalRadarData.supply, 
+                globalRadarData.ai, 
+                globalRadarData.inequality, 
+                globalRadarData.fuel
+            ];
             myRadarChart.update();
         }, 1000);
 
