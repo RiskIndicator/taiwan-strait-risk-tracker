@@ -413,28 +413,14 @@
             myRadarChart.update();
         }, 1000);
 
-        // 5. Featured Article Carousel
+        // 5. Featured Article Carousel (7-Article Rotation)
         const featuredArticles = [
-            {
-                url: "public/inequality.html",
-                img: "public/wealth-gap.png",
-                tag: "Wealth Inequality",
-                title: "Real-Time Wealth Gap Tracker",
-                excerpt: "Track how the gap between the ultra-wealthy and median workers is widening in real-time."
-            },
             {
                 url: "public/articles/wealth-inequality-article.html",
                 img: "public/wealth-gap.png",
                 tag: "Economics",
                 title: "The Invisible Gap: Why You Feel Broke While Markets Boom",
                 excerpt: "If the official economy is doing so well, why is the cost of basic survival spiking for everyday people?"
-            },
-            {
-                url: "public/supply-chain.html",
-                img: "public/shipping-chokepoint.png",
-                tag: "Supply Chain",
-                title: "Live Global Shipping Stress Monitor",
-                excerpt: "Real-time tracking of container costs, port congestion, and maritime chokepoint disruptions."
             },
             {
                 url: "public/articles/supply-chain-article.html",
@@ -444,32 +430,39 @@
                 excerpt: "How geopolitical choke points in the oceans are directly driving up the cost of everything you buy."
             },
             {
-                url: "public/middle-east.html",
-                img: "public/hormuz-strait.png",
-                tag: "Middle East",
-                title: "Strait of Hormuz Risk Index",
-                excerpt: "Live monitoring of the world's most critical oil shipping lane and regional stability."
-            },
-            {
-                url: "public/fuel-reserves.html",
-                img: "public/fuel-tank.png",
-                tag: "Energy Security",
-                title: "Global Fuel Reserve Monitor",
-                excerpt: "How many days of commercial petroleum reserves does the world actually have?"
-            },
-            {
-                url: "public/ai-bubble.html",
+                url: "public/articles/ai-bubble-island.html",
                 img: "public/chip.jpg",
-                tag: "AI Bubble",
-                title: "AI Stock Valuation Index",
-                excerpt: "Are artificial intelligence stocks priced on reality, or dangerous hype?"
+                tag: "Supply Chain",
+                title: "Why the Trillion Dollar AI Boom Relies on One Island",
+                excerpt: "Everyone is buying Nvidia stock, but the physical reality of AI is built on a massive, singular point of failure."
             },
             {
-                url: "public/articles/silicon-shield.html",
-                img: "public/silicon-shield-thumb.png",
-                tag: "Market Impact",
-                title: "The Silicon Shield: TSMC Volatility and Your Portfolio",
-                excerpt: "Does a 1% dip in TSMC really predict conflict? We analysed 5 years of S&P 500 correlation data."
+                url: "public/articles/beyond-tsmc-blockade.html",
+                img: "public/Silicon wafer.jpeg",
+                tag: "Vulnerability",
+                title: "Beyond TSMC: How a Taiwan Blockade Would Disrupt Apple and Nvidia",
+                excerpt: "A blockade would not just hurt Taiwan; it would cripple Apple's 3nm supply chain and freeze Nvidia's hardware shipments within 48 hours."
+            },
+            {
+                url: "public/articles/is-taiwan-safe-2026.html",
+                img: "public/taipei.jpg",
+                tag: "Travel Security",
+                title: "Is Taiwan Safe to Visit in 2026? A Data-Driven Guide",
+                excerpt: "Every major government currently rates Taiwan as 'Level 1' safe. We break down the real risks and show you how to travel with confidence."
+            },
+            {
+                url: "public/articles/war-games-and-wall-street.html",
+                img: "public/stockred.jpg",
+                tag: "Financial Markets",
+                title: "War Games and Wall Street: Why the S&P 500 Ignores ADIZ Incursions",
+                excerpt: "Retail investors panic during military drills, but institutional capital usually shrugs. Here is why the S&P 500 ignores routine aviation manoeuvres."
+            },
+            {
+                url: "public/articles/what-is-an-adiz.html",
+                img: "public/JADIZ_and_CADIZ_and_KADIZ_in_East_China_Sea.jpg",
+                tag: "Airspace",
+                title: "What is an ADIZ? (And Why Flying Into It Is Not an Invasion)",
+                excerpt: "Media outlets constantly conflate Air Defence Identification Zones with sovereign airspace. Understand the legal difference to filter out fearmongering."
             }
         ];
 
