@@ -1,0 +1,7 @@
+{
+    "status": "LIVE_INTELLIGENCE",
+    "timestamp": "2026-04-03 10:44:07",
+    "risk_score": 5,
+    "executive_summary": "AGENT OFFLINE. Awaiting valid API credentials for dynamic synthesis.",
+    "correlations": "None - Pipeline Offline."
+}
