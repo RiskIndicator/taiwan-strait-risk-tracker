@@ -138,7 +138,7 @@
                         <div class="status-dot"></div>
                     </div>
                     <div class="card-value-wrap"><span class="card-value" id="val-inequality">--</span><span
-                            class="card-unit">% Gap</span></div>
+                            class="card-unit">Index</span></div>
                     <div class="card-footer" id="desc-inequality">Awaiting telemetry...</div>
                 </a>
 
@@ -147,7 +147,7 @@
                         <div class="status-dot"></div>
                     </div>
                     <div class="card-value-wrap"><span class="card-value" id="val-fuel">--</span><span
-                            class="card-unit">Days</span></div>
+                            class="card-unit">Stress</span></div>
                     <div class="card-footer" id="desc-fuel">Awaiting telemetry...</div>
                 </a>
             </div>
@@ -254,12 +254,7 @@
     <script>
         // 1. Radar Chart Initialization
         let globalRadarData = {
-            taiwan: 0,
-            me: 0,
-            supply: 0,
-            ai: 0,
-            inequality: 0,
-            fuel: 0
+            taiwan: 0, me: 0, supply: 0, ai: 0, inequality: 0, fuel: 0
         };
 
         const ctx = document.getElementById('riskRadar').getContext('2d');
@@ -285,9 +280,7 @@
                 maintainAspectRatio: false,
                 scales: {
                     r: {
-                        min: 0,
-                        max: 100,
-                        beginAtZero: true,
+                        min: 0, max: 100, beginAtZero: true,
                         angleLines: { color: 'rgba(51, 65, 85, 0.5)' },
                         grid: {
                             color: [
@@ -299,13 +292,7 @@
                             ]
                         },
                         pointLabels: { font: { size: 11, weight: 'bold' }, color: '#94a3b8' },
-                        ticks: {
-                            display: true,
-                            stepSize: 25,
-                            color: 'rgba(148, 163, 184, 0.6)',
-                            backdropColor: 'transparent',
-                            font: { size: 9 }
-                        }
+                        ticks: { display: true, stepSize: 25, color: 'rgba(148, 163, 184, 0.6)', backdropColor: 'transparent', font: { size: 9 } }
                     }
                 },
                 plugins: { legend: { display: false } }
@@ -313,38 +300,28 @@
         });
 
         // 2. Dynamic Threshold Coloring
-        function setCardState(id, score, isInverted = false) {
+        function setCardState(id, score) {
             const card = document.getElementById(`card-${id}`);
             if (!card) return;
             let s = parseFloat(score);
             card.classList.remove('critical', 'warning');
 
-            if (isInverted) {
-                if (s < 35) card.classList.add('critical');
-                else if (s < 50) card.classList.add('warning');
-            } else {
-                if (s > 70) card.classList.add('critical');
-                else if (s > 55) card.classList.add('warning');
-            }
+            // Standardized logic: 100 is always bad.
+            if (s > 70) card.classList.add('critical');
+            else if (s > 55) card.classList.add('warning');
         }
 
         // 3. Telemetry Fetchers
+        fetch('data/agentic_briefing.json').then(r => r.json()).then(data => {
+            const statusBox = document.getElementById('orchestrator-status');
+            statusBox.innerText = data.executive_summary;
+            statusBox.style.color = "#e2e8f0";
+        }).catch(e => {
+            const statusBox = document.getElementById('orchestrator-status');
+            statusBox.innerText = "> AGENT OFFLINE. AWAITING TELEMETRY SYNTHESIS...";
+            statusBox.style.color = "#94a3b8";
+        });
 
-        // Orchestrator Synthesis Fetch
-        fetch('data/agentic_briefing.json')
-            .then(r => r.json())
-            .then(data => {
-                const statusBox = document.getElementById('orchestrator-status');
-                statusBox.innerText = data.executive_summary;
-                statusBox.style.color = "#e2e8f0"; 
-            })
-            .catch(e => {
-                const statusBox = document.getElementById('orchestrator-status');
-                statusBox.innerText = "> AGENT OFFLINE. AWAITING TELEMETRY SYNTHESIS...";
-                statusBox.style.color = "#94a3b8";
-            });
-
-        // Active Alerts Fetch
         fetch('data/active_alerts.json').then(r => r.json()).then(data => {
             document.getElementById('master-time').innerText = "UPDATED: " + (data.last_updated || "JUST NOW");
             const banner = document.getElementById('triage-banner');
@@ -363,13 +340,10 @@
                 if (window.bannerInterval) clearInterval(window.bannerInterval);
                 if (data.alerts.length > 1) window.bannerInterval = setInterval(updateBanner, 5000);
             } else {
-                banner.style.display = 'none'; 
+                banner.style.display = 'none';
             }
-        }).catch(e => {
-            document.getElementById('triage-banner').style.display = 'none';
-        });
+        }).catch(e => { document.getElementById('triage-banner').style.display = 'none'; });
 
-        // Node Data Fetchers
         fetch('data/taiwan_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-taiwan').innerText = d.current_risk_score;
             document.getElementById('desc-taiwan').innerText = `> Media Noise: ${d.media_noise}`;
@@ -400,32 +374,40 @@
             globalRadarData.ai = d.bubble_index;
         }).catch(e => { });
 
-        // GSN: Updated to pull raw gap for UI and stress_score for Radar Chart
+        // GSN CALIBRATION: Display 0-100 Stress Score, Move raw gap to subtitle
         fetch('data/kshape_data.json').then(r => r.json()).then(d => {
-            document.getElementById('val-inequality').innerText = d.fracture_score;
-            document.getElementById('desc-inequality').innerText = `> Systemic Fracture`;
-            setCardState('inequality', d.fracture_score);
-            globalRadarData.inequality = d.stress_score || 0; 
+            let rawGap = d.fracture_score !== undefined ? d.fracture_score : 0;
+            // Failsafe math if Python script hasn't run yet
+            let stress = d.stress_score !== undefined ? d.stress_score : Math.min(100, (rawGap / 25.0) * 100);
+            stress = Math.round(stress);
+
+            document.getElementById('val-inequality').innerText = stress;
+            document.getElementById('desc-inequality').innerText = `> Fracture Gap: ${rawGap}%`;
+            setCardState('inequality', stress);
+            globalRadarData.inequality = stress;
         }).catch(e => { });
 
-        // GSN: Updated to pull comm_days for UI and fuel_stress_score for Radar Chart
+        // GSN CALIBRATION: Display 0-100 Stress Score, Move raw days to subtitle
         fetch('data/fuel_cache.json').then(r => r.json()).then(d => {
-            let days = d.comm_days !== undefined ? d.comm_days : ((d.comm_val / 1000) / 16.0).toFixed(1);
-            document.getElementById('val-fuel').innerText = days;
-            document.getElementById('desc-fuel').innerText = `> Commercial buffer`;
-            setCardState('fuel', days, true);
-            globalRadarData.fuel = d.fuel_stress_score || 0;
+            let rawDays = d.comm_days !== undefined ? d.comm_days : ((d.comm_val / 1000) / 16.0).toFixed(1);
+            // Failsafe math if Python script hasn't run yet
+            let stress = d.fuel_stress_score !== undefined ? d.fuel_stress_score : Math.max(0, Math.min(100, ((35 - rawDays) / 15) * 100));
+            stress = Math.round(stress);
+
+            document.getElementById('val-fuel').innerText = stress;
+            document.getElementById('desc-fuel').innerText = `> Commercial Buffer: ${rawDays} Days`;
+            setCardState('fuel', stress); // No longer inverted, high stress = bad
+            globalRadarData.fuel = stress;
         }).catch(e => { });
 
-
-        // 4. Cleaned Dashboard Synchroniser (Reads global state, doesn't scrape HTML)
+        // 4. Cleaned Dashboard Synchroniser
         setInterval(() => {
             myRadarChart.data.datasets[0].data = [
-                globalRadarData.taiwan, 
-                globalRadarData.me, 
-                globalRadarData.supply, 
-                globalRadarData.ai, 
-                globalRadarData.inequality, 
+                globalRadarData.taiwan,
+                globalRadarData.me,
+                globalRadarData.supply,
+                globalRadarData.ai,
+                globalRadarData.inequality,
                 globalRadarData.fuel
             ];
             myRadarChart.update();
@@ -492,47 +474,35 @@
         ];
 
         let currentArticleIdx = 0;
-
         function rotateArticle() {
             const container = document.getElementById('featured-container');
             if (!container) return;
-
             container.style.opacity = 0;
-
             setTimeout(() => {
                 let oldDot = document.getElementById(`dot-${currentArticleIdx}`);
                 if (oldDot) {
                     oldDot.classList.remove('active');
                     oldDot.style.opacity = 0.3;
                 }
-
                 currentArticleIdx = (currentArticleIdx + 1) % featuredArticles.length;
                 const article = featuredArticles[currentArticleIdx];
-
                 container.href = article.url;
-
                 let imgEl = document.getElementById('feat-img');
                 if (imgEl) imgEl.src = article.img;
-
                 let tagEl = document.getElementById('feat-tag');
                 if (tagEl) tagEl.innerText = article.tag;
-
                 let titleEl = document.getElementById('feat-title');
                 if (titleEl) titleEl.innerText = article.title;
-
                 let excerptEl = document.getElementById('feat-excerpt');
                 if (excerptEl) excerptEl.innerText = article.excerpt;
-
                 let newDot = document.getElementById(`dot-${currentArticleIdx}`);
                 if (newDot) {
                     newDot.classList.add('active');
                     newDot.style.opacity = 1;
                 }
-
                 container.style.opacity = 1;
             }, 400);
         }
-
         setInterval(rotateArticle, 6000);
     </script>
 </body>
