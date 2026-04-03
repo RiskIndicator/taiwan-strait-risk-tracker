@@ -1,12 +1,18 @@
 {
-    "last_updated": "01 Apr 2026 16:34 AEST",
-    "alert_count": 1,
+    "last_updated": "02 Apr 2026 12:02 AEST",
+    "alert_count": 2,
     "alerts": [
         {
             "type": "CREEPING BASELINE",
             "severity": "CRITICAL",
             "headline": "Global Fuel Reserves Vulnerable: Commercial Buffer at 28.5 Days.",
             "link": "fuel-reserves.html"
+        },
+        {
+            "type": "CROSS-CORRELATION",
+            "severity": "SEVERE",
+            "headline": "Systemic Shock: Energy sector volatility compounding global shipping bottlenecks.",
+            "link": "supply-chain.html"
         }
     ]
 }
