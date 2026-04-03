@@ -322,12 +322,14 @@
 
         // 3. Telemetry Fetchers
 
-        // A. Fetch the LLM Agent's Live Synthesis
+        // GSN Terminal: Calibrated Intel Fetch
         fetch('data/agentic_briefing.json')
             .then(r => r.json())
             .then(data => {
                 const statusBox = document.getElementById('orchestrator-status');
-                statusBox.innerText = data.agent_briefing;
+
+                // Update to the new schema key
+                statusBox.innerText = data.executive_summary;
                 statusBox.style.color = "#e2e8f0"; // Clean terminal white
             })
             .catch(e => {
