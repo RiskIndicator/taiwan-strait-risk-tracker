@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-05 09:24:25",
+    "timestamp": "2026-04-06 09:26:59",
     "risk_score": 8,
-    "executive_summary": "Global systems are exhibiting severe strain with potential for cascading failures. The Middle East energy spike in tandem with dwindling fuel reserves and supply chain gridlock is highly concerning. Societal fractures are widening under this pressure, creating instability.",
-    "correlations": "The Middle East energy spike and global fuel reserve depletion are directly linked; supply chain stress exacerbates this fuel availability crisis."
+    "executive_summary": "The global situation is extremely precarious. Supply chain collapse coupled with energy vulnerability and geopolitical instability presents a high probability of cascading failures.",
+    "correlations": "Supply Chain Stress Score and Middle East Energy Spike show a direct relationship. Fuel reserves are insufficient given the stress."
 }
