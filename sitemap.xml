@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://taiwanstraittracker.com/middle-east.html</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/taiwan.html</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/macro.html</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fiat.html</loc>
+        <loc>https://taiwanstraittracker.com/ai-bubble.html</loc>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
@@ -26,12 +11,7 @@
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/ai-bubble.html</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
+        <loc>https://taiwanstraittracker.com/taiwan.html</loc>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
@@ -41,52 +21,32 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/middle-east.html</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/fiat.html</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/macro.html</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>https://taiwanstraittracker.com/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/war-games-and-wall-street.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/grey-zone-tactics.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
         <loc>https://taiwanstraittracker.com/articles/what-is-an-adiz.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/macro-big-cycle.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/ai-bubble-island.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/semiconductor-supply-chain.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/kinmen-frontline-explained.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/median-line-explained.html</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/supply-chain-article.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -96,22 +56,22 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/decoding-diplomatic-speak.html</loc>
+        <loc>https://taiwanstraittracker.com/articles/macro-big-cycle.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/silicon-shield.html</loc>
+        <loc>https://taiwanstraittracker.com/articles/semiconductor-supply-chain.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/wealth-inequality-article.html</loc>
+        <loc>https://taiwanstraittracker.com/articles/grey-zone-tactics.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/quantitative-signal.html</loc>
+        <loc>https://taiwanstraittracker.com/articles/kinmen-frontline-explained.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -121,12 +81,52 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://taiwanstraittracker.com/articles/signal-vs-noise.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/median-line-explained.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/silicon-shield.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/supply-chain-article.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/wealth-inequality-article.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://taiwanstraittracker.com/articles/beyond-tsmc-blockade.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/signal-vs-noise.html</loc>
+        <loc>https://taiwanstraittracker.com/articles/ai-bubble-island.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/war-games-and-wall-street.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/decoding-diplomatic-speak.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/quantitative-signal.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
