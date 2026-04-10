@@ -955,6 +955,15 @@ a {
     display: block;
 }
 
+.content-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin: 30px auto;
+    display: block;
+}
+
 /* --- 9. DAILY BRIEFING REPORT STYLES --- */
 .breadcrumb {
     font-family: 'JetBrains Mono', monospace;
