@@ -201,13 +201,13 @@
                     <div class="metric-label">Current Risk Index <span
                             style="font-size:0.75rem; font-weight:normal; color:var(--text-sub); text-transform:none; margin-left: 10px;">Click
                             for Daily Briefing &rarr;</span></div>
-                    <div class="big-number">30</div>
+                    <div class="big-number">29</div>
 
                     <div class="trend-badge"
                         style="color: var(--safe);
                                background: rgba(16, 185, 129, 0.1);
                                border: 1px solid rgba(16, 185, 129, 0.2);">
-                        ▼ -2 pts since yesterday
+                        ▼ -1 pts since yesterday
                     </div>
 
                     <p style="font-size: 1.05rem; line-height: 1.5; color: #cbd5e1; margin: 0;">
@@ -230,7 +230,7 @@
                         <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGradient)"
                             stroke-width="12" stroke-linecap="round" />
                         <g
-                            style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + (30 * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                            style="transform-origin: 100px 100px; transform: rotate(calc(-90deg + (29 * 1.8deg))); transition: transform 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);">
                             <path d="M 96 100 L 100 22 L 104 100 L 100 108 Z" fill="#f8fafc" />
                             <circle cx="100" cy="100" r="7" fill="#f8fafc" />
                             <circle cx="100" cy="100" r="2.5" fill="#0f172a" />
@@ -244,7 +244,7 @@
                     style="border-left: 3px solid var(--danger);">
                     <div class="sm-header">
                         <span class="metric-label" style="margin:0; color: var(--text-main);">Conflict Noise</span>
-                        <span class="sm-score" style="color: var(--danger);">30</span>
+                        <span class="sm-score" style="color: var(--danger);">29</span>
                     </div>
                     <div style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; margin-top: 10px;">
                         <strong style="color: var(--text-main); display: block; margin-bottom: 5px;">Primary
@@ -382,7 +382,7 @@
         }
         setInterval(rotateArticle, 7000);
 
-        const historyData = [{"date": "2026-03-12", "score": 28}, {"date": "2026-03-13", "score": 32}, {"date": "2026-03-14", "score": 33}, {"date": "2026-03-15", "score": 31}, {"date": "2026-03-16", "score": 33}, {"date": "2026-03-17", "score": 32}, {"date": "2026-03-18", "score": 25}, {"date": "2026-03-19", "score": 30}, {"date": "2026-03-20", "score": 24}, {"date": "2026-03-21", "score": 33}, {"date": "2026-03-22", "score": 32}, {"date": "2026-03-23", "score": 31}, {"date": "2026-03-24", "score": 24}, {"date": "2026-03-25", "score": 27}, {"date": "2026-03-26", "score": 30}, {"date": "2026-03-27", "score": 35}, {"date": "2026-03-28", "score": 29}, {"date": "2026-03-29", "score": 26}, {"date": "2026-03-30", "score": 25}, {"date": "2026-03-31", "score": 32}, {"date": "2026-04-01", "score": 24}, {"date": "2026-04-02", "score": 30}, {"date": "2026-04-03", "score": 27}, {"date": "2026-04-04", "score": 26}, {"date": "2026-04-05", "score": 25}, {"date": "2026-04-06", "score": 26}, {"date": "2026-04-07", "score": 28}, {"date": "2026-04-08", "score": 27}, {"date": "2026-04-09", "score": 35}, {"date": "2026-04-10", "score": 30}];
+        const historyData = [{"date": "2026-03-12", "score": 28}, {"date": "2026-03-13", "score": 32}, {"date": "2026-03-14", "score": 33}, {"date": "2026-03-15", "score": 31}, {"date": "2026-03-16", "score": 33}, {"date": "2026-03-17", "score": 32}, {"date": "2026-03-18", "score": 25}, {"date": "2026-03-19", "score": 30}, {"date": "2026-03-20", "score": 24}, {"date": "2026-03-21", "score": 33}, {"date": "2026-03-22", "score": 32}, {"date": "2026-03-23", "score": 31}, {"date": "2026-03-24", "score": 24}, {"date": "2026-03-25", "score": 27}, {"date": "2026-03-26", "score": 30}, {"date": "2026-03-27", "score": 35}, {"date": "2026-03-28", "score": 29}, {"date": "2026-03-29", "score": 26}, {"date": "2026-03-30", "score": 25}, {"date": "2026-03-31", "score": 32}, {"date": "2026-04-01", "score": 24}, {"date": "2026-04-02", "score": 30}, {"date": "2026-04-03", "score": 27}, {"date": "2026-04-04", "score": 26}, {"date": "2026-04-05", "score": 25}, {"date": "2026-04-06", "score": 26}, {"date": "2026-04-07", "score": 28}, {"date": "2026-04-08", "score": 27}, {"date": "2026-04-09", "score": 35}, {"date": "2026-04-10", "score": 29}];
         const ctxChart = document.getElementById('historyChart').getContext('2d');
 
         function getLineGradient(ctx, chartArea) {
