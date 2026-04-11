@@ -1,7 +1,8 @@
 import tweepy
 import os
 import sys
-from google import genai # <-- The new import
+import json
+from google import genai 
 
 def main():
     # 1. Pull secrets from GitHub
@@ -10,30 +11,53 @@ def main():
     twitter_access_token = os.getenv('TWITTER_ACCESS_TOKEN')
     twitter_access_secret = os.getenv('TWITTER_ACCESS_SECRET')
     gemini_api_key = os.getenv('GEMINI_API_KEY')
-    
-    risk_score = os.getenv('RISK_SCORE', 'Unchanged')
-    top_headline = os.getenv('TOP_HEADLINE', 'Standard market variance detected.')
 
     if not gemini_api_key:
         print("❌ Missing GEMINI_API_KEY.")
         sys.exit(1)
 
-    # 2. Generate Unique Tweet Copy using the NEW Google GenAI SDK
+    # 2. Load the Full Network Intelligence
+    print("Loading GSN Orchestrator Telemetry...")
     try:
-        print("Generating unique copy via Google AI...")
+        with open('data/agentic_briefing.json', 'r', encoding='utf-8') as f:
+            briefing = json.load(f)
+        with open('data/active_alerts.json', 'r', encoding='utf-8') as f:
+            alerts_data = json.load(f)
+            
+        exec_summary = briefing.get('executive_summary', 'Nominal variance across all nodes.')
+        correlations = briefing.get('correlations', 'None detected.')
+        alerts = alerts_data.get('alerts', [])
         
-        # Initialize the new client
+        # Format alerts for the AI prompt
+        alert_text = "\n".join([f"- {a['severity']} [{a['type']}]: {a['headline']}" for a in alerts]) if alerts else "No critical anomalies."
+        
+    except Exception as e:
+        print(f"⚠️ Error loading orchestrated data: {e}")
+        exec_summary = "System baseline nominal."
+        correlations = "None."
+        alert_text = "No critical anomalies."
+
+    # 3. Generate Unique Tweet Copy using Google GenAI SDK
+    try:
+        print("Generating unique macro-geopolitical copy via Google AI...")
         ai_client = genai.Client(api_key=gemini_api_key)
         
         prompt = f"""
-        You are a professional open-source intelligence (OSINT) analyst. 
-        Write a single, urgent Twitter post announcing today's Taiwan Strait Risk Score is {risk_score}/100. 
-        The primary escalation driver is this headline: "{top_headline}".
-        Keep it highly professional, analytical, and strictly under 200 characters. 
-        Do not use any hashtags. End the tweet by telling the reader to view the full report below.
-        """
+        You are the automated intelligence broadcaster for the Global Shift Network (GSN).
+        Your task is to write a single, urgent, highly professional Twitter post (under 280 characters) summarizing today's global macro risk.
         
-        # Call the model using the new syntax
+        Current Executive Summary: {exec_summary}
+        Cross-Node Correlations: {correlations}
+        Active Anomalies/Alerts: {alert_text}
+        
+        Instructions:
+        - If there are ACTIVE ALERTS, focus the tweet entirely on the most severe alert.
+        - If there are NO alerts, provide a clinical, macro-level summary of the correlations.
+        - Tone: Institutional, data-driven, objective, OSINT analyst (FinTwit). 
+        - Do not use hashtags in the main body. Add 2-3 relevant hashtags at the very end.
+        - Do NOT include a URL or link (that will be in the reply thread).
+        """
+
         response = ai_client.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,
@@ -43,7 +67,7 @@ def main():
         print(f"❌ AI Generation Failed: {e}")
         sys.exit(1)
 
-    # 3. Authenticate Twitter V2 Client
+    # 4. Authenticate Twitter V2 Client
     client = tweepy.Client(
         consumer_key=twitter_api_key,
         consumer_secret=twitter_api_secret,
@@ -51,11 +75,11 @@ def main():
         access_token_secret=twitter_access_secret
     )
 
-    # 4. Prepare Reply Message
+    # 5. Prepare Reply Message (Driving traffic to the terminal)
     report_url = "https://taiwanstraittracker.com"
-    reply_message = f"Dive into the institutional data, capital flight metrics, and full market impact here:\n{report_url}"
+    reply_message = f"Dive into the full institutional data, capital flight metrics, and cross-node correlations on the GSN Terminal:\n\n{report_url}"
 
-    # 5. Execute the Thread
+    # 6. Execute the Thread
     try:
         print("Posting main AI generated text update...")
         main_response = client.create_tweet(text=main_message, user_auth=True)
@@ -68,11 +92,10 @@ def main():
             in_reply_to_tweet_id=main_tweet_id, 
             user_auth=True
         )
-        print(f"✅ Reply posted successfully! ID: {reply_response.data['id']}")
+        print(f"✅ Reply posted! ID: {reply_response.data['id']}")
         
     except Exception as e:
-        print(f"❌ Post Failed: {e}")
-        sys.exit(1)
+        print(f"❌ Twitter API Error: {e}")
 
 if __name__ == "__main__":
     main()
