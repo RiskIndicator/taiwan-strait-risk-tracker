@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-11 09:28:50",
-    "risk_score": 0,
-    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
-    "correlations": "Error State."
+    "timestamp": "2026-04-11 14:18:13",
+    "risk_score": 7,
+    "executive_summary": "Supply chain stress and fuel reserve levels create a vulnerable situation, particularly considering Middle East energy price volatility. The Taiwanese media panic suggests a disconnect between reported risk and on-the-ground impact. Wealth inequality is a compounding factor.",
+    "correlations": "Supply Chain Stress and Global Fuel Reserves are inversely correlated; high stress amplifies the impact of low fuel reserves."
 }
