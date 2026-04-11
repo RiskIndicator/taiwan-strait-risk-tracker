@@ -1,22 +1,117 @@
 import tweepy
+import requests
 import os
 import sys
 import json
 from google import genai 
+from atproto import Client # NEW: Bluesky AT Protocol Library
+
+# ==========================================
+# PLATFORM POSTING FUNCTIONS
+# ==========================================
+
+def post_to_twitter(main_msg, reply_msg, keys):
+    try:
+        print("▶️ Initiating X (Twitter) Broadcast...")
+        client = tweepy.Client(
+            consumer_key=keys['api_key'],
+            consumer_secret=keys['api_secret'],
+            access_token=keys['access_token'],
+            access_token_secret=keys['access_secret']
+        )
+        main_response = client.create_tweet(text=main_msg, user_auth=True)
+        main_tweet_id = main_response.data['id']
+        print(f"✅ X Main Post Live! ID: {main_tweet_id}")
+
+        reply_response = client.create_tweet(
+            text=reply_msg, 
+            in_reply_to_tweet_id=main_tweet_id, 
+            user_auth=True
+        )
+        print(f"✅ X Thread Linked! ID: {reply_response.data['id']}")
+    except Exception as e:
+        print(f"❌ X (Twitter) Broadcast Failed: {e}")
+
+def post_to_bluesky(message, handle, app_password):
+    try:
+        print("▶️ Initiating Bluesky Broadcast...")
+        client = Client()
+        client.login(handle, app_password)
+        post = client.send_post(message)
+        print(f"✅ Bluesky Broadcast Live! URI: {post.uri}")
+    except Exception as e:
+        print(f"❌ Bluesky Broadcast Failed: {e}")
+
+def post_to_telegram(message, token, chat_id):
+    try:
+        print("▶️ Initiating Telegram Broadcast...")
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "HTML"
+        }
+        response = requests.post(url, json=payload)
+        response.raise_for_status()
+        print("✅ Telegram Broadcast Live!")
+    except Exception as e:
+        print(f"❌ Telegram Broadcast Failed: {e}")
+
+def post_to_linkedin(message, token, author_urn):
+    try:
+        print("▶️ Initiating LinkedIn Broadcast...")
+        url = "https://api.linkedin.com/v2/ugcPosts"
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "X-Restli-Protocol-Version": "2.0.0",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "author": f"urn:li:person:{author_urn}",
+            "lifecycleState": "PUBLISHED",
+            "specificContent": {
+                "com.linkedin.ugc.ShareContent": {
+                    "shareCommentary": {"text": message},
+                    "shareMediaCategory": "NONE"
+                }
+            },
+            "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"}
+        }
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+        print("✅ LinkedIn Broadcast Live!")
+    except Exception as e:
+        print(f"❌ LinkedIn Broadcast Failed: {e}")
+
+# ==========================================
+# MAIN ORCHESTRATOR
+# ==========================================
 
 def main():
-    # 1. Pull secrets from GitHub
-    twitter_api_key = os.getenv('TWITTER_API_KEY')
-    twitter_api_secret = os.getenv('TWITTER_API_SECRET')
-    twitter_access_token = os.getenv('TWITTER_ACCESS_TOKEN')
-    twitter_access_secret = os.getenv('TWITTER_ACCESS_SECRET')
-    gemini_api_key = os.getenv('GEMINI_API_KEY')
+    # 1. Pull API Secrets
+    gemini_key = os.getenv('GEMINI_API_KEY')
+    
+    twitter_keys = {
+        'api_key': os.getenv('TWITTER_API_KEY'),
+        'api_secret': os.getenv('TWITTER_API_SECRET'),
+        'access_token': os.getenv('TWITTER_ACCESS_TOKEN'),
+        'access_secret': os.getenv('TWITTER_ACCESS_SECRET')
+    }
+    
+    bluesky_handle = os.getenv('BLUESKY_HANDLE')
+    bluesky_password = os.getenv('BLUESKY_PASSWORD')
 
-    if not gemini_api_key:
-        print("❌ Missing GEMINI_API_KEY.")
+    telegram_token = os.getenv('TELEGRAM_BOT_TOKEN')
+    telegram_chat = os.getenv('TELEGRAM_CHAT_ID')
+    
+    linkedin_token = os.getenv('LINKEDIN_ACCESS_TOKEN')
+    linkedin_urn = os.getenv('LINKEDIN_PERSON_URN') 
+
+    if not gemini_key:
+        print("❌ Missing GEMINI_API_KEY. System halting.")
         sys.exit(1)
 
-    # 2. Load the Full Network Intelligence
+    # 2. Load Telemetry
     print("Loading GSN Orchestrator Telemetry...")
     try:
         with open('data/agentic_briefing.json', 'r', encoding='utf-8') as f:
@@ -24,78 +119,72 @@ def main():
         with open('data/active_alerts.json', 'r', encoding='utf-8') as f:
             alerts_data = json.load(f)
             
-        exec_summary = briefing.get('executive_summary', 'Nominal variance across all nodes.')
+        exec_summary = briefing.get('executive_summary', 'Nominal variance.')
         correlations = briefing.get('correlations', 'None detected.')
         alerts = alerts_data.get('alerts', [])
-        
-        # Format alerts for the AI prompt
         alert_text = "\n".join([f"- {a['severity']} [{a['type']}]: {a['headline']}" for a in alerts]) if alerts else "No critical anomalies."
         
     except Exception as e:
-        print(f"⚠️ Error loading orchestrated data: {e}")
-        exec_summary = "System baseline nominal."
-        correlations = "None."
-        alert_text = "No critical anomalies."
+        print(f"⚠️ Telemetry load error: {e}")
+        exec_summary, correlations, alert_text = "Baseline nominal.", "None.", "None."
 
-    # 3. Generate Unique Tweet Copy using Google GenAI SDK
+    # 3. Generate Unified Copy via Gemini
     try:
-        print("Generating unique macro-geopolitical copy via Google AI...")
-        ai_client = genai.Client(api_key=gemini_api_key)
+        print("Generating macro-geopolitical copy via Gemini 2.5 Flash...")
+        ai_client = genai.Client(api_key=gemini_key)
         
         prompt = f"""
         You are the automated intelligence broadcaster for the Global Shift Network (GSN).
-        Your task is to write a single, urgent, highly professional Twitter post (under 280 characters) summarizing today's global macro risk.
+        Write a single, urgent, highly professional OSINT alert (under 280 characters).
         
-        Current Executive Summary: {exec_summary}
-        Cross-Node Correlations: {correlations}
-        Active Anomalies/Alerts: {alert_text}
+        Summary: {exec_summary}
+        Correlations: {correlations}
+        Alerts: {alert_text}
         
         Instructions:
-        - If there are ACTIVE ALERTS, focus the tweet entirely on the most severe alert.
-        - If there are NO alerts, provide a clinical, macro-level summary of the correlations.
-        - Tone: Institutional, data-driven, objective, OSINT analyst (FinTwit). 
-        - Do not use hashtags in the main body. Add 2-3 relevant hashtags at the very end.
-        - Do NOT include a URL or link (that will be in the reply thread).
+        - Focus on the most severe alert, or macro correlations if no alerts exist.
+        - Tone: Institutional, data-driven, objective.
+        - Do not use hashtags in the main body. Add 2-3 at the end.
+        - NEVER include a URL.
         """
 
-        response = ai_client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=prompt,
-        )
-        main_message = response.text.strip()
+        response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+        ai_message = response.text.strip()
     except Exception as e:
         print(f"❌ AI Generation Failed: {e}")
         sys.exit(1)
 
-    # 4. Authenticate Twitter V2 Client
-    client = tweepy.Client(
-        consumer_key=twitter_api_key,
-        consumer_secret=twitter_api_secret,
-        access_token=twitter_access_token,
-        access_token_secret=twitter_access_secret
-    )
-
-    # 5. Prepare Reply Message (Driving traffic to the terminal)
+    # 4. Prepare URLs and Final Text
     report_url = "https://taiwanstraittracker.com"
-    reply_message = f"Dive into the full institutional data, capital flight metrics, and cross-node correlations on the GSN Terminal:\n\n{report_url}"
+    twitter_reply = f"Dive into the full institutional data, capital flight metrics, and cross-node correlations on the GSN Terminal:\n\n{report_url}"
+    
+    # LinkedIn, Telegram, and Bluesky logic: append the link to the bottom.
+    unified_full_message = f"{ai_message}\n\nLive Telemetry: {report_url}"
 
-    # 6. Execute the Thread
-    try:
-        print("Posting main AI generated text update...")
-        main_response = client.create_tweet(text=main_message, user_auth=True)
-        main_tweet_id = main_response.data['id']
-        print(f"✅ Main tweet posted! ID: {main_tweet_id}")
+    # 5. EXECUTE BROADCAST MATRIX
+    print("\n--- INITIATING BROADCAST MATRIX ---")
+    
+    if all(twitter_keys.values()):
+        post_to_twitter(ai_message, twitter_reply, twitter_keys)
+    else:
+        print("⏭️ Skipping X (Twitter): Keys missing.")
 
-        print("Posting URL as a threaded reply...")
-        reply_response = client.create_tweet(
-            text=reply_message, 
-            in_reply_to_tweet_id=main_tweet_id, 
-            user_auth=True
-        )
-        print(f"✅ Reply posted! ID: {reply_response.data['id']}")
-        
-    except Exception as e:
-        print(f"❌ Twitter API Error: {e}")
+    if bluesky_handle and bluesky_password:
+        post_to_bluesky(unified_full_message, bluesky_handle, bluesky_password)
+    else:
+        print("⏭️ Skipping Bluesky: Handle/Password missing.")
+
+    if telegram_token and telegram_chat:
+        post_to_telegram(unified_full_message, telegram_token, telegram_chat)
+    else:
+        print("⏭️ Skipping Telegram: Keys/Chat ID missing.")
+
+    if linkedin_token and linkedin_urn:
+        post_to_linkedin(unified_full_message, linkedin_token, linkedin_urn)
+    else:
+        print("⏭️ Skipping LinkedIn: Keys/URN missing.")
+
+    print("--- MATRIX BROADCAST COMPLETE ---")
 
 if __name__ == "__main__":
     main()

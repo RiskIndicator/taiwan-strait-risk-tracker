@@ -66,10 +66,18 @@ jobs:
       - name: Execute Broadcast Matrix (Conditional)
         if: ${{ github.event.inputs.broadcast_intel == 'true' || github.event_name == 'schedule' }}
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
           echo "GSN TERMINAL: Broadcast Matrix Authorised."
+          pip install requests tweepy google-genai atproto
           python src/broadcast_matrix.py || echo "Notice: broadcast_matrix.py pending deployment."
