@@ -8,64 +8,37 @@ on:
     inputs:
       run_orchestrator:
         description: 'Run AI Orchestrator (Consumes Gemini API Quota)'
-        required: true
         type: boolean
         default: false
-      broadcast_intel:
-        description: 'Broadcast to Social Matrix (X, LinkedIn, Telegram)'
-        required: true
+      broadcast_twitter:
+        description: 'Broadcast to X (Twitter)'
+        type: boolean
+        default: false
+      broadcast_bluesky:
+        description: 'Broadcast to Bluesky'
+        type: boolean
+        default: false
+      broadcast_telegram:
+        description: 'Broadcast to Telegram'
+        type: boolean
+        default: false
+      broadcast_linkedin:
+        description: 'Broadcast to LinkedIn'
         type: boolean
         default: false
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        
-      - name: Initialise Python Environment
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-          
-      - name: Install Core Dependencies
-        run: pip install -r requirements.txt
-        
-      - name: Execute Deterministic Sub-Nodes
-        run: |
-          python src/build_macro.py
-          python src/build_fiat.py
-          python src/build_fuel.py
-          python src/build_k_shape.py
-          python src/build_middle_east.py
-          python src/build_supply.py
-          python src/build.py
-          python src/build_sitemap.py
-          
-      - name: Execute Agentic Orchestrator (Conditional)
-        if: ${{ inputs.run_orchestrator == true || github.event_name == 'schedule' }}
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          echo "GSN TERMINAL: Agentic Orchestrator Authorised."
-          python src/build_orchestrator.py
-          
-      - name: Commit Updated Telemetry
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add data/*.json
-          git add reports/*.html
-          git add public/*.png
-          git add *.html
-          git add sitemap.xml
-          git commit -m "System Update: Automated GSN Telemetry Calibration" || echo "No changes to commit"
-          git push
+# ... [KEEP ALL YOUR EXISTING JOBS AND BUILD STEPS HERE] ...
 
-      - name: Execute Broadcast Matrix (Conditional)
-        if: ${{ inputs.broadcast_intel == true || github.event_name == 'schedule' }}
+      - name: Execute Broadcast Matrix
+        if: ${{ inputs.broadcast_twitter == true || inputs.broadcast_bluesky == true || inputs.broadcast_telegram == true || inputs.broadcast_linkedin == true || github.event_name == 'schedule' }}
         env:
+          # --- RUN TOGGLES ---
+          RUN_TWITTER: ${{ inputs.broadcast_twitter == true || github.event_name == 'schedule' }}
+          RUN_BLUESKY: ${{ inputs.broadcast_bluesky == true || github.event_name == 'schedule' }}
+          RUN_TELEGRAM: ${{ inputs.broadcast_telegram == true || github.event_name == 'schedule' }}
+          RUN_LINKEDIN: ${{ inputs.broadcast_linkedin == true || github.event_name == 'schedule' }}
+          
+          # --- API SECRETS ---
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
@@ -78,6 +51,6 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
-          echo "GSN TERMINAL: Broadcast Matrix Authorised."
+          echo "GSN TERMINAL: Modular Broadcast Matrix Authorised."
           pip install requests tweepy google-genai atproto
-          python src/send_tweet.py || echo "Notice: broadcast_matrix.py pending deployment."
+          python src/broadcast_matrix.py || echo "Notice: broadcast_matrix.py pending deployment."
