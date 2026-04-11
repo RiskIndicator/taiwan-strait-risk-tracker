@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-11 14:23:44",
+    "timestamp": "2026-04-12 09:41:06",
     "risk_score": 8,
-    "executive_summary": "Global instability is trending upwards due to converging resource constraints and socioeconomic pressures. The high supply chain stress score exacerbated by the Middle East energy spike is of particular concern.",
-    "correlations": "Supply Chain Stress & Global Fuel Reserves; Middle East Energy Spike & Global Fuel Reserves."
+    "executive_summary": "Global stability is looking decidedly shaky. The extreme supply chain stress score, coupled with wealth inequality and fuel reserve constraints, suggests a high probability of systemic failure if any further shocks occur. We need to action protocols to address the immediate threats.",
+    "correlations": "Middle East energy spikes are exacerbating supply chain stress; Taiwan media panic is out of sync with ground truth, potentially indicating disinformation campaigns."
 }
