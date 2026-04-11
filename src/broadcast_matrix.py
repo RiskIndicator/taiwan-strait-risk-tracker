@@ -191,3 +191,6 @@ def main():
         print("⏭️ Skipping LinkedIn: Disabled by user or missing keys.")
 
     print("--- MATRIX BROADCAST COMPLETE ---")
+
+if __name__ == "__main__":
+    main()
