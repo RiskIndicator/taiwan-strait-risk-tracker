@@ -162,29 +162,32 @@ def main():
     unified_full_message = f"{ai_message}\n\nLive Telemetry: {report_url}"
 
     # 5. EXECUTE BROADCAST MATRIX
-    print("\n--- INITIATING BROADCAST MATRIX ---")
+    print("\n--- INITIATING MODULAR BROADCAST MATRIX ---")
     
-    if all(twitter_keys.values()):
+    # Check environment toggles (Defaults to False if not found)
+    run_twitter = os.getenv('RUN_TWITTER') == 'true'
+    run_bluesky = os.getenv('RUN_BLUESKY') == 'true'
+    run_telegram = os.getenv('RUN_TELEGRAM') == 'true'
+    run_linkedin = os.getenv('RUN_LINKEDIN') == 'true'
+    
+    if run_twitter and all(twitter_keys.values()):
         post_to_twitter(ai_message, twitter_reply, twitter_keys)
     else:
-        print("⏭️ Skipping X (Twitter): Keys missing.")
+        print("⏭️ Skipping X (Twitter): Disabled by user or missing keys.")
 
-    if bluesky_handle and bluesky_password:
+    if run_bluesky and bluesky_handle and bluesky_password:
         post_to_bluesky(unified_full_message, bluesky_handle, bluesky_password)
     else:
-        print("⏭️ Skipping Bluesky: Handle/Password missing.")
+        print("⏭️ Skipping Bluesky: Disabled by user or missing keys.")
 
-    if telegram_token and telegram_chat:
+    if run_telegram and telegram_token and telegram_chat:
         post_to_telegram(unified_full_message, telegram_token, telegram_chat)
     else:
-        print("⏭️ Skipping Telegram: Keys/Chat ID missing.")
+        print("⏭️ Skipping Telegram: Disabled by user or missing keys.")
 
-    if linkedin_token and linkedin_urn:
+    if run_linkedin and linkedin_token and linkedin_urn:
         post_to_linkedin(unified_full_message, linkedin_token, linkedin_urn)
     else:
-        print("⏭️ Skipping LinkedIn: Keys/URN missing.")
+        print("⏭️ Skipping LinkedIn: Disabled by user or missing keys.")
 
     print("--- MATRIX BROADCAST COMPLETE ---")
-
-if __name__ == "__main__":
-    main()
