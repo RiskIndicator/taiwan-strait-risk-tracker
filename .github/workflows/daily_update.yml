@@ -80,4 +80,4 @@ jobs:
         run: |
           echo "GSN TERMINAL: Broadcast Matrix Authorised."
           pip install requests tweepy google-genai atproto
-          python src/broadcast_matrix.py || echo "Notice: broadcast_matrix.py pending deployment."
+          python src/send_tweet.py || echo "Notice: broadcast_matrix.py pending deployment."
