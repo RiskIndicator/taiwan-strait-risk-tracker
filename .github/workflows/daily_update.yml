@@ -44,7 +44,7 @@ jobs:
           python src/build_sitemap.py
           
       - name: Execute Agentic Orchestrator (Conditional)
-        if: ${{ github.event.inputs.run_orchestrator == 'true' || github.event_name == 'schedule' }}
+        if: ${{ inputs.run_orchestrator == true || github.event_name == 'schedule' }}
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
@@ -64,7 +64,7 @@ jobs:
           git push
 
       - name: Execute Broadcast Matrix (Conditional)
-        if: ${{ github.event.inputs.broadcast_intel == 'true' || github.event_name == 'schedule' }}
+        if: ${{ inputs.broadcast_intel == true || github.event_name == 'schedule' }}
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
