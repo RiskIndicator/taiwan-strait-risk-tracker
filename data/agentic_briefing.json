@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-10 09:32:35",
-    "risk_score": 8,
-    "executive_summary": "The global situation is strained, exhibiting a high risk of cascading failures. Supply chain stress and fuel reserve depletion are critical vulnerabilities. Middle East energy volatility exacerbates wealth inequality and geopolitical tensions.",
-    "correlations": "High supply chain stress correlates with depleted global fuel reserves. Middle East energy spikes likely worsen existing wealth inequality."
+    "timestamp": "2026-04-11 09:28:50",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
