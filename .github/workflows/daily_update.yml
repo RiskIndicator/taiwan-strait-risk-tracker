@@ -95,6 +95,11 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
-          echo "GSN TERMINAL: Modular Broadcast Matrix Authorised."
+          echo "GSN TERMINAL: Broadcast step initiated."
           pip install -q requests tweepy google-genai atproto
-          python src/broadcast_matrix.py || echo "Notice: broadcast_matrix.py pending deployment."
+          echo "✅ Dependencies installed."
+          echo "Checking for file..."
+          ls -la src/
+          echo "▶️ Launching Python Script..."
+          python -u src/broadcast_matrix.py
+          echo "✅ Script Finished."
