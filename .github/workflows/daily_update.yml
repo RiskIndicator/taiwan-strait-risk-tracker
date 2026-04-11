@@ -96,5 +96,5 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
           echo "GSN TERMINAL: Modular Broadcast Matrix Authorised."
-          pip install requests tweepy google-genai atproto
+          pip install -q requests tweepy google-genai atproto
           python src/broadcast_matrix.py || echo "Notice: broadcast_matrix.py pending deployment."
