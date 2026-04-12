@@ -3,8 +3,9 @@ import requests
 import os
 import sys
 import json
+import re
 from google import genai 
-from atproto import Client # NEW: Bluesky AT Protocol Library
+from atproto import Client 
 
 # ==========================================
 # PLATFORM POSTING FUNCTIONS
