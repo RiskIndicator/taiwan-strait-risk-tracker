@@ -9,7 +9,12 @@ import html # NEW: to fix the weird &#8217; characters
 # ==========================================
 FEEDS = {
     "Peter Zeihan (Geopolitics & Supply Chain)": "https://zeihan.com/feed/",
-    "Doomberg (Energy & Industrial Macro)": "https://doomberg.substack.com/feed"
+    "Doomberg (Energy & Industrial Macro)": "https://doomberg.substack.com/feed",
+    "Gary's Economics (Inequality & Policy)": "https://garyseconomics.substack.com/feed",
+    "Ray Dalio (Macro Debt Cycles)": "https://raydalio.substack.com/feed",
+    "Michael Pettis (Global Trade Imbalances)": "https://carnegieendowment.org/rss/experts/414",
+    "Lyn Alden (Macro & Energy)": "https://www.lynalden.com/feed/",
+    "Arthur Hayes (Crypto & Fiat Debasement)": "https://cryptohayes.substack.com/feed"
 }
 
 def clean_html(raw_html, title):

@@ -137,37 +137,38 @@ def main():
         print("Generating macro-geopolitical copy via Gemini 2.5 Flash...")
         ai_client = genai.Client(api_key=gemini_key)
         
-        # DECISION LOGIC: Are there any high-severity alerts today?
         is_alert_day = any(a.get('severity') == 'HIGH' or a.get('severity') == 'CRITICAL' for a in alerts)
         
         if is_alert_day:
             print("🚨 HIGH RISK DETECTED: Routing to 'Siren' Pipeline.")
             prompt = f"""
             You are the automated intelligence broadcaster for the Global Shift Network (GSN).
-            Write a single, urgent, highly professional OSINT alert (strictly under 200 characters).
+            Write a single, urgent, highly professional OSINT alert (strictly under 160 characters).
             
             Alert Data: {alert_text}
             
             Instructions:
-            - Tone: Cold, institutional, data-driven, urgent.
-            - Focus entirely on the immediate hard data/alert.
+            - Tone: Confident, sharp, narrative-driven.
+            - CRITICAL: Do not summarize all KOLs. Select ONLY ONE KOL whisper to focus on today. Choose the one that has the strongest correlation (or most interesting contradiction) with today's GSN Hard Data.
+            - Discard the other whispers entirely. Focus on a single, punchy narrative.
+            - If the chosen context heavily involves inequality, government policy, or politics, emphasize the political angle.
             - Do not use hashtags in the main body. Add 1-2 at the end.
             - NEVER include a URL.
             """
+
         else:
             print("🎣 NOMINAL RISK: Routing to 'Hook' Infotainment Pipeline.")
             prompt = f"""
             You are the lead macro-analyst for the Global Shift Network (GSN). 
-            Write an engaging, insightful, "infotainment" style social media post (strictly under 200 characters).
+            Write an engaging, insightful "infotainment" style social media post (strictly under 160 characters).
             
             GSN Hard Data Summary: {exec_summary}
             KOL Whispers (What the smart money is saying today): {whisper_text}
             
             Instructions:
-            - Tone: Confident, sharp, narrative-driven (like a premium financial newsletter).
+            - Tone: Confident, sharp, narrative-driven.
             - Synthesize the KOL context with the GSN data to answer "So what?"
-            - Don't just spit out data. Tell a tiny story or point out a contradiction.
-            - Example vibe: "Zeihan says X, but the data shows Y. Here is what that means for logistics..."
+            - If the context heavily involves inequality, government policy, or politics, emphasize the political angle.
             - Do not use hashtags in the main body. Add 1-2 at the end.
             - NEVER include a URL.
             """
@@ -178,12 +179,21 @@ def main():
         print(f"❌ AI Generation Failed: {e}")
         sys.exit(1)
 
-    # 4. Prepare URLs and Final Text
+    # 4. Prepare URLs and Final Text (THE SMART LINKER)
     report_url = "https://taiwanstraittracker.com"
-    twitter_reply = f"Dive into the full institutional data, capital flight metrics, and cross-node correlations on the GSN Terminal:\n\n{report_url}"
+    politics_url = "https://whatsmypolitics.com"
     
-    # LinkedIn, Telegram, and Bluesky logic: append the link to the bottom.
-    unified_full_message = f"{ai_message}\n\nLive Telemetry: {report_url}"
+    # Check if Gemini generated a politically leaning post
+    political_keywords = ['policy', 'government', 'inequality', 'wealth', 'tax', 'labor', 'politics', 'gary', 'stevenson']
+    is_political = any(keyword in ai_message.lower() for keyword in political_keywords)
+
+    if is_political and not is_alert_day:
+        print("🏛️ Political context detected. Injecting whatsmypolitics.com cross-promotion.")
+        twitter_reply = f"Where do you stand on the economic divide? Test your alignment at {politics_url}\n\nDive into the hard data on the GSN Terminal: {report_url}"
+        unified_full_message = f"{ai_message}\n\nWhere do you stand? {politics_url}\nLive Telemetry: {report_url}"
+    else:
+        twitter_reply = f"Dive into the full institutional data, capital flight metrics, and cross-node correlations on the GSN Terminal:\n\n{report_url}"
+        unified_full_message = f"{ai_message}\n\nLive Telemetry: {report_url}"
 
     # 5. EXECUTE BROADCAST MATRIX
     print("\n--- INITIATING MODULAR BROADCAST MATRIX ---")
