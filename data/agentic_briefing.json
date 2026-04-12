@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-12 09:41:06",
-    "risk_score": 8,
-    "executive_summary": "Global stability is looking decidedly shaky. The extreme supply chain stress score, coupled with wealth inequality and fuel reserve constraints, suggests a high probability of systemic failure if any further shocks occur. We need to action protocols to address the immediate threats.",
-    "correlations": "Middle East energy spikes are exacerbating supply chain stress; Taiwan media panic is out of sync with ground truth, potentially indicating disinformation campaigns."
+    "timestamp": "2026-04-12 15:43:54",
+    "risk_score": 7,
+    "executive_summary": "The global system is under considerable strain. Supply chain issues are critically high and being further exacerbated by Middle Eastern energy price volatility. These pressures coupled with wealth inequality are significant contributing factors toward systemic instability.",
+    "correlations": "Supply Chain Stress and Middle East Energy Spike are likely related; energy price increases will compound existing supply chain bottlenecks."
 }
