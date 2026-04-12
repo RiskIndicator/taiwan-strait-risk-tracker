@@ -96,10 +96,12 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: |
           echo "GSN TERMINAL: Broadcast step initiated."
-          pip install -q requests tweepy google-genai atproto
+          pip install -q requests tweepy google-genai atproto feedparser
           echo "✅ Dependencies installed."
-          echo "Checking for file..."
+          echo "Checking for files..."
           ls -la src/
-          echo "▶️ Launching Python Script..."
+          echo "▶️ Launching Whisper Engine..."
+          python -u src/build_whispers.py
+          echo "▶️ Launching Broadcast Matrix..."
           python -u src/broadcast_matrix.py
           echo "✅ Script Finished."

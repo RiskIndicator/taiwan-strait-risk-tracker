@@ -111,42 +111,66 @@ def main():
         print("❌ Missing GEMINI_API_KEY. System halting.")
         sys.exit(1)
 
-    # 2. Load Telemetry
-    print("Loading GSN Orchestrator Telemetry...")
+    # 2. Load Telemetry & Whispers
+    print("Loading GSN Orchestrator Telemetry and KOL Whispers...")
     try:
         with open('data/agentic_briefing.json', 'r', encoding='utf-8') as f:
             briefing = json.load(f)
         with open('data/active_alerts.json', 'r', encoding='utf-8') as f:
             alerts_data = json.load(f)
+        with open('data/whispers.json', 'r', encoding='utf-8') as f:
+            whispers_data = json.load(f)
             
         exec_summary = briefing.get('executive_summary', 'Nominal variance.')
-        correlations = briefing.get('correlations', 'None detected.')
         alerts = alerts_data.get('alerts', [])
         alert_text = "\n".join([f"- {a['severity']} [{a['type']}]: {a['headline']}" for a in alerts]) if alerts else "No critical anomalies."
         
+        whispers = whispers_data.get('whispers', [])
+        whisper_text = "\n\n".join([f"KOL: {w['author']}\nContext: {w['snippet']}" for w in whispers])
+        
     except Exception as e:
         print(f"⚠️ Telemetry load error: {e}")
-        exec_summary, correlations, alert_text = "Baseline nominal.", "None.", "None."
+        exec_summary, alert_text, whisper_text, alerts = "Baseline nominal.", "None.", "None.", []
 
-    # 3. Generate Unified Copy via Gemini
+    # 3. Generate Bifurcated Copy via Gemini
     try:
         print("Generating macro-geopolitical copy via Gemini 2.5 Flash...")
         ai_client = genai.Client(api_key=gemini_key)
         
-        prompt = f"""
-        You are the automated intelligence broadcaster for the Global Shift Network (GSN).
-        Write a single, urgent, highly professional OSINT alert (strictly under 200 characters).
+        # DECISION LOGIC: Are there any high-severity alerts today?
+        is_alert_day = any(a.get('severity') == 'HIGH' or a.get('severity') == 'CRITICAL' for a in alerts)
         
-        Summary: {exec_summary}
-        Correlations: {correlations}
-        Alerts: {alert_text}
-        
-        Instructions:
-        - Focus on the most severe alert, or macro correlations if no alerts exist.
-        - Tone: Institutional, data-driven, objective.
-        - Do not use hashtags in the main body. Add 2-3 at the end.
-        - NEVER include a URL.
-        """
+        if is_alert_day:
+            print("🚨 HIGH RISK DETECTED: Routing to 'Siren' Pipeline.")
+            prompt = f"""
+            You are the automated intelligence broadcaster for the Global Shift Network (GSN).
+            Write a single, urgent, highly professional OSINT alert (strictly under 200 characters).
+            
+            Alert Data: {alert_text}
+            
+            Instructions:
+            - Tone: Cold, institutional, data-driven, urgent.
+            - Focus entirely on the immediate hard data/alert.
+            - Do not use hashtags in the main body. Add 1-2 at the end.
+            - NEVER include a URL.
+            """
+        else:
+            print("🎣 NOMINAL RISK: Routing to 'Hook' Infotainment Pipeline.")
+            prompt = f"""
+            You are the lead macro-analyst for the Global Shift Network (GSN). 
+            Write an engaging, insightful, "infotainment" style social media post (strictly under 200 characters).
+            
+            GSN Hard Data Summary: {exec_summary}
+            KOL Whispers (What the smart money is saying today): {whisper_text}
+            
+            Instructions:
+            - Tone: Confident, sharp, narrative-driven (like a premium financial newsletter).
+            - Synthesize the KOL context with the GSN data to answer "So what?"
+            - Don't just spit out data. Tell a tiny story or point out a contradiction.
+            - Example vibe: "Zeihan says X, but the data shows Y. Here is what that means for logistics..."
+            - Do not use hashtags in the main body. Add 1-2 at the end.
+            - NEVER include a URL.
+            """
 
         response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
         ai_message = response.text.strip()
