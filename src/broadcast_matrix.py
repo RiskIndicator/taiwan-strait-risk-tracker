@@ -135,7 +135,7 @@ def main():
         
         prompt = f"""
         You are the automated intelligence broadcaster for the Global Shift Network (GSN).
-        Write a single, urgent, highly professional OSINT alert (under 280 characters).
+        Write a single, urgent, highly professional OSINT alert (strictly under 200 characters).
         
         Summary: {exec_summary}
         Correlations: {correlations}
