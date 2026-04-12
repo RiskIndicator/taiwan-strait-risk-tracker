@@ -2,7 +2,8 @@ import feedparser
 import json
 import os
 import re
-import html # NEW: to fix the weird &#8217; characters
+import html
+from datetime import datetime
 
 # ==========================================
 # GSN CONTEXT NODES (KOL ROSTER)
@@ -18,21 +19,32 @@ FEEDS = {
 }
 
 def clean_html(raw_html, title):
-    # Replace HTML tags with spaces (so words don't get smashed together)
     text = re.sub('<[^<]+>', ' ', raw_html)
-    # Fix weird apostrophes and quotes
     text = html.unescape(text)
-    # Remove extra spaces/newlines
     text = " ".join(text.split())
-    # Strip out Zeihan's annoying boilerplate
     boilerplate = f"The post {title} appeared first on Zeihan on Geopolitics."
     text = text.replace(boilerplate, "")
-    
-    return text[:800].strip() + "..." # Increased to 800 chars for better context
+    return text[:800].strip() + "..."
 
 def fetch_whispers():
     print("GSN TERMINAL: Initiating Deep Context Node Scraping...")
-    whispers = []
+    
+    ledger_path = 'data/whisper_ledger.json'
+    os.makedirs('data', exist_ok=True)
+    
+    # 1. Load the existing memory bank (or start a new one)
+    if os.path.exists(ledger_path):
+        try:
+            with open(ledger_path, 'r', encoding='utf-8') as f:
+                ledger = json.load(f)
+        except Exception:
+            ledger = {"whispers": []}
+    else:
+        ledger = {"whispers": []}
+        
+    # Get a list of titles we already have so we don't duplicate them
+    existing_titles = [w['title'] for w in ledger.get('whispers', [])]
+    new_count = 0
     
     for author, url in FEEDS.items():
         try:
@@ -43,21 +55,28 @@ def fetch_whispers():
                 latest = feed.entries[0]
                 title = latest.get('title', 'No Title')
                 
-                # Hunt for the actual body content first, fallback to summary
+                # Check for duplicates
+                if title in existing_titles:
+                    print(f"   ⏭️ Already logged: {title}")
+                    continue
+                
                 if 'content' in latest:
                     raw_text = latest.content[0].value
                 else:
                     raw_text = latest.get('summary', '') or latest.get('description', '')
                 
-                # Scrub the data clean
                 summary_clean = clean_html(raw_text, title)
                 
-                whispers.append({
+                # Add new intelligence to the ledger
+                ledger['whispers'].append({
                     "author": author,
                     "title": title,
-                    "snippet": summary_clean
+                    "snippet": summary_clean,
+                    "status": "UNPUBLISHED",
+                    "date_added": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 })
-                print(f"✅ Secured: {title}")
+                new_count += 1
+                print(f"   ✅ Secured New Intel: {title}")
             else:
                 print(f"⚠️ No entries found for {author}.")
                 
@@ -65,13 +84,12 @@ def fetch_whispers():
             print(f"❌ Target offline - {author}: {e}")
             
     # ==========================================
-    # EXPORT TO ORCHESTRATOR
+    # SAVE THE LEDGER
     # ==========================================
-    os.makedirs('data', exist_ok=True)
-    with open('data/whispers.json', 'w', encoding='utf-8') as f:
-        json.dump({"whispers": whispers}, f, indent=4)
+    with open(ledger_path, 'w', encoding='utf-8') as f:
+        json.dump(ledger, f, indent=4)
         
-    print(f"GSN TERMINAL: {len(whispers)} Context Nodes successfully compiled to whispers.json.")
+    print(f"GSN TERMINAL: System memory updated. Added {new_count} new context nodes.")
 
 if __name__ == "__main__":
     fetch_whispers()

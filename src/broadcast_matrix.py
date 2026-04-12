@@ -111,26 +111,35 @@ def main():
         print("❌ Missing GEMINI_API_KEY. System halting.")
         sys.exit(1)
 
-    # 2. Load Telemetry & Whispers
-    print("Loading GSN Orchestrator Telemetry and KOL Whispers...")
+    # 2. Load Telemetry & The Intelligence Backlog
+    print("Loading GSN Orchestrator Telemetry and the Intelligence Backlog...")
     try:
         with open('data/agentic_briefing.json', 'r', encoding='utf-8') as f:
             briefing = json.load(f)
         with open('data/active_alerts.json', 'r', encoding='utf-8') as f:
             alerts_data = json.load(f)
-        with open('data/whispers.json', 'r', encoding='utf-8') as f:
-            whispers_data = json.load(f)
+            
+        # Load the new Ledger
+        with open('data/whisper_ledger.json', 'r', encoding='utf-8') as f:
+            ledger_data = json.load(f)
             
         exec_summary = briefing.get('executive_summary', 'Nominal variance.')
         alerts = alerts_data.get('alerts', [])
         alert_text = "\n".join([f"- {a['severity']} [{a['type']}]: {a['headline']}" for a in alerts]) if alerts else "No critical anomalies."
         
-        whispers = whispers_data.get('whispers', [])
-        whisper_text = "\n\n".join([f"KOL: {w['author']}\nContext: {w['snippet']}" for w in whispers])
+        # Filter for UNPUBLISHED whispers and assign a temporary ID for Gemini
+        unpublished_whispers = [w for w in ledger_data.get('whispers', []) if w.get('status') == 'UNPUBLISHED']
+        
+        whisper_text = ""
+        for idx, w in enumerate(unpublished_whispers):
+            whisper_text += f"ID: {idx}\nKOL: {w['author']}\nContext: {w['snippet']}\n\n"
+            
+        if not whisper_text:
+            whisper_text = "No new KOL insights available today."
         
     except Exception as e:
         print(f"⚠️ Telemetry load error: {e}")
-        exec_summary, alert_text, whisper_text, alerts = "Baseline nominal.", "None.", "None.", []
+        exec_summary, alert_text, whisper_text, alerts, unpublished_whispers, ledger_data = "Baseline nominal.", "None.", "None.", [], [], {"whispers": []}
 
     # 3. Generate Bifurcated Copy via Gemini
     try:
@@ -148,14 +157,11 @@ def main():
             Alert Data: {alert_text}
             
             Instructions:
-            - Tone: Confident, sharp, narrative-driven.
-            - CRITICAL: Do not summarize all KOLs. Select ONLY ONE KOL whisper to focus on today. Choose the one that has the strongest correlation (or most interesting contradiction) with today's GSN Hard Data.
-            - Discard the other whispers entirely. Focus on a single, punchy narrative.
-            - If the chosen context heavily involves inequality, government policy, or politics, emphasize the political angle.
+            - Tone: Cold, institutional, data-driven, urgent.
+            - Focus entirely on the immediate hard data/alert.
             - Do not use hashtags in the main body. Add 1-2 at the end.
             - NEVER include a URL.
             """
-
         else:
             print("🎣 NOMINAL RISK: Routing to 'Hook' Infotainment Pipeline.")
             prompt = f"""
@@ -163,18 +169,49 @@ def main():
             Write an engaging, insightful "infotainment" style social media post (strictly under 160 characters).
             
             GSN Hard Data Summary: {exec_summary}
-            KOL Whispers (What the smart money is saying today): {whisper_text}
+            KOL Whispers (What the smart money is saying today):
+            {whisper_text}
             
             Instructions:
             - Tone: Confident, sharp, narrative-driven.
-            - Synthesize the KOL context with the GSN data to answer "So what?"
-            - If the context heavily involves inequality, government policy, or politics, emphasize the political angle.
+            - CRITICAL: You must select ONLY ONE KOL whisper to focus on. Choose the one that has the strongest correlation with today's GSN Hard Data.
+            - Ignore irrelevant whispers (e.g., personal stories, fiction books).
+            - MANDATORY FORMATTING: You MUST begin your response with the exact ID of the whisper you chose in brackets. Example: [ID: 2] 
+            - After the bracket, write your 160-character post.
+            - If the chosen context heavily involves inequality or policy, emphasize the political angle.
             - Do not use hashtags in the main body. Add 1-2 at the end.
             - NEVER include a URL.
             """
 
         response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-        ai_message = response.text.strip()
+        raw_ai_message = response.text.strip()
+        
+        # 3.5 THE BURN PROTOCOL: Detect the ID, remove it from text, and mark as PUBLISHED
+        match = re.match(r'^\[ID:\s*(\d+)\]\s*', raw_ai_message)
+        
+        if match:
+            chosen_id = int(match.group(1))
+            ai_message = raw_ai_message[match.end():] # Strip the [ID: X] so it doesn't post to Twitter
+            
+            # Find the whisper in the ledger and burn it
+            if 0 <= chosen_id < len(unpublished_whispers):
+                chosen_whisper = unpublished_whispers[chosen_id]
+                print(f"🔥 Burning Whisper: '{chosen_whisper['title']}' by {chosen_whisper['author']}")
+                
+                # Update the main ledger data
+                for w in ledger_data['whispers']:
+                    if w['title'] == chosen_whisper['title'] and w['author'] == chosen_whisper['author']:
+                        w['status'] = 'PUBLISHED'
+                        break
+                        
+                # Save the ledger back to disk
+                with open('data/whisper_ledger.json', 'w', encoding='utf-8') as f:
+                    json.dump(ledger_data, f, indent=4)
+        else:
+            ai_message = raw_ai_message
+            if not is_alert_day:
+                print("⚠️ Could not detect Whisper ID in AI response. No whispers burned today.")
+            
     except Exception as e:
         print(f"❌ AI Generation Failed: {e}")
         sys.exit(1)
