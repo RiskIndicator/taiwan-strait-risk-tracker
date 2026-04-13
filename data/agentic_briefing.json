@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-13 09:41:39",
-    "risk_score": 7,
-    "executive_summary": "The global situation is unstable. Supply chain stress and wealth inequality are critically elevated suggesting systemic vulnerabilities. A potential energy crisis exacerbated by Middle East volatility, combined with low fuel reserves, poses a severe threat.",
-    "correlations": "Taiwan Media Panic correlates with Supply Chain Stress Score suggesting potential cascading effects. The AI Bubble Index might be indirectly influencing the Wealth Inequality Fracture Gap."
+    "timestamp": "2026-04-14 09:51:34",
+    "risk_score": 8,
+    "executive_summary": "The global situation presents a high degree of systemic risk due to fuel reserve fragility and supply chain vulnerability. An energy spike in the Middle East, coupled with high wealth inequality, significantly exacerbates this volatility. Immediate mitigation strategies are warranted to prevent cascading economic failures.",
+    "correlations": "Middle East Energy Spike directly influences Supply Chain Stress Score due to dependence on fuel for logistics. Low Global Fuel Reserves amplify the impact of any further Middle East volatility."
 }
