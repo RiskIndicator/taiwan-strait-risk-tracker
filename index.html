@@ -45,6 +45,15 @@
                 <a href="public/articles.html" style="color: var(--text-main);">Intelligence Reports</a>
                 <a href="public/about.html">Methodology</a>
 
+                <a href="https://bsky.app/profile/globalshiftnetwork.bsky.social" target="_blank" class="twitter-btn"
+                    style="background: #0085ff; border-color: #0085ff;">
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 566 501">
+                        <path
+                            d="M124.1 21.4C198.9 76.8 266 182.2 283 226.7 300 182.2 367.1 76.8 441.9 21.4 496.1-18.7 566 12 566 100.9c0 19.3-1.6 153.3-10.4 179.8-19.1 57.5-81.1 72.8-136.5 61.2 101.4 17.5 125.7 85.3 64 135.2-127.3 103-200.1-103-200.1-103s-72.8 206-200.1 103c-61.7-49.9-37.4-117.7 64-135.2-55.4 11.6-117.4-3.7-136.5-61.2C1.6 254.2 0 120.2 0 100.9 0 12 69.9-18.7 124.1 21.4Z" />
+                    </svg>
+                    Bluesky
+                </a>
+
                 <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn">
                     <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -58,13 +67,12 @@
 
     <div class="container">
 
-        <div id="triage-banner" style="display: none;"
-            onclick="window.location.href=document.getElementById('alert-link').href">
+        <div id="triage-banner" style="display: none;" onclick="window.location.href='#newsletter-section'">
             <div class="alert-content">
                 <div class="alert-badge" id="alert-type">CRITICAL ALERT</div>
                 <div class="alert-headline" id="alert-text">Loading diagnostics...</div>
             </div>
-            <a id="alert-link" href="#" class="alert-btn">View Telemetry</a>
+            <a id="alert-link" href="#newsletter-section" class="alert-btn">Join Alert List</a>
         </div>
 
         <div class="terminal-header">
@@ -119,7 +127,7 @@
                         <span style="font-size:1.3rem;">🔴</span>
                         Get notified instantly when any Risk Index spikes above 50.
                     </div>
-                    <a href="https://twitter.com/StraitTracker" target="_blank" class="twitter-btn"
+                    <a href="#newsletter-section" class="twitter-btn"
                         style="padding: 8px 20px; text-decoration: none;">Enable Alerts</a>
                 </div>
             </div>
@@ -250,6 +258,48 @@
             </div>
         </div>
 
+        <div id="newsletter-section"
+            style="margin-top: 60px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; padding-bottom: 60px; grid-column: 1 / -1;">
+
+            <div class="card"
+                style="padding: 30px; border-left: 4px solid var(--accent); background: var(--card); border: 1px solid var(--border); border-left-width: 4px; border-radius: 12px;">
+                <h3 style="margin-top: 0; color: var(--text-main); display: flex; align-items: center; gap: 10px;">
+                    <svg width="20" height="20" fill="var(--accent)" viewBox="0 0 24 24">
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                    GSN Intelligence Briefing
+                </h3>
+                <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.6;">
+                    Join the elite list receiving daily telemetry deep-dives. We focus on structural shifts in fuel,
+                    fiat, and supply chains that the mainstream media misses.
+                </p>
+                <form style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="email" placeholder="gsnterminal@gmail.com"
+                        style="flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;">
+                    <button type="button"
+                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: not-allowed;">Join
+                        List</button>
+                </form>
+                <span style="font-size: 0.75rem; color: var(--text-sub); margin-top: 10px; display: block;">*Automated
+                    daily updates via gsnterminal@gmail.com</span>
+            </div>
+
+            <div class="card"
+                style="padding: 30px; background: rgba(245, 158, 11, 0.03); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 12px;">
+                <h3 class="text-lg font-semibold text-white mb-4"
+                    style="margin-top: 0; color: #fff; font-size: 1.1rem; margin-bottom: 1rem;">Support Us</h3>
+                <p class="text-sm mb-4" style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px;">If you
+                    find this tool valuable, consider supporting its development.</p>
+                <a href="https://coff.ee/whatsmypolitics" target="_blank" rel="noopener noreferrer"
+                    style="display: inline-block; transition: transform 0.2s;">
+                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee"
+                        style="height: 48px; width: auto;" class="h-12">
+                </a>
+            </div>
+
+        </div>
+
     </div>
 
     <script>
@@ -334,7 +384,6 @@
                     if (!data.alerts[currentIndex]) return;
                     document.getElementById('alert-type').innerText = data.alerts[currentIndex].type;
                     document.getElementById('alert-text').innerText = data.alerts[currentIndex].headline;
-                    document.getElementById('alert-link').href = data.alerts[currentIndex].link;
                     currentIndex = (currentIndex + 1) % data.alerts.length;
                 }
                 updateBanner();
