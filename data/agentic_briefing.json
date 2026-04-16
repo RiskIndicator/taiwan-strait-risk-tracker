@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-12 17:59:11",
+    "timestamp": "2026-04-16 09:50:56",
     "risk_score": 8,
-    "executive_summary": "Conditions are deteriorating, with significant systemic weaknesses. Fuel reserves are critically low amid Middle East volatility, while supply chains are already severely strained. Social cohesion is threatened by escalating wealth inequality and economic instability.",
-    "correlations": "Middle East Energy Spike correlates with Global Fuel Reserves indicating a supply shock. Supply Chain Stress Score exacerbates Wealth Inequality Fracture Gap."
+    "executive_summary": "Systemic risk is high. The Middle East energy spike coupled with low fuel reserves and supply chain stress suggests a potential for global economic instability. Wealth inequality will likely exacerbate societal pressures if these trends continue.",
+    "correlations": "Middle East Energy Spike significantly correlates with Global Fuel Reserves and Supply Chain Stress Score."
 }
