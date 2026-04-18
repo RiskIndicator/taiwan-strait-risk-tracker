@@ -373,12 +373,13 @@
                     Join the elite list receiving daily telemetry deep-dives. We focus on structural shifts in fuel,
                     fiat, and supply chains that the mainstream media misses.
                 </p>
-                <form style="display: flex; gap: 10px; margin-top: 20px;">
-                    <input type="email" placeholder="gsnterminal@gmail.com"
+                <form action="https://formspree.io/f/meevgnzr" method="POST"
+                    style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="email" name="email" required placeholder="Enter your email"
                         style="flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;">
-                    <button type="button"
-                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: not-allowed;">Join
-                        List</button>
+                    <button type="submit"
+                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;"
+                        onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Subscribe</button>
                 </form>
                 <span style="font-size: 0.75rem; color: var(--text-sub); margin-top: 10px; display: block;">*Automated
                     daily updates via gsnterminal@gmail.com</span>
