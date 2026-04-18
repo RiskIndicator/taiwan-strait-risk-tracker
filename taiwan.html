@@ -214,10 +214,10 @@
                     <div class="big-number">31</div>
 
                     <div class="trend-badge"
-                        style="color: var(--safe);
-                               background: rgba(16, 185, 129, 0.1);
-                               border: 1px solid rgba(16, 185, 129, 0.2);">
-                        ▼ -5 pts since yesterday
+                        style="color: var(--text-sub);
+                               background: rgba(148, 163, 184, 0.1);
+                               border: 1px solid rgba(148, 163, 184, 0.2);">
+                        ■ - pts since yesterday
                     </div>
 
                     <p style="font-size: 1.05rem; line-height: 1.5; color: #cbd5e1; margin: 0;">
@@ -254,7 +254,7 @@
                     style="border-left: 3px solid var(--danger);">
                     <div class="sm-header">
                         <span class="metric-label" style="margin:0; color: var(--text-main);">Conflict Noise</span>
-                        <span class="sm-score" style="color: var(--danger);">27</span>
+                        <span class="sm-score" style="color: var(--danger);">28</span>
                     </div>
                     <div style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; margin-top: 10px;">
                         <strong style="color: var(--text-main); display: block; margin-bottom: 5px;">Primary
@@ -381,12 +381,13 @@
                     Join the elite list receiving daily telemetry deep-dives. We focus on structural shifts in fuel,
                     fiat, and supply chains that the mainstream media misses.
                 </p>
-                <form style="display: flex; gap: 10px; margin-top: 20px;">
-                    <input type="email" placeholder="gsnterminal@gmail.com"
+                <form action="https://formspree.io/f/meevgnzr" method="POST"
+                    style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="email" name="email" required placeholder="Enter your email"
                         style="flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;">
-                    <button type="button"
-                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: not-allowed;">Join
-                        List</button>
+                    <button type="submit"
+                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;"
+                        onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Subscribe</button>
                 </form>
                 <span style="font-size: 0.75rem; color: var(--text-sub); margin-top: 10px; display: block;">*Automated
                     daily updates via gsnterminal@gmail.com</span>
