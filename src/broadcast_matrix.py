@@ -170,16 +170,15 @@ def main():
             Write an engaging, insightful "infotainment" style social media post (strictly under 160 characters).
             
             GSN Hard Data Summary: {exec_summary}
-            KOL Whispers (What the smart money is saying today):
+            KOL & News Whispers (What people are saying today):
             {whisper_text}
             
             Instructions:
-            - Tone: Confident, sharp, narrative-driven.
-            - CRITICAL: You must select ONLY ONE KOL whisper to focus on. Choose the one that has the strongest correlation with today's GSN Hard Data.
-            - Ignore irrelevant whispers (e.g., personal stories, fiction books).
+            - Tone: Confident, sharp, authoritative.
+            - CRITICAL: You must select ONLY ONE whisper to focus on. 
+            - THE DIVERGENCE RULE: IF a whisper (like mainstream news) contradicts the GSN Hard Data, highlight the contradiction (e.g., "The media says X, but GSN data shows Y").
+            - THE VALIDATION RULE: IF the whisper and the data agree, or if you choose a KOL whisper, synthesize them naturally. Do not force a contradiction if one does not exist.
             - MANDATORY FORMATTING: You MUST begin your response with the exact ID of the whisper you chose in brackets. Example: [ID: 2] 
-            - After the bracket, write your 160-character post.
-            - If the chosen context heavily involves inequality or policy, emphasize the political angle.
             - Do not use hashtags in the main body. Add 1-2 at the end.
             - NEVER include a URL.
             """

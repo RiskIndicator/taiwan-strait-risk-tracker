@@ -9,6 +9,7 @@ from datetime import datetime
 # GSN CONTEXT NODES (KOL ROSTER)
 # ==========================================
 FEEDS = {
+    "Mainstream Consensus (CNBC Macro)": "https://search.cnbc.com/rs/search/combinedcms/view.xml?id=10000664", # NEW: Mainstream Finance News
     "Peter Zeihan (Geopolitics & Supply Chain)": "https://zeihan.com/feed/",
     "Doomberg (Energy & Industrial Macro)": "https://doomberg.substack.com/feed",
     "Gary's Economics (Inequality & Policy)": "https://garyseconomics.substack.com/feed",
