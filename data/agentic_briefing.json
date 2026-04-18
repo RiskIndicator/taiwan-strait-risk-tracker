@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-18 09:45:40",
-    "risk_score": 8,
-    "executive_summary": "The Global Shift Network is reporting elevated systemic risk. Fuel reserves are critically low and compounded by Middle East volatility, whilst supply chains are heavily stressed. This is occurring against a backdrop of extreme wealth inequality.",
-    "correlations": "The Middle East energy spike and low fuel reserves correlate, threatening global supply chains already strained, and increased costs disproportionately affect populations with existing wealth disparity."
+    "timestamp": "2026-04-19 09:41:33",
+    "risk_score": 7,
+    "executive_summary": "The current global situation presents a significant risk. Supply chain stress and wealth inequality are nearing critical levels, compounded by a spike in Middle Eastern energy prices and limited fuel reserves. The Taiwan media panic is notable, but does not correlate as strongly as other issues.",
+    "correlations": "Supply Chain Stress is strongly linked to both the Middle East Energy Spike and Global Fuel Reserves due to dependence on efficient transportation and stable energy costs. Wealth Inequality is exacerbated by Supply Chain Stress leading to basic goods insecurity."
 }
