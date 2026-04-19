@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-19 09:41:33",
+    "timestamp": "2026-04-20 09:42:56",
     "risk_score": 7,
-    "executive_summary": "The current global situation presents a significant risk. Supply chain stress and wealth inequality are nearing critical levels, compounded by a spike in Middle Eastern energy prices and limited fuel reserves. The Taiwan media panic is notable, but does not correlate as strongly as other issues.",
-    "correlations": "Supply Chain Stress is strongly linked to both the Middle East Energy Spike and Global Fuel Reserves due to dependence on efficient transportation and stable energy costs. Wealth Inequality is exacerbated by Supply Chain Stress leading to basic goods insecurity."
+    "executive_summary": "The global situation is precarious, marked by energy volatility and supply chain strain. Taiwan media panic significantly outweighs any observed physical change suggesting information warfare. Resource scarcity and wealth disparity pose substantial systemic threats.",
+    "correlations": "The Middle East energy spike amplifies existing supply chain stress, potentially worsening wealth inequality."
 }
