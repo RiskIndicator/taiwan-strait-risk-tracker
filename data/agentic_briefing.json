@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-20 09:42:56",
-    "risk_score": 7,
-    "executive_summary": "The global situation is precarious, marked by energy volatility and supply chain strain. Taiwan media panic significantly outweighs any observed physical change suggesting information warfare. Resource scarcity and wealth disparity pose substantial systemic threats.",
-    "correlations": "The Middle East energy spike amplifies existing supply chain stress, potentially worsening wealth inequality."
+    "timestamp": "2026-04-21 09:51:24",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
