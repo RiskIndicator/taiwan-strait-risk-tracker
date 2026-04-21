@@ -1,12 +1,5 @@
 {
-    "last_updated": "21 Apr 2026 09:51 AEST",
-    "alert_count": 1,
-    "alerts": [
-        {
-            "type": "SYSTEMIC FRACTURE",
-            "severity": "SEVERE",
-            "headline": "Wealth Compression: Cost of survival outpacing asset growth by 19.8%.",
-            "link": "inequality.html"
-        }
-    ]
+    "last_updated": "22 Apr 2026 09:40 AEST",
+    "alert_count": 0,
+    "alerts": []
 }
