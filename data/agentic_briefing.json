@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-22 09:40:41",
-    "risk_score": 0,
-    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
-    "correlations": "Error State."
+    "timestamp": "2026-04-23 09:52:07",
+    "risk_score": 7,
+    "executive_summary": "The escalating supply chain stress and wealth inequality fracture are significantly concerning. Fuel reserve levels are worryingly low, compounding economic anxieties and potential social unrest.",
+    "correlations": "Taiwan media panic is inversely correlated to physical change indicating potential psychological warfare; Middle East energy spike likely exacerbates the supply chain stress score."
 }
