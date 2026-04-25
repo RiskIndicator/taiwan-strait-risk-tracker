@@ -149,7 +149,11 @@ def main():
     prompt = f"""
     You are the Lead Macro-Intelligence Analyst for the Global Shift Network (GSN).
     Draft a concise, clinical social media broadcast. 
-    Strict Rules: Use Australian English spelling. Do NOT use en-dashes or em-dashes; use standard hyphens or commas.
+    
+    Strict Rules: 
+    1. Use Australian English spelling. 
+    2. Do NOT use en-dashes or em-dashes; use standard hyphens or commas.
+    3. The broadcast copy MUST be strictly under 180 characters. Be aggressive in your editing.
 
     Current GSN Telemetry:
     {exec_summary}
@@ -174,10 +178,10 @@ def main():
         try:
             response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
             raw_ai_message = response.text.strip()
-            break  # Exit the retry loop on success
+            break  
         except Exception as api_err:
             if attempt < max_retries - 1:
-                wait_time = (2 ** attempt) * 5  # Waits 5 seconds, then 10 seconds
+                wait_time = (2 ** attempt) * 5  
                 print(f"⚠️ Gemini API Overloaded (503). Retrying in {wait_time} seconds...")
                 time.sleep(wait_time)
             else:
@@ -189,21 +193,17 @@ def main():
     
     if match:
         chosen_id = int(match.group(1))
-        # Strip the exact tag out of the final message for broadcast
         ai_message = re.sub(r'\[ID:\s*\d+\]\s*', '', raw_ai_message).strip()
         
-        # Find the whisper in the ledger and burn it
         if 0 <= chosen_id < len(unpublished_whispers):
             chosen_whisper = unpublished_whispers[chosen_id]
             print(f"🔥 Burning Whisper: '{chosen_whisper['title']}' by {chosen_whisper['author']}")
             
-            # Update the main ledger data
             for w in ledger_data['whispers']:
                 if w['title'] == chosen_whisper['title'] and w['author'] == chosen_whisper['author']:
                     w['status'] = 'PUBLISHED'
                     break
                     
-            # Save the ledger back to disk
             with open('data/whisper_ledger.json', 'w', encoding='utf-8') as f:
                 json.dump(ledger_data, f, indent=4)
     else:
@@ -217,7 +217,6 @@ def main():
     report_url = "https://taiwanstraittracker.com"
     politics_url = "https://whatsmypolitics.com"
     
-    # The is_political check occurs safely here, after ai_message is fully defined.
     political_keywords = ['policy', 'government', 'inequality', 'wealth', 'tax', 'labor', 'politics', 'gary', 'stevenson']
     is_political = any(keyword in ai_message.lower() for keyword in political_keywords)
 
