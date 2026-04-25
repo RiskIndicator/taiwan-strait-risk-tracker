@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-25 11:04:44",
+    "timestamp": "2026-04-25 11:11:43",
     "risk_score": 7,
-    "executive_summary": "The global situation presents a moderately elevated risk profile. Supply chain bottlenecks and wealth inequality are contributing to instability while fuel reserves remain critically low. The Middle East energy spike requires close monitoring for cascading effects.",
-    "correlations": "Supply Chain Stress and Fuel Reserves are linked, indicating potential for further disruption due to logistical challenges in accessing and distributing remaining resources. The Wealth Inequality Fracture Gap and Taiwan Media Panic vs Physical Change may indicate underlying social tensions."
+    "executive_summary": "Systemic vulnerabilities are rising, primarily due to energy insecurity and supply chain fragility. The potential for cascading economic and social instability is elevated, requiring close monitoring and proactive intervention.",
+    "correlations": "Middle East energy spikes and dwindling global fuel reserves amplify supply chain stress and wealth inequality, indicating a potential feedback loop."
 }
