@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-25 11:14:13",
+    "timestamp": "2026-04-25 11:18:33",
     "risk_score": 7,
-    "executive_summary": "The supply chain stress score and dwindling fuel reserves, coupled with a minor Middle East energy spike, present a concerning picture. Wealth inequality further exacerbates the situation, indicating potential for social unrest.",
-    "correlations": "Supply Chain Stress Score and Global Fuel Reserves indicate a likely bottleneck in resource distribution; Wealth Inequality Fracture Gap and Supply Chain Stress suggest social fragility stemming from accessibility issues."
+    "executive_summary": "Global supply chains are under considerable strain, compounded by volatile energy markets and widening wealth inequality. The AI bubble index suggests a moderate risk of market correction, while fuel reserves remain critically low.",
+    "correlations": "Supply Chain Stress and Fuel Reserves are linked; high stress elevates fuel consumption and intensifies distribution bottlenecks. Wealth Inequality Fracture Gap negatively correlated with Taiwan Media Panic, indicating potential for economic instability to impact geopolitical tensions in Taiwan."
 }
