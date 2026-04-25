@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-25 11:11:43",
+    "timestamp": "2026-04-25 11:14:13",
     "risk_score": 7,
-    "executive_summary": "Systemic vulnerabilities are rising, primarily due to energy insecurity and supply chain fragility. The potential for cascading economic and social instability is elevated, requiring close monitoring and proactive intervention.",
-    "correlations": "Middle East energy spikes and dwindling global fuel reserves amplify supply chain stress and wealth inequality, indicating a potential feedback loop."
+    "executive_summary": "The supply chain stress score and dwindling fuel reserves, coupled with a minor Middle East energy spike, present a concerning picture. Wealth inequality further exacerbates the situation, indicating potential for social unrest.",
+    "correlations": "Supply Chain Stress Score and Global Fuel Reserves indicate a likely bottleneck in resource distribution; Wealth Inequality Fracture Gap and Supply Chain Stress suggest social fragility stemming from accessibility issues."
 }
