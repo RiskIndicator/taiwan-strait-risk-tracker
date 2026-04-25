@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import re
+import time
 from google import genai 
 from atproto import Client 
 
@@ -142,49 +143,23 @@ def main():
         print(f"⚠️ Telemetry load error: {e}")
         exec_summary, alert_text, whisper_text, alerts, unpublished_whispers, ledger_data = "Baseline nominal.", "None.", "None.", [], [], {"whispers": []}
 
-    # 3. Generate Bifurcated Copy via Gemini
-    try:
-        print("Generating macro-geopolitical copy via Gemini 2.5 Flash...")
-        ai_client = genai.Client(api_key=gemini_key)
+    # 3. Generate Bifurcated Copy via Gemini with Exponential Backoff
+        max_retries = 3
+        raw_ai_message = ""
         
-        is_alert_day = any(a.get('severity') == 'HIGH' or a.get('severity') == 'CRITICAL' for a in alerts)
-        
-        if is_alert_day:
-            print("🚨 HIGH RISK DETECTED: Routing to 'Siren' Pipeline.")
-            prompt = f"""
-            You are the automated intelligence broadcaster for the Global Shift Network (GSN).
-            Write a single, urgent, highly professional OSINT alert (strictly under 160 characters).
-            
-            Alert Data: {alert_text}
-            
-            Instructions:
-            - Tone: Cold, institutional, data-driven, urgent.
-            - Focus entirely on the immediate hard data/alert.
-            - Do not use hashtags in the main body. Add 1-2 at the end.
-            - NEVER include a URL.
-            """
-        else:
-            print("🎣 NOMINAL RISK: Routing to 'Hook' Infotainment Pipeline.")
-            prompt = f"""
-            You are the lead macro-analyst for the Global Shift Network (GSN). 
-            Write an engaging, insightful "infotainment" style social media post (strictly under 160 characters).
-            
-            GSN Hard Data Summary: {exec_summary}
-            KOL & News Whispers (What people are saying today):
-            {whisper_text}
-            
-            Instructions:
-            - Tone: Confident, sharp, authoritative.
-            - CRITICAL: You must select ONLY ONE whisper to focus on. 
-            - THE DIVERGENCE RULE: IF a whisper (like mainstream news) contradicts the GSN Hard Data, highlight the contradiction (e.g., "The media says X, but GSN data shows Y").
-            - THE VALIDATION RULE: IF the whisper and the data agree, or if you choose a KOL whisper, synthesize them naturally. Do not force a contradiction if one does not exist.
-            - MANDATORY FORMATTING: You MUST begin your response with the exact ID of the whisper you chose in brackets. Example: [ID: 2] 
-            - Do not use hashtags in the main body. Add 1-2 at the end.
-            - NEVER include a URL.
-            """
-
-        response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-        raw_ai_message = response.text.strip()
+        for attempt in range(max_retries):
+            try:
+                response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+                raw_ai_message = response.text.strip()
+                break  # Exit the retry loop on success
+            except Exception as api_err:
+                if attempt < max_retries - 1:
+                    wait_time = (2 ** attempt) * 5  # Waits 5 seconds, then 10 seconds
+                    print(f"⚠️ Gemini API Overloaded (503). Retrying in {wait_time} seconds...")
+                    time.sleep(wait_time)
+                else:
+                    print(f"❌ AI Generation Failed after {max_retries} attempts: {api_err}")
+                    sys.exit(1)
         
         # 3.5 THE BURN PROTOCOL: Robust ID Detection and Removal
         match = re.search(r'\[ID:\s*(\d+)\]', raw_ai_message)
@@ -212,10 +187,6 @@ def main():
             ai_message = raw_ai_message
             if not is_alert_day:
                 print("⚠️ Could not detect Whisper ID in AI response. No whispers burned today.")
-            
-    except Exception as e:
-        print(f"❌ AI Generation Failed: {e}")
-        sys.exit(1)
 
     # 4. Prepare URLs and Final Text (THE SMART LINKER)
     report_url = "https://taiwanstraittracker.com"
