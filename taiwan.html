@@ -206,7 +206,7 @@
 
         <div class="tw-grid-top">
 
-            <a href="reports/report_2026-04-18.html" class="hero-card">
+            <a href="reports/report_2026-04-25.html" class="hero-card">
                 <div class="score-left">
                     <div class="metric-label">Current Risk Index <span
                             style="font-size:0.75rem; font-weight:normal; color:var(--text-sub); text-transform:none; margin-left: 10px;">Click
@@ -214,10 +214,10 @@
                     <div class="big-number">31</div>
 
                     <div class="trend-badge"
-                        style="color: var(--safe);
-                               background: rgba(16, 185, 129, 0.1);
-                               border: 1px solid rgba(16, 185, 129, 0.2);">
-                        ▼ -5 pts since yesterday
+                        style="color: var(--danger);
+                               background: rgba(239, 68, 68, 0.1);
+                               border: 1px solid rgba(239, 68, 68, 0.2);">
+                        ▲ +1 pts since yesterday
                     </div>
 
                     <p style="font-size: 1.05rem; line-height: 1.5; color: #cbd5e1; margin: 0;">
@@ -250,24 +250,24 @@
             </a>
 
             <div style="display: flex; flex-direction: column; gap: 24px;">
-                <a href="reports/report_2026-04-18.html" class="small-metric-card"
+                <a href="reports/report_2026-04-25.html" class="small-metric-card"
                     style="border-left: 3px solid var(--danger);">
                     <div class="sm-header">
                         <span class="metric-label" style="margin:0; color: var(--text-main);">Conflict Noise</span>
-                        <span class="sm-score" style="color: var(--danger);">27</span>
+                        <span class="sm-score" style="color: var(--danger);">37</span>
                     </div>
                     <div style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; margin-top: 10px;">
                         <strong style="color: var(--text-main); display: block; margin-bottom: 5px;">Primary
                             Driver:</strong>
-                        "No news flow"
+                        "US munitions depletion weakens Taiwan defense amid China invasion concerns - Crypto Briefing"
                     </div>
                 </a>
 
-                <a href="reports/report_2026-04-18.html" class="small-metric-card"
+                <a href="reports/report_2026-04-25.html" class="small-metric-card"
                     style="border-left: 3px solid var(--accent);">
                     <div class="sm-header">
                         <span class="metric-label" style="margin:0; color: var(--text-main);">Market Anxiety</span>
-                        <span class="sm-score" style="color: var(--accent);">35</span>
+                        <span class="sm-score" style="color: var(--accent);">25</span>
                     </div>
                     <div style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; margin-top: 10px;">
                         <strong style="color: var(--text-main); display: block; margin-bottom: 5px;">TSMC vs S&P
@@ -352,15 +352,15 @@
             <h3 class="section-header" style="margin-top:0;">Daily Intelligence Briefings</h3>
             <ul class="archive-list">
                 
-                <li><a href="reports/report_2026-04-18.html">2026-04-18 Risk Analysis &rarr;</a></li>
+                <li><a href="reports/report_2026-04-25.html">2026-04-25 Risk Analysis &rarr;</a></li>
                 
-                <li><a href="reports/report_2026-04-17.html">2026-04-17 Risk Analysis &rarr;</a></li>
+                <li><a href="reports/report_2026-04-24.html">2026-04-24 Risk Analysis &rarr;</a></li>
                 
-                <li><a href="reports/report_2026-04-16.html">2026-04-16 Risk Analysis &rarr;</a></li>
+                <li><a href="reports/report_2026-04-23.html">2026-04-23 Risk Analysis &rarr;</a></li>
                 
-                <li><a href="reports/report_2026-04-15.html">2026-04-15 Risk Analysis &rarr;</a></li>
+                <li><a href="reports/report_2026-04-22.html">2026-04-22 Risk Analysis &rarr;</a></li>
                 
-                <li><a href="reports/report_2026-04-14.html">2026-04-14 Risk Analysis &rarr;</a></li>
+                <li><a href="reports/report_2026-04-21.html">2026-04-21 Risk Analysis &rarr;</a></li>
                 
             </ul>
         </div>
@@ -381,12 +381,13 @@
                     Join the elite list receiving daily telemetry deep-dives. We focus on structural shifts in fuel,
                     fiat, and supply chains that the mainstream media misses.
                 </p>
-                <form style="display: flex; gap: 10px; margin-top: 20px;">
-                    <input type="email" placeholder="gsnterminal@gmail.com"
+                <form action="https://formspree.io/f/meevgnzr" method="POST"
+                    style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="email" name="email" required placeholder="Enter your email"
                         style="flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;">
-                    <button type="button"
-                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: not-allowed;">Join
-                        List</button>
+                    <button type="submit"
+                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;"
+                        onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Subscribe</button>
                 </form>
                 <span style="font-size: 0.75rem; color: var(--text-sub); margin-top: 10px; display: block;">*Automated
                     daily updates via gsnterminal@gmail.com</span>
@@ -435,7 +436,7 @@
         }
         setInterval(rotateArticle, 7000);
 
-        const historyData = [{"date": "2026-03-20", "score": 24}, {"date": "2026-03-21", "score": 33}, {"date": "2026-03-22", "score": 32}, {"date": "2026-03-23", "score": 31}, {"date": "2026-03-24", "score": 24}, {"date": "2026-03-25", "score": 27}, {"date": "2026-03-26", "score": 30}, {"date": "2026-03-27", "score": 35}, {"date": "2026-03-28", "score": 29}, {"date": "2026-03-29", "score": 26}, {"date": "2026-03-30", "score": 25}, {"date": "2026-03-31", "score": 32}, {"date": "2026-04-01", "score": 24}, {"date": "2026-04-02", "score": 30}, {"date": "2026-04-03", "score": 27}, {"date": "2026-04-04", "score": 26}, {"date": "2026-04-05", "score": 25}, {"date": "2026-04-06", "score": 26}, {"date": "2026-04-07", "score": 28}, {"date": "2026-04-08", "score": 27}, {"date": "2026-04-09", "score": 35}, {"date": "2026-04-10", "score": 29}, {"date": "2026-04-11", "score": 30}, {"date": "2026-04-12", "score": 32}, {"date": "2026-04-13", "score": 33}, {"date": "2026-04-14", "score": 33}, {"date": "2026-04-15", "score": 31}, {"date": "2026-04-16", "score": 38}, {"date": "2026-04-17", "score": 36}, {"date": "2026-04-18", "score": 31}];
+        const historyData = [{"date": "2026-03-27", "score": 35}, {"date": "2026-03-28", "score": 29}, {"date": "2026-03-29", "score": 26}, {"date": "2026-03-30", "score": 25}, {"date": "2026-03-31", "score": 32}, {"date": "2026-04-01", "score": 24}, {"date": "2026-04-02", "score": 30}, {"date": "2026-04-03", "score": 27}, {"date": "2026-04-04", "score": 26}, {"date": "2026-04-05", "score": 25}, {"date": "2026-04-06", "score": 26}, {"date": "2026-04-07", "score": 28}, {"date": "2026-04-08", "score": 27}, {"date": "2026-04-09", "score": 35}, {"date": "2026-04-10", "score": 29}, {"date": "2026-04-11", "score": 30}, {"date": "2026-04-12", "score": 32}, {"date": "2026-04-13", "score": 33}, {"date": "2026-04-14", "score": 33}, {"date": "2026-04-15", "score": 31}, {"date": "2026-04-16", "score": 38}, {"date": "2026-04-17", "score": 36}, {"date": "2026-04-18", "score": 31}, {"date": "2026-04-19", "score": 35}, {"date": "2026-04-20", "score": 34}, {"date": "2026-04-21", "score": 34}, {"date": "2026-04-22", "score": 28}, {"date": "2026-04-23", "score": 22}, {"date": "2026-04-24", "score": 30}, {"date": "2026-04-25", "score": 31}];
         const ctxChart = document.getElementById('historyChart').getContext('2d');
 
         function getLineGradient(ctx, chartArea) {
