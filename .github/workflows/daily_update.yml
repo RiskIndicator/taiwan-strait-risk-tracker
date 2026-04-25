@@ -105,3 +105,15 @@ jobs:
           echo "▶️ Launching Broadcast Matrix..."
           python -u src/broadcast_matrix.py
           echo "✅ Script Finished."
+
+      - name: Commit Updated Telemetry
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/*.json
+          git add reports/*.html
+          git add public/*.png
+          git add *.html
+          git add sitemap.xml
+          git commit -m "System Update: Automated GSN Telemetry Calibration & Broadcast" || echo "No changes to commit"
+          git push

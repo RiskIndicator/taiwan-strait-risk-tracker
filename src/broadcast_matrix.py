@@ -186,12 +186,13 @@ def main():
         response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
         raw_ai_message = response.text.strip()
         
-        # 3.5 THE BURN PROTOCOL: Detect the ID, remove it from text, and mark as PUBLISHED
-        match = re.match(r'^\[ID:\s*(\d+)\]\s*', raw_ai_message)
+        # 3.5 THE BURN PROTOCOL: Robust ID Detection and Removal
+        match = re.search(r'\[ID:\s*(\d+)\]', raw_ai_message)
         
         if match:
             chosen_id = int(match.group(1))
-            ai_message = raw_ai_message[match.end():] # Strip the [ID: X] so it doesn't post to Twitter
+            # Strip the exact tag out of the final message for broadcast
+            ai_message = re.sub(r'\[ID:\s*\d+\]\s*', '', raw_ai_message).strip()
             
             # Find the whisper in the ledger and burn it
             if 0 <= chosen_id < len(unpublished_whispers):
