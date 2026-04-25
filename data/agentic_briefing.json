@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-25 10:19:57",
-    "risk_score": 7,
-    "executive_summary": "Systemic instability is elevated. A confluence of factors, particularly fragile energy reserves and supply chain strain, amplify underlying economic vulnerabilities. Focus should be on mitigating immediate energy and supply chain risks.",
-    "correlations": "The Middle East Energy Spike, combined with low Global Fuel Reserves, directly exacerbates Supply Chain Stress, driving Wealth Inequality."
+    "timestamp": "2026-04-25 10:22:48",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
