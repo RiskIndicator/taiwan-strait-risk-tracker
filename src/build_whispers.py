@@ -53,31 +53,35 @@ def fetch_whispers():
             feed = feedparser.parse(url)
             
             if feed.entries:
-                latest = feed.entries[0]
-                title = latest.get('title', 'No Title')
-                
-                # Check for duplicates
-                if title in existing_titles:
-                    print(f"   ⏭️ Already logged: {title}")
-                    continue
-                
-                if 'content' in latest:
-                    raw_text = latest.content[0].value
-                else:
-                    raw_text = latest.get('summary', '') or latest.get('description', '')
-                
-                summary_clean = clean_html(raw_text, title)
-                
-                # Add new intelligence to the ledger
-                ledger['whispers'].append({
-                    "author": author,
-                    "title": title,
-                    "snippet": summary_clean,
-                    "status": "UNPUBLISHED",
-                    "date_added": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                })
-                new_count += 1
-                print(f"   ✅ Secured New Intel: {title}")
+                # Scan the top 3 most recent entries instead of just the first one
+                for latest in feed.entries[:3]:
+                    title = latest.get('title', 'No Title')
+                    
+                    # Check for duplicates
+                    if title in existing_titles:
+                        print(f"   ⏭️ Already logged: {title}")
+                        continue
+                    
+                    if 'content' in latest:
+                        raw_text = latest.content[0].value
+                    else:
+                        raw_text = latest.get('summary', '') or latest.get('description', '')
+                    
+                    summary_clean = clean_html(raw_text, title)
+                    
+                    # Add new intelligence to the ledger
+                    ledger['whispers'].append({
+                        "author": author,
+                        "title": title,
+                        "snippet": summary_clean,
+                        "status": "UNPUBLISHED",
+                        "date_added": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    })
+                    
+                    # Add to existing_titles to prevent duplicates within the same run
+                    existing_titles.append(title)
+                    new_count += 1
+                    print(f"   ✅ Secured New Intel: {title}")
             else:
                 print(f"⚠️ No entries found for {author}.")
                 
