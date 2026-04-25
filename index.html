@@ -26,7 +26,7 @@
         <div class="gsn-network-links">
             <a href="https://taiwanstraittracker.com" class="gsn-link active">Terminal</a>
             <a href="https://taiwanstraittracker.com/taiwan.html" class="gsn-link">Strait Risk Tracker</a>
-            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/ai-disruption.html" class="gsn-link">AI Disruption Index</a>
             <a href="https://taiwanstraittracker.com/middle-east.html" class="gsn-link">Middle East Tracker</a>
             <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link">Fuel Reserves</a>
             <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
@@ -133,12 +133,12 @@
             </div>
 
             <div class="side-col">
-                <a href="ai-bubble.html" class="metric-card" id="card-ai">
-                    <div class="card-header"><span class="card-title">AI Bubble</span>
+                <a href="ai-disruption.html" class="metric-card" id="card-ai">
+                    <div class="card-header"><span class="card-title">AI Disruption</span>
                         <div class="status-dot"></div>
                     </div>
                     <div class="card-value-wrap"><span class="card-value" id="val-ai">--</span><span
-                            class="card-unit">Index</span></div>
+                            class="card-unit">Threat</span></div>
                     <div class="card-footer" id="desc-ai">Awaiting telemetry...</div>
                 </a>
 
@@ -274,13 +274,9 @@
                     Join the elite list receiving daily telemetry deep-dives. We focus on structural shifts in fuel,
                     fiat, and supply chains that the mainstream media misses.
                 </p>
-                <form action="https://formspree.io/f/meevgnzr" method="POST"
-                    style="display: flex; gap: 10px; margin-top: 20px;">
-                    <input type="email" name="email" required placeholder="Enter your email"
-                        style="flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;">
-                    <button type="submit"
-                        style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;"
-                        onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Subscribe</button>
+                <form action="https://formspree.io/f/meevgnzr" method="POST" style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="email" name="email" required placeholder="Enter your email" style="flex: 1; background: #0f172a; border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: #fff; font-family: 'Inter', sans-serif;">
+                    <button type="submit" style="background: var(--accent); color: #fff; border: none; padding: 0 25px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Subscribe</button>
                 </form>
                 <span style="font-size: 0.75rem; color: var(--text-sub); margin-top: 10px; display: block;">*Automated
                     daily updates via gsnterminal@gmail.com</span>
@@ -316,7 +312,8 @@
         const myRadarChart = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Bubble', 'Inequality', 'Fuel'],
+                // UPDATED AI LABEL
+                labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Threat', 'Inequality', 'Fuel'],
                 datasets: [{
                     data: [0, 0, 0, 0, 0, 0],
                     backgroundColor: 'rgba(239, 68, 68, 0.15)',
@@ -418,11 +415,12 @@
             }
         }).catch(e => { });
 
-        fetch('data/ai_bubble_data.json').then(r => r.json()).then(d => {
-            document.getElementById('val-ai').innerText = d.bubble_index;
-            document.getElementById('desc-ai').innerText = `> Valuation Stress: ${d.valuation_score}`;
-            setCardState('ai', d.bubble_index);
-            globalRadarData.ai = d.bubble_index;
+        // UPDATED AI DISRUPTION FETCHER
+        fetch('data/ai_disruption_data.json').then(r => r.json()).then(d => {
+            document.getElementById('val-ai').innerText = d.disruption_index;
+            document.getElementById('desc-ai').innerText = `> AGI Timeline: ${d.agi_countdown}`;
+            setCardState('ai', d.disruption_index);
+            globalRadarData.ai = d.disruption_index;
         }).catch(e => { });
 
         // GSN CALIBRATION: Display 0-100 Stress Score, Move raw gap to subtitle

@@ -6,12 +6,13 @@ import json
 import numpy as np
 from datetime import datetime
 import pytz
+import os
 
 # --- CONFIGURATION ---
 MAG_7 = ['NVDA', 'MSFT', 'GOOGL', 'META', 'AMZN', 'TSLA', 'AAPL']
 
-def get_valuation_index():
-    print("Fetching Valuation Data...")
+def get_capital_frenzy():
+    print("Fetching Mag 7 Valuation Data...")
     try:
         mag7_pes = []
         for ticker in MAG_7:
@@ -24,102 +25,115 @@ def get_valuation_index():
         if not mag7_pes: return 50, 0.0
         
         avg_mag7_pe = np.mean(mag7_pes)
-        # Linear mapping: 20 PE = 0 Score, 60 PE = 100 Score
+        # Linear mapping: 20 PE = 0 Threat, 60 PE = 100 Threat
         score = (avg_mag7_pe - 20) * 2.5
         return int(max(0, min(100, score))), round(avg_mag7_pe, 1)
     except:
         return 50, 0.0
 
-def get_capex_momentum():
-    print("Fetching Capex/Volume Data...")
+def get_compute_bottleneck():
+    print("Calculating Physical Compute & Energy Constraints...")
     try:
-        nvda = yf.Ticker("NVDA").history(period="3mo")
-        avg_vol = nvda['Volume'].mean()
-        current_vol = nvda['Volume'].iloc[-1]
-        ratio = current_vol / avg_vol
-        score = ratio * 50
-        return int(max(0, min(100, score)))
+        fuel_stress = 50
+        supply_stress = 50
+        
+        # Cross-reference existing GSN Terminal Data!
+        if os.path.exists('data/fuel_cache.json'):
+            with open('data/fuel_cache.json', 'r') as f:
+                fuel_data = json.load(f)
+                fuel_stress = fuel_data.get('fuel_stress_score', 50)
+                
+        if os.path.exists('data/supply_data.json'):
+            with open('data/supply_data.json', 'r') as f:
+                supply_data = json.load(f)
+                supply_stress = supply_data.get('stress_score', 50)
+                
+        # If the physical world is stressed, AI scaling is threatened
+        bottleneck_score = (fuel_stress * 0.5) + (supply_stress * 0.5)
+        return int(max(0, min(100, bottleneck_score)))
     except:
-        return 50
+        return 55
 
-def get_sentiment_score():
-    print("Analysing Media Sentiment...")
+def get_agi_timeline():
+    print("Analysing AGI Breakthrough Velocity...")
     try:
-        rss_url = "https://news.google.com/rss/search?q=AI+Bubble+Stock+Market&hl=en-US&gl=US&ceid=US:en"
+        # Scrape news for AGI timeline shifts
+        rss_url = "https://news.google.com/rss/search?q=AGI+Artificial+General+Intelligence+timeline&hl=en-US&gl=US&ceid=US:en"
         feed = feedparser.parse(rss_url)
-        bubble_mentions = sum(1 for entry in feed.entries[:15] if "bubble" in entry.title.lower() or "crash" in entry.title.lower())
-        score = (bubble_mentions / 15) * 100 * 2
-        return int(max(0, min(100, score)))
+        
+        # Look for acceleration trigger words in the headlines
+        urgency_words = ['sooner', 'breakthrough', 'close', 'imminent', 'fast', 'achieve', 'accelerate', 'ahead']
+        urgency_mentions = sum(1 for entry in feed.entries[:20] if any(w in entry.title.lower() for w in urgency_words))
+        
+        # Base AGI consensus is roughly 5.0 years out. High urgency drops the timeline.
+        base_years = 5.0
+        adjusted_years = max(0.5, base_years - (urgency_mentions * 0.3))
+        
+        # Threat Math: 10 years out = 0 Threat. 0 years out = 100 Threat.
+        score = max(0, min(100, (10 - adjusted_years) * 10))
+        return int(score), round(adjusted_years, 1)
     except:
-        return 50
-
-def get_adoption_velocity():
-    return 65 # V1 Placeholder for Enterprise Stability
+        return 60, 4.0
 
 def get_color_code(score):
-    if score < 40: return "#10b981"
-    elif score < 65: return "#f59e0b"
-    else: return "#ef4444"
+    if score < 40: return "#10b981" # Green
+    elif score < 65: return "#f59e0b" # Yellow
+    else: return "#ef4444" # Red
 
 def build_index():
-    print("ASSEMBLING AI BUBBLE INDEX...")
+    print("ASSEMBLING AI DISRUPTION INDEX...")
     
-    v_score, avg_pe = get_valuation_index()
-    c_score = get_capex_momentum()
-    s_score = get_sentiment_score()
-    a_score = get_adoption_velocity()
+    capital_score, avg_pe = get_capital_frenzy()
+    compute_score = get_compute_bottleneck()
+    agi_score, agi_years = get_agi_timeline()
     
-    # Get Strait Risk
-    try:
-        with open('data/history.json', 'r') as f:
-            strait_history = json.load(f)
-            strait_risk = strait_history[-1]['score']
-    except:
-        strait_risk = 30
-        
-    # Calculate Base Score
-    base_score = (v_score * 0.4) + (c_score * 0.3) + (s_score * 0.2) + (a_score * 0.1)
+    # Calculate Disruption Score (Weighted)
+    final_score = int((agi_score * 0.4) + (compute_score * 0.3) + (capital_score * 0.3))
     
-    # Apply Volatility Multiplier
-    multiplier = 1 + (strait_risk / 200)
-    final_score = int(max(0, min(100, base_score * multiplier)))
-    
-    if final_score < 40: status = "HEALTHY GROWTH"
-    elif final_score < 65: status = "ELEVATED VALUATION"
-    elif final_score < 85: status = "SPECULATIVE MANIA"
-    else: status = "CRITICAL INSTABILITY"
+    if final_score < 40: status = "LINEAR PROGRESSION"
+    elif final_score < 65: status = "ACCELERATING DISRUPTION"
+    elif final_score < 85: status = "STRUCTURAL STRAIN"
+    else: status = "SINGULARITY THRESHOLD"
     
     update_time = datetime.now(pytz.timezone('Australia/Brisbane')).strftime('%d %b %Y %H:%M')
 
-    # Render the HTML Template
-    with open('templates/ai_template.html', 'r', encoding='utf-8') as f:
-        template = Template(f.read())
-
-    rendered_html = template.render(
-    final_score=final_score,
-    status_text=status,
-    conflict_multiplier=round(multiplier, 2),
-    strait_risk=strait_risk,
-    valuation_score=v_score,
-    infrastructure_score=c_score,
-    hype_score=s_score,
-    adoption_score=a_score,
-    avg_pe=avg_pe,
-    last_updated=update_time,
-    color_code=get_color_code(final_score)  # You'll need to add this function
-)
-
-    with open('ai-bubble.html', 'w', encoding='utf-8') as f:
-        f.write(rendered_html)
-    
-    print("Success: ai-bubble.html generated.")
-
-# --- EXPORT FOR ORCHESTRATOR ---
+    # EXPORT 1: The JSON payload for the Terminal UI
     ai_export = {
-        "bubble_index": final_score,
-        "valuation_score": v_score
+        "disruption_index": final_score,
+        "agi_countdown": f"{agi_years} Years",
+        "capital_score": capital_score,
+        "compute_score": compute_score
     }
-    with open('data/ai_bubble_data.json', 'w') as f: json.dump(ai_export, f)
+    
+    # Save with the NEW name the frontend is looking for
+    with open('data/ai_disruption_data.json', 'w') as f: 
+        json.dump(ai_export, f)
+    print("Success: ai_disruption_data.json generated.")
+
+    # EXPORT 2: The HTML Page
+    try:
+        with open('templates/ai_template.html', 'r', encoding='utf-8') as f:
+            template = Template(f.read())
+
+        rendered_html = template.render(
+            final_score=final_score,
+            status_text=status,
+            agi_years=agi_years,
+            agi_score=agi_score,
+            compute_score=compute_score,
+            capital_score=capital_score,
+            avg_pe=avg_pe,
+            last_updated=update_time,
+            color_code=get_color_code(final_score)
+        )
+
+        # Output to the NEW HTML filename
+        with open('ai-disruption.html', 'w', encoding='utf-8') as f:
+            f.write(rendered_html)
+        
+        print("Success: ai-disruption.html generated.")
+    except Exception as e:
+        print(f"Note: HTML not generated. Awaiting template update. Error: {e}")
 
 if __name__ == "__main__":
     build_index()

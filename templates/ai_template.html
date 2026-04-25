@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Bubble Index | Global Shift Network</title>
+    <title>AI Disruption Index | Global Shift Network</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap"
         rel="stylesheet">
@@ -19,7 +19,7 @@
         <div class="gsn-network-links">
             <a href="https://taiwanstraittracker.com" class="gsn-link">Terminal</a>
             <a href="https://taiwanstraittracker.com/taiwan.html" class="gsn-link">Strait Risk Tracker</a>
-            <a href="https://taiwanstraittracker.com/ai-bubble.html" class="gsn-link active">AI Bubble Index</a>
+            <a href="https://taiwanstraittracker.com/ai-disruption.html" class="gsn-link active">AI Disruption Index</a>
             <a href="https://taiwanstraittracker.com/middle-east.html" class="gsn-link">Middle East Tracker</a>
             <a href="https://taiwanstraittracker.com/fuel-reserves.html" class="gsn-link">Fuel Reserves</a>
             <a href="https://taiwanstraittracker.com/inequality.html" class="gsn-link">Wealth Inequality</a>
@@ -42,13 +42,13 @@
     <div class="container">
         <div class="hero-card span-full" style="margin-bottom: 24px;">
             <div class="score-left">
-                <div class="metric-label">AI Bubble Index</div>
+                <div class="metric-label">AI Disruption Index</div>
                 <h1 style="font-size: 2.4rem; margin: 10px 0; color: var(--text-main); letter-spacing: -0.5px;">The AI
-                    Bubble Index</h1>
+                    Disruption Index</h1>
                 <p
                     style="font-size: 1.1rem; color: var(--text-sub); line-height: 1.6; margin-bottom: 20px; max-width: 600px;">
-                    A real-time, data-driven measure to answer one simple question: Are artificial intelligence stocks
-                    priced on reality, or dangerous hype?</p>
+                    A real-time telemetry model tracking the systemic threat of Artificial General Intelligence (AGI) as it collides with physical energy limits, compute bottlenecks, and capital markets.
+                </p>
 
                 <div class="trend-badge"
                     style="color: {{ color_code }}; background: {{ color_code }}20; border: 1px solid {{ color_code }}40; font-size: 1rem;">
@@ -57,11 +57,12 @@
 
                 <div
                     style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid var(--danger); padding: 15px; border-radius: 4px; margin-top: 20px; max-width: 600px;">
-                    <strong style="color: var(--danger); display: block; margin-bottom: 5px;">⚠️ Geopolitical Reality
-                        Multiplier: {{ conflict_multiplier }}x</strong>
-                    <span style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; display: block;">The entire AI
-                        boom relies on computer chips manufactured in Taiwan. Because our Strait Tracker is detecting
-                        geopolitical danger, this Bubble Score is mathematically amplified.</span>
+                    <strong style="color: var(--danger); display: block; margin-bottom: 5px; font-family: 'JetBrains Mono', monospace;">
+                        ⏱️ CONSENSUS TIMELINE TO AGI: {{ agi_years }} YEARS
+                    </strong>
+                    <span style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; display: block;">
+                        As the timeline to AGI shrinks, the physical strain on global fuel reserves and semiconductor supply chains increases exponentially. This index measures that breaking point.
+                    </span>
                 </div>
             </div>
 
@@ -97,36 +98,33 @@
 
         <div class="metrics-grid span-full">
             <div class="metric-card">
-                <div class="metric-header"><span class="metric-title">1. The Price Tag</span><span
-                        class="metric-score">{{ valuation_score }}<span style="font-size:1rem; color:var(--text-sub);">
+                <div class="metric-header"><span class="metric-title">1. AGI Velocity</span><span
+                        class="metric-score">{{ agi_score }}<span style="font-size:1rem; color:var(--text-sub);">
                             / 100</span></span></div>
                 <div class="bar-bg">
-                    <div class="bar-fill" style="width: {{ valuation_score }}%;"></div>
+                    <div class="bar-fill" style="width: {{ agi_score }}%;"></div>
                 </div>
-                <div class="metric-explanation"><strong>Are we overpaying?</strong> We compare the stock prices of the
-                    biggest AI companies against normal businesses.</div>
+                <div class="metric-explanation"><strong>The Countdown:</strong> Tracking predictive markets and breakthrough rhetoric. A higher score means the timeline to AGI is shrinking rapidly.</div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-header"><span class="metric-title">2. The Hardware Check</span><span
-                        class="metric-score">{{ infrastructure_score }}<span
+                <div class="metric-header"><span class="metric-title">2. Compute Bottleneck</span><span
+                        class="metric-score">{{ compute_score }}<span
                             style="font-size:1rem; color:var(--text-sub);"> / 100</span></span></div>
                 <div class="bar-bg">
-                    <div class="bar-fill" style="width: {{ infrastructure_score }}%;"></div>
+                    <div class="bar-fill" style="width: {{ compute_score }}%;"></div>
                 </div>
-                <div class="metric-explanation"><strong>Is the boom real?</strong> We track the volume of real money
-                    being spent on building data centres and buying hardware.</div>
+                <div class="metric-explanation"><strong>The Physical Limit:</strong> Cross-referencing our global Fuel Stress and Supply Chain data against massive AI data center demands.</div>
             </div>
 
             <div class="metric-card">
-                <div class="metric-header"><span class="metric-title">3. The Hype Train</span><span
-                        class="metric-score">{{ hype_score }}<span style="font-size:1rem; color:var(--text-sub);"> /
+                <div class="metric-header"><span class="metric-title">3. Capital Frenzy</span><span
+                        class="metric-score">{{ capital_score }}<span style="font-size:1rem; color:var(--text-sub);"> /
                             100</span></span></div>
                 <div class="bar-bg">
-                    <div class="bar-fill" style="width: {{ hype_score }}%;"></div>
+                    <div class="bar-fill" style="width: {{ capital_score }}%;"></div>
                 </div>
-                <div class="metric-explanation"><strong>Are people getting greedy?</strong> We scan global news for
-                    signs of market panic or euphoria.</div>
+                <div class="metric-explanation"><strong>The Money Flow:</strong> Tracking the forward P/E ratios of the Magnificent 7 (Avg: {{ avg_pe }}x) to measure Wall Street's speculative pressure.</div>
             </div>
         </div>
     </div>
