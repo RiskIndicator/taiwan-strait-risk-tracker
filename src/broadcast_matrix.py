@@ -113,6 +113,8 @@ def main():
         print("❌ Missing GEMINI_API_KEY. System halting.")
         sys.exit(1)
 
+    ai_client = genai.Client(api_key=gemini_key)
+
     # 2. Load Telemetry & The Intelligence Backlog
     print("Loading GSN Orchestrator Telemetry and the Intelligence Backlog...")
     try:
@@ -121,7 +123,6 @@ def main():
         with open('data/active_alerts.json', 'r', encoding='utf-8') as f:
             alerts_data = json.load(f)
             
-        # Load the new Ledger
         with open('data/whisper_ledger.json', 'r', encoding='utf-8') as f:
             ledger_data = json.load(f)
             
@@ -129,7 +130,6 @@ def main():
         alerts = alerts_data.get('alerts', [])
         alert_text = "\n".join([f"- {a['severity']} [{a['type']}]: {a['headline']}" for a in alerts]) if alerts else "No critical anomalies."
         
-        # Filter for UNPUBLISHED whispers and assign a temporary ID for Gemini
         unpublished_whispers = [w for w in ledger_data.get('whispers', []) if w.get('status') == 'UNPUBLISHED']
         
         whisper_text = ""
@@ -138,61 +138,86 @@ def main():
             
         if not whisper_text:
             whisper_text = "No new KOL insights available today."
-        
+            
     except Exception as e:
         print(f"⚠️ Telemetry load error: {e}")
         exec_summary, alert_text, whisper_text, alerts, unpublished_whispers, ledger_data = "Baseline nominal.", "None.", "None.", [], [], {"whispers": []}
 
-    # 3. Generate Bifurcated Copy via Gemini with Exponential Backoff
-        max_retries = 3
-        raw_ai_message = ""
-        
-        for attempt in range(max_retries):
-            try:
-                response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-                raw_ai_message = response.text.strip()
-                break  # Exit the retry loop on success
-            except Exception as api_err:
-                if attempt < max_retries - 1:
-                    wait_time = (2 ** attempt) * 5  # Waits 5 seconds, then 10 seconds
-                    print(f"⚠️ Gemini API Overloaded (503). Retrying in {wait_time} seconds...")
-                    time.sleep(wait_time)
-                else:
-                    print(f"❌ AI Generation Failed after {max_retries} attempts: {api_err}")
-                    sys.exit(1)
-        
-        # 3.5 THE BURN PROTOCOL: Robust ID Detection and Removal
-        match = re.search(r'\[ID:\s*(\d+)\]', raw_ai_message)
-        
-        if match:
-            chosen_id = int(match.group(1))
-            # Strip the exact tag out of the final message for broadcast
-            ai_message = re.sub(r'\[ID:\s*\d+\]\s*', '', raw_ai_message).strip()
-            
-            # Find the whisper in the ledger and burn it
-            if 0 <= chosen_id < len(unpublished_whispers):
-                chosen_whisper = unpublished_whispers[chosen_id]
-                print(f"🔥 Burning Whisper: '{chosen_whisper['title']}' by {chosen_whisper['author']}")
-                
-                # Update the main ledger data
-                for w in ledger_data['whispers']:
-                    if w['title'] == chosen_whisper['title'] and w['author'] == chosen_whisper['author']:
-                        w['status'] = 'PUBLISHED'
-                        break
-                        
-                # Save the ledger back to disk
-                with open('data/whisper_ledger.json', 'w', encoding='utf-8') as f:
-                    json.dump(ledger_data, f, indent=4)
-        else:
-            ai_message = raw_ai_message
-            if not is_alert_day:
-                print("⚠️ Could not detect Whisper ID in AI response. No whispers burned today.")
+    is_alert_day = len(alerts) > 0
 
-    # 4. Prepare URLs and Final Text (THE SMART LINKER)
+    # 3. Construct Divergence Engine Prompt
+    prompt = f"""
+    You are the Lead Macro-Intelligence Analyst for the Global Shift Network (GSN).
+    Draft a concise, clinical social media broadcast. 
+    Strict Rules: Use Australian English spelling. Do NOT use en-dashes or em-dashes; use standard hyphens or commas.
+
+    Current GSN Telemetry:
+    {exec_summary}
+
+    Active Node Alerts:
+    {alert_text}
+
+    Unpublished Context Nodes:
+    {whisper_text}
+
+    Instructions:
+    Select ONE context node to base today's narrative on. Look for contrarian alpha.
+    You MUST begin your response with the exact string [ID: X] where X is the integer ID of the context node you selected.
+    Following the ID tag, provide the broadcast copy. Do not include hashtags.
+    """
+
+    # 4. Generate Bifurcated Copy via Gemini with Exponential Backoff
+    max_retries = 3
+    raw_ai_message = ""
+    
+    for attempt in range(max_retries):
+        try:
+            response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+            raw_ai_message = response.text.strip()
+            break  # Exit the retry loop on success
+        except Exception as api_err:
+            if attempt < max_retries - 1:
+                wait_time = (2 ** attempt) * 5  # Waits 5 seconds, then 10 seconds
+                print(f"⚠️ Gemini API Overloaded (503). Retrying in {wait_time} seconds...")
+                time.sleep(wait_time)
+            else:
+                print(f"❌ AI Generation Failed after {max_retries} attempts: {api_err}")
+                sys.exit(1)
+    
+    # 4.5 THE BURN PROTOCOL: Robust ID Detection and Removal
+    match = re.search(r'\[ID:\s*(\d+)\]', raw_ai_message)
+    
+    if match:
+        chosen_id = int(match.group(1))
+        # Strip the exact tag out of the final message for broadcast
+        ai_message = re.sub(r'\[ID:\s*\d+\]\s*', '', raw_ai_message).strip()
+        
+        # Find the whisper in the ledger and burn it
+        if 0 <= chosen_id < len(unpublished_whispers):
+            chosen_whisper = unpublished_whispers[chosen_id]
+            print(f"🔥 Burning Whisper: '{chosen_whisper['title']}' by {chosen_whisper['author']}")
+            
+            # Update the main ledger data
+            for w in ledger_data['whispers']:
+                if w['title'] == chosen_whisper['title'] and w['author'] == chosen_whisper['author']:
+                    w['status'] = 'PUBLISHED'
+                    break
+                    
+            # Save the ledger back to disk
+            with open('data/whisper_ledger.json', 'w', encoding='utf-8') as f:
+                json.dump(ledger_data, f, indent=4)
+    else:
+        ai_message = raw_ai_message
+        if not is_alert_day:
+            print("⚠️ Could not detect Whisper ID in AI response. No whispers burned today.")
+
+    # ==========================================
+    # 5. CONTENT ANALYSIS & ROUTING (SMART LINKER)
+    # ==========================================
     report_url = "https://taiwanstraittracker.com"
     politics_url = "https://whatsmypolitics.com"
     
-    # Check if Gemini generated a politically leaning post
+    # The is_political check occurs safely here, after ai_message is fully defined.
     political_keywords = ['policy', 'government', 'inequality', 'wealth', 'tax', 'labor', 'politics', 'gary', 'stevenson']
     is_political = any(keyword in ai_message.lower() for keyword in political_keywords)
 
@@ -204,10 +229,9 @@ def main():
         twitter_reply = f"Dive into the full institutional data, capital flight metrics, and cross-node correlations on the GSN Terminal:\n\n{report_url}"
         unified_full_message = f"{ai_message}\n\nLive Telemetry: {report_url}"
 
-    # 5. EXECUTE BROADCAST MATRIX
+    # 6. EXECUTE BROADCAST MATRIX
     print("\n--- INITIATING MODULAR BROADCAST MATRIX ---")
     
-    # Check environment toggles (Defaults to False if not found)
     run_twitter = os.getenv('RUN_TWITTER') == 'true'
     run_bluesky = os.getenv('RUN_BLUESKY') == 'true'
     run_telegram = os.getenv('RUN_TELEGRAM') == 'true'
