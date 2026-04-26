@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-26 09:45:09",
-    "risk_score": 8,
-    "executive_summary": "The global situation presents a concerning outlook, particularly regarding energy supply and wealth disparity. Supply chain vulnerabilities coupled with rising energy costs are likely to exacerbate existing social tensions. Focused observation of Taiwan media and regional energy dynamics is necessary.",
-    "correlations": "The Middle East energy spike directly impacts global fuel reserves and amplifies supply chain stress. Wealth inequality, already high, risks further destabilisation if fuel reserves decrease further."
+    "timestamp": "2026-04-27 09:46:03",
+    "risk_score": 7,
+    "executive_summary": "The telemetry indicates elevated systemic risk driven by supply chain vulnerabilities and socio-economic pressures. Low fuel reserves and a Middle East energy spike worsen the picture, while the media response in Taiwan suggests potential instability despite limited physical impact. Further monitoring of the AI Bubble Index is warranted given broader market anxieties.",
+    "correlations": "Supply Chain Stress and Fuel Reserves are linked; prolonged stress depletes available resources. Wealth Inequality Fracture and Taiwan Media Panic are correlated; socio-economic anxieties can amplify perceived geopolitical risks."
 }
