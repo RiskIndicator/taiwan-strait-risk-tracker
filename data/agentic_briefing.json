@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-27 09:46:03",
-    "risk_score": 7,
-    "executive_summary": "The telemetry indicates elevated systemic risk driven by supply chain vulnerabilities and socio-economic pressures. Low fuel reserves and a Middle East energy spike worsen the picture, while the media response in Taiwan suggests potential instability despite limited physical impact. Further monitoring of the AI Bubble Index is warranted given broader market anxieties.",
-    "correlations": "Supply Chain Stress and Fuel Reserves are linked; prolonged stress depletes available resources. Wealth Inequality Fracture and Taiwan Media Panic are correlated; socio-economic anxieties can amplify perceived geopolitical risks."
+    "timestamp": "2026-04-28 09:58:22",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
