@@ -1,5 +1,12 @@
 {
-    "last_updated": "29 Apr 2026 09:59 AEST",
-    "alert_count": 0,
-    "alerts": []
+    "last_updated": "30 Apr 2026 09:59 AEST",
+    "alert_count": 1,
+    "alerts": [
+        {
+            "type": "CROSS-CORRELATION",
+            "severity": "SEVERE",
+            "headline": "Systemic Shock: Energy sector volatility compounding global shipping bottlenecks.",
+            "link": "supply-chain.html"
+        }
+    ]
 }

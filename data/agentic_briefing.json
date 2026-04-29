@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-04-29 09:59:13",
-    "risk_score": 0,
-    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
-    "correlations": "Error State."
+    "timestamp": "2026-04-30 09:59:30",
+    "risk_score": 8,
+    "executive_summary": "Global instability is trending upwards given energy vulnerability and fragile supply chains. Media panic in Taiwan relative to actual physical changes suggests a potential information warfare component. Elevated AI Bubble Index suggests capital misallocation exacerbating underlying risks.",
+    "correlations": "Middle East energy spike directly impacts Global Fuel Reserves and Supply Chain Stress Score, while Taiwan Media Panic can trigger Wealth Inequality Fracture Gap as a result of geopolitical uncertainty."
 }
