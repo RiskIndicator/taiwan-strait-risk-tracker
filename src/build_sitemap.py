@@ -2,11 +2,12 @@ import os
 from datetime import datetime
 
 # GSN Terminal: Sitemap Generator Calibration
-# Target: Technical SEO Optimisation
+# Target: Technical SEO Optimisation & Full Directory Coverage
 
 BASE_URL = "https://taiwanstraittracker.com"
 ROOT_DIR = "."
 ARTICLES_DIR = "articles"
+PUBLIC_DIR = "public"
 
 def generate_sitemap():
     print("GSN TERMINAL: Initialising sitemap recalibration...")
@@ -50,6 +51,20 @@ def generate_sitemap():
                     "loc": f"{BASE_URL}/{ARTICLES_DIR}/{file}", 
                     "priority": "0.8", 
                     "freq": "weekly",
+                    "lastmod": mod_time
+                })
+
+    # 4. Process Public Directory (Static Info Pages)
+    if os.path.exists(PUBLIC_DIR):
+        for file in os.listdir(PUBLIC_DIR):
+            if file.endswith(".html"):
+                file_path = os.path.join(PUBLIC_DIR, file)
+                mod_time = datetime.fromtimestamp(os.path.getmtime(file_path)).strftime("%Y-%m-%d")
+                
+                pages.append({
+                    "loc": f"{BASE_URL}/{PUBLIC_DIR}/{file}", 
+                    "priority": "0.5", 
+                    "freq": "monthly",
                     "lastmod": mod_time
                 })
 

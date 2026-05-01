@@ -7,6 +7,9 @@
     <title>Global Shift Network | Live Macro Intelligence</title>
     <meta name="description"
         content="Real-time condition monitoring for global macro risk, supply chains, and geopolitical choke points.">
+    
+    <!-- SEO CRITICAL: Canonical Root Enforcement -->
+    <link rel="canonical" href="https://taiwanstraittracker.com/" />
 
     <link rel="icon" type="image/png" href="public/gsn-logo-mono.png">
     <link
@@ -201,7 +204,7 @@
                     </div>
                 </div>
 
-                <a href="nequality.html" id="featured-container"
+                <a href="articles/wealth-inequality-article.html" id="featured-container"
                     style="display: flex; gap: 25px; align-items: center; text-decoration: none; color: inherit; transition: opacity 0.4s;">
                     <img src="public/wealth-gap.png" id="feat-img"
                         style="width: 300px; height: 180px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);"
@@ -312,7 +315,6 @@
         const myRadarChart = new Chart(ctx, {
             type: 'radar',
             data: {
-                // UPDATED AI LABEL
                 labels: ['Taiwan', 'Mid-East', 'Supply', 'AI Threat', 'Inequality', 'Fuel'],
                 datasets: [{
                     data: [0, 0, 0, 0, 0, 0],
@@ -415,7 +417,6 @@
             }
         }).catch(e => { });
 
-        // UPDATED AI DISRUPTION FETCHER
         fetch('data/ai_disruption_data.json').then(r => r.json()).then(d => {
             document.getElementById('val-ai').innerText = d.disruption_index;
             document.getElementById('desc-ai').innerText = `> AGI Timeline: ${d.agi_countdown}`;
@@ -423,10 +424,8 @@
             globalRadarData.ai = d.disruption_index;
         }).catch(e => { });
 
-        // GSN CALIBRATION: Display 0-100 Stress Score, Move raw gap to subtitle
         fetch('data/kshape_data.json').then(r => r.json()).then(d => {
             let rawGap = d.fracture_score !== undefined ? d.fracture_score : 0;
-            // Failsafe math if Python script hasn't run yet
             let stress = d.stress_score !== undefined ? d.stress_score : Math.min(100, (rawGap / 25.0) * 100);
             stress = Math.round(stress);
 
@@ -436,20 +435,17 @@
             globalRadarData.inequality = stress;
         }).catch(e => { });
 
-        // GSN CALIBRATION: Display 0-100 Stress Score, Move raw days to subtitle
         fetch('data/fuel_cache.json').then(r => r.json()).then(d => {
             let rawDays = d.comm_days !== undefined ? d.comm_days : ((d.comm_val / 1000) / 16.0).toFixed(1);
-            // Failsafe math if Python script hasn't run yet
             let stress = d.fuel_stress_score !== undefined ? d.fuel_stress_score : Math.max(0, Math.min(100, ((35 - rawDays) / 15) * 100));
             stress = Math.round(stress);
 
             document.getElementById('val-fuel').innerText = stress;
             document.getElementById('desc-fuel').innerText = `> Commercial Buffer: ${rawDays} Days`;
-            setCardState('fuel', stress); // No longer inverted, high stress = bad
+            setCardState('fuel', stress);
             globalRadarData.fuel = stress;
         }).catch(e => { });
 
-        // 4. Cleaned Dashboard Synchroniser
         setInterval(() => {
             myRadarChart.data.datasets[0].data = [
                 globalRadarData.taiwan,
@@ -462,7 +458,6 @@
             myRadarChart.update();
         }, 1000);
 
-        // 5. Featured Article Carousel (7-Article Rotation)
         const featuredArticles = [
             {
                 url: "articles/wealth-inequality-article.html",
