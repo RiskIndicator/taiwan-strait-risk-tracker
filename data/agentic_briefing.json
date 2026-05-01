@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-01 09:56:25",
-    "risk_score": 8,
-    "executive_summary": "The network is experiencing a concerning convergence of factors. High supply chain stress, escalating Middle East energy costs and limited fuel reserves are generating significant economic instability. The Taiwan media panic versus relatively low physical change could indicate a pending black swan event.",
-    "correlations": "Middle East Energy Spike and Global Fuel Reserves are directly linked; reduced reserves exacerbate the impact of regional price fluctuations."
+    "timestamp": "2026-05-02 09:56:35",
+    "risk_score": 7,
+    "executive_summary": "Global instability is rising. The primary drivers are energy scarcity amplified by geopolitical instability and strained supply chains. Wealth inequality exacerbates the precarious situation.",
+    "correlations": "Middle East Energy Spike and Global Fuel Reserves; Supply Chain Stress and Taiwan Media Panic."
 }
