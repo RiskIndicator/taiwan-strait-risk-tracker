@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-04 09:54:20",
-    "risk_score": 7,
-    "executive_summary": "Global instability is brewing, primarily fuelled by supply chain fragility and energy market volatility. The Taiwan media frenzy in contrast to the lack of actual physical disruption suggests a disinformation campaign.",
-    "correlations": "Supply Chain Stress and Global Fuel Reserves are inversely correlated; the Middle East Energy Spike directly impacts the Supply Chain Stress Score."
+    "timestamp": "2026-05-05 09:59:14",
+    "risk_score": 8,
+    "executive_summary": "Global instability is elevated, primarily stemming from energy sector volatility and supply chain fragility. The Middle East energy spike coupled with dwindling fuel reserves exacerbates existing supply chain pressures.",
+    "correlations": "Middle East Energy Spike correlates strongly with dwindling Global Fuel Reserves. Supply Chain Stress is linked to both Fuel Reserves and Taiwan Media Panic."
 }
