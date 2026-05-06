@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-06 09:54:40",
-    "risk_score": 8,
-    "executive_summary": "The global situation presents a high risk profile due to intersecting energy vulnerability and supply chain fragility. Taiwan media panic significantly outstrips physical impact, indicating potential for destabilising narratives.",
-    "correlations": "Middle East energy spike correlates with dwindling Global Fuel Reserves and elevated Supply Chain Stress, exacerbating wealth inequality."
+    "timestamp": "2026-05-07 09:55:19",
+    "risk_score": 7,
+    "executive_summary": "The global situation presents elevated risk due to compounding factors. Fuel reserve concerns and supply chain stress are exacerbated by geopolitical volatility and wealth inequality.",
+    "correlations": "Taiwan Media Panic is inversely correlated to the region's physical change, suggesting a disconnect between perception and reality that needs additional telemetry for confirmation. Supply Chain Stress amplifies Middle East Energy Spikes and strain on Global Fuel Reserves."
 }
