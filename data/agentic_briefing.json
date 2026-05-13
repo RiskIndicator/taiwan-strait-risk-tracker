@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-12 10:02:51",
-    "risk_score": 7,
-    "executive_summary": "Systemic risk is elevated, driven by resource constraints and supply chain vulnerabilities. Taiwan media panic diverging from physical reality suggests potential information warfare, while Middle East energy spikes further exacerbate existing pressures.",
-    "correlations": "High Supply Chain Stress correlates with low Global Fuel Reserves, while the Wealth Inequality Fracture Gap may amplify social instability given resource scarcity."
+    "timestamp": "2026-05-13 10:05:20",
+    "risk_score": 8,
+    "executive_summary": "The global situation is decidedly precarious. Severe supply chain stress, amplified by energy volatility and dwindling fuel reserves, is triggering media panic in Taiwan despite a small physical change, suggesting deeper underlying vulnerabilities. This is compounded by the AI bubble and wealth inequality, which may exacerbate social unrest and instability.",
+    "correlations": "Taiwan Media Panic negatively correlates with physical changes, indicating a disconnect and possible overreaction fuelled by underlying anxieties regarding supply chains and regional instability linked to Middle East Energy Spike."
 }
