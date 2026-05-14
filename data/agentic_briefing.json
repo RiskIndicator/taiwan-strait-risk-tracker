@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-13 10:05:20",
-    "risk_score": 8,
-    "executive_summary": "The global situation is decidedly precarious. Severe supply chain stress, amplified by energy volatility and dwindling fuel reserves, is triggering media panic in Taiwan despite a small physical change, suggesting deeper underlying vulnerabilities. This is compounded by the AI bubble and wealth inequality, which may exacerbate social unrest and instability.",
-    "correlations": "Taiwan Media Panic negatively correlates with physical changes, indicating a disconnect and possible overreaction fuelled by underlying anxieties regarding supply chains and regional instability linked to Middle East Energy Spike."
+    "timestamp": "2026-05-14 10:06:26",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
