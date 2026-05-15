@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-15 10:01:06",
-    "risk_score": 0,
-    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
-    "correlations": "Error State."
+    "timestamp": "2026-05-16 09:58:30",
+    "risk_score": 7,
+    "executive_summary": "The global situation presents significant systemic risk. Supply chain stress and tightening fuel reserves combined with Middle East energy spikes are concerning. The situation is further exacerbated by wealth inequality and a potential AI bubble.",
+    "correlations": "Supply Chain Stress Score and Global Fuel Reserves are linked; strained supply chains heighten fuel consumption and distribution challenges while Media Panic and Physical Change are likely tied to geopolitical concerns, and may be a leading indicator."
 }
