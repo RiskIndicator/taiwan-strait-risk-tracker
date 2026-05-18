@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-17 09:58:15",
+    "timestamp": "2026-05-18 10:01:47",
     "risk_score": 8,
-    "executive_summary": "Global instability is elevated. The high Supply Chain Stress Score and dwindling Fuel Reserves are exacerbated by the Middle East Energy Spike, indicating resource vulnerability. Media panic in Taiwan is a concerning outlier that warrants immediate investigation to determine its root cause, as physical impact is presently low.",
-    "correlations": "Supply Chain Stress and Global Fuel Reserves are tightly linked; supply chain issues directly impact the accessibility and distribution of fuel."
+    "executive_summary": "Global stability is at high risk. Supply chain fragility, energy insecurity triggered by Middle East volatility, and inflated AI valuations form a dangerous confluence. These trends require immediate mitigation strategies to prevent cascading failures.",
+    "correlations": "Middle East Energy Spike correlates with dwindling Global Fuel Reserves exacerbating the already critical Supply Chain Stress Score."
 }
