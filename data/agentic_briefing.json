@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-18 10:01:47",
-    "risk_score": 8,
-    "executive_summary": "Global stability is at high risk. Supply chain fragility, energy insecurity triggered by Middle East volatility, and inflated AI valuations form a dangerous confluence. These trends require immediate mitigation strategies to prevent cascading failures.",
-    "correlations": "Middle East Energy Spike correlates with dwindling Global Fuel Reserves exacerbating the already critical Supply Chain Stress Score."
+    "timestamp": "2026-05-19 10:13:34",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
