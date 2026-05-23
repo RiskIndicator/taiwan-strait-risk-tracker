@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-22 10:09:16",
+    "timestamp": "2026-05-23 10:12:05",
     "risk_score": 7,
-    "executive_summary": "Global systemic risk is elevated. Supply chain stress and wealth inequality are critically strained, compounded by energy market volatility. A divergence in Taiwanese sentiment suggests a possible underestimation of emerging threats.",
-    "correlations": "High Supply Chain Stress correlates with low Global Fuel Reserves, indicating logistics bottlenecks. The Middle East Energy Spike exacerbates Wealth Inequality Fracture Gap."
+    "executive_summary": "The global situation is becoming worrisome, with indicators suggesting potential instability. Supply chain pressures coupled with fuel reserve concerns are significant. Wealth inequality is straining the system, further exacerbated by geopolitical tensions in the Middle East.",
+    "correlations": "High supply chain stress directly correlates with increased media panic in Taiwan and a slight spike in Middle East energy costs."
 }
