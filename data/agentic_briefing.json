@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-24 10:01:58",
+    "timestamp": "2026-05-25 10:05:34",
     "risk_score": 7,
-    "executive_summary": "The supply chain and AI bubble indices are causing concern. A critical Middle East energy spike is exacerbating low global fuel reserves. Taiwan Media panic far outweighs local physical change, suggesting disinformation, which further stresses wealth inequality.",
-    "correlations": "Supply Chain Stress and Fuel Reserves are linked; increased stress typically depletes reserves faster."
+    "executive_summary": "Global instability is elevated, primarily driven by energy market volatility and supply chain fragility. While there are no immediate physical changes from media panic in Taiwan, persistent supply chain stress and fuel reserve concerns could lead to significant socio economic disruptions.",
+    "correlations": "Middle East Energy Spike is likely exacerbating Supply Chain Stress Score, and both contribute to Wealth Inequality Fracture Gap."
 }
