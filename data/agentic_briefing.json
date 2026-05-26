@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-25 10:05:34",
+    "timestamp": "2026-05-26 10:11:07",
     "risk_score": 7,
-    "executive_summary": "Global instability is elevated, primarily driven by energy market volatility and supply chain fragility. While there are no immediate physical changes from media panic in Taiwan, persistent supply chain stress and fuel reserve concerns could lead to significant socio economic disruptions.",
-    "correlations": "Middle East Energy Spike is likely exacerbating Supply Chain Stress Score, and both contribute to Wealth Inequality Fracture Gap."
+    "executive_summary": "Elevated global instability is indicated by converging economic and geopolitical stressors. Fuel reserve levels are critically low, exacerbated by Middle East energy spikes and significant supply chain vulnerabilities. Wealth inequality is a contributing factor to societal instability.",
+    "correlations": "The Middle East energy spike likely amplifies supply chain stress. Taiwan media panic may be disconnected from physical events."
 }
