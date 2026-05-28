@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-27 10:12:44",
+    "timestamp": "2026-05-28 10:04:15",
     "risk_score": 7,
-    "executive_summary": "The network faces elevated risk due to compounding factors. Fuel reserves are critically low which exacerbates existing supply chain issues. The Middle East energy spike significantly impacts the Global Fuel Reserve outlook.",
-    "correlations": "Supply Chain Stress and Global Fuel Reserves are directly linked; dwindling reserves amplify existing supply chain vulnerabilities."
+    "executive_summary": "The Global Shift Network is currently facing a moderate to high risk level. Fuel reserve levels are concerning and coupled with Middle East energy price volatility create a volatile situation. Supply chain stress remains high, exacerbated by wealth inequality.",
+    "correlations": "Middle East energy spike is likely influencing supply chain stress, while low fuel reserves amplify the impact of any further energy price fluctuations."
 }
