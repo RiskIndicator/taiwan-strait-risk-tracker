@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-30 10:12:59",
+    "timestamp": "2026-05-31 10:05:15",
     "risk_score": 7,
-    "executive_summary": "The convergence of energy spikes, supply chain vulnerability and wealth inequality indicates a system under duress. Low fuel reserves exacerbate the Middle East volatility, creating potential cascading failures. The high AI Bubble Index and media panic in Taiwan introduce further uncertainty into an already strained global landscape.",
-    "correlations": "Middle East Energy Spike and Global Fuel Reserves; Supply Chain Stress Score and Wealth Inequality Fracture Gap."
+    "executive_summary": "The global situation presents an elevated risk profile. The Middle East energy spike coupled with low fuel reserves and supply chain stress pose immediate threats. Taiwan media panic significantly exceeds the single physical event indicating a potential misinformation or overreaction event that could escalate instability.",
+    "correlations": "Middle East energy spike is directly correlated to global fuel reserves depletion rate and exacerbated by the elevated Supply Chain Stress Score."
 }
