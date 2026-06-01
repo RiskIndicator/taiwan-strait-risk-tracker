@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-05-31 10:05:15",
+    "timestamp": "2026-06-01 10:10:46",
     "risk_score": 7,
-    "executive_summary": "The global situation presents an elevated risk profile. The Middle East energy spike coupled with low fuel reserves and supply chain stress pose immediate threats. Taiwan media panic significantly exceeds the single physical event indicating a potential misinformation or overreaction event that could escalate instability.",
-    "correlations": "Middle East energy spike is directly correlated to global fuel reserves depletion rate and exacerbated by the elevated Supply Chain Stress Score."
+    "executive_summary": "The energy spike in the Middle East is exacerbating existing supply chain vulnerabilities and wealth inequality. Low global fuel reserves amplify this risk, potentially leading to further economic instability and social unrest.",
+    "correlations": "Middle East Energy Spike correlates with Supply Chain Stress Score and Wealth Inequality Fracture Gap."
 }
