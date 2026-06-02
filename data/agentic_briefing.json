@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-06-01 10:10:46",
-    "risk_score": 7,
-    "executive_summary": "The energy spike in the Middle East is exacerbating existing supply chain vulnerabilities and wealth inequality. Low global fuel reserves amplify this risk, potentially leading to further economic instability and social unrest.",
-    "correlations": "Middle East Energy Spike correlates with Supply Chain Stress Score and Wealth Inequality Fracture Gap."
+    "timestamp": "2026-06-02 10:18:00",
+    "risk_score": 0,
+    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
+    "correlations": "Error State."
 }
