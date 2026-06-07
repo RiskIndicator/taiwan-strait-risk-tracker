@@ -176,7 +176,7 @@ def main():
     
     for attempt in range(max_retries):
         try:
-            response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+            response = ai_client.models.generate_content(model='gemini-3.5-flash', contents=prompt)
             raw_ai_message = response.text.strip()
             break  
         except Exception as api_err:

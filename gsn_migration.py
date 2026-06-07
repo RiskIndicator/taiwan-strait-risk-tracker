@@ -6,7 +6,7 @@ from google import genai
 
 # Initialise the GSN Architect
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-MODEL_ID = "gemini-2.0-flash"
+MODEL_ID = "gemini-3.5-flash"
 CACHE_FILE = "gsn_migration_state.log"
 
 def load_completed_files():
