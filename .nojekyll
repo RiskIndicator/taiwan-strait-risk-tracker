@@ -1,0 +1,2 @@
+- name: Bypass Jekyll processing
+        run: touch .nojekyll
