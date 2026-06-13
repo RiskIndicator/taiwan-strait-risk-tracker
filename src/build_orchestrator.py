@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from datetime import datetime
 import pytz
 from google import genai
@@ -66,8 +67,11 @@ def generate_agentic_briefing(metrics):
     Response Requirements (Strictly follow this format):
     RISK_SCORE: [1-10 integer]
     SUMMARY: [Clinical, analytical 2-3 sentence executive briefing. Australian English. No dashes.]
-    CORRELATIONS: [Brief note on systemic linkage between two metrics.]
+    CORRELATIONS: [Brief note on systemic linkage between two metrics. No dashes.]
     """
+
+    # Rate Limit Mitigation: Pause execution to clear the upstream Per-Minute API pipeline window
+    time.sleep(5)
 
     try:
         response = client.models.generate_content(
@@ -122,7 +126,7 @@ def run_orchestrator():
         "tw_media_panic": tw_data.get("media_noise", 30),
         "tw_physical_change": tw_data.get("daily_change", 0),
         "ai_score": ai_data.get("bubble_index", 50),
-        "fuel_days": fuel_data.get("comm_days", 35.0), # Direct from Single Source of Truth
+        "fuel_days": fuel_data.get("comm_days", 35.0), 
         "fuel_stress": fuel_data.get("fuel_stress_score", 0.0),
         "me_energy_spike": me_data.get("energy_spike", 0.0),
         "supply_score": supply_data.get("stress_score", 50),
