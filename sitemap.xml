@@ -1,594 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <loc>https://taiwanstraittracker.com/ai-disruption.html</loc>
-        <lastmod>2026-04-25</lastmod>
+        <loc>https://taiwanstraittracker.com/supply-chain.html</loc>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/fiat.html</loc>
-        <lastmod>2026-04-28</lastmod>
-=======
         <loc>https://taiwanstraittracker.com/middle-east.html</loc>
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-<<<<<<< HEAD
-        <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/inequality.html</loc>
-        <lastmod>2026-04-28</lastmod>
-=======
         <loc>https://taiwanstraittracker.com/taiwan.html</loc>
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-=======
+        <lastmod>2026-06-14</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>https://taiwanstraittracker.com/fiat.html</loc>
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/macro.html</loc>
-        <lastmod>2026-06-07</lastmod>
-=======
-        <loc>https://taiwanstraittracker.com/supply-chain.html</loc>
-        <lastmod>2026-06-13</lastmod>
->>>>>>> 05f226f30a308dee3fa38fdb9111dbe9b557a299
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/middle-east.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-<<<<<<< HEAD
-        <loc>https://taiwanstraittracker.com/middle-east.html</loc>
-        <lastmod>2026-04-28</lastmod>
-=======
-        <loc>https://taiwanstraittracker.com/ai-disruption.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fiat.html</loc>
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/supply-chain.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-<<<<<<< HEAD
-        <loc>https://taiwanstraittracker.com/taiwan.html</loc>
-        <lastmod>2026-04-28</lastmod>
-=======
-        <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
-        <lastmod>2026-04-30</lastmod>
-=======
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/inequality.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-=======
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/supply-chain.html</loc>
-        <lastmod>2026-06-07</lastmod>
-=======
-        <lastmod>2026-06-13</lastmod>
->>>>>>> 05f226f30a308dee3fa38fdb9111dbe9b557a299
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/taiwan.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
-=======
-        <lastmod>2026-06-13</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/fiat.html</loc>
-        <lastmod>2026-06-13</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/macro.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/ai-disruption.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/fuel-reserves.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/inequality.html</loc>
-        <lastmod>2026-06-13</lastmod>
->>>>>>> 05f226f30a308dee3fa38fdb9111dbe9b557a299
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/</loc>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <lastmod>2026-05-01</lastmod>
-=======
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-=======
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
-=======
-        <lastmod>2026-06-13</lastmod>
->>>>>>> 05f226f30a308dee3fa38fdb9111dbe9b557a299
+        <lastmod>2026-06-14</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <loc>https://taiwanstraittracker.com/articles/ai-bubble-island.html</loc>
-        <lastmod>2026-04-25</lastmod>
-=======
-        <loc>https://taiwanstraittracker.com/articles/war-games-and-wall-street.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/grey-zone-tactics.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/what-is-an-adiz.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/macro-big-cycle.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-=======
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
-        <loc>https://taiwanstraittracker.com/articles/ai-bubble-island.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/kinmen-frontline-explained.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/supply-chain-article.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-<<<<<<< HEAD
-        <loc>https://taiwanstraittracker.com/articles/dual-chokepoint.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/decoding-diplomatic-speak.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/silicon-shield.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/wealth-inequality-article.html</loc>
-        <lastmod>2026-04-30</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/quantitative-signal.html</loc>
-        <lastmod>2026-04-30</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/tracking-military-flights.html</loc>
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://taiwanstraittracker.com/articles/beyond-tsmc-blockade.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-04-25</lastmod>
-=======
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-=======
-        <loc>https://taiwanstraittracker.com/articles/war-games-and-wall-street.html</loc>
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-<<<<<<< HEAD
-        <loc>https://taiwanstraittracker.com/articles/decoding-diplomatic-speak.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/dual-chokepoint.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/grey-zone-tactics.html</loc>
-        <lastmod>2026-04-25</lastmod>
-=======
-        <loc>https://taiwanstraittracker.com/articles/signal-vs-noise.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-=======
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
+        <loc>https://taiwanstraittracker.com/articles/kinmen-frontline-explained.html</loc>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/is-taiwan-safe-2026.html</loc>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <lastmod>2026-04-25</lastmod>
-=======
-        <lastmod>2026-04-30</lastmod>
->>>>>>> 441eabb17b35bf1cc9281a3fb83e8dcdadf19d11
-=======
-        <lastmod>2026-06-07</lastmod>
+        <lastmod>2026-06-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/articles/median-line-explained.html</loc>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/beyond-tsmc-blockade.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/semiconductor-supply-chain.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/what-is-an-adiz.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/silicon-shield.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/macro-big-cycle.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/wealth-inequality-article.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/median-line-explained.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/decoding-diplomatic-speak.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/dual-chokepoint.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/grey-zone-tactics.html</loc>
-        <lastmod>2026-06-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/quantitative-signal.html</loc>
-        <lastmod>2026-06-07</lastmod>
-=======
-        <lastmod>2026-06-13</lastmod>
->>>>>>> 05f226f30a308dee3fa38fdb9111dbe9b557a299
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/tracking-military-flights.html</loc>
-<<<<<<< HEAD
-        <lastmod>2026-06-07</lastmod>
->>>>>>> 5cc40785dc9ce0959b96a29447969a889bd40a9c
-=======
-        <lastmod>2026-06-13</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/kinmen-frontline-explained.html</loc>
-        <lastmod>2026-06-13</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/is-taiwan-safe-2026.html</loc>
-        <lastmod>2026-06-13</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/median-line-explained.html</loc>
-        <lastmod>2026-06-13</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/beyond-tsmc-blockade.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/war-games-and-wall-street.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/what-is-an-adiz.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/macro-big-cycle.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/quantitative-signal.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/silicon-shield.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/supply-chain-article.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/dual-chokepoint.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/grey-zone-tactics.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/wealth-inequality-article.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/signal-vs-noise.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/semiconductor-supply-chain.html</loc>
-        <lastmod>2026-06-13</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/articles/decoding-diplomatic-speak.html</loc>
-        <lastmod>2026-06-13</lastmod>
->>>>>>> 05f226f30a308dee3fa38fdb9111dbe9b557a299
+        <lastmod>2026-06-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/kinmen-frontline-explained.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/macro-big-cycle.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/median-line-explained.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/quantitative-signal.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/semiconductor-supply-chain.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/signal-vs-noise.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/silicon-shield.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/supply-chain-article.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/tracking-military-flights.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/war-games-and-wall-street.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/wealth-inequality-article.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/articles/what-is-an-adiz.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/public/about.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/public/articles.html</loc>
-        <lastmod>2026-04-25</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>https://taiwanstraittracker.com/public/contact.html</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
         <loc>https://taiwanstraittracker.com/public/privacy.html</loc>
-        <lastmod>2026-04-25</lastmod>
+        <lastmod>2026-06-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/public/about.html</loc>
+        <lastmod>2026-06-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://taiwanstraittracker.com/public/contact.html</loc>
+        <lastmod>2026-06-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>

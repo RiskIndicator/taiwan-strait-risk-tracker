@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-06-13 10:22:43",
-    "risk_score": 0,
-    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
-    "correlations": "Error State."
+    "timestamp": "2026-06-14 10:13:47",
+    "risk_score": 6,
+    "executive_summary": "The global trade network is currently experiencing moderate strain characterised by elevated supply chain stress and notable volatility within Middle Eastern energy markets. Conversely physical indicators in Taiwan remain stable despite heightened media anxiety while global fuel reserves show no immediate signs of depletion. This divergence between perceptual panic and physical reality suggests that systemic stability is being maintained through buffer capacity.",
+    "correlations": "The acute energy fluctuation in the Middle East directly escalates the global supply chain stress score by introducing severe transport cost uncertainty."
 }
