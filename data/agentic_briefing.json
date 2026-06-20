@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-06-19 11:47:27",
+    "timestamp": "2026-06-20 10:15:20",
     "risk_score": 6,
-    "executive_summary": "Current telemetry indicates elevated systemic friction primarily driven by acute energy volatility in the Middle East and amplified media panic in the Taiwan sector despite negative physical movement. While global fuel reserves remain stable, the compounding pressures of supply chain disruptions and wealth inequality suggest a heightened vulnerability to narrative propagation. Speculative capital within the artificial intelligence sector remains elevated, posing a risk of rapid correction should geopolitical tensions crystallise.",
-    "correlations": "High volatility in Middle East energy markets appears to be compounding narrative instability in the Taiwan sector, causing media panic to decouple entirely from actual physical changes."
+    "executive_summary": "The global system is experiencing heightened narrative volatility, evidenced by the significant divergence between Taiwanese media anxiety and actual physical developments on the ground. Simultaneously, fluctuating energy profiles in the Middle East are compounding supply chain pressures despite stable global fuel stockpiles. These conditions suggest a state of manufactured panic that could destabilise broader economic markets if current trends persist.",
+    "correlations": "The volatility in Middle East energy spikes directly correlates with the elevated supply chain stress score as regional fuel fluctuations destabilise maritime transit routes and inflate cargo insurance premiums."
 }
