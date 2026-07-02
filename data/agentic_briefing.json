@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-07-01 10:12:09",
-    "risk_score": 6,
-    "executive_summary": "The current global outlook is defined by a significant divergence between acute regional media panic and negligible physical disruptions in the Asia Pacific zone. While global fuel reserves remain highly resilient, ongoing energy price volatility in the Middle East continues to exert upward pressure on broader logistics networks. This friction operates against a backdrop of elevated asset valuation in the artificial intelligence sector, necessitating close monitoring of capital reallocation.",
-    "correlations": "High volatility within the Middle East energy sector is actively compounding global supply chain stress by injecting pricing uncertainty into primary maritime transport corridors."
+    "timestamp": "2026-07-02 10:14:11",
+    "risk_score": 5,
+    "executive_summary": "Global systemic stability remains moderately stable despite significant energy sector volatility in the Middle East and elevated asset valuations within the artificial intelligence sector. Normalised supply chains and robust global fuel reserves are currently buffering these localised pressures and preventing immediate cascading disruptions.",
+    "correlations": "The extreme volatility in Middle Eastern energy markets is being successfully absorbed by the optimal state of global fuel reserves which prevents the localised pricing spikes from translating into broader supply chain stress."
 }
