@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-07-02 10:14:11",
-    "risk_score": 5,
-    "executive_summary": "Global systemic stability remains moderately stable despite significant energy sector volatility in the Middle East and elevated asset valuations within the artificial intelligence sector. Normalised supply chains and robust global fuel reserves are currently buffering these localised pressures and preventing immediate cascading disruptions.",
-    "correlations": "The extreme volatility in Middle Eastern energy markets is being successfully absorbed by the optimal state of global fuel reserves which prevents the localised pricing spikes from translating into broader supply chain stress."
+    "timestamp": "2026-07-03 10:11:24",
+    "risk_score": 6,
+    "executive_summary": "Global systemic stability remains moderate despite acute geopolitical volatility and elevated media anxiety in the East Asia region. While physical fuel reserves remain highly stable, significant energy price fluctuations in the Middle East present a persistent threat to global supply chain costs. These economic vulnerabilities are further compounded by a highly inflated technology market.",
+    "correlations": "The severe volatility in Middle East energy markets serves as a primary driver for the elevated global supply chain stress score."
 }
