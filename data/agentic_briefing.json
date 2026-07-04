@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-07-03 10:11:24",
-    "risk_score": 6,
-    "executive_summary": "Global systemic stability remains moderate despite acute geopolitical volatility and elevated media anxiety in the East Asia region. While physical fuel reserves remain highly stable, significant energy price fluctuations in the Middle East present a persistent threat to global supply chain costs. These economic vulnerabilities are further compounded by a highly inflated technology market.",
-    "correlations": "The severe volatility in Middle East energy markets serves as a primary driver for the elevated global supply chain stress score."
+    "timestamp": "2026-07-04 10:10:02",
+    "risk_score": 5,
+    "executive_summary": "Current global telemetry indicates a state of managed volatility characterised by elevated media anxiety in East Asia juxtaposed against minimal physical disruptions. Whilst Middle Eastern energy fluctuations present localised instability the global supply chain remains resilient due to stable fuel reserves. Close monitoring of the artificial intelligence bubble is advised as capital reallocation risks persist.",
+    "correlations": "The high volatility in Middle Eastern energy markets directly influences the supply chain stress score by introducing freight and logistics pricing uncertainty."
 }
