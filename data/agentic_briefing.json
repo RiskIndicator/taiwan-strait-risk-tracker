@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-07-14 09:57:34",
-    "risk_score": 5,
-    "executive_summary": "Global systemic risk remains moderate as a sharp energy spike in the Middle East compounds existing pressure on global logistics networks. Disproportionate media escalation regarding Taiwan highlights an ongoing information threat that currently lacks corresponding physical confirmation. Speculative technology markets present elevated exposure but are temporarily buffered by highly stable global fuel reserves.",
-    "correlations": "The pronounced Middle East energy spike directly drives the elevated supply chain stress score through increased maritime transit risks and projected fuel distribution costs."
+    "timestamp": "2026-07-15 09:56:29",
+    "risk_score": 6,
+    "executive_summary": "The global system exhibits moderate instability driven primarily by a sharp rise in Middle East energy indices and elevated artificial intelligence market speculation. While media panic surrounding Taiwan remains high, the lack of physical change suggests a decoupling of informational narratives from material reality. Global fuel reserves remain robust, offering a secure buffer against immediate systemic supply chain failures.",
+    "correlations": "The escalation in the Middle East energy spike directly drives the upward trajectory of the supply chain stress score as global logistics networks absorb rising fuel costs."
 }
