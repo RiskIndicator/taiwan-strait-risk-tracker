@@ -1,7 +1,7 @@
 {
     "status": "LIVE_INTELLIGENCE",
-    "timestamp": "2026-06-13 10:22:43",
-    "risk_score": 0,
-    "executive_summary": "AGENT OFFLINE. Synthesis pipeline encountered a network error.",
-    "correlations": "Error State."
+    "timestamp": "2026-07-15 09:56:29",
+    "risk_score": 6,
+    "executive_summary": "The global system exhibits moderate instability driven primarily by a sharp rise in Middle East energy indices and elevated artificial intelligence market speculation. While media panic surrounding Taiwan remains high, the lack of physical change suggests a decoupling of informational narratives from material reality. Global fuel reserves remain robust, offering a secure buffer against immediate systemic supply chain failures.",
+    "correlations": "The escalation in the Middle East energy spike directly drives the upward trajectory of the supply chain stress score as global logistics networks absorb rising fuel costs."
 }
