@@ -1,9 +1,7 @@
 name: GSN Intelligence Calibration
 
 on:
-  schedule:
-    # Runs automatically at 00:00 UTC daily
-    - cron: '0 23 * * *' # 23:00 UTC = 09:00 AM AEST
+  # Schedule removed 2026-07-15 — project archived. Manual dispatch only.
   workflow_dispatch:
     inputs:
       run_orchestrator:
