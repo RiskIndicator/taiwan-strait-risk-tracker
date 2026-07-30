@@ -133,14 +133,18 @@ def send_ntfy(title, text, urgent):
     if not topic:
         print("ERROR: NTFY_TOPIC not set")
         sys.exit(1)
+    # JSON API: UTF-8 titles/emoji go in the body, not HTTP headers
+    payload = json.dumps({
+        "topic": topic,
+        "title": title,
+        "message": text,
+        "priority": 5 if urgent else 2,
+        "tags": ["rotating_light", "warning"] if urgent else ["green_circle"],
+    }).encode("utf-8")
     req = urllib.request.Request(
-        f"https://ntfy.sh/{urllib.parse.quote(topic)}",
-        data=text.encode("utf-8"),
-        headers={
-            "Title": title,
-            "Priority": "urgent" if urgent else "low",
-            "Tags": "rotating_light,warning" if urgent else "green_circle",
-        })
+        "https://ntfy.sh/",
+        data=payload,
+        headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=30) as r:
         print("ntfy:", r.status)
 
