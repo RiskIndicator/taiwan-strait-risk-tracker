@@ -29,6 +29,10 @@ ABS_THRESHOLD = 0.15      # any Yes probability >= 15%
 DAY_MOVE = 0.03           # 1-day move >= +3 points
 WEEK_MOVE = 0.05          # 1-week move >= +5 points
 
+# Nominal briefs only go out on this weekday (0=Mon .. 6=Sun).
+# Alerts always send immediately, any day. Set to None for a daily brief.
+DIGEST_WEEKDAY = 0
+
 HISTORY_FILE = "data/risk_history.json"
 GAMMA = "https://gamma-api.polymarket.com/events?slug={}"
 
@@ -179,10 +183,13 @@ def main():
 
     alerts = check_alerts(markets)
     msg = build_message(markets, alerts)
-    date = datetime.now(timezone.utc).strftime("%d %b")
-    title = "🔴 TAIWAN RISK ALERT" if alerts else f"Taiwan risk nominal — {date}"
+    now = datetime.now(timezone.utc)
+    title = "🔴 TAIWAN RISK ALERT" if alerts else f"Taiwan risk nominal — {now.strftime('%d %b')}"
     print(title + "\n" + msg)
-    send_ntfy(title, msg, urgent=bool(alerts))
+    if alerts or DIGEST_WEEKDAY is None or now.weekday() == DIGEST_WEEKDAY:
+        send_ntfy(title, msg, urgent=bool(alerts))
+    else:
+        print(f"Nominal, non-digest day (weekday {now.weekday()}): no notification sent.")
     append_history(markets)
 
 
