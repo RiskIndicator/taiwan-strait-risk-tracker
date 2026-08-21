@@ -31,7 +31,7 @@ WEEK_MOVE = 0.05          # 1-week move >= +5 points
 
 # Nominal briefs only go out on this weekday (0=Mon .. 6=Sun).
 # Alerts always send immediately, any day. Set to None for a daily brief.
-DIGEST_WEEKDAY = 0
+DIGEST_WEEKDAY = 5
 
 HISTORY_FILE = "data/risk_history.json"
 GAMMA = "https://gamma-api.polymarket.com/events?slug={}"
