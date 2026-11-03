@@ -478,5 +478,10 @@
   "date": "2026-11-02",
   "Clash before 2027": 0.04,
   "Invasion by Jun 2027": 0.055
+ },
+ {
+  "date": "2026-11-03",
+  "Clash before 2027": 0.0355,
+  "Invasion by Jun 2027": 0.055
  }
 ]
